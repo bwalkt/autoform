@@ -1,7 +1,7 @@
 import { AjvProvider } from '@bwalkt/ajv'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
-import { Label } from '../components/ui/label'
+import { Label } from '../elements'
 
 const meta: Meta = {
   title: 'Debug/Base AutoForm Test',
