@@ -1,5 +1,4 @@
 import { FieldConfig } from "@bwalk/core";
-import { fieldConfig as zodBaseFieldConfig } from "@bwalk/zod";
 // import { withFieldConfig as ajvWithFieldConfig } from "@bwalk/ajv";
 import React, { ReactNode } from "react";
 import { FieldWrapperProps } from "./types";
@@ -15,25 +14,26 @@ export function getPathInObject(obj: any, path: string[]): any {
   }
   return current;
 }
-export function buildZodFieldConfig<
-  FieldTypes = string,
-  CustomData = Record<string, any>,
->(): (
-  config: FieldConfig<
-    ReactNode,
-    FieldTypes,
-    React.ComponentType<FieldWrapperProps>,
-    CustomData
-  >
-) => ReturnType<typeof zodBaseFieldConfig> {
-  return (config) =>
-    zodBaseFieldConfig<
-      ReactNode,
-      FieldTypes,
-      React.ComponentType<FieldWrapperProps>,
-      CustomData
-    >(config);
-}
+// Commented out since @bwalk/zod dependency was removed
+// export function buildZodFieldConfig<
+//   FieldTypes = string,
+//   CustomData = Record<string, any>,
+// >(): (
+//   config: FieldConfig<
+//     ReactNode,
+//     FieldTypes,
+//     React.ComponentType<FieldWrapperProps>,
+//     CustomData
+//   >
+// ) => ReturnType<typeof zodBaseFieldConfig> {
+//   return (config) =>
+//     zodBaseFieldConfig<
+//       ReactNode,
+//       FieldTypes,
+//       React.ComponentType<FieldWrapperProps>,
+//       CustomData
+//     >(config);
+// }
 
 // Commented out until AJV fieldConfig is properly implemented
 // export function buildAjvFieldConfig<
