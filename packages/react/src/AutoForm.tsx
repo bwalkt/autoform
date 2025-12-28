@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useEffect } from "react";
 import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
-import { parseSchema, getDefaultValues, removeEmptyValues } from "@bwalk/core";
+import { parseSchema, getDefaultValues, removeEmptyValues, type SchemaValidationError } from "@bwalk/core";
 import type { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";
@@ -41,7 +41,7 @@ export function AutoForm<T extends Record<string, any>>({
     } else {
       methods.clearErrors();
       let isFocused: boolean = false;
-      validationResult.errors?.forEach((error) => {
+      validationResult.errors?.forEach((error: SchemaValidationError) => {
         const path = error.path.join(".");
         methods.setError(
           path as any,
