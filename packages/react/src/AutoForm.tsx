@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useEffect } from "react";
 import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
-import { parseSchema, getDefaultValues, removeEmptyValues, type SchemaValidationError } from "@bwalk/core";
+import { parseSchema, getDefaultValues, removeEmptyValues, type SchemaValidationError, type ParsedField } from "@bwalk/core";
 import type { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";
@@ -79,7 +79,7 @@ export function AutoForm<T extends Record<string, any>>({
           onSubmit={methods.handleSubmit(handleSubmit)}
           {...formProps}
         >
-          {parsedSchema.fields.map((field) => (
+          {parsedSchema.fields.map((field: ParsedField) => (
             <AutoFormField key={field.key} field={field} path={[field.key]} />
           ))}
           {withSubmit && (
