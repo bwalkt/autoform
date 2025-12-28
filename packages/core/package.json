@@ -1,5 +1,5 @@
 {
-  "name": "@autoform/core",
+  "name": "@bwalkt/core",
   "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,21 +9,18 @@
     "url": "https://github.com/vantezzen/autoform"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint . --write",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/typescript-config": "*",
+    "@bwalkt/typescript-config": "file:../typescript-config",
     "@turbo/gen": "^1.12.4",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "eslint": "^8.57.0",
-    "tsup": "^8.3.0",
-    "typescript": "^5.3.3"
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
   }
 }

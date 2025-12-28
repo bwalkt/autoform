@@ -4,7 +4,7 @@
 node_modules
 .pnp
 .pnp.js
-
+debug*
 # Local env files
 .env
 .env.local
@@ -26,6 +26,7 @@ coverage
 out/
 build
 dist
+storybook-static
 
 
 # Debug
@@ -37,3 +38,4 @@ yarn-error.log*
 .DS_Store
 *.pem
 .idea
+.claude

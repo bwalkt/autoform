@@ -1,4 +1,4 @@
-# @autoform/core
+# @bwalkt/core
 
 ## 3.0.0
 

@@ -1,0 +1,7 @@
+**/*.stories.tsx
+**/*.stories.ts
+**/test-example.ts
+**/.storybook/**
+**/dist/**
+**/build/**
+**/storybook-static/**

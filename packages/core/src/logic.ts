@@ -1,5 +1,5 @@
-import { SchemaProvider } from "./schema-provider";
-import { ParsedField, ParsedSchema } from "./types";
+import type { SchemaProvider } from "./schema-provider";
+import type { ParsedField, ParsedSchema } from "./types";
 
 export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
   const schema = schemaProvider.parseSchema();
@@ -9,19 +9,19 @@ export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
   };
 }
 
-export function validateSchema(schemaProvider: SchemaProvider, values: any) {
+export function validateSchema(schemaProvider: SchemaProvider, values: unknown) {
   return schemaProvider.validateSchema(values);
 }
 
 export function getDefaultValues(
-  schemaProvider: SchemaProvider
-): Record<string, any> {
+  schemaProvider: SchemaProvider,
+): Record<string, unknown> {
   return schemaProvider.getDefaultValues();
 }
 
 // Recursively remove empty values from an object (null, undefined, "", [], {})
-export function removeEmptyValues<T extends Record<string, any>>(
-  values: T
+export function removeEmptyValues<T extends Record<string, unknown>>(
+  values: T,
 ): Partial<T> {
   const result: Partial<T> = {};
   for (const key in values) {
@@ -31,17 +31,17 @@ export function removeEmptyValues<T extends Record<string, any>>(
     }
 
     if (Array.isArray(value)) {
-      const newArray = value.map((item: any) => {
-        if (typeof item === "object") {
-          return removeEmptyValues(item);
+      const newArray = value.map((item: unknown) => {
+        if (typeof item === "object" && item !== null) {
+          return removeEmptyValues(item as Record<string, unknown>);
         }
         return item;
       });
-      result[key] = newArray.filter((item: any) => item !== null);
-    } else if (typeof value === "object") {
-      result[key] = removeEmptyValues(value) as any;
+      result[key] = newArray.filter((item: unknown) => item !== null) as any;
+    } else if (typeof value === "object" && value !== null) {
+      result[key] = removeEmptyValues(value as Record<string, unknown>) as any;
     } else {
-      result[key] = value;
+      result[key] = value as any;
     }
   }
 
@@ -53,7 +53,7 @@ export function removeEmptyValues<T extends Record<string, any>>(
  * If no order is set, the field will be sorted based on the order in the schema.
  */
 export function sortFieldsByOrder(
-  fields: ParsedField[] | undefined
+  fields: ParsedField[] | undefined,
 ): ParsedField[] {
   if (!fields) return [];
   const sortedFields = fields

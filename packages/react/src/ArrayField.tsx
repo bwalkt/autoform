@@ -1,8 +1,8 @@
-import React from "react";
+import type React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "./context";
-import { getLabel, ParsedField } from "@autoform/core";
+import { getLabel, type ParsedField } from "@bwalkt/core";
 
 export const ArrayField: React.FC<{
   field: ParsedField;
@@ -16,7 +16,7 @@ export const ArrayField: React.FC<{
   });
 
   const subFieldType = field.schema?.[0]?.type;
-  let defaultValue: any;
+  let defaultValue: unknown;
   if (subFieldType === "object") {
     defaultValue = {};
   } else if (subFieldType === "array") {
@@ -37,10 +37,12 @@ export const ArrayField: React.FC<{
           onRemove={() => remove(index)}
           index={index}
         >
-          <AutoFormField
-            field={field.schema![0]!}
-            path={[...path, index.toString()]}
-          />
+          {field.schema?.[0] && (
+            <AutoFormField
+              field={field.schema[0]}
+              path={[...path, index.toString()]}
+            />
+          )}
         </uiComponents.ArrayElementWrapper>
       ))}
     </uiComponents.ArrayWrapper>

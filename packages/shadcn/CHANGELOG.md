@@ -1,4 +1,4 @@
-# @autoform/shadcn
+# @bwalkt/shadcn
 
 ## 4.0.0
 
@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/react@4.0.0
+  - @bwalkt/react@4.0.0
 
 ## 3.1.0
 
@@ -20,9 +20,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/core@2.2.0
-  - @autoform/react@3.1.0
-  - @autoform/zod@2.2.0
+  - @bwalkt/core@2.2.0
+  - @bwalkt/react@3.1.0
+  - @bwalkt/zod@2.2.0
 
 ## 3.0.0
 
@@ -37,8 +37,8 @@
 ### Patch Changes
 
 - Updated dependencies [df38752]
-  - @autoform/react@2.2.0
-  - @autoform/zod@2.1.0
+  - @bwalkt/react@2.2.0
+  - @bwalkt/zod@2.1.0
 
 ## 2.1.0
 
@@ -49,7 +49,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/react@2.1.0
+  - @bwalkt/react@2.1.0
 
 ## 2.0.0
 
@@ -60,9 +60,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/core@2.0.0
-  - @autoform/react@2.0.0
-  - @autoform/zod@2.0.0
+  - @bwalkt/core@2.0.0
+  - @bwalkt/react@2.0.0
+  - @bwalkt/zod@2.0.0
 
 ## 1.1.0
 
@@ -73,9 +73,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @autoform/react@1.3.0
-  - @autoform/core@1.2.0
-  - @autoform/zod@1.2.0
+  - @bwalkt/react@1.3.0
+  - @bwalkt/core@1.2.0
+  - @bwalkt/zod@1.2.0
 
 ## 1.0.2
 
@@ -84,9 +84,9 @@
 - Clean build package
 - Updated dependencies [a93c30f]
 - Updated dependencies
-  - @autoform/react@1.2.0
-  - @autoform/core@1.1.2
-  - @autoform/zod@1.1.2
+  - @bwalkt/react@1.2.0
+  - @bwalkt/core@1.1.2
+  - @bwalkt/zod@1.1.2
 
 ## 1.0.1
 
@@ -94,6 +94,6 @@
 
 - Fix build
 - Updated dependencies
-  - @autoform/core@1.1.1
-  - @autoform/react@1.1.1
-  - @autoform/zod@1.1.1
+  - @bwalkt/core@1.1.1
+  - @bwalkt/react@1.1.1
+  - @bwalkt/zod@1.1.1

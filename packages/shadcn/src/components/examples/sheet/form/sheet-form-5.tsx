@@ -1,6 +1,6 @@
-import { Button } from "@autoform/components/ui/button";
-import { Input } from "@autoform/components/ui/input";
-import { Label } from "@autoform/components/ui/label";
+import { Button } from "@bwalkt/components/ui/button";
+import { Input } from "@bwalkt/components/ui/input";
+import { Label } from "@bwalkt/components/ui/label";
 import {
   Sheet,
   SheetContent,
@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@autoform/components/ui/sheet";
+} from "@bwalkt/components/ui/sheet";
 
 export const title = "Multi-Step Form Sheet";
 

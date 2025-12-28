@@ -11,10 +11,10 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@autoform/shadcn/components",
-    "ui": "@autoform/shadcn/components/ui",
-    "utils": "@autoform/shadcn/lib/utils",
-    "lib": "@autoform/shadcn/lib",
-    "hooks": "@autoform/shadcn/hooks"
+    "components": "@bwalkt/shadcn/components",
+    "ui": "@bwalkt/shadcn/components/ui",
+    "utils": "@bwalkt/shadcn/lib/utils",
+    "lib": "@bwalkt/shadcn/lib",
+    "hooks": "@bwalkt/shadcn/hooks"
   }
 }

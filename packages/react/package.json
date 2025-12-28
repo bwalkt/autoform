@@ -1,11 +1,11 @@
 {
-  "name": "@autoform/react",
+  "name": "@bwalkt/react",
   "version": "4.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
+    "lint": "biome lint .",
     "build": "tsup src/index.tsx --format cjs,esm --dts",
     "dev": "tsup src/index.tsx --format cjs,esm --dts --watch"
   },
@@ -14,28 +14,22 @@
     "url": "https://github.com/vantezzen/autoform"
   },
   "devDependencies": {
-    "@autoform/eslint-config": "*",
-    "@autoform/joi": "*",
-    "@autoform/typescript-config": "*",
-    "@autoform/yup": "*",
-    "@autoform/zod": "*",
+    "@bwalkt/typescript-config": "file:../typescript-config",
     "@turbo/gen": "^1.12.4",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.11.24",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "eslint": "^8.57.0",
-    "react": "^19.1.0",
-    "tsup": "^8.3.0",
-    "typescript": "^5.3.3"
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
   },
   "dependencies": {
-    "@autoform/core": "*",
-    "@hookform/resolvers": "^5.2.2",
-    "react-hook-form": "^7.66.0"
+    "@bwalkt/core": "workspace:*",
+    "@hookform/resolvers": "catalog:",
+    "react-hook-form": "catalog:"
   },
   "peerDependencies": {
-    "@hookform/resolvers": "^3.9.0",
+    "@hookform/resolvers": "^5.2.2",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "react-hook-form": "^7"
   }

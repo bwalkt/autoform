@@ -1,4 +1,4 @@
-import React from "react";
+
 import type { Meta, StoryObj } from "@storybook/react";
 
 // Very simple component to test if AJV stories work at all

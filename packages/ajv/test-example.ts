@@ -22,58 +22,58 @@ const schema: JSONSchemaType<UserData> = {
       {
         type: "string",
         minLength: 2,
-        description: "Full name of the user"
+        description: "Full name of the user",
       },
       {
         label: "Full Name",
-        placeholder: "Enter your full name"
-      }
+        placeholder: "Enter your full name",
+      },
     ),
     email: withFieldConfig(
       {
         type: "string",
         format: "email",
-        description: "Email address"
+        description: "Email address",
       },
       {
         label: "Email Address",
-        placeholder: "user@example.com"
-      }
+        placeholder: "user@example.com",
+      },
     ),
     age: {
       type: "number",
       minimum: 0,
       maximum: 150,
       default: 25,
-      description: "Age in years"
+      description: "Age in years",
     },
     isActive: {
       type: "boolean",
       default: true,
-      description: "Whether the user account is active"
+      description: "Whether the user account is active",
     },
     role: {
       type: "string",
       enum: ["admin", "user", "guest"],
       default: "user",
-      description: "User role in the system"
+      description: "User role in the system",
     },
     preferences: {
       type: "object",
       properties: {
         newsletter: {
           type: "boolean",
-          default: false
+          default: false,
         },
         notifications: {
           type: "boolean",
-          default: true
-        }
+          default: true,
+        },
       },
-      required: ["newsletter", "notifications"]
-    }
+      required: ["newsletter", "notifications"],
+    },
   },
-  required: ["name", "email", "age", "isActive", "role"]
+  required: ["name", "email", "age", "isActive", "role"],
 };
 
 // Create the AJV provider
@@ -99,8 +99,8 @@ const validData: UserData = {
   role: "admin",
   preferences: {
     newsletter: true,
-    notifications: false
-  }
+    notifications: false,
+  },
 };
 
 const validResult = provider.validateSchema(validData);
@@ -113,7 +113,7 @@ const invalidData = {
   email: "not-an-email", // Invalid format
   age: -5, // Below minimum
   isActive: "yes", // Wrong type
-  role: "superuser" // Not in enum
+  role: "superuser", // Not in enum
 } as any;
 
 const invalidResult = provider.validateSchema(invalidData);

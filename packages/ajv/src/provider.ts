@@ -1,12 +1,15 @@
 import Ajv from "ajv";
-import type { Schema } from "ajv";
-import type { JSONSchemaType } from "ajv/dist/types/json-schema";
+import type { Schema, JSONSchemaType } from "ajv";
 import addFormats from "ajv-formats";
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
+import type {
+  SchemaProvider,
+  ParsedSchema,
+  SchemaValidation,
+} from "@bwalkt/core";
 import { parseSchema } from "./schema-parser";
 import { getDefaultValues } from "./default-values";
 
-export class AjvProvider<T = any> implements SchemaProvider<T> {
+export class AjvProvider<T = unknown> implements SchemaProvider<T> {
   private ajv: Ajv;
   private compiledSchema: any;
 
@@ -18,7 +21,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
    */
   constructor(
     private schema: JSONSchemaType<T> | Schema,
-    ajvOptions: any = {}
+    ajvOptions: Record<string, unknown> = {},
   ) {
     if (!schema) {
       throw new Error("AjvProvider: schema is required");
@@ -34,6 +37,11 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
     addFormats(this.ajv);
 
     this.compiledSchema = this.ajv.compile(this.schema);
+
+    // Bind methods to preserve 'this' context
+    this.parseSchema = this.parseSchema.bind(this);
+    this.validateSchema = this.validateSchema.bind(this);
+    this.getDefaultValues = this.getDefaultValues.bind(this);
   }
 
   parseSchema(): ParsedSchema {
@@ -42,7 +50,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
 
   validateSchema(values: T): SchemaValidation {
     const valid = this.compiledSchema(values);
-    
+
     if (valid) {
       return { success: true, data: values } as const;
     }
@@ -52,14 +60,14 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
       success: false,
       errors: errors.map((error: any) => ({
         path: error.instancePath
-          ? error.instancePath.split("/").filter(Boolean)
+          ? (error.instancePath as string).split("/").filter(Boolean)
           : [],
         message: error.message || "Validation error",
       })),
     } as const;
   }
 
-  getDefaultValues(): Record<string, any> {
+  getDefaultValues(): Record<string, unknown> {
     return getDefaultValues(this.schema);
   }
 }

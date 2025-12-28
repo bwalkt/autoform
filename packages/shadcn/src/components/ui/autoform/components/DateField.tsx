@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/input";
-import { AutoFormFieldProps } from "@autoform/react";
-import React from "react";
+import { TextField } from "@/elements";
+import type { AutoFormFieldProps } from "@bwalkt/react";
+import type React from "react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -10,10 +10,12 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
   const { key, ...props } = inputProps;
 
   return (
-    <Input
+    <TextField
       id={id}
       type="date"
-      className={error ? "border-destructive" : ""}
+      color={error ? "error" : "default"}
+      variant="surface"
+      size="2"
       {...props}
     />
   );

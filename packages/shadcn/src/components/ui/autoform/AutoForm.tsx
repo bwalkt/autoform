@@ -1,9 +1,9 @@
-import React from "react";
+
 import {
   AutoForm as BaseAutoForm,
-  AutoFormUIComponents,
-} from "@autoform/react";
-import { AutoFormProps } from "./types";
+  type AutoFormUIComponents,
+} from "@bwalkt/react";
+import type { AutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -36,7 +36,7 @@ export const ShadcnAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
+export function AutoForm<T extends Record<string, unknown>>({
   uiComponents,
   formComponents,
   ...props

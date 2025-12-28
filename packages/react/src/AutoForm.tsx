@@ -1,15 +1,11 @@
-import React, { FormEventHandler, useEffect } from "react";
-import { useForm, FormProvider, DefaultValues } from "react-hook-form";
-import {
-  parseSchema,
-  getDefaultValues,
-  removeEmptyValues,
-} from "@autoform/core";
-import { AutoFormProps } from "./types";
+import { useEffect } from "react";
+import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
+import { parseSchema, getDefaultValues, removeEmptyValues, type ParsedField } from "@bwalkt/core";
+import type { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";
 
-export function AutoForm<T extends Record<string, any>>({
+export function AutoForm<T extends Record<string, unknown>>({
   schema,
   onSubmit = () => {},
   defaultValues,
@@ -41,11 +37,11 @@ export function AutoForm<T extends Record<string, any>>({
     const validationResult = schema.validateSchema(data as T);
     console.log("validationResult", { validationResult, dataRaw, data });
     if (validationResult.success) {
-      await onSubmit(validationResult.data, methods);
+      await onSubmit(validationResult.data as T, methods);
     } else {
       methods.clearErrors();
       let isFocused: boolean = false;
-      validationResult.errors?.forEach((error) => {
+      for (const error of validationResult.errors || []) {
         const path = error.path.join(".");
         methods.setError(
           path as any,
@@ -53,7 +49,7 @@ export function AutoForm<T extends Record<string, any>>({
             type: "custom",
             message: error.message,
           },
-          { shouldFocus: !isFocused }
+          { shouldFocus: !isFocused },
         );
 
         isFocused = true;
@@ -66,7 +62,7 @@ export function AutoForm<T extends Record<string, any>>({
             message: error.message,
           });
         }
-      });
+      }
     }
   };
 
@@ -83,7 +79,7 @@ export function AutoForm<T extends Record<string, any>>({
           onSubmit={methods.handleSubmit(handleSubmit)}
           {...formProps}
         >
-          {parsedSchema.fields.map((field) => (
+          {parsedSchema.fields.map((field: ParsedField) => (
             <AutoFormField key={field.key} field={field} path={[field.key]} />
           ))}
           {withSubmit && (

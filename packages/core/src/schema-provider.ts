@@ -1,4 +1,4 @@
-import { ParsedSchema, SchemaValidation } from "./types";
+import type { ParsedSchema, SchemaValidation } from "./types";
 
 /**
  * Schema provider interface
@@ -7,7 +7,7 @@ import { ParsedSchema, SchemaValidation } from "./types";
  * a format that AutoForm can use.
  * They also handle validating the form value and returning error messages in a consistent format.
  */
-export interface SchemaProvider<T = any> {
+export interface SchemaProvider<T = unknown> {
   /**
    * Parse the schema into a format that AutoForm can use.
    */
@@ -27,5 +27,5 @@ export interface SchemaProvider<T = any> {
    *
    * @returns Default values for the form
    */
-  getDefaultValues(): Record<string, any>;
+  getDefaultValues(): Record<string, unknown>;
 }

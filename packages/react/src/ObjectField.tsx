@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "./context";
-import { getLabel, ParsedField } from "@autoform/core";
+import { getLabel, type ParsedField } from "@bwalkt/core";
 
 export const ObjectField: React.FC<{
   field: ParsedField;
@@ -10,17 +10,15 @@ export const ObjectField: React.FC<{
   const { uiComponents } = useAutoForm();
 
   return (
-    <uiComponents.ObjectWrapper
-      label={getLabel(field)}
-      field={field}
-    >
-      {Object.entries(field.schema!).map(([_key, subField]) => (
+    <uiComponents.ObjectWrapper label={getLabel(field)} field={field}>
+      {field.schema && Object.entries(field.schema).map(([_key, subField]) => (
         <AutoFormField
           key={`${path.join(".")}.${subField.key}`}
           field={subField}
           path={[...path, subField.key]}
         />
       ))}
+      {!field.schema && <div>No schema defined for object field</div>}
     </uiComponents.ObjectWrapper>
   );
 };

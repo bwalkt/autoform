@@ -1,10 +1,10 @@
-import React from "react";
+import type React from "react";
 import { useFormContext } from "react-hook-form";
 import { useAutoForm } from "./context";
-import { getLabel, ParsedField } from "@autoform/core";
+import { getLabel, type ParsedField } from "@bwalkt/core";
 import { ObjectField } from "./ObjectField";
 import { ArrayField } from "./ArrayField";
-import { AutoFormFieldProps } from "./types";
+import type { AutoFormFieldProps } from "./types";
 import { getPathInObject } from "./utils";
 
 export const AutoFormField: React.FC<{
@@ -36,7 +36,10 @@ export const AutoFormField: React.FC<{
   } else if (field.type === "object") {
     FieldComponent = ObjectField;
   } else if (field.type in formComponents) {
-    FieldComponent = formComponents[field.type as keyof typeof formComponents]!;
+    const component = formComponents[field.type as keyof typeof formComponents];
+    if (component) {
+      FieldComponent = component;
+    }
   } else if ("fallback" in formComponents) {
     FieldComponent = formComponents.fallback;
   }
