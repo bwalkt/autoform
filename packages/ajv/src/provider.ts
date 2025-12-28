@@ -1,6 +1,5 @@
 import Ajv from "ajv";
-import type { Schema } from "ajv";
-import type { JSONSchemaType } from "ajv/dist/types/json-schema";
+import type { Schema, JSONSchemaType } from "ajv";
 import addFormats from "ajv-formats";
 import type {
   SchemaProvider,

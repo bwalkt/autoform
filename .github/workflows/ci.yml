@@ -47,7 +47,12 @@ jobs:
         run: pnpm run build
 
       - name: Run tests
-        run: pnpm test || echo "No tests found"
+        run: |
+          if pnpm test 2>&1 | grep -q "no test"; then
+            echo "⚠️ Warning: No tests found in the project"
+            exit 0
+          fi
+          pnpm test
 
   build:
     name: Build
