@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
 
 const meta: Meta = {
-  title: 'Debug/AJV Interface Test',
+  title: "Debug/AJV Interface Test",
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
@@ -13,156 +13,196 @@ type Story = StoryObj<typeof meta>;
 
 export const SchemaProviderInterfaceTest: Story = {
   render: () => {
-    const [result, setResult] = React.useState<string>('Testing...');
+    const [result, setResult] = React.useState<string>("Testing...");
 
     React.useEffect(() => {
       async function testInterface() {
         try {
-          console.log('=== Schema Provider Interface Test ===');
-          
+          console.log("=== Schema Provider Interface Test ===");
+
           // Import modules
-          const { AjvProvider } = await import('@bwalk/ajv');
-          const { SchemaProvider } = await import('@bwalk/core');
-          
-          console.log('AjvProvider class:', AjvProvider);
-          console.log('SchemaProvider interface/type:', SchemaProvider);
-          
+          const { AjvProvider } = await import("@bwalk/ajv");
+          const { SchemaProvider } = await import("@bwalk/core");
+
+          console.log("AjvProvider class:", AjvProvider);
+          console.log("SchemaProvider interface/type:", SchemaProvider);
+
           // Create schema
           const schema = {
-            type: 'object' as const,
+            type: "object" as const,
             properties: {
-              name: { type: 'string' as const, title: 'Name' }
+              name: { type: "string" as const, title: "Name" },
             },
-            required: ['name']
+            required: ["name"],
           };
-          
-          console.log('Creating AjvProvider instance...');
+
+          console.log("Creating AjvProvider instance...");
           const provider = new AjvProvider(schema);
-          
-          console.log('Provider instance:', provider);
-          console.log('Provider constructor:', provider.constructor);
-          console.log('Provider constructor name:', provider.constructor.name);
-          
+
+          console.log("Provider instance:", provider);
+          console.log("Provider constructor:", provider.constructor);
+          console.log("Provider constructor name:", provider.constructor.name);
+
           // Check if it implements SchemaProvider interface
-          const hasParseSchema = 'parseSchema' in provider;
-          const hasValidateSchema = 'validateSchema' in provider;
-          const hasGetDefaultValues = 'getDefaultValues' in provider;
-          
-          console.log('Interface compliance check:');
-          console.log('- hasParseSchema:', hasParseSchema);
-          console.log('- hasValidateSchema:', hasValidateSchema);
-          console.log('- hasGetDefaultValues:', hasGetDefaultValues);
-          
+          const hasParseSchema = "parseSchema" in provider;
+          const hasValidateSchema = "validateSchema" in provider;
+          const hasGetDefaultValues = "getDefaultValues" in provider;
+
+          console.log("Interface compliance check:");
+          console.log("- hasParseSchema:", hasParseSchema);
+          console.log("- hasValidateSchema:", hasValidateSchema);
+          console.log("- hasGetDefaultValues:", hasGetDefaultValues);
+
           // Check method types
           const parseSchemaType = typeof provider.parseSchema;
           const validateSchemaType = typeof provider.validateSchema;
           const getDefaultValuesType = typeof provider.getDefaultValues;
-          
-          console.log('Method types:');
-          console.log('- parseSchema type:', parseSchemaType);
-          console.log('- validateSchema type:', validateSchemaType);
-          console.log('- getDefaultValues type:', getDefaultValuesType);
-          
+
+          console.log("Method types:");
+          console.log("- parseSchema type:", parseSchemaType);
+          console.log("- validateSchema type:", validateSchemaType);
+          console.log("- getDefaultValues type:", getDefaultValuesType);
+
           // Get all enumerable properties
           const ownProps = Object.getOwnPropertyNames(provider);
-          const prototypeProps = Object.getOwnPropertyNames(Object.getPrototypeOf(provider));
-          
-          console.log('Own properties:', ownProps);
-          console.log('Prototype properties:', prototypeProps);
-          
+          const prototypeProps = Object.getOwnPropertyNames(
+            Object.getPrototypeOf(provider),
+          );
+
+          console.log("Own properties:", ownProps);
+          console.log("Prototype properties:", prototypeProps);
+
           // Test method calls individually
           const testResults: Record<string, any> = {};
-          
-          if (parseSchemaType === 'function') {
+
+          if (parseSchemaType === "function") {
             try {
-              console.log('Testing parseSchema...');
+              console.log("Testing parseSchema...");
               const parseResult = provider.parseSchema();
               testResults.parseSchema = { success: true, result: parseResult };
-              console.log('parseSchema result:', parseResult);
+              console.log("parseSchema result:", parseResult);
             } catch (error) {
-              testResults.parseSchema = { success: false, error: error.message };
-              console.error('parseSchema error:', error);
+              testResults.parseSchema = {
+                success: false,
+                error: error.message,
+              };
+              console.error("parseSchema error:", error);
             }
           } else {
-            testResults.parseSchema = { success: false, error: `Not a function (type: ${parseSchemaType})` };
+            testResults.parseSchema = {
+              success: false,
+              error: `Not a function (type: ${parseSchemaType})`,
+            };
           }
-          
-          if (validateSchemaType === 'function') {
+
+          if (validateSchemaType === "function") {
             try {
-              console.log('Testing validateSchema...');
-              const validateResult = provider.validateSchema({ name: 'test' });
-              testResults.validateSchema = { success: true, result: validateResult };
-              console.log('validateSchema result:', validateResult);
+              console.log("Testing validateSchema...");
+              const validateResult = provider.validateSchema({ name: "test" });
+              testResults.validateSchema = {
+                success: true,
+                result: validateResult,
+              };
+              console.log("validateSchema result:", validateResult);
             } catch (error) {
-              testResults.validateSchema = { success: false, error: error.message };
-              console.error('validateSchema error:', error);
+              testResults.validateSchema = {
+                success: false,
+                error: error.message,
+              };
+              console.error("validateSchema error:", error);
             }
           } else {
-            testResults.validateSchema = { success: false, error: `Not a function (type: ${validateSchemaType})` };
+            testResults.validateSchema = {
+              success: false,
+              error: `Not a function (type: ${validateSchemaType})`,
+            };
           }
-          
-          if (getDefaultValuesType === 'function') {
+
+          if (getDefaultValuesType === "function") {
             try {
-              console.log('Testing getDefaultValues...');
+              console.log("Testing getDefaultValues...");
               const defaultsResult = provider.getDefaultValues();
-              testResults.getDefaultValues = { success: true, result: defaultsResult };
-              console.log('getDefaultValues result:', defaultsResult);
+              testResults.getDefaultValues = {
+                success: true,
+                result: defaultsResult,
+              };
+              console.log("getDefaultValues result:", defaultsResult);
             } catch (error) {
-              testResults.getDefaultValues = { success: false, error: error.message };
-              console.error('getDefaultValues error:', error);
+              testResults.getDefaultValues = {
+                success: false,
+                error: error.message,
+              };
+              console.error("getDefaultValues error:", error);
             }
           } else {
-            testResults.getDefaultValues = { success: false, error: `Not a function (type: ${getDefaultValuesType})` };
+            testResults.getDefaultValues = {
+              success: false,
+              error: `Not a function (type: ${getDefaultValuesType})`,
+            };
           }
-          
-          console.log('=== Test Results Summary ===');
-          console.log('Test results:', testResults);
-          
+
+          console.log("=== Test Results Summary ===");
+          console.log("Test results:", testResults);
+
           const summary = {
             interface: {
               hasParseSchema,
               hasValidateSchema,
               hasGetDefaultValues,
-              allPresent: hasParseSchema && hasValidateSchema && hasGetDefaultValues
+              allPresent:
+                hasParseSchema && hasValidateSchema && hasGetDefaultValues,
             },
             types: {
               parseSchemaType,
               validateSchemaType,
               getDefaultValuesType,
-              allFunctions: parseSchemaType === 'function' && validateSchemaType === 'function' && getDefaultValuesType === 'function'
+              allFunctions:
+                parseSchemaType === "function" &&
+                validateSchemaType === "function" &&
+                getDefaultValuesType === "function",
             },
-            testResults
+            testResults,
           };
-          
-          setResult(`✅ Interface test complete!\n\n${JSON.stringify(summary, null, 2)}`);
-          
+
+          setResult(
+            `✅ Interface test complete!\n\n${JSON.stringify(summary, null, 2)}`,
+          );
         } catch (error) {
-          console.error('Error in interface test:', error);
-          setResult(`❌ Interface test error: ${error.message}\n\nStack: ${error.stack}`);
+          console.error("Error in interface test:", error);
+          setResult(
+            `❌ Interface test error: ${error.message}\n\nStack: ${error.stack}`,
+          );
         }
       }
-      
+
       testInterface();
     }, []);
 
     return (
       <div className="p-6 space-y-4">
-        <h2 className="text-xl font-bold">AJV Schema Provider Interface Test</h2>
+        <h2 className="text-xl font-bold">
+          AJV Schema Provider Interface Test
+        </h2>
         <p className="text-gray-600">
-          This tests if the AjvProvider properly implements the SchemaProvider interface.
+          This tests if the AjvProvider properly implements the SchemaProvider
+          interface.
           <strong> Check the browser console for detailed logging.</strong>
         </p>
-        
+
         <div className="p-4 bg-gray-100 rounded-lg max-h-96 overflow-auto">
           <h3 className="font-medium mb-2">Test Results:</h3>
           <pre className="text-xs whitespace-pre-wrap">{result}</pre>
         </div>
-        
+
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h3 className="font-medium text-blue-900 mb-2">🔍 What this tests:</h3>
+          <h3 className="font-medium text-blue-900 mb-2">
+            🔍 What this tests:
+          </h3>
           <ul className="text-sm text-blue-800 space-y-1">
             <li>• SchemaProvider interface compliance</li>
-            <li>• Method existence (parseSchema, validateSchema, getDefaultValues)</li>
+            <li>
+              • Method existence (parseSchema, validateSchema, getDefaultValues)
+            </li>
             <li>• Method types (should all be functions)</li>
             <li>• Individual method execution</li>
             <li>• Property enumeration and inspection</li>

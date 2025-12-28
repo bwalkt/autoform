@@ -9,15 +9,20 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button = ({ primary = false, size = "medium", label, ...props }: ButtonProps) => {
+const Button = ({
+  primary = false,
+  size = "medium",
+  label,
+  ...props
+}: ButtonProps) => {
   const mode = primary
     ? "bg-blue-600 text-white border-blue-600"
     : "bg-transparent text-gray-700 border-gray-300";
-  
+
   const sizeClass = {
     small: "px-3 py-1 text-sm",
-    medium: "px-4 py-2 text-base", 
-    large: "px-6 py-3 text-lg"
+    medium: "px-4 py-2 text-base",
+    large: "px-6 py-3 text-lg",
   }[size];
 
   return (

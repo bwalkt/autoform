@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { TextField, Select, SelectItem, Textarea } from '../elements';
-import { Mail, Search, User } from 'lucide-react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
+import { TextField, Select, SelectItem, Textarea } from "../elements";
+import { Mail, Search, User } from "lucide-react";
 
 const meta: Meta = {
-  title: 'Design System/Form Elements',
+  title: "Design System/Form Elements",
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
@@ -24,7 +24,7 @@ export const AllSizes: Story = {
           <TextField size="3" placeholder="Size 3 - Large" />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">Select Sizes</h3>
         <div className="space-y-4">
@@ -42,7 +42,7 @@ export const AllSizes: Story = {
           </Select>
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">Textarea Sizes</h3>
         <div className="space-y-4">
@@ -62,11 +62,14 @@ export const AllVariants: Story = {
         <h3 className="text-lg font-medium mb-4">TextField Variants</h3>
         <div className="space-y-4">
           <TextField variant="classic" placeholder="Classic variant" />
-          <TextField variant="surface" placeholder="Surface variant (default)" />
+          <TextField
+            variant="surface"
+            placeholder="Surface variant (default)"
+          />
           <TextField variant="soft" placeholder="Soft variant" />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">Select Variants</h3>
         <div className="space-y-4">
@@ -84,12 +87,16 @@ export const AllVariants: Story = {
           </Select>
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">Textarea Variants</h3>
         <div className="space-y-4">
           <Textarea variant="classic" placeholder="Classic variant" rows={3} />
-          <Textarea variant="surface" placeholder="Surface variant (default)" rows={3} />
+          <Textarea
+            variant="surface"
+            placeholder="Surface variant (default)"
+            rows={3}
+          />
           <Textarea variant="soft" placeholder="Soft variant" rows={3} />
         </div>
       </div>
@@ -110,7 +117,7 @@ export const AllColors: Story = {
           <TextField color="error" placeholder="Error (red)" />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">Select Colors</h3>
         <div className="space-y-4">
@@ -148,7 +155,7 @@ export const AllRadius: Story = {
           <TextField radius="full" placeholder="Full radius" />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">Select Radius</h3>
         <div className="space-y-4">
@@ -177,38 +184,71 @@ export const WithIcons: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium mb-4">TextField with Icons - Size 1</h3>
+        <h3 className="text-lg font-medium mb-4">
+          TextField with Icons - Size 1
+        </h3>
         <div className="space-y-4">
           <TextField size="1" leftIcon={<Mail />} placeholder="Email address" />
           <TextField size="1" leftIcon={<Search />} placeholder="Search..." />
-          <TextField size="1" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
+          <TextField
+            size="1"
+            leftIcon={<User />}
+            rightIcon={<Search />}
+            placeholder="Search users"
+          />
         </div>
       </div>
-      
+
       <div>
-        <h3 className="text-lg font-medium mb-4">TextField with Icons - Size 2 (Default)</h3>
+        <h3 className="text-lg font-medium mb-4">
+          TextField with Icons - Size 2 (Default)
+        </h3>
         <div className="space-y-4">
           <TextField size="2" leftIcon={<Mail />} placeholder="Email address" />
           <TextField size="2" leftIcon={<Search />} placeholder="Search..." />
-          <TextField size="2" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
+          <TextField
+            size="2"
+            leftIcon={<User />}
+            rightIcon={<Search />}
+            placeholder="Search users"
+          />
         </div>
       </div>
-      
+
       <div>
-        <h3 className="text-lg font-medium mb-4">TextField with Icons - Size 3</h3>
+        <h3 className="text-lg font-medium mb-4">
+          TextField with Icons - Size 3
+        </h3>
         <div className="space-y-4">
           <TextField size="3" leftIcon={<Mail />} placeholder="Email address" />
           <TextField size="3" leftIcon={<Search />} placeholder="Search..." />
-          <TextField size="3" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
+          <TextField
+            size="3"
+            leftIcon={<User />}
+            rightIcon={<Search />}
+            placeholder="Search users"
+          />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-medium mb-4">All Variants with Icons</h3>
         <div className="space-y-4">
-          <TextField variant="classic" leftIcon={<Mail />} placeholder="Classic with icon" />
-          <TextField variant="surface" leftIcon={<Mail />} placeholder="Surface with icon" />
-          <TextField variant="soft" leftIcon={<Mail />} placeholder="Soft with icon" />
+          <TextField
+            variant="classic"
+            leftIcon={<Mail />}
+            placeholder="Classic with icon"
+          />
+          <TextField
+            variant="surface"
+            leftIcon={<Mail />}
+            placeholder="Surface with icon"
+          />
+          <TextField
+            variant="soft"
+            leftIcon={<Mail />}
+            placeholder="Soft with icon"
+          />
         </div>
       </div>
     </div>
@@ -256,27 +296,37 @@ export const SemanticUsage: Story = {
         <h3 className="text-lg font-medium mb-4">Semantic Color Usage</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Username (Default)</label>
+            <label className="block text-sm font-medium mb-2">
+              Username (Default)
+            </label>
             <TextField color="default" placeholder="Enter username" />
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium mb-2">Email (Info)</label>
+            <label className="block text-sm font-medium mb-2">
+              Email (Info)
+            </label>
             <TextField color="info" placeholder="Enter email address" />
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium mb-2 text-green-700">Verified Field (Success)</label>
+            <label className="block text-sm font-medium mb-2 text-green-700">
+              Verified Field (Success)
+            </label>
             <TextField color="success" placeholder="This field is verified" />
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium mb-2 text-orange-700">Review Required (Warning)</label>
+            <label className="block text-sm font-medium mb-2 text-orange-700">
+              Review Required (Warning)
+            </label>
             <TextField color="warning" placeholder="Please review this field" />
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium mb-2 text-red-700">Invalid Input (Error)</label>
+            <label className="block text-sm font-medium mb-2 text-red-700">
+              Invalid Input (Error)
+            </label>
             <TextField color="error" placeholder="This field has an error" />
           </div>
         </div>
@@ -288,16 +338,16 @@ export const SemanticUsage: Story = {
 export const FormExample: Story = {
   render: () => {
     const [formData, setFormData] = React.useState({
-      name: '',
-      email: '',
-      role: '',
-      bio: '',
+      name: "",
+      email: "",
+      role: "",
+      bio: "",
     });
 
     return (
       <div className="max-w-md mx-auto space-y-4">
         <h3 className="text-lg font-medium mb-4">Contact Form</h3>
-        
+
         <div>
           <label className="block text-sm font-medium mb-2">Name</label>
           <TextField
@@ -310,7 +360,7 @@ export const FormExample: Story = {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium mb-2">Email</label>
           <TextField
@@ -321,10 +371,12 @@ export const FormExample: Story = {
             placeholder="Enter your email"
             type="email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium mb-2">Role</label>
           <Select
@@ -341,7 +393,7 @@ export const FormExample: Story = {
             <SelectItem value="other">Other</SelectItem>
           </Select>
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium mb-2">Bio</label>
           <Textarea
@@ -354,7 +406,7 @@ export const FormExample: Story = {
             onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
           />
         </div>
-        
+
         <button
           type="submit"
           className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"

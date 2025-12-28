@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "fs/promises";
-import { z } from "zod/v3";
-import { registryEntrySchema } from "./schema";
+import type { z } from "zod/v3";
+import type { registryEntrySchema } from "./schema";
 import { glob } from "glob";
 
 console.log("Building registry...");

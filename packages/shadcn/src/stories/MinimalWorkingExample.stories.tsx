@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { AutoForm } from '../components/ui/autoform';
-import { AjvProvider } from '@bwalk/ajv';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
+import { AutoForm } from "../components/ui/autoform";
+import { AjvProvider } from "@bwalk/ajv";
 
 const meta: Meta = {
-  title: 'AJV/Working Example',
+  title: "AJV/Working Example",
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
@@ -21,29 +21,29 @@ export const BasicTest: Story = {
 
     React.useEffect(() => {
       try {
-        console.log('Creating simple AJV provider...');
-        
+        console.log("Creating simple AJV provider...");
+
         const simpleSchema = {
-          type: 'object',
+          type: "object",
           properties: {
             name: {
-              type: 'string',
-              title: 'Your Name'
-            }
+              type: "string",
+              title: "Your Name",
+            },
           },
-          required: ['name']
+          required: ["name"],
         };
 
         const ajvProvider = new AjvProvider(simpleSchema);
-        
+
         // Test that it works
         const parsed = ajvProvider.parseSchema();
-        console.log('Schema parsed successfully:', parsed);
-        
+        console.log("Schema parsed successfully:", parsed);
+
         setProvider(ajvProvider);
         setIsReady(true);
       } catch (err) {
-        console.error('Error creating provider:', err);
+        console.error("Error creating provider:", err);
         setError(err.message);
       }
     }, []);
@@ -68,12 +68,12 @@ export const BasicTest: Story = {
     return (
       <div className="p-4 space-y-4">
         <h3 className="text-lg font-medium">Minimal AJV AutoForm Test</h3>
-        
+
         <div className="border rounded-lg p-4 bg-white">
           <AutoForm
             schema={provider}
             onSubmit={(data) => {
-              console.log('Form submitted:', data);
+              console.log("Form submitted:", data);
               alert(`Hello ${data.name}!`);
             }}
             withSubmit={true}

@@ -70,7 +70,7 @@ const schema = {
         label: "Full Name",
         fieldType: "text",
         order: 1,
-      }
+      },
     ),
     role: createField(
       {
@@ -80,7 +80,7 @@ const schema = {
       {
         label: "User Role",
         fieldType: "select",
-      }
+      },
     ),
   },
 };

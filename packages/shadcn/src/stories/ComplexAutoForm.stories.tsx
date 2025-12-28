@@ -10,16 +10,20 @@ const MockAutoForm = ({ children, onSubmit, ...props }: any) => {
         📋 This would be the AutoForm component with AJV provider
       </p>
       <div className="bg-yellow-50 p-4 rounded border border-yellow-200">
-        <h3 className="font-semibold text-yellow-800 mb-2">AutoForm Placeholder</h3>
+        <h3 className="font-semibold text-yellow-800 mb-2">
+          AutoForm Placeholder
+        </h3>
         <p className="text-yellow-700 text-sm">
           The actual AutoForm would render here with:
           <br />• Dynamic fields based on JSON Schema
           <br />• Real-time validation
           <br />• Complex nested objects and arrays
         </p>
-        <button 
+        <button
           className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          onClick={() => onSubmit && onSubmit({ mockData: "This would be real form data" })}
+          onClick={() =>
+            onSubmit && onSubmit({ mockData: "This would be real form data" })
+          }
         >
           Simulate Submit
         </button>
@@ -79,35 +83,35 @@ const userProfileSchema = {
           minLength: 2,
           maxLength: 50,
           description: "Your first name",
-          title: "First Name"
+          title: "First Name",
         },
         lastName: {
-          type: "string", 
+          type: "string",
           minLength: 2,
           maxLength: 50,
           description: "Your last name",
-          title: "Last Name"
+          title: "Last Name",
         },
         email: {
           type: "string",
           format: "email",
           description: "Your email address",
-          title: "Email Address"
+          title: "Email Address",
         },
         phone: {
           type: "string",
           pattern: "^[\\+]?[1-9][\\d]{0,15}$",
           description: "Your phone number (optional)",
-          title: "Phone Number"
+          title: "Phone Number",
         },
         birthDate: {
           type: "string",
           format: "date",
           description: "Your date of birth",
-          title: "Date of Birth"
-        }
+          title: "Date of Birth",
+        },
       },
-      required: ["firstName", "lastName", "email", "birthDate"]
+      required: ["firstName", "lastName", "email", "birthDate"],
     },
     address: {
       type: "object",
@@ -118,35 +122,35 @@ const userProfileSchema = {
           type: "string",
           minLength: 5,
           description: "Street address",
-          title: "Street Address"
+          title: "Street Address",
         },
         city: {
           type: "string",
           minLength: 2,
           description: "City name",
-          title: "City"
+          title: "City",
         },
         state: {
           type: "string",
           minLength: 2,
           description: "State or province",
-          title: "State/Province"
+          title: "State/Province",
         },
         zipCode: {
           type: "string",
           pattern: "^[\\d]{5}(-[\\d]{4})?$",
           description: "ZIP or postal code",
-          title: "ZIP Code"
+          title: "ZIP Code",
         },
         country: {
           type: "string",
           enum: ["US", "CA", "UK", "DE", "FR", "AU", "JP"],
           default: "US",
           description: "Country",
-          title: "Country"
-        }
+          title: "Country",
+        },
       },
-      required: ["street", "city", "state", "zipCode", "country"]
+      required: ["street", "city", "state", "zipCode", "country"],
     },
     preferences: {
       type: "object",
@@ -157,30 +161,30 @@ const userProfileSchema = {
           type: "boolean",
           default: false,
           description: "Subscribe to newsletter",
-          title: "Newsletter Subscription"
+          title: "Newsletter Subscription",
         },
         notifications: {
-          type: "boolean", 
+          type: "boolean",
           default: true,
           description: "Enable notifications",
-          title: "Enable Notifications"
+          title: "Enable Notifications",
         },
         theme: {
           type: "string",
           enum: ["light", "dark", "auto"],
           default: "auto",
           description: "UI theme preference",
-          title: "Theme"
+          title: "Theme",
         },
         language: {
           type: "string",
           enum: ["en", "es", "fr", "de", "zh", "ja"],
           default: "en",
           description: "Preferred language",
-          title: "Language"
-        }
+          title: "Language",
+        },
       },
-      required: ["newsletter", "notifications", "theme", "language"]
+      required: ["newsletter", "notifications", "theme", "language"],
     },
     skills: {
       type: "array",
@@ -188,12 +192,12 @@ const userProfileSchema = {
       description: "List your technical skills",
       items: {
         type: "string",
-        minLength: 2
+        minLength: 2,
       },
       minItems: 1,
       maxItems: 10,
       uniqueItems: true,
-      default: []
+      default: [],
     },
     experience: {
       type: "object",
@@ -206,28 +210,28 @@ const userProfileSchema = {
           maximum: 50,
           default: 0,
           description: "Years of professional experience",
-          title: "Years of Experience"
+          title: "Years of Experience",
         },
         currentRole: {
           type: "string",
           minLength: 2,
           description: "Your current job title",
-          title: "Current Role"
+          title: "Current Role",
         },
         company: {
           type: "string",
           description: "Current company (optional)",
-          title: "Company"
+          title: "Company",
         },
         salary: {
           type: "number",
           minimum: 0,
           maximum: 1000000,
           description: "Annual salary (optional)",
-          title: "Salary"
-        }
+          title: "Salary",
+        },
       },
-      required: ["yearsOfExperience", "currentRole"]
+      required: ["yearsOfExperience", "currentRole"],
     },
     projects: {
       type: "array",
@@ -240,36 +244,36 @@ const userProfileSchema = {
             type: "string",
             minLength: 2,
             description: "Project name",
-            title: "Project Name"
+            title: "Project Name",
           },
           description: {
             type: "string",
             minLength: 10,
             description: "Project description",
-            title: "Description"
+            title: "Description",
           },
           technologies: {
             type: "array",
             items: {
-              type: "string"
+              type: "string",
             },
             minItems: 1,
             description: "Technologies used",
-            title: "Technologies"
+            title: "Technologies",
           },
           completed: {
             type: "boolean",
             default: false,
             description: "Is the project completed?",
-            title: "Completed"
-          }
+            title: "Completed",
+          },
         },
-        required: ["name", "description", "technologies", "completed"]
+        required: ["name", "description", "technologies", "completed"],
       },
-      default: []
-    }
+      default: [],
+    },
   },
-  required: ["personalInfo", "address", "preferences", "skills", "experience"]
+  required: ["personalInfo", "address", "preferences", "skills", "experience"],
 } as const;
 
 // Demo component with form state management
@@ -283,7 +287,7 @@ const ComplexAutoFormDemo = () => {
   const handleSubmit = async (values: UserProfile) => {
     setIsSubmitting(true);
     setErrors([]);
-    
+
     // Simulate validation (this would use the real AJV provider)
     // const validationResult = provider.validateSchema(values);
     // if (!validationResult.success) {
@@ -293,8 +297,8 @@ const ComplexAutoFormDemo = () => {
     // }
 
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     setFormData(values);
     setIsSubmitting(false);
     alert("Form submitted successfully!");
@@ -305,14 +309,19 @@ const ComplexAutoFormDemo = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">User Profile Form</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          User Profile Form
+        </h1>
         <p className="text-gray-600 mb-6">
-          Complete your profile with personal information, preferences, and experience.
+          Complete your profile with personal information, preferences, and
+          experience.
         </p>
 
         {errors.length > 0 && (
           <div className="bg-red-50 border border-red-200 rounded-md p-4 mb-6">
-            <h3 className="font-semibold text-red-900 mb-2">Validation Errors:</h3>
+            <h3 className="font-semibold text-red-900 mb-2">
+              Validation Errors:
+            </h3>
             <ul className="list-disc list-inside text-red-800 text-sm space-y-1">
               {errors.map((error, index) => (
                 <li key={index}>{error}</li>
@@ -326,7 +335,7 @@ const ComplexAutoFormDemo = () => {
           defaultValues={defaultValues}
           withSubmit={true}
           formProps={{
-            className: "space-y-8"
+            className: "space-y-8",
           }}
         />
 
@@ -338,7 +347,9 @@ const ComplexAutoFormDemo = () => {
 
         {formData && (
           <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-md">
-            <h3 className="font-semibold text-green-900 mb-3">✅ Form Submitted Successfully!</h3>
+            <h3 className="font-semibold text-green-900 mb-3">
+              ✅ Form Submitted Successfully!
+            </h3>
             <pre className="text-sm text-green-800 overflow-auto max-h-64">
               {JSON.stringify(formData, null, 2)}
             </pre>
@@ -347,9 +358,13 @@ const ComplexAutoFormDemo = () => {
       </div>
 
       <div className="bg-gray-50 rounded-lg p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-3">Form Features</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-3">
+          Form Features
+        </h2>
         <ul className="space-y-2 text-gray-700">
-          <li>✅ Nested object validation (personalInfo, address, experience)</li>
+          <li>
+            ✅ Nested object validation (personalInfo, address, experience)
+          </li>
           <li>✅ Array validation with dynamic items (skills, projects)</li>
           <li>✅ Email and phone format validation</li>
           <li>✅ Date validation for birthDate</li>
@@ -372,7 +387,8 @@ const meta: Meta<typeof ComplexAutoFormDemo> = {
     layout: "fullscreen",
     docs: {
       description: {
-        component: "A comprehensive example showing complex forms with nested objects, arrays, validation, and the AJV provider.",
+        component:
+          "A comprehensive example showing complex forms with nested objects, arrays, validation, and the AJV provider.",
       },
     },
   },
@@ -382,7 +398,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const FullUserProfile: Story = {
-  render: () => <ComplexAutoFormDemo />
+  render: () => <ComplexAutoFormDemo />,
 };
 
 // Simpler static version without state
@@ -390,14 +406,19 @@ export const SchemaDemo: Story = {
   render: () => (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">JSON Schema Documentation</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          JSON Schema Documentation
+        </h1>
         <p className="text-gray-600 mb-6">
-          This shows the complete JSON Schema structure for a complex user profile form.
+          This shows the complete JSON Schema structure for a complex user
+          profile form.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-semibold text-gray-900 mb-2">Schema Structure</h3>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Schema Structure
+            </h3>
             <pre className="text-xs text-gray-600 overflow-auto max-h-64">
               {JSON.stringify(userProfileSchema, null, 2)}
             </pre>
@@ -421,16 +442,22 @@ export const SchemaDemo: Story = {
         </div>
 
         <div className="mt-6 p-4 border-2 border-dashed border-gray-300 rounded-lg">
-          <h3 className="font-semibold text-gray-700 mb-2">🎯 AutoForm Integration</h3>
+          <h3 className="font-semibold text-gray-700 mb-2">
+            🎯 AutoForm Integration
+          </h3>
           <p className="text-gray-600 text-sm">
-            This schema would be used with: <code className="bg-gray-100 px-2 py-1 rounded">new AjvProvider(userProfileSchema)</code>
+            This schema would be used with:{" "}
+            <code className="bg-gray-100 px-2 py-1 rounded">
+              new AjvProvider(userProfileSchema)
+            </code>
             <br />
-            The AutoForm component would automatically generate form fields, validation, and UI based on this schema.
+            The AutoForm component would automatically generate form fields,
+            validation, and UI based on this schema.
           </p>
         </div>
       </div>
     </div>
-  )
+  ),
 };
 
 // Simplified version for quick testing
@@ -441,35 +468,35 @@ const simpleSchema = {
       type: "string",
       minLength: 2,
       description: "Your name",
-      title: "Full Name"
+      title: "Full Name",
     },
     email: {
       type: "string",
       format: "email",
       description: "Your email",
-      title: "Email Address"
+      title: "Email Address",
     },
     age: {
       type: "number",
       minimum: 18,
       maximum: 120,
       default: 25,
-      title: "Age"
+      title: "Age",
     },
     skills: {
       type: "array",
       items: { type: "string" },
       default: ["JavaScript", "React"],
-      title: "Skills"
-    }
+      title: "Skills",
+    },
   },
-  required: ["name", "email", "age"]
+  required: ["name", "email", "age"],
 } as const;
 
 export const SimpleForm: Story = {
   render: () => {
     // const provider = new AjvProvider(simpleSchema);
-    
+
     return (
       <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-xl font-bold mb-4">Simple Form Example</h2>
@@ -480,13 +507,13 @@ export const SimpleForm: Story = {
           }}
           withSubmit={true}
           formProps={{
-            className: "space-y-4"
+            className: "space-y-4",
           }}
         />
         <div className="mt-4 text-sm text-gray-600">
           <strong>Schema would include:</strong>
           <pre className="mt-2 p-2 bg-gray-50 rounded text-xs">
-{`{
+            {`{
   name: string (min 2 chars)
   email: string (email format)  
   age: number (18-120)

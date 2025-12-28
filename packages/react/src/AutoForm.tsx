@@ -1,11 +1,7 @@
 import React, { FormEventHandler, useEffect } from "react";
-import { useForm, FormProvider, DefaultValues } from "react-hook-form";
-import {
-  parseSchema,
-  getDefaultValues,
-  removeEmptyValues,
-} from "@bwalk/core";
-import { AutoFormProps } from "./types";
+import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
+import { parseSchema, getDefaultValues, removeEmptyValues } from "@bwalk/core";
+import type { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";
 
@@ -53,7 +49,7 @@ export function AutoForm<T extends Record<string, any>>({
             type: "custom",
             message: error.message,
           },
-          { shouldFocus: !isFocused }
+          { shouldFocus: !isFocused },
         );
 
         isFocused = true;

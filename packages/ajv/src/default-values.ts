@@ -13,7 +13,7 @@ type JSONSchema = Schema & {
 
 export function getDefaultValues(schema: Schema): Record<string, any> {
   const jsonSchema = schema as JSONSchema;
-  
+
   if (jsonSchema.type !== "object" || !jsonSchema.properties) {
     return {};
   }
@@ -48,8 +48,8 @@ function getFieldDefault(schema: JSONSchema): any {
   }
 
   // Handle type arrays (e.g., ["string", "null"])
-  const type = Array.isArray(schema.type) 
-    ? schema.type.find(t => t !== "null")
+  const type = Array.isArray(schema.type)
+    ? schema.type.find((t) => t !== "null")
     : schema.type;
 
   // Return type-specific defaults
@@ -63,24 +63,26 @@ function getFieldDefault(schema: JSONSchema): any {
             objectDefaults[key] = subDefault;
           }
         }
-        return Object.keys(objectDefaults).length > 0 ? objectDefaults : undefined;
+        return Object.keys(objectDefaults).length > 0
+          ? objectDefaults
+          : undefined;
       }
       return undefined;
-    
+
     case "array":
       // Return empty array as default for arrays
       return [];
-    
+
     case "string":
       return "";
-    
+
     case "number":
     case "integer":
       return 0;
-    
+
     case "boolean":
       return false;
-    
+
     default:
       return undefined;
   }

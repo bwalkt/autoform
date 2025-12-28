@@ -1,18 +1,18 @@
-import { ReactNode } from "react";
-import {
+import type { ReactNode } from "react";
+import type {
   ParsedField,
   ParsedSchema,
   Renderable,
   SchemaProvider,
   FieldConfig as BaseFieldConfig,
 } from "@bwalk/core";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
   onSubmit?: (
     values: T,
-    form: UseFormReturn<T, any, T>
+    form: UseFormReturn<T, any, T>,
   ) => void | Promise<void>;
 
   defaultValues?: Partial<T>;

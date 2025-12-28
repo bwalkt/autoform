@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { AutoForm } from '../components/ui/autoform';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
+import { AutoForm } from "../components/ui/autoform";
 
 const meta: Meta = {
-  title: 'Debug/AJV Provider Debug',
+  title: "Debug/AJV Provider Debug",
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
@@ -14,62 +14,67 @@ type Story = StoryObj<typeof meta>;
 
 export const AjvProviderTest: Story = {
   render: () => {
-    const [result, setResult] = React.useState<string>('Loading...');
+    const [result, setResult] = React.useState<string>("Loading...");
     const [provider, setProvider] = React.useState<any>(null);
 
     React.useEffect(() => {
       async function testAjvProvider() {
         try {
-          console.log('Starting AJV Provider test...');
-          
+          console.log("Starting AJV Provider test...");
+
           // Dynamic import to test
-          const ajvModule = await import('@bwalk/ajv');
-          console.log('AJV Module imported:', ajvModule);
-          
+          const ajvModule = await import("@bwalk/ajv");
+          console.log("AJV Module imported:", ajvModule);
+
           const { AjvProvider } = ajvModule;
-          console.log('AjvProvider class:', AjvProvider);
+          console.log("AjvProvider class:", AjvProvider);
 
           const schema = {
-            type: 'object',
+            type: "object",
             properties: {
-              name: { 
-                type: 'string',
-                title: 'Name'
+              name: {
+                type: "string",
+                title: "Name",
               },
-              email: { 
-                type: 'string', 
-                format: 'email',
-                title: 'Email'
-              }
+              email: {
+                type: "string",
+                format: "email",
+                title: "Email",
+              },
             },
-            required: ['name', 'email']
+            required: ["name", "email"],
           };
 
-          console.log('Creating AjvProvider with schema:', schema);
+          console.log("Creating AjvProvider with schema:", schema);
           const ajvProvider = new AjvProvider(schema);
-          console.log('AjvProvider instance:', ajvProvider);
-          console.log('AjvProvider methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(ajvProvider)));
-          
+          console.log("AjvProvider instance:", ajvProvider);
+          console.log(
+            "AjvProvider methods:",
+            Object.getOwnPropertyNames(Object.getPrototypeOf(ajvProvider)),
+          );
+
           // Test parseSchema method
-          console.log('Testing parseSchema...');
+          console.log("Testing parseSchema...");
           const parsed = ajvProvider.parseSchema();
-          console.log('Parsed schema:', parsed);
-          
+          console.log("Parsed schema:", parsed);
+
           setProvider(ajvProvider);
-          setResult(`✅ Success! AjvProvider created and parseSchema works. Found ${Object.keys(parsed.fields).length} field(s)`);
+          setResult(
+            `✅ Success! AjvProvider created and parseSchema works. Found ${Object.keys(parsed.fields).length} field(s)`,
+          );
         } catch (error) {
-          console.error('Error testing AJV Provider:', error);
+          console.error("Error testing AJV Provider:", error);
           setResult(`❌ Error: ${error.message}`);
         }
       }
-      
+
       testAjvProvider();
     }, []);
 
     return (
       <div className="p-4 space-y-4">
         <h3 className="text-lg font-medium mb-4">AJV Provider Debug Test</h3>
-        
+
         <div className="p-4 bg-gray-100 rounded">
           <h4 className="font-medium mb-2">Test Result:</h4>
           <pre className="text-sm">{result}</pre>
@@ -79,15 +84,17 @@ export const AjvProviderTest: Story = {
           <div className="space-y-4">
             <h4 className="font-medium">Method Tests:</h4>
             <div className="border p-4 rounded space-y-2">
-              <button 
+              <button
                 onClick={() => {
                   try {
-                    console.log('Testing parseSchema method...');
+                    console.log("Testing parseSchema method...");
                     const result = provider.parseSchema();
-                    console.log('parseSchema result:', result);
-                    alert(`parseSchema success! Found ${result.fields?.length || 0} fields. Check console for details.`);
+                    console.log("parseSchema result:", result);
+                    alert(
+                      `parseSchema success! Found ${result.fields?.length || 0} fields. Check console for details.`,
+                    );
                   } catch (error) {
-                    console.error('parseSchema error:', error);
+                    console.error("parseSchema error:", error);
                     alert(`parseSchema error: ${error.message}`);
                   }
                 }}
@@ -95,17 +102,22 @@ export const AjvProviderTest: Story = {
               >
                 Test parseSchema()
               </button>
-              
-              <button 
+
+              <button
                 onClick={() => {
                   try {
-                    console.log('Testing validateSchema method...');
-                    const testData = { name: 'test', email: 'test@example.com' };
+                    console.log("Testing validateSchema method...");
+                    const testData = {
+                      name: "test",
+                      email: "test@example.com",
+                    };
                     const result = provider.validateSchema(testData);
-                    console.log('validateSchema result:', result);
-                    alert(`validateSchema success! Result: ${result.success}. Check console for details.`);
+                    console.log("validateSchema result:", result);
+                    alert(
+                      `validateSchema success! Result: ${result.success}. Check console for details.`,
+                    );
                   } catch (error) {
-                    console.error('validateSchema error:', error);
+                    console.error("validateSchema error:", error);
                     alert(`validateSchema error: ${error.message}`);
                   }
                 }}
@@ -114,15 +126,17 @@ export const AjvProviderTest: Story = {
                 Test validateSchema()
               </button>
 
-              <button 
+              <button
                 onClick={() => {
                   try {
-                    console.log('Testing getDefaultValues method...');
+                    console.log("Testing getDefaultValues method...");
                     const result = provider.getDefaultValues();
-                    console.log('getDefaultValues result:', result);
-                    alert(`getDefaultValues success! Check console for details.`);
+                    console.log("getDefaultValues result:", result);
+                    alert(
+                      `getDefaultValues success! Check console for details.`,
+                    );
                   } catch (error) {
-                    console.error('getDefaultValues error:', error);
+                    console.error("getDefaultValues error:", error);
                     alert(`getDefaultValues error: ${error.message}`);
                   }
                 }}
@@ -137,8 +151,8 @@ export const AjvProviderTest: Story = {
               <AutoForm
                 schema={provider}
                 onSubmit={(data) => {
-                  console.log('Form submitted:', data);
-                  alert('Form submitted successfully! Check console for data.');
+                  console.log("Form submitted:", data);
+                  alert("Form submitted successfully! Check console for data.");
                 }}
               />
             </div>

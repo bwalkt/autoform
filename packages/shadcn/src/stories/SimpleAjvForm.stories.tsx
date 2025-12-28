@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 // Let's first create a manual form to test the UI without complex imports
@@ -16,26 +17,26 @@ const SimpleAjvFormDemo = () => {
     email: "",
     age: 25,
     skills: ["JavaScript"],
-    isActive: true
+    isActive: true,
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.name || formData.name.length < 2) {
       newErrors.name = "Name must be at least 2 characters";
     }
-    
+
     if (!formData.email || !formData.email.includes("@")) {
       newErrors.email = "Please enter a valid email";
     }
-    
+
     if (formData.age < 18 || formData.age > 120) {
       newErrors.age = "Age must be between 18 and 120";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -49,30 +50,32 @@ const SimpleAjvFormDemo = () => {
   };
 
   const addSkill = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      skills: [...prev.skills, ""]
+      skills: [...prev.skills, ""],
     }));
   };
 
   const updateSkill = (index: number, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      skills: prev.skills.map((skill, i) => i === index ? value : skill)
+      skills: prev.skills.map((skill, i) => (i === index ? value : skill)),
     }));
   };
 
   const removeSkill = (index: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      skills: prev.skills.filter((_, i) => i !== index)
+      skills: prev.skills.filter((_, i) => i !== index),
     }));
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-gray-900">User Profile Form</h2>
-      
+      <h2 className="text-2xl font-bold mb-6 text-gray-900">
+        User Profile Form
+      </h2>
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name Field */}
         <div>
@@ -82,13 +85,17 @@ const SimpleAjvFormDemo = () => {
           <input
             type="text"
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
+              errors.name ? "border-red-500" : "border-gray-300"
             }`}
             value={formData.name}
-            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, name: e.target.value }))
+            }
             placeholder="Enter your full name"
           />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
         </div>
 
         {/* Email Field */}
@@ -99,13 +106,17 @@ const SimpleAjvFormDemo = () => {
           <input
             type="email"
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
+              errors.email ? "border-red-500" : "border-gray-300"
             }`}
             value={formData.email}
-            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, email: e.target.value }))
+            }
             placeholder="your@email.com"
           />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          )}
         </div>
 
         {/* Age Field */}
@@ -118,12 +129,19 @@ const SimpleAjvFormDemo = () => {
             min="18"
             max="120"
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.age ? 'border-red-500' : 'border-gray-300'
+              errors.age ? "border-red-500" : "border-gray-300"
             }`}
             value={formData.age}
-            onChange={(e) => setFormData(prev => ({ ...prev, age: parseInt(e.target.value) || 0 }))}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                age: parseInt(e.target.value) || 0,
+              }))
+            }
           />
-          {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
+          {errors.age && (
+            <p className="text-red-500 text-sm mt-1">{errors.age}</p>
+          )}
         </div>
 
         {/* Skills Array */}
@@ -167,9 +185,14 @@ const SimpleAjvFormDemo = () => {
             id="isActive"
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             checked={formData.isActive}
-            onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, isActive: e.target.checked }))
+            }
           />
-          <label htmlFor="isActive" className="ml-2 block text-sm text-gray-700">
+          <label
+            htmlFor="isActive"
+            className="ml-2 block text-sm text-gray-700"
+          >
             Active user account
           </label>
         </div>
@@ -194,7 +217,9 @@ const SimpleAjvFormDemo = () => {
       </div>
 
       <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
-        <h3 className="font-semibold text-blue-900 mb-2">This Form Demonstrates:</h3>
+        <h3 className="font-semibold text-blue-900 mb-2">
+          This Form Demonstrates:
+        </h3>
         <ul className="text-sm text-blue-800 space-y-1">
           <li>✅ Text input validation (name, email)</li>
           <li>✅ Number input with range validation (age)</li>
@@ -215,7 +240,8 @@ const meta: Meta<typeof SimpleAjvFormDemo> = {
     layout: "centered",
     docs: {
       description: {
-        component: "A manual form implementation showing the types of fields we want to generate with AJV AutoForm.",
+        component:
+          "A manual form implementation showing the types of fields we want to generate with AJV AutoForm.",
       },
     },
   },

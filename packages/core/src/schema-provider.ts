@@ -1,4 +1,4 @@
-import { ParsedSchema, SchemaValidation } from "./types";
+import type { ParsedSchema, SchemaValidation } from "./types";
 
 /**
  * Schema provider interface

@@ -1,5 +1,5 @@
 import type { Schema } from "ajv";
-import { ParsedField, ParsedSchema } from "@bwalk/core";
+import type { ParsedField, ParsedSchema } from "@bwalk/core";
 import { AJV_FIELD_CONFIG_SYMBOL } from "./field-config";
 
 type JSONSchema = Schema & {
@@ -24,13 +24,16 @@ type JSONSchema = Schema & {
 
 export function parseSchema(schema: Schema): ParsedSchema {
   const jsonSchema = schema as JSONSchema;
-  
+
   if (jsonSchema.type !== "object" || !jsonSchema.properties) {
-    throw new Error("AjvProvider: Schema must be an object type with properties");
+    throw new Error(
+      "AjvProvider: Schema must be an object type with properties",
+    );
   }
 
-  const fields = Object.entries(jsonSchema.properties).map(([key, fieldSchema]) => 
-    parseField(key, fieldSchema, jsonSchema.required || [])
+  const fields = Object.entries(jsonSchema.properties).map(
+    ([key, fieldSchema]) =>
+      parseField(key, fieldSchema, jsonSchema.required || []),
   );
 
   return { fields };
@@ -39,7 +42,7 @@ export function parseSchema(schema: Schema): ParsedSchema {
 function parseField(
   key: string,
   fieldSchema: JSONSchema,
-  requiredFields: string[]
+  requiredFields: string[],
 ): ParsedField {
   const field: ParsedField = {
     key,
@@ -60,8 +63,9 @@ function parseField(
 
   // Handle objects
   if (fieldSchema.type === "object" && fieldSchema.properties) {
-    field.schema = Object.entries(fieldSchema.properties).map(([subKey, subSchema]) =>
-      parseField(subKey, subSchema as JSONSchema, fieldSchema.required || [])
+    field.schema = Object.entries(fieldSchema.properties).map(
+      ([subKey, subSchema]) =>
+        parseField(subKey, subSchema as JSONSchema, fieldSchema.required || []),
     );
   }
 
@@ -69,16 +73,19 @@ function parseField(
   if (fieldSchema.type === "array" && fieldSchema.items) {
     const items = fieldSchema.items as JSONSchema;
     if (items.type === "object" && items.properties) {
-      field.schema = Object.entries(items.properties).map(([subKey, subSchema]) =>
-        parseField(subKey, subSchema as JSONSchema, items.required || [])
+      field.schema = Object.entries(items.properties).map(
+        ([subKey, subSchema]) =>
+          parseField(subKey, subSchema as JSONSchema, items.required || []),
       );
     } else {
       // For primitive arrays, create a simple schema
-      field.schema = [{
-        key: "value",
-        type: getFieldType(items),
-        required: false,
-      }];
+      field.schema = [
+        {
+          key: "value",
+          type: getFieldType(items),
+          required: false,
+        },
+      ];
     }
   }
 
@@ -89,14 +96,14 @@ function getFieldType(schema: JSONSchema): string {
   // Handle anyOf/oneOf/allOf
   if (schema.anyOf || schema.oneOf || schema.allOf) {
     const schemas = schema.anyOf || schema.oneOf || schema.allOf || [];
-    const types = schemas.map(s => getFieldType(s as JSONSchema));
+    const types = schemas.map((s) => getFieldType(s as JSONSchema));
     // Return the first non-null type
-    return types.find(t => t !== "null") || "string";
+    return types.find((t) => t !== "null") || "string";
   }
 
   // Handle type arrays (e.g., ["string", "null"])
   if (Array.isArray(schema.type)) {
-    const nonNullType = schema.type.find(t => t !== "null");
+    const nonNullType = schema.type.find((t) => t !== "null");
     return mapJsonTypeToFieldType(nonNullType || "string", schema);
   }
 

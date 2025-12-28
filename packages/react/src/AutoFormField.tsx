@@ -1,10 +1,10 @@
-import React from "react";
+import type React from "react";
 import { useFormContext } from "react-hook-form";
 import { useAutoForm } from "./context";
-import { getLabel, ParsedField } from "@bwalk/core";
+import { getLabel, type ParsedField } from "@bwalk/core";
 import { ObjectField } from "./ObjectField";
 import { ArrayField } from "./ArrayField";
-import { AutoFormFieldProps } from "./types";
+import type { AutoFormFieldProps } from "./types";
 import { getPathInObject } from "./utils";
 
 export const AutoFormField: React.FC<{

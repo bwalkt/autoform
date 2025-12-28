@@ -9,20 +9,17 @@
     "url": "https://github.com/vantezzen/autoform"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint . --write",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "devDependencies": {
-    "@bwalk/eslint-config": "file:../eslint-config",
     "@bwalk/typescript-config": "file:../typescript-config",
     "@turbo/gen": "^1.12.4",
-    "@types/eslint": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "eslint": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:"
   }

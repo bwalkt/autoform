@@ -1,6 +1,6 @@
 import { TextField } from "@/elements";
-import { AutoFormFieldProps } from "@bwalk/react";
-import React from "react";
+import type { AutoFormFieldProps } from "@bwalk/react";
+import type React from "react";
 
 export const StringField: React.FC<AutoFormFieldProps> = ({
   inputProps,
@@ -10,12 +10,12 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   const { key, ...props } = inputProps;
 
   return (
-    <TextField 
-      id={id} 
+    <TextField
+      id={id}
       color={error ? "error" : "default"}
       variant="surface"
       size="2"
-      {...props} 
+      {...props}
     />
   );
 };

@@ -1,5 +1,5 @@
-import { SchemaProvider } from "./schema-provider";
-import { ParsedField, ParsedSchema } from "./types";
+import type { SchemaProvider } from "./schema-provider";
+import type { ParsedField, ParsedSchema } from "./types";
 
 export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
   const schema = schemaProvider.parseSchema();
@@ -14,14 +14,14 @@ export function validateSchema(schemaProvider: SchemaProvider, values: any) {
 }
 
 export function getDefaultValues(
-  schemaProvider: SchemaProvider
+  schemaProvider: SchemaProvider,
 ): Record<string, any> {
   return schemaProvider.getDefaultValues();
 }
 
 // Recursively remove empty values from an object (null, undefined, "", [], {})
 export function removeEmptyValues<T extends Record<string, any>>(
-  values: T
+  values: T,
 ): Partial<T> {
   const result: Partial<T> = {};
   for (const key in values) {
@@ -53,7 +53,7 @@ export function removeEmptyValues<T extends Record<string, any>>(
  * If no order is set, the field will be sorted based on the order in the schema.
  */
 export function sortFieldsByOrder(
-  fields: ParsedField[] | undefined
+  fields: ParsedField[] | undefined,
 ): ParsedField[] {
   if (!fields) return [];
   const sortedFields = fields

@@ -1,9 +1,9 @@
 import React from "react";
 import {
   AutoForm as BaseAutoForm,
-  AutoFormUIComponents,
+  type AutoFormUIComponents,
 } from "@bwalk/react";
-import { AutoFormProps } from "./types";
+import type { AutoFormProps } from "./types";
 import { Form } from "./components/Form";
 import { FieldWrapper } from "./components/FieldWrapper";
 import { ErrorMessage } from "./components/ErrorMessage";

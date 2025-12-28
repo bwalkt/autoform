@@ -1,12 +1,19 @@
-import { designTokens, type Size, type Variant, type Color, type Radius, type ResponsiveSize } from './tokens';
+import {
+  designTokens,
+  type Size,
+  type Variant,
+  type Color,
+  type Radius,
+  type ResponsiveSize,
+} from "./tokens";
 
 export function getResponsiveSize(size: ResponsiveSize): string {
-  if (typeof size === 'string') {
+  if (typeof size === "string") {
     return size;
   }
 
   const breakpoints = {
-    initial: size.initial || '2',
+    initial: size.initial || "2",
     xs: size.xs,
     sm: size.sm,
     md: size.md,
@@ -14,8 +21,8 @@ export function getResponsiveSize(size: ResponsiveSize): string {
     xl: size.xl,
   };
 
-  let classes = '';
-  
+  let classes = "";
+
   if (breakpoints.initial) {
     classes += ` size-${breakpoints.initial}`;
   }
@@ -42,28 +49,30 @@ export function getElementStyles(
   size: Size,
   variant: Variant,
   color: Color | undefined,
-  radius: Radius
+  radius: Radius,
 ) {
   const sizeTokens = designTokens.size[size];
   const variantTokens = designTokens.variant[variant];
   const radiusToken = designTokens.radius[radius];
-  const colorTokens = color ? designTokens.color[color] : designTokens.color.default;
+  const colorTokens = color
+    ? designTokens.color[color]
+    : designTokens.color.default;
 
   return {
-    '--element-height': sizeTokens.height,
-    '--element-font-size': sizeTokens.fontSize,
-    '--element-padding-x': sizeTokens.paddingX,
-    '--element-padding-y': sizeTokens.paddingY,
-    '--element-line-height': sizeTokens.lineHeight,
-    '--element-border-radius': radiusToken,
-    '--color-border': colorTokens.border,
-    '--color-border-subtle': colorTokens.borderSubtle,
-    '--color-background': colorTokens.background,
-    '--color-surface': colorTokens.surface,
-    '--color-soft-background': colorTokens.softBackground,
-    '--color-soft-background-hover': colorTokens.softBackgroundHover,
-    '--color-primary': colorTokens.primary,
-    '--color-primary-alpha': colorTokens.primaryAlpha,
-    '--color-text': colorTokens.text,
+    "--element-height": sizeTokens.height,
+    "--element-font-size": sizeTokens.fontSize,
+    "--element-padding-x": sizeTokens.paddingX,
+    "--element-padding-y": sizeTokens.paddingY,
+    "--element-line-height": sizeTokens.lineHeight,
+    "--element-border-radius": radiusToken,
+    "--color-border": colorTokens.border,
+    "--color-border-subtle": colorTokens.borderSubtle,
+    "--color-background": colorTokens.background,
+    "--color-surface": colorTokens.surface,
+    "--color-soft-background": colorTokens.softBackground,
+    "--color-soft-background-hover": colorTokens.softBackgroundHover,
+    "--color-primary": colorTokens.primary,
+    "--color-primary-alpha": colorTokens.primaryAlpha,
+    "--color-text": colorTokens.text,
   } as React.CSSProperties;
 }

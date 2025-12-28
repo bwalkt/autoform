@@ -2,7 +2,11 @@ import Ajv from "ajv";
 import type { Schema } from "ajv";
 import type { JSONSchemaType } from "ajv/dist/types/json-schema";
 import addFormats from "ajv-formats";
-import { SchemaProvider, ParsedSchema, SchemaValidation } from "@bwalk/core";
+import type {
+  SchemaProvider,
+  ParsedSchema,
+  SchemaValidation,
+} from "@bwalk/core";
 import { parseSchema } from "./schema-parser";
 import { getDefaultValues } from "./default-values";
 
@@ -18,7 +22,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
    */
   constructor(
     private schema: JSONSchemaType<T> | Schema,
-    ajvOptions: any = {}
+    ajvOptions: any = {},
   ) {
     if (!schema) {
       throw new Error("AjvProvider: schema is required");
@@ -47,7 +51,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
 
   validateSchema(values: T): SchemaValidation {
     const valid = this.compiledSchema(values);
-    
+
     if (valid) {
       return { success: true, data: values } as const;
     }

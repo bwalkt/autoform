@@ -15,11 +15,11 @@ interface DemoData {
 const AjvProviderDemo = ({ provider }: { provider: AjvProvider }) => {
   const parsedSchema = provider.parseSchema();
   const defaultValues = provider.getDefaultValues();
-  
+
   // Test validation with valid data
   const validData: DemoData = { name: "John", age: 25, isActive: true };
   const validResult = provider.validateSchema(validData);
-  
+
   // Test validation with invalid data
   const invalidData = { name: "", age: -1, isActive: "yes" } as any;
   const invalidResult = provider.validateSchema(invalidData);
@@ -27,7 +27,7 @@ const AjvProviderDemo = ({ provider }: { provider: AjvProvider }) => {
   return (
     <div className="space-y-6 p-6 max-w-2xl">
       <h2 className="text-2xl font-bold">AJV Provider Demo</h2>
-      
+
       <div>
         <h3 className="text-lg font-semibold mb-2">Parsed Schema:</h3>
         <pre className="bg-gray-100 p-3 rounded text-sm overflow-auto">
@@ -49,7 +49,8 @@ const AjvProviderDemo = ({ provider }: { provider: AjvProvider }) => {
             <strong>Input:</strong> {JSON.stringify(validData)}
           </div>
           <div>
-            <strong>Result:</strong> {validResult.success ? "✅ Valid" : "❌ Invalid"}
+            <strong>Result:</strong>{" "}
+            {validResult.success ? "✅ Valid" : "❌ Invalid"}
           </div>
         </div>
       </div>
@@ -61,7 +62,8 @@ const AjvProviderDemo = ({ provider }: { provider: AjvProvider }) => {
             <strong>Input:</strong> {JSON.stringify(invalidData)}
           </div>
           <div className="mb-2">
-            <strong>Result:</strong> {invalidResult.success ? "✅ Valid" : "❌ Invalid"}
+            <strong>Result:</strong>{" "}
+            {invalidResult.success ? "✅ Valid" : "❌ Invalid"}
           </div>
           {!invalidResult.success && (
             <div>
@@ -89,27 +91,27 @@ const demoSchema = {
       {
         type: "string",
         minLength: 1,
-        description: "Person's name"
+        description: "Person's name",
       },
       {
         label: "Full Name",
-        placeholder: "Enter name"
-      }
+        placeholder: "Enter name",
+      },
     ),
     age: {
       type: "number",
       minimum: 0,
       maximum: 150,
       default: 30,
-      description: "Person's age"
+      description: "Person's age",
     },
     isActive: {
       type: "boolean",
       default: true,
-      description: "Whether the person is active"
-    }
+      description: "Whether the person is active",
+    },
   },
-  required: ["name", "age", "isActive"]
+  required: ["name", "age", "isActive"],
 };
 
 const meta: Meta<typeof AjvProviderDemo> = {
@@ -135,7 +137,7 @@ export const WithCustomOptions: Story = {
     provider: new AjvProvider(demoSchema, {
       allErrors: true,
       verbose: true,
-      strict: false
+      strict: false,
     }),
   },
 };

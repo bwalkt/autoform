@@ -7,8 +7,8 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --max-warnings 0 --fix",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint . --write",
     "build": "npx tsx src/scripts/build.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -27,19 +27,15 @@
     "./elements": "./src/elements/index.ts"
   },
   "devDependencies": {
-    "@bwalk/eslint-config": "file:../eslint-config",
     "@bwalk/typescript-config": "file:../typescript-config",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-links": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@tailwindcss/postcss": "catalog:",
-    "@types/eslint": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "autoprefixer": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-storybook": "catalog:",
     "glob": "catalog:",
     "postcss": "catalog:",
     "postcss-load-config": "catalog:",

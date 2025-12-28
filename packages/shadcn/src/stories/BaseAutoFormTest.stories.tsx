@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { AjvProvider } from '@bwalk/ajv';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import * as React from "react";
+import { AjvProvider } from "@bwalk/ajv";
 
 const meta: Meta = {
-  title: 'Debug/Base AutoForm Test',
+  title: "Debug/Base AutoForm Test",
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
@@ -14,51 +14,54 @@ type Story = StoryObj<typeof meta>;
 
 export const DirectBaseAutoFormTest: Story = {
   render: () => {
-    const [status, setStatus] = React.useState<string>('Initializing...');
+    const [status, setStatus] = React.useState<string>("Initializing...");
     const [provider, setProvider] = React.useState<AjvProvider | null>(null);
 
     React.useEffect(() => {
       async function initializeProvider() {
         try {
-          console.log('=== Base AutoForm Test ===');
-          
+          console.log("=== Base AutoForm Test ===");
+
           // Create provider
           const schema = {
-            type: 'object' as const,
+            type: "object" as const,
             properties: {
-              name: { type: 'string' as const, title: 'Name' },
-              email: { type: 'string' as const, format: 'email', title: 'Email' }
+              name: { type: "string" as const, title: "Name" },
+              email: {
+                type: "string" as const,
+                format: "email",
+                title: "Email",
+              },
             },
-            required: ['name']
+            required: ["name"],
           };
-          
-          console.log('Creating AjvProvider...');
+
+          console.log("Creating AjvProvider...");
           const ajvProvider = new AjvProvider(schema);
-          
-          console.log('Provider created:', ajvProvider);
-          console.log('Provider methods:', {
+
+          console.log("Provider created:", ajvProvider);
+          console.log("Provider methods:", {
             parseSchema: typeof ajvProvider.parseSchema,
             validateSchema: typeof ajvProvider.validateSchema,
-            getDefaultValues: typeof ajvProvider.getDefaultValues
+            getDefaultValues: typeof ajvProvider.getDefaultValues,
           });
-          
+
           // Test provider methods work
-          console.log('Testing provider methods...');
+          console.log("Testing provider methods...");
           const parsed = ajvProvider.parseSchema();
-          const validated = ajvProvider.validateSchema({ name: 'test' });
+          const validated = ajvProvider.validateSchema({ name: "test" });
           const defaults = ajvProvider.getDefaultValues();
-          
-          console.log('Method results:', { parsed, validated, defaults });
-          
+
+          console.log("Method results:", { parsed, validated, defaults });
+
           setProvider(ajvProvider);
-          setStatus('Provider ready - testing with BaseAutoForm...');
-          
+          setStatus("Provider ready - testing with BaseAutoForm...");
         } catch (error) {
-          console.error('Provider initialization error:', error);
+          console.error("Provider initialization error:", error);
           setStatus(`Provider error: ${error.message}`);
         }
       }
-      
+
       initializeProvider();
     }, []);
 
@@ -76,9 +79,11 @@ export const DirectBaseAutoFormTest: Story = {
     return (
       <div className="p-4 space-y-4">
         <h3 className="text-lg font-medium mb-4">Base AutoForm Test</h3>
-        
+
         <div className="p-4 bg-green-50 border border-green-200 rounded">
-          <p className="text-sm text-green-700">✅ Provider initialized successfully</p>
+          <p className="text-sm text-green-700">
+            ✅ Provider initialized successfully
+          </p>
         </div>
 
         <div className="border p-4 rounded">
@@ -90,30 +95,33 @@ export const DirectBaseAutoFormTest: Story = {
   },
 };
 
-const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({ provider }) => {
+const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({
+  provider,
+}) => {
   React.useEffect(() => {
-    console.log('=== DirectBaseAutoForm Render ===');
-    console.log('Received provider:', provider);
-    console.log('Provider type:', typeof provider);
-    console.log('Provider constructor:', provider?.constructor?.name);
-    console.log('Provider parseSchema:', provider?.parseSchema);
-    console.log('Provider parseSchema type:', typeof provider?.parseSchema);
+    console.log("=== DirectBaseAutoForm Render ===");
+    console.log("Received provider:", provider);
+    console.log("Provider type:", typeof provider);
+    console.log("Provider constructor:", provider?.constructor?.name);
+    console.log("Provider parseSchema:", provider?.parseSchema);
+    console.log("Provider parseSchema type:", typeof provider?.parseSchema);
   }, [provider]);
 
   try {
     // Import BaseAutoForm dynamically to test
     const [BaseAutoForm, setBaseAutoForm] = React.useState<any>(null);
     const [error, setError] = React.useState<string | null>(null);
-    
+
     React.useEffect(() => {
       async function loadBaseAutoForm() {
         try {
-          console.log('Loading BaseAutoForm from @bwalk/react...');
-          const { AutoForm: BaseAutoFormComponent } = await import('@bwalk/react');
-          console.log('BaseAutoForm loaded:', BaseAutoFormComponent);
+          console.log("Loading BaseAutoForm from @bwalk/react...");
+          const { AutoForm: BaseAutoFormComponent } =
+            await import("@bwalk/react");
+          console.log("BaseAutoForm loaded:", BaseAutoFormComponent);
           setBaseAutoForm(() => BaseAutoFormComponent);
         } catch (error) {
-          console.error('Error loading BaseAutoForm:', error);
+          console.error("Error loading BaseAutoForm:", error);
           setError(`Failed to load BaseAutoForm: ${error.message}`);
         }
       }
@@ -150,7 +158,10 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({ provider }) =
         <p className="text-red-600 text-sm">{error}</p>
       ),
       SubmitButton: ({ children }: any) => (
-        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded"
+        >
           {children}
         </button>
       ),
@@ -164,35 +175,47 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({ provider }) =
         <div className="space-y-2">
           {label && <h4 className="font-medium">{label}</h4>}
           <div className="space-y-2">{children}</div>
-          <button type="button" onClick={onAddItem} className="text-sm text-blue-600">Add Item</button>
+          <button
+            type="button"
+            onClick={onAddItem}
+            className="text-sm text-blue-600"
+          >
+            Add Item
+          </button>
         </div>
       ),
       ArrayElementWrapper: ({ children, onRemove }: any) => (
         <div className="flex items-center space-x-2">
           <div className="flex-1">{children}</div>
-          <button type="button" onClick={onRemove} className="text-sm text-red-600">Remove</button>
+          <button
+            type="button"
+            onClick={onRemove}
+            className="text-sm text-red-600"
+          >
+            Remove
+          </button>
         </div>
       ),
     };
 
     const mockFormComponents = {
       string: (props: any) => (
-        <input 
-          type="text" 
-          className="w-full border rounded px-2 py-1" 
+        <input
+          type="text"
+          className="w-full border rounded px-2 py-1"
           {...props.inputProps}
         />
       ),
       email: (props: any) => (
-        <input 
-          type="email" 
-          className="w-full border rounded px-2 py-1" 
+        <input
+          type="email"
+          className="w-full border rounded px-2 py-1"
           {...props.inputProps}
         />
       ),
     };
 
-    console.log('Attempting to render BaseAutoForm with provider:', provider);
+    console.log("Attempting to render BaseAutoForm with provider:", provider);
 
     return (
       <BaseAutoForm
@@ -200,15 +223,14 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({ provider }) =
         uiComponents={mockUIComponents}
         formComponents={mockFormComponents}
         onSubmit={(data: any) => {
-          console.log('Form submitted:', data);
-          alert('Form submitted! Check console for data.');
+          console.log("Form submitted:", data);
+          alert("Form submitted! Check console for data.");
         }}
         withSubmit={true}
       />
     );
-
   } catch (error) {
-    console.error('Error in DirectBaseAutoForm:', error);
+    console.error("Error in DirectBaseAutoForm:", error);
     return (
       <div className="p-3 bg-red-50 border border-red-200 rounded">
         <p className="text-red-700 text-sm">Component error: {error.message}</p>
