@@ -11,14 +11,14 @@
     "cypress:dev": "turbo run cypress --filter=web --parallel"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
-    "turbo": "^2.1.3",
-    "typescript": "^5.4.5"
+    "prettier": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:"
   },
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@10.26.2",
   "workspaces": [
     "apps/*",
     "packages/*"
