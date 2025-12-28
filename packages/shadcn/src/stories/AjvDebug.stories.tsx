@@ -23,7 +23,7 @@ export const AjvProviderTest: Story = {
           console.log("Starting AJV Provider test...");
 
           // Dynamic import to test
-          const ajvModule = await import("@bwalk/ajv");
+          const ajvModule = await import("@bwalkt/ajv");
           console.log("AJV Module imported:", ajvModule);
 
           const { AjvProvider } = ajvModule;

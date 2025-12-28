@@ -1,4 +1,4 @@
-import type { ExtendableAutoFormProps } from "@bwalk/react";
+import type { ExtendableAutoFormProps } from "@bwalkt/react";
 import type { FieldValues } from "react-hook-form";
 
 export interface AutoFormProps<

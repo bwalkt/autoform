@@ -1,5 +1,5 @@
 import { Select, SelectItem } from "@/elements";
-import type { AutoFormFieldProps } from "@bwalk/react";
+import type { AutoFormFieldProps } from "@bwalkt/react";
 import type React from "react";
 
 export const SelectField: React.FC<AutoFormFieldProps> = ({

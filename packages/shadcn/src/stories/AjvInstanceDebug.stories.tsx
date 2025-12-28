@@ -22,7 +22,7 @@ export const AjvInstanceTest: Story = {
 
           // Step 1: Import the module
           console.log("1. Importing AJV module...");
-          const ajvModule = await import("@bwalk/ajv");
+          const ajvModule = await import("@bwalkt/ajv");
           console.log("   AJV Module:", ajvModule);
 
           // Step 2: Check if AjvProvider exists
@@ -145,7 +145,7 @@ export const AjvInstanceTest: Story = {
             🔍 What this tests:
           </h3>
           <ul className="text-sm text-blue-800 space-y-1">
-            <li>• Module import from @bwalk/ajv</li>
+            <li>• Module import from @bwalkt/ajv</li>
             <li>• AjvProvider class existence and structure</li>
             <li>• Instance creation with test schema</li>
             <li>

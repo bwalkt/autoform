@@ -1,7 +1,7 @@
 import type React from "react";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "./context";
-import { getLabel, type ParsedField } from "@bwalk/core";
+import { getLabel, type ParsedField } from "@bwalkt/core";
 
 export const ObjectField: React.FC<{
   field: ParsedField;

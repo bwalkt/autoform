@@ -23,7 +23,7 @@ const registry: z.infer<typeof registryEntrySchema> = {
     "textarea",
     "toggle",
   ],
-  dependencies: ["zod", "@bwalk/react"],
+  dependencies: ["zod", "@bwalkt/react"],
   devDependencies: [],
   tailwind: {
     config: {},

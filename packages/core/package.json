@@ -1,5 +1,5 @@
 {
-  "name": "@bwalk/core",
+  "name": "@bwalkt/core",
   "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -15,7 +15,7 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "devDependencies": {
-    "@bwalk/typescript-config": "file:../typescript-config",
+    "@bwalkt/typescript-config": "file:../typescript-config",
     "@turbo/gen": "^1.12.4",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

@@ -1,4 +1,4 @@
-# @bwalk/react
+# @bwalkt/react
 
 ## 4.0.0
 
@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @bwalk/core@3.0.0
+  - @bwalkt/core@3.0.0
 
 ## 3.1.0
 
@@ -20,9 +20,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @bwalk/core@2.2.0
-  - @bwalk/yup@2.2.0
-  - @bwalk/zod@2.2.0
+  - @bwalkt/core@2.2.0
+  - @bwalkt/yup@2.2.0
+  - @bwalkt/zod@2.2.0
 
 ## 3.0.0
 
@@ -39,8 +39,8 @@
 ### Patch Changes
 
 - Updated dependencies [df38752]
-  - @bwalk/yup@2.1.0
-  - @bwalk/zod@2.1.0
+  - @bwalkt/yup@2.1.0
+  - @bwalkt/zod@2.1.0
 
 ## 2.1.0
 
@@ -57,9 +57,9 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @bwalk/core@2.0.0
-  - @bwalk/yup@2.0.0
-  - @bwalk/zod@2.0.0
+  - @bwalkt/core@2.0.0
+  - @bwalkt/yup@2.0.0
+  - @bwalkt/zod@2.0.0
 
 ## 1.3.0
 
@@ -70,8 +70,8 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @bwalk/core@1.2.0
-  - @bwalk/zod@1.2.0
+  - @bwalkt/core@1.2.0
+  - @bwalkt/zod@1.2.0
 
 ## 1.2.1
 
@@ -79,8 +79,8 @@
 
 - Add yup support
 - Updated dependencies
-  - @bwalk/core@1.1.3
-  - @bwalk/zod@1.1.3
+  - @bwalkt/core@1.1.3
+  - @bwalkt/zod@1.1.3
 
 ## 1.2.0
 
@@ -92,8 +92,8 @@
 
 - Clean build package
 - Updated dependencies
-  - @bwalk/core@1.1.2
-  - @bwalk/zod@1.1.2
+  - @bwalkt/core@1.1.2
+  - @bwalkt/zod@1.1.2
 
 ## 1.1.1
 
@@ -101,8 +101,8 @@
 
 - Fix build
 - Updated dependencies
-  - @bwalk/core@1.1.1
-  - @bwalk/zod@1.1.1
+  - @bwalkt/core@1.1.1
+  - @bwalkt/zod@1.1.1
 
 ## 1.1.0
 
@@ -113,5 +113,5 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @bwalk/core@1.1.0
-  - @bwalk/zod@1.1.0
+  - @bwalkt/core@1.1.0
+  - @bwalkt/zod@1.1.0

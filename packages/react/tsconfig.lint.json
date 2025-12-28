@@ -1,5 +1,5 @@
 {
-  "extends": "@bwalk/typescript-config/react-library.json",
+  "extends": "@bwalkt/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },

@@ -1,6 +1,6 @@
-import { Button } from "@bwalk/components/ui/button";
-import { Input } from "@bwalk/components/ui/input";
-import { Label } from "@bwalk/components/ui/label";
+import { Button } from "@bwalkt/components/ui/button";
+import { Input } from "@bwalkt/components/ui/input";
+import { Label } from "@bwalkt/components/ui/label";
 import {
   Sheet,
   SheetContent,
@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@bwalk/components/ui/sheet";
+} from "@bwalkt/components/ui/sheet";
 
 export const title = "Multi-Step Form Sheet";
 

@@ -283,8 +283,8 @@ const StaticSchemaDemo = () => {
         <div className="mt-8 p-6 bg-gray-800 text-green-400 rounded-lg">
           <h3 className="font-semibold mb-3">💻 Code Example</h3>
           <pre className="text-sm overflow-auto">
-            {`import { AutoForm } from "@bwalk/react";
-import { AjvProvider } from "@bwalk/ajv";
+            {`import { AutoForm } from "@bwalkt/react";
+import { AjvProvider } from "@bwalkt/ajv";
 
 const provider = new AjvProvider(userProfileSchema);
 

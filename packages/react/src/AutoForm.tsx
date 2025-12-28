@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useEffect } from "react";
 import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
-import { parseSchema, getDefaultValues, removeEmptyValues, type SchemaValidationError, type ParsedField } from "@bwalk/core";
+import { parseSchema, getDefaultValues, removeEmptyValues, type SchemaValidationError, type ParsedField } from "@bwalkt/core";
 import type { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";

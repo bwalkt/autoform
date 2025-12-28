@@ -1,5 +1,5 @@
 {
-  "name": "@bwalk/ajv",
+  "name": "@bwalkt/ajv",
   "version": "5.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -15,7 +15,7 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "devDependencies": {
-    "@bwalk/typescript-config": "workspace:*",
+    "@bwalkt/typescript-config": "workspace:*",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-links": "catalog:",
@@ -35,7 +35,7 @@
     "ajv": "^8.0.0"
   },
   "dependencies": {
-    "@bwalk/core": "workspace:*",
+    "@bwalkt/core": "workspace:*",
     "ajv-formats": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"

@@ -21,8 +21,8 @@ export const SchemaProviderInterfaceTest: Story = {
           console.log("=== Schema Provider Interface Test ===");
 
           // Import modules
-          const { AjvProvider } = await import("@bwalk/ajv");
-          const { SchemaProvider } = await import("@bwalk/core");
+          const { AjvProvider } = await import("@bwalkt/ajv");
+          const { SchemaProvider } = await import("@bwalkt/core");
 
           console.log("AjvProvider class:", AjvProvider);
           console.log("SchemaProvider interface/type:", SchemaProvider);

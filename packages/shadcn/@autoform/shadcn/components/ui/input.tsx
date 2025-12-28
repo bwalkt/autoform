@@ -1,6 +1,6 @@
 import type * as React from "react";
 
-import { cn } from "@bwalk/shadcn/lib/utils";
+import { cn } from "@bwalkt/shadcn/lib/utils";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (

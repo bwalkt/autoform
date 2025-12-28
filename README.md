@@ -18,7 +18,7 @@ What is AutoForm? Let's say you have a zod schema that you already use for your 
 
 ```ts
 import { z } from "zod";
-import { ZodProvider } from "@bwalk/zod";
+import { ZodProvider } from "@bwalkt/zod";
 
 const userSchema = z.object({
   name: z.string(),
@@ -32,7 +32,7 @@ export const schemaProvider = new ZodProvider(userSchema);
 With AutoForm, you can automatically render a form for this schema:
 
 ```tsx
-import { AutoForm } from "@bwalk/mui";
+import { AutoForm } from "@bwalkt/mui";
 import { schemaProvider } from "./schema";
 
 function MyForm() {
@@ -62,7 +62,7 @@ However, AutoForm does not aim to be a full-featured form builder. It does not a
 
 AutoForm started out as a [shadcn/ui component](https://github.com/vantezzen/auto-form) but grew so large I decided it's best to split it into a package instead.
 
-`@bwalk/react` does currently not have full feature-parity with the shadcn/ui component, but it's getting there. If you want to use the shadcn/ui component, you can still use it as a standalone package.
+`@bwalkt/react` does currently not have full feature-parity with the shadcn/ui component, but it's getting there. If you want to use the shadcn/ui component, you can still use it as a standalone package.
 
 ## Development
 

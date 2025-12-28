@@ -1,4 +1,4 @@
-import { FieldConfig } from "@bwalk/core";
+import { FieldConfig } from "@bwalkt/core";
 import React, { ReactNode } from "react";
 import { FieldWrapperProps } from "./types";
 

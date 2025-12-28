@@ -1,4 +1,4 @@
-# @bwalk/typescript-config
+# @bwalkt/typescript-config
 
 ## 2.0.0
 

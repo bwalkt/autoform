@@ -1,7 +1,7 @@
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
-import type { ArrayElementWrapperProps } from "@bwalk/react";
+import type { ArrayElementWrapperProps } from "@bwalkt/react";
 
 export const ArrayElementWrapper: React.FC<ArrayElementWrapperProps> = ({
   children,

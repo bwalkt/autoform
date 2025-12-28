@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ObjectWrapperProps } from "@bwalk/react";
+import type { ObjectWrapperProps } from "@bwalkt/react";
 
 export const ObjectWrapper: React.FC<ObjectWrapperProps> = ({
   label,

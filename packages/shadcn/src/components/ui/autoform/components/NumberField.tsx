@@ -1,5 +1,5 @@
 import { TextField } from "@/elements";
-import type { AutoFormFieldProps } from "@bwalk/react";
+import type { AutoFormFieldProps } from "@bwalkt/react";
 import type React from "react";
 
 export const NumberField: React.FC<AutoFormFieldProps> = ({

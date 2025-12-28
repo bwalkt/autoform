@@ -1,7 +1,7 @@
 import type React from "react";
 import { useFormContext } from "react-hook-form";
 import { useAutoForm } from "./context";
-import { getLabel, type ParsedField } from "@bwalk/core";
+import { getLabel, type ParsedField } from "@bwalkt/core";
 import { ObjectField } from "./ObjectField";
 import { ArrayField } from "./ArrayField";
 import type { AutoFormFieldProps } from "./types";

@@ -6,7 +6,7 @@ import type {
   SchemaProvider,
   ParsedSchema,
   SchemaValidation,
-} from "@bwalk/core";
+} from "@bwalkt/core";
 import { parseSchema } from "./schema-parser";
 import { getDefaultValues } from "./default-values";
 

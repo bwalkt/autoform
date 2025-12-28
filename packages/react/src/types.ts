@@ -5,7 +5,7 @@ import type {
   Renderable,
   SchemaProvider,
   FieldConfig as BaseFieldConfig,
-} from "@bwalk/core";
+} from "@bwalkt/core";
 import type { FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface AutoFormProps<T extends FieldValues> {

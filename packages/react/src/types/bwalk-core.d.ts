@@ -1,4 +1,4 @@
-declare module '@bwalk/core' {
+declare module '@bwalkt/core' {
   type Renderable<AdditionalRenderable = null> = string | number | boolean | null | undefined | AdditionalRenderable;
   
   interface FieldConfig<AdditionalRenderable = null, FieldTypes = string, FieldWrapper = any, CustomData = Record<string, any>> {
