@@ -11,7 +11,7 @@ import { getDefaultValues } from "./default-values";
 
 export class AjvProvider<T = unknown> implements SchemaProvider<T> {
   private ajv: Ajv;
-  private compiledSchema: unknown;
+  private compiledSchema: any;
 
   /**
    * Provider to use AJV JSON schemas for AutoForm
@@ -58,9 +58,9 @@ export class AjvProvider<T = unknown> implements SchemaProvider<T> {
     const errors = this.compiledSchema.errors || [];
     return {
       success: false,
-      errors: errors.map((error: Record<string, unknown>) => ({
+      errors: errors.map((error: any) => ({
         path: error.instancePath
-          ? error.instancePath.split("/").filter(Boolean)
+          ? (error.instancePath as string).split("/").filter(Boolean)
           : [],
         message: error.message || "Validation error",
       })),

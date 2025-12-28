@@ -32,16 +32,16 @@ export function removeEmptyValues<T extends Record<string, unknown>>(
 
     if (Array.isArray(value)) {
       const newArray = value.map((item: unknown) => {
-        if (typeof item === "object") {
-          return removeEmptyValues(item);
+        if (typeof item === "object" && item !== null) {
+          return removeEmptyValues(item as Record<string, unknown>);
         }
         return item;
       });
-      result[key] = newArray.filter((item: unknown) => item !== null);
-    } else if (typeof value === "object") {
-      result[key] = removeEmptyValues(value) as T[keyof T];
+      result[key] = newArray.filter((item: unknown) => item !== null) as any;
+    } else if (typeof value === "object" && value !== null) {
+      result[key] = removeEmptyValues(value as Record<string, unknown>) as any;
     } else {
-      result[key] = value;
+      result[key] = value as any;
     }
   }
 

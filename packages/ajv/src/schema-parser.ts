@@ -1,5 +1,5 @@
 import type { Schema } from "ajv";
-import type { ParsedField, ParsedSchema } from "@bwalkt/core";
+import type { ParsedField, ParsedSchema, FieldConfig } from "@bwalkt/core";
 import { AJV_FIELD_CONFIG_SYMBOL } from "./field-config";
 
 type JSONSchema = Schema & {
@@ -50,7 +50,7 @@ function parseField(
     required: requiredFields.includes(key),
     description: fieldSchema.description,
     default: fieldSchema.default,
-    fieldConfig: fieldSchema[AJV_FIELD_CONFIG_SYMBOL],
+    fieldConfig: fieldSchema[AJV_FIELD_CONFIG_SYMBOL] as FieldConfig | undefined,
   };
 
   // Handle enums

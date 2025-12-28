@@ -37,14 +37,14 @@ export function AutoForm<T extends Record<string, unknown>>({
     const validationResult = schema.validateSchema(data as T);
     console.log("validationResult", { validationResult, dataRaw, data });
     if (validationResult.success) {
-      await onSubmit(validationResult.data, methods);
+      await onSubmit(validationResult.data as T, methods);
     } else {
       methods.clearErrors();
       let isFocused: boolean = false;
       for (const error of validationResult.errors || []) {
         const path = error.path.join(".");
         methods.setError(
-          path as keyof T,
+          path as any,
           {
             type: "custom",
             message: error.message,
@@ -57,7 +57,7 @@ export function AutoForm<T extends Record<string, unknown>>({
         // For some custom errors, zod adds the final element twice for some reason
         const correctedPath = error.path?.slice?.(0, -1);
         if (correctedPath?.length > 0) {
-          methods.setError(correctedPath.join(".") as keyof T, {
+          methods.setError(correctedPath.join(".") as any, {
             type: "custom",
             message: error.message,
           });
