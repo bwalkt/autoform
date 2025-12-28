@@ -23,7 +23,8 @@
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
-    "./components/*": "./src/components/*.tsx"
+    "./components/*": "./src/components/*.tsx",
+    "./elements": "./src/elements/index.ts"
   },
   "devDependencies": {
     "@autoform/eslint-config": "*",

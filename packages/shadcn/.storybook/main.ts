@@ -1,15 +1,15 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: [
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../src/**/*.mdx",
-    "../ajv/stories/*.stories.@(js|jsx|mjs|ts|tsx)",
-    "!**/node_modules/**/*.stories.*",
   ],
-  addons: [
-    "@storybook/addon-links",
-  ],
+  addons: [],
   framework: {
     name: "@storybook/react-vite",
     options: {},
@@ -19,6 +19,15 @@ const config: StorybookConfig = {
   },
   typescript: {
     reactDocgen: false,
+  },
+  viteFinal: async (config) => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "@": resolve(__dirname, "../src"),
+      };
+    }
+    return config;
   },
 };
 

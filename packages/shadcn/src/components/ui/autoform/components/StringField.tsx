@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { TextField } from "@/elements";
 import { AutoFormFieldProps } from "@autoform/react";
 import React from "react";
 
@@ -10,6 +10,12 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
   const { key, ...props } = inputProps;
 
   return (
-    <Input id={id} className={error ? "border-destructive" : ""} {...props} />
+    <TextField 
+      id={id} 
+      color={error ? "error" : "default"}
+      variant="surface"
+      size="2"
+      {...props} 
+    />
   );
 };

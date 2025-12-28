@@ -34,6 +34,11 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
     addFormats(this.ajv);
 
     this.compiledSchema = this.ajv.compile(this.schema);
+
+    // Bind methods to preserve 'this' context
+    this.parseSchema = this.parseSchema.bind(this);
+    this.validateSchema = this.validateSchema.bind(this);
+    this.getDefaultValues = this.getDefaultValues.bind(this);
   }
 
   parseSchema(): ParsedSchema {
