@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { TextField, Select, SelectItem, Textarea } from "../elements";
-import { Mail, Search, User, Calendar, Lock } from "lucide-react";
+import { Mail, User, Lock } from "lucide-react";
 
 const meta: Meta = {
   title: "Design System/Form Examples",
