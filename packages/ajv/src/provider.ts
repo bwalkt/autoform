@@ -1,5 +1,7 @@
 import Ajv from "ajv";
-import type { JSONSchemaType, Schema } from "ajv";
+import type { Schema } from "ajv";
+import type { JSONSchemaType } from "ajv/dist/types/json-schema";
+import addFormats from "ajv-formats";
 import { SchemaProvider, ParsedSchema, SchemaValidation } from "@autoform/core";
 import { parseSchema } from "./schema-parser";
 import { getDefaultValues } from "./default-values";
@@ -28,6 +30,9 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
       ...ajvOptions,
     });
 
+    // Add format validators (email, date-time, etc.)
+    addFormats(this.ajv);
+
     this.compiledSchema = this.ajv.compile(this.schema);
   }
 
@@ -45,7 +50,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
     const errors = this.compiledSchema.errors || [];
     return {
       success: false,
-      errors: errors.map((error) => ({
+      errors: errors.map((error: any) => ({
         path: error.instancePath
           ? error.instancePath.split("/").filter(Boolean)
           : [],

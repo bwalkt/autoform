@@ -19,10 +19,9 @@ export function withFieldConfig<T extends Schema>(
   schema: T,
   config: FieldConfig
 ): T & { [AJV_FIELD_CONFIG_SYMBOL]: FieldConfig } {
-  return {
-    ...schema,
+  return Object.assign({}, schema, {
     [AJV_FIELD_CONFIG_SYMBOL]: config,
-  };
+  }) as T & { [AJV_FIELD_CONFIG_SYMBOL]: FieldConfig };
 }
 
 /**
