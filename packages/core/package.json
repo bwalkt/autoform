@@ -3,7 +3,6 @@
   "version": "3.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/vantezzen/autoform"
@@ -11,7 +10,7 @@
   "scripts": {
     "lint": "biome lint .",
     "lint:fix": "biome lint . --write",
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "devDependencies": {

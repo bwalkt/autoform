@@ -82,6 +82,9 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
               "bg-[var(--color-soft-background)]",
               "hover:bg-[var(--color-soft-background-hover)]",
               "focus:bg-[var(--color-soft-background-hover)]",
+              "focus-visible:outline-none",
+              "focus-visible:ring-2",
+              "focus-visible:ring-[var(--color-primary-alpha)]",
             ],
 
             // Icon padding adjustments
