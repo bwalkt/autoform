@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { AjvProvider } from '@autoform/ajv';
+import { AjvProvider } from '@bwalk/ajv';
 
 const meta: Meta = {
   title: 'Debug/Base AutoForm Test',
@@ -108,8 +108,8 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({ provider }) =
     React.useEffect(() => {
       async function loadBaseAutoForm() {
         try {
-          console.log('Loading BaseAutoForm from @autoform/react...');
-          const { AutoForm: BaseAutoFormComponent } = await import('@autoform/react');
+          console.log('Loading BaseAutoForm from @bwalk/react...');
+          const { AutoForm: BaseAutoFormComponent } = await import('@bwalk/react');
           console.log('BaseAutoForm loaded:', BaseAutoFormComponent);
           setBaseAutoForm(() => BaseAutoFormComponent);
         } catch (error) {

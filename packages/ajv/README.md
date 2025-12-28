@@ -1,17 +1,17 @@
-# @autoform/ajv
+# @bwalk/ajv
 
 AJV (Another JSON Schema Validator) provider for AutoForm.
 
 ## Installation
 
 ```bash
-npm install @autoform/ajv ajv
+npm install @bwalk/ajv ajv
 ```
 
 ## Usage
 
 ```typescript
-import { AjvProvider } from "@autoform/ajv";
+import { AjvProvider } from "@bwalk/ajv";
 import type { JSONSchemaType } from "ajv";
 
 interface FormData {
@@ -59,7 +59,7 @@ const provider = new AjvProvider(schema);
 You can add AutoForm-specific field configuration using the `withFieldConfig` helper:
 
 ```typescript
-import { withFieldConfig, createField } from "@autoform/ajv";
+import { withFieldConfig, createField } from "@bwalk/ajv";
 
 const schema = {
   type: "object",

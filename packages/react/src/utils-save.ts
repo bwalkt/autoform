@@ -1,4 +1,4 @@
-import { FieldConfig } from "@autoform/core";
+import { FieldConfig } from "@bwalk/core";
 import React, { ReactNode } from "react";
 import { FieldWrapperProps } from "./types";
 

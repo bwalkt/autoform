@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { AjvProvider } from '@autoform/ajv';
+import { AjvProvider } from '@bwalk/ajv';
 
 const meta: Meta = {
   title: 'Test/Simple AJV Test',
@@ -81,7 +81,7 @@ export const CoreParseSchemaTest: Story = {
           console.log('=== Core parseSchema Test ===');
           
           // Import the core parseSchema function
-          const { parseSchema: coreParseSchema } = await import('@autoform/core');
+          const { parseSchema: coreParseSchema } = await import('@bwalk/core');
           console.log('Core parseSchema imported:', coreParseSchema);
           
           // Create AjvProvider

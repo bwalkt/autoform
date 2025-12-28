@@ -2,7 +2,7 @@ import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { AutoFormField } from "./AutoFormField";
 import { useAutoForm } from "./context";
-import { getLabel, ParsedField } from "@autoform/core";
+import { getLabel, ParsedField } from "@bwalk/core";
 
 export const ArrayField: React.FC<{
   field: ParsedField;

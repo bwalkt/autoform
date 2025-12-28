@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 
 const meta: Meta = {
@@ -21,8 +21,8 @@ export const SchemaProviderInterfaceTest: Story = {
           console.log('=== Schema Provider Interface Test ===');
           
           // Import modules
-          const { AjvProvider } = await import('@autoform/ajv');
-          const { SchemaProvider } = await import('@autoform/core');
+          const { AjvProvider } = await import('@bwalk/ajv');
+          const { SchemaProvider } = await import('@bwalk/core');
           
           console.log('AjvProvider class:', AjvProvider);
           console.log('SchemaProvider interface/type:', SchemaProvider);

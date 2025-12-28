@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 // Completely static demo without any React state or hooks
 const StaticSchemaDemo = () => {
@@ -215,8 +215,8 @@ const StaticSchemaDemo = () => {
         <div className="mt-8 p-6 bg-gray-800 text-green-400 rounded-lg">
           <h3 className="font-semibold mb-3">💻 Code Example</h3>
           <pre className="text-sm overflow-auto">
-{`import { AutoForm } from "@autoform/react";
-import { AjvProvider } from "@autoform/ajv";
+{`import { AutoForm } from "@bwalk/react";
+import { AjvProvider } from "@bwalk/ajv";
 
 const provider = new AjvProvider(userProfileSchema);
 

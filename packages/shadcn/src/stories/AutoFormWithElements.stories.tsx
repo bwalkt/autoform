@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { AutoForm } from '../components/ui/autoform/AutoForm';
-import { AjvProvider } from '@autoform/ajv';
+import { AjvProvider } from '@bwalk/ajv';
 
 const meta: Meta = {
   title: 'AutoForm/With Design Token Elements',

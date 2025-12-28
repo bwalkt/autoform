@@ -1,6 +1,6 @@
-import { FieldConfig } from "@autoform/core";
-import { fieldConfig as zodBaseFieldConfig } from "@autoform/zod";
-// import { withFieldConfig as ajvWithFieldConfig } from "@autoform/ajv";
+import { FieldConfig } from "@bwalk/core";
+import { fieldConfig as zodBaseFieldConfig } from "@bwalk/zod";
+// import { withFieldConfig as ajvWithFieldConfig } from "@bwalk/ajv";
 import React, { ReactNode } from "react";
 import { FieldWrapperProps } from "./types";
 

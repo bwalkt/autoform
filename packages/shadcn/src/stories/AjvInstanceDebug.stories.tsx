@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 
 const meta: Meta = {
@@ -22,7 +22,7 @@ export const AjvInstanceTest: Story = {
           
           // Step 1: Import the module
           console.log('1. Importing AJV module...');
-          const ajvModule = await import('@autoform/ajv');
+          const ajvModule = await import('@bwalk/ajv');
           console.log('   AJV Module:', ajvModule);
           
           // Step 2: Check if AjvProvider exists
@@ -120,7 +120,7 @@ export const AjvInstanceTest: Story = {
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <h3 className="font-medium text-blue-900 mb-2">🔍 What this tests:</h3>
           <ul className="text-sm text-blue-800 space-y-1">
-            <li>• Module import from @autoform/ajv</li>
+            <li>• Module import from @bwalk/ajv</li>
             <li>• AjvProvider class existence and structure</li>
             <li>• Instance creation with test schema</li>
             <li>• Method availability (parseSchema, validateSchema, getDefaultValues)</li>

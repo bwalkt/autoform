@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { AutoForm } from '../components/ui/autoform';
-import { AjvProvider } from '@autoform/ajv';
+import { AjvProvider } from '@bwalk/ajv';
 
 const meta: Meta = {
   title: 'AJV/Working Example',

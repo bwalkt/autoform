@@ -1,0 +1,397 @@
+[21:08:54.894] [INFO] Storybook upgrade - v10.1.10
+[21:08:54.895] [INFO] detect-projects-spinner-start: Detecting projects...
+[21:08:54.896] [DEBUG] Finding Storybook projects...
+[21:08:55.217] [DEBUG] Found 2 Storybook projects
+[21:08:55.218] [INFO] detect-projects-spinner: Detecting projects: 1 projects
+[21:08:55.218] [DEBUG] Getting Storybook data...
+[21:08:55.218] [DEBUG] Getting Storybook info...
+[21:08:55.221] [INFO] detect-projects-spinner: Detecting projects: 2 projects
+[21:08:55.221] [DEBUG] Getting Storybook data...
+[21:08:55.221] [DEBUG] Getting Storybook info...
+[21:08:55.223] [DEBUG] SB_CORE-SERVER_0006 (MainFileMissingError): No configuration files have been found in your configDir: [33m/Users/umam3/projects/boardwalk/p-zero/autoform/packages/ajv/.storybook[39m.
+Storybook needs a "main.js" file, please add it.
+
+You can pass a --config-dir flag to tell Storybook, where your main.js file is located at.
+
+More info: https://storybook.js.org/docs/configure?ref=error
+
+[21:08:55.306] [DEBUG] Loading main config...
+[21:08:55.306] [DEBUG] Getting stories paths...
+[21:08:55.315] [DEBUG] Getting package manager...
+[21:08:55.578] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:55.578] [DEBUG] Getting Storybook version...
+[21:08:55.578] [DEBUG] /packages/shadcn/.storybook - Validating before version... 10.1.10
+[21:08:55.579] [DEBUG] /packages/shadcn/.storybook - Validating upgrade compatibility...
+[21:08:55.579] [DEBUG] /packages/shadcn/.storybook - Fetching NPM version information...
+[21:08:55.579] [DEBUG] Getting CLI versions from NPM for storybook...
+[21:08:55.579] [DEBUG] Executing command: pnpm info storybook version
+[21:08:55.581] [DEBUG] Getting CLI versions from NPM for storybook@next...
+[21:08:55.581] [DEBUG] Executing command: pnpm info storybook@next version
+[21:08:56.257] [DEBUG] /packages/shadcn/.storybook - Evaluating blockers...
+[21:08:56.262] [DEBUG] Getting installed version for @storybook/experimental-addon-test...
+[21:08:56.262] [DEBUG] Executing command: pnpm list "@storybook/experimental-addon-test" --json --depth=99
+[21:08:56.438] [INFO] detect-projects-spinner-stop: 2 projects detected
+[21:08:56.438] [DEBUG] Found 1 valid projects and 1 error projects
+[21:08:56.438] [INFO] Upgrading from [1m10.1.10[22m to [1m10.1.10[22m
+[21:08:56.438] [INFO] upgrade-dependencies-task-start: Fetching versions to update package.json files..
+[21:08:56.438] [DEBUG] Updating dependencies in /packages/shadcn/.storybook...
+[21:08:56.438] [INFO] upgrade-dependencies-task: /packages/shadcn/package.json
+/package.json
+[21:08:56.439] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:56.439] [DEBUG] {
+  "upgradedDependencies": []
+}
+[21:08:56.439] [DEBUG] {
+  "upgradedDevDependencies": [
+    "@storybook/addon-links@10.1.10",
+    "@storybook/react-vite@10.1.10",
+    "storybook@10.1.10",
+    "eslint-plugin-storybook@10.1.10"
+  ]
+}
+[21:08:56.439] [DEBUG] {
+  "upgradedPeerDependencies": []
+}
+[21:08:56.439] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:56.439] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:56.439] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:56.439] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:56.439] [DEBUG] Getting CLI versions from NPM for @storybook/addon-links...
+[21:08:56.439] [DEBUG] Executing command: pnpm info @storybook/addon-links version
+[21:08:57.022] [DEBUG] Getting CLI versions from NPM for @storybook/react-vite...
+[21:08:57.022] [DEBUG] Executing command: pnpm info @storybook/react-vite version
+[21:08:57.560] [DEBUG] Using cached version for storybook...
+[21:08:57.560] [DEBUG] Getting CLI versions from NPM for eslint-plugin-storybook...
+[21:08:57.560] [DEBUG] Executing command: pnpm info eslint-plugin-storybook version
+[21:08:58.032] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.032] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.032] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.032] [DEBUG] {
+  "upgradedDependencies": []
+}
+[21:08:58.032] [DEBUG] {
+  "upgradedDevDependencies": []
+}
+[21:08:58.032] [DEBUG] {
+  "upgradedPeerDependencies": []
+}
+[21:08:58.032] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.032] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.033] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.033] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.033] [DEBUG] Getting package.json info for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.033] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.033] [INFO] upgrade-dependencies-task-success: Updated package versions in package.json files
+[21:08:58.033] [INFO] detect-automigrations-task-start: Detecting automigrations...
+[21:08:58.033] [DEBUG] Starting automigration collection across 1 projects and 19 fixes...
+[21:08:58.033] [INFO] detect-automigrations-task: Checking automigrations for /packages/shadcn/.storybook...
+[21:08:58.033] [DEBUG] Processing project: /packages/shadcn/.storybook
+[21:08:58.033] [DEBUG] Checking fix eslintPlugin for project /packages/shadcn/.storybook...
+[21:08:58.033] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.033] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.033] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.034] [DEBUG] Checking fix addon-mdx-gfm-remove for project /packages/shadcn/.storybook...
+[21:08:58.034] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.034] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.034] [DEBUG] Checking fix addon-storysource-code-panel for project /packages/shadcn/.storybook...
+[21:08:58.034] [DEBUG] Checking fix upgrade-storybook-related-dependencies for project /packages/shadcn/.storybook...
+[21:08:58.034] [DEBUG] Checking for incompatible storybook packages...
+[21:08:58.034] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.034] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.035] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.035] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.035] [DEBUG] Getting installed version for @storybook/addon-essentials...
+[21:08:58.035] [DEBUG] Executing command: pnpm list "@storybook/addon-essentials" --json --depth=99
+[21:08:58.225] [DEBUG] Getting CLI versions from NPM for @storybook/addon-essentials...
+[21:08:58.225] [DEBUG] Executing command: pnpm info @storybook/addon-essentials version
+[21:08:58.769] [DEBUG] Checking fix initial-globals for project /packages/shadcn/.storybook...
+[21:08:58.778] [DEBUG] Checking fix addon-globals-api for project /packages/shadcn/.storybook...
+[21:08:58.779] [DEBUG] Checking fix addon-a11y-addon-test for project /packages/shadcn/.storybook...
+[21:08:58.780] [DEBUG] Checking fix consolidated-imports for project /packages/shadcn/.storybook...
+[21:08:58.781] [DEBUG] Checking fix addon-experimental-test for project /packages/shadcn/.storybook...
+[21:08:58.782] [DEBUG] Using cached installed version for @storybook/experimental-addon-test...
+[21:08:58.782] [DEBUG] Checking fix rnstorybook-config for project /packages/shadcn/.storybook...
+[21:08:58.782] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.782] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.782] [DEBUG] Checking fix migrate-addon-console for project /packages/shadcn/.storybook...
+[21:08:58.782] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.782] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.782] [DEBUG] Checking fix nextjs-to-nextjs-vite for project /packages/shadcn/.storybook...
+[21:08:58.783] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.783] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.783] [DEBUG] Checking fix remove-addon-interactions for project /packages/shadcn/.storybook...
+[21:08:58.783] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.783] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.783] [DEBUG] Checking fix renderer-to-framework for project /packages/shadcn/.storybook...
+[21:08:58.783] [DEBUG] Checking fix remove-essential-addons for project /packages/shadcn/.storybook...
+[21:08:58.783] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:08:58.783] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:08:58.784] [DEBUG] Checking fix addon-a11y-parameters for project /packages/shadcn/.storybook...
+[21:08:58.784] [DEBUG] Checking fix remove-docs-autodocs for project /packages/shadcn/.storybook...
+[21:08:58.805] [DEBUG] Checking fix wrap-getAbsolutePath for project /packages/shadcn/.storybook...
+[21:08:58.811] [DEBUG] Checking fix fix-faux-esm-require for project /packages/shadcn/.storybook...
+[21:08:58.812] [INFO] detect-automigrations-task: 
+Automigrations detected:
+[21:08:58.812] [INFO] detect-automigrations-task-success: No automigrations detected
+[21:08:58.812] [DEBUG] Completed automigrations for /packages/shadcn/.storybook
+[21:08:58.813] [INFO] Installing dependencies...
+[21:08:58.813] [INFO] install-dependencies-spinner-start: Installing dependencies...
+[21:08:58.813] [DEBUG] Executing command: pnpm install -w
+[21:08:59.121] [INFO] Installing dependencies...: Progress: resolved 1, reused 0, downloaded 0, added 0
+
+[21:08:59.121] [INFO] install-dependencies-spinner: Installing dependencies...: Progress: resolved 1, reu
+[21:09:00.121] [INFO] Installing dependencies...: Progress: resolved 48, reused 0, downloaded 0, added 0
+
+[21:09:00.121] [INFO] install-dependencies-spinner: Installing dependencies...: Progress: resolved 48, re
+[21:09:01.122] [INFO] Installing dependencies...: Progress: resolved 56, reused 0, downloaded 0, added 0
+
+[21:09:01.122] [INFO] install-dependencies-spinner: Installing dependencies...: Progress: resolved 56, re
+[21:09:02.123] [INFO] Installing dependencies...: Progress: resolved 391, reused 0, downloaded 0, added 0
+
+[21:09:02.123] [INFO] install-dependencies-spinner: Installing dependencies...: Progress: resolved 391, r
+[21:09:03.126] [INFO] Installing dependencies...: Progress: resolved 988, reused 0, downloaded 0, added 0
+
+[21:09:03.126] [INFO] install-dependencies-spinner: Installing dependencies...: Progress: resolved 988, r
+[21:09:03.183] [INFO] Installing dependencies...:  WARN  5 deprecated subdependencies found: @types/minimatch@6.0.0, glob@7.2.3, inflight@1.0.6, lodash.get@4.4.2, rimraf@3.0.2
+
+[21:09:03.183] [INFO] install-dependencies-spinner: Installing dependencies...: WARN  5 deprecated subdep
+[21:09:03.237] [INFO] Installing dependencies...: Progress: resolved 988, reused 0, downloaded 0, added 0, done
+
+[21:09:03.237] [INFO] install-dependencies-spinner: Installing dependencies...: Progress: resolved 988, r
+[21:09:03.238] [INFO] Installing dependencies...:  WARN  Issues with peer dependencies found
+packages/ajv
+├─┬ @storybook/addon-essentials 8.6.15
+│ ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-measure 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-outline 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-highlight 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-toolbars 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-controls 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-actions 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-viewport 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-backgrounds 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ └─┬ @storybook/addon-docs 8.6.15
+│   ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   ├─┬ @storybook/react-dom-shim 8.6.15
+│   │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   ├─┬ @storybook/csf-plugin 8.6.15
+│   │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   └─┬ @storybook/blocks 8.6.15
+│     └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+├─┬ @storybook/addon-interactions 8.6.15
+│ ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ └─┬ @storybook/test 8.6.15
+│   ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   └─┬ @storybook/instrumenter 8.6.15
+│     └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+└─┬ @storybook/addon-links 8.6.15
+  └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+
+packages/eslint-config
+├─┬ eslint-plugin-jest 27.9.0
+│ ├── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+│ ├── ✕ unmet peer @typescript-eslint/eslint-plugin@"^5.0.0 || ^6.0.0 || ^7.0.0": found 8.50.1
+│ └─┬ @typescript-eslint/utils 5.62.0
+│   └── ✕ unmet peer eslint@"^6.0.0 || ^7.0.0 || ^8.0.0": found 9.39.2
+└─┬ @vercel/style-guide 5.2.0
+  ├── ✕ unmet peer eslint@">=8.48.0 <9": found 9.39.2
+  ├─┬ @typescript-eslint/parser 6.21.0
+  │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  ├─┬ @typescript-eslint/eslint-plugin 6.21.0
+  │ ├── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  │ ├─┬ @typescript-eslint/utils 6.21.0
+  │ │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  │ └─┬ @typescript-eslint/type-utils 6.21.0
+  │   └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  ├─┬ eslint-plugin-jest 27.9.0
+  │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  └─┬ eslint-plugin-react-hooks 4.6.2
+    └── ✕ unmet peer eslint@"^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0": found 9.39.2
+
+[21:09:03.238] [INFO] install-dependencies-spinner: Installing dependencies...: WARN  Issues with peer de
+[21:09:03.238] [INFO] Installing dependencies...: 
+
+[21:09:03.238] [INFO] install-dependencies-spinner: Installing dependencies...: 
+[21:09:03.254] [INFO] Installing dependencies...: Already up to date
+
+[21:09:03.254] [INFO] install-dependencies-spinner: Installing dependencies...: Already up to date
+[21:09:03.353] [INFO] Installing dependencies...: Done in 4.4s using pnpm v10.26.2
+
+[21:09:03.353] [INFO] install-dependencies-spinner: Installing dependencies...: Done in 4.4s using pnpm v
+[21:09:03.364] [INFO] Dependencies installed
+[21:09:03.364] [INFO] install-dependencies-spinner-stop: Dependencies installed
+[21:09:03.365] [WARN] Since you are in a monorepo, we advise you to deduplicate your dependencies. We can do this for you but it might take some time.
+[21:09:10.417] [PROMPT] Execute pnpm run dedupe? {"choice":true}
+[21:09:10.419] [INFO] Deduplicating dependencies...
+[21:09:10.419] [INFO] Deduplicating dependencies...
+[21:09:10.420] [DEBUG] Executing command: pnpm dedupe
+[21:09:10.696] [INFO] Progress: resolved 1, reused 0, downloaded 0, added 0
+[21:09:10.696] [INFO] Progress: resolved 1, reused 0, downloaded 0, added 0
+[21:09:11.695] [INFO] Progress: resolved 34, reused 34, downloaded 0, added 0
+[21:09:11.695] [INFO] Progress: resolved 34, reused 34, downloaded 0, added 0
+[21:09:12.695] [INFO] Progress: resolved 47, reused 47, downloaded 0, added 0
+[21:09:12.695] [INFO] Progress: resolved 47, reused 47, downloaded 0, added 0
+[21:09:13.697] [INFO] Progress: resolved 93, reused 93, downloaded 0, added 0
+[21:09:13.697] [INFO] Progress: resolved 93, reused 93, downloaded 0, added 0
+[21:09:14.696] [INFO] Progress: resolved 242, reused 236, downloaded 0, added 0
+[21:09:14.696] [INFO] Progress: resolved 242, reused 236, downloaded 0, added 0
+[21:09:15.697] [INFO] Progress: resolved 326, reused 321, downloaded 0, added 0
+[21:09:15.698] [INFO] Progress: resolved 326, reused 321, downloaded 0, added 0
+[21:09:16.697] [INFO] Progress: resolved 543, reused 481, downloaded 0, added 0
+[21:09:16.697] [INFO] Progress: resolved 543, reused 481, downloaded 0, added 0
+[21:09:17.699] [INFO] Progress: resolved 746, reused 674, downloaded 0, added 0
+[21:09:17.699] [INFO] Progress: resolved 746, reused 674, downloaded 0, added 0
+[21:09:18.699] [INFO] Progress: resolved 985, reused 894, downloaded 0, added 0
+[21:09:18.699] [INFO] Progress: resolved 985, reused 894, downloaded 0, added 0
+[21:09:18.785] [INFO] WARN  5 deprecated subdependencies found: @types/minimatch@6.0.0, glob@7.2.3, inflight@1.0.6, lodash.get@4.4.2, rimraf@3.0.2
+[21:09:18.785] [INFO] WARN  5 deprecated subdependencies found: @types/minimatch@6.0.0, glob@7.2.3, inflight@1.0.6, lodash.get@4.4.2, rimraf@3.0.2
+[21:09:18.801] [INFO] Already up to date
+[21:09:18.801] [INFO] Already up to date
+[21:09:18.840] [INFO] Progress: resolved 988, reused 898, downloaded 0, added 0, done
+[21:09:18.840] [INFO] Progress: resolved 988, reused 898, downloaded 0, added 0, done
+[21:09:19.082] [INFO] WARN  Issues with peer dependencies found
+packages/ajv
+├─┬ @storybook/addon-essentials 8.6.15
+│ ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-highlight 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-outline 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-measure 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-toolbars 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-controls 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-backgrounds 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-actions 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-viewport 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ └─┬ @storybook/addon-docs 8.6.15
+│   ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   ├─┬ @storybook/blocks 8.6.15
+│   │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   ├─┬ @storybook/csf-plugin 8.6.15
+│   │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   └─┬ @storybook/react-dom-shim 8.6.15
+│     └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+├─┬ @storybook/addon-interactions 8.6.15
+│ ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ └─┬ @storybook/test 8.6.15
+│   ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   └─┬ @storybook/instrumenter 8.6.15
+│     └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+└─┬ @storybook/addon-links 8.6.15
+  └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+
+packages/eslint-config
+├─┬ eslint-plugin-jest 27.9.0
+│ ├── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+│ ├── ✕ unmet peer @typescript-eslint/eslint-plugin@"^5.0.0 || ^6.0.0 || ^7.0.0": found 8.50.1
+│ └─┬ @typescript-eslint/utils 5.62.0
+│   └── ✕ unmet peer eslint@"^6.0.0 || ^7.0.0 || ^8.0.0": found 9.39.2
+└─┬ @vercel/style-guide 5.2.0
+  ├── ✕ unmet peer eslint@">=8.48.0 <9": found 9.39.2
+  ├─┬ @typescript-eslint/parser 6.21.0
+  │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  ├─┬ @typescript-eslint/eslint-plugin 6.21.0
+  │ ├── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  │ ├─┬ @typescript-eslint/utils 6.21.0
+  │ │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  │ └─┬ @typescript-eslint/type-utils 6.21.0
+  │   └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  ├─┬ eslint-plugin-jest 27.9.0
+  │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  └─┬ eslint-plugin-react-hooks 4.6.2
+    └── ✕ unmet peer eslint@"^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0": found 9.39.2
+[21:09:19.082] [INFO] WARN  Issues with peer dependencies found
+packages/ajv
+├─┬ @storybook/addon-essentials 8.6.15
+│ ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-highlight 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-outline 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-measure 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-toolbars 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-controls 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-backgrounds 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-actions 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ ├─┬ @storybook/addon-viewport 8.6.15
+│ │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ └─┬ @storybook/addon-docs 8.6.15
+│   ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   ├─┬ @storybook/blocks 8.6.15
+│   │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   ├─┬ @storybook/csf-plugin 8.6.15
+│   │ └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   └─┬ @storybook/react-dom-shim 8.6.15
+│     └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+├─┬ @storybook/addon-interactions 8.6.15
+│ ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│ └─┬ @storybook/test 8.6.15
+│   ├── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+│   └─┬ @storybook/instrumenter 8.6.15
+│     └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+└─┬ @storybook/addon-links 8.6.15
+  └── ✕ unmet peer storybook@^8.6.15: found 10.1.10
+
+packages/eslint-config
+├─┬ eslint-plugin-jest 27.9.0
+│ ├── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+│ ├── ✕ unmet peer @typescript-eslint/eslint-plugin@"^5.0.0 || ^6.0.0 || ^7.0.0": found 8.50.1
+│ └─┬ @typescript-eslint/utils 5.62.0
+│   └── ✕ unmet peer eslint@"^6.0.0 || ^7.0.0 || ^8.0.0": found 9.39.2
+└─┬ @vercel/style-guide 5.2.0
+  ├── ✕ unmet peer eslint@">=8.48.0 <9": found 9.39.2
+  ├─┬ @typescript-eslint/parser 6.21.0
+  │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  ├─┬ @typescript-eslint/eslint-plugin 6.21.0
+  │ ├── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  │ ├─┬ @typescript-eslint/utils 6.21.0
+  │ │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  │ └─┬ @typescript-eslint/type-utils 6.21.0
+  │   └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  ├─┬ eslint-plugin-jest 27.9.0
+  │ └── ✕ unmet peer eslint@"^7.0.0 || ^8.0.0": found 9.39.2
+  └─┬ eslint-plugin-react-hooks 4.6.2
+    └── ✕ unmet peer eslint@"^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0": found 9.39.2
+[21:09:19.091] [INFO] 
+[21:09:19.091] [INFO] 
+[21:09:19.115] [INFO] Dependencies deduplicated
+[21:09:19.115] [INFO] [32mDependencies deduplicated[39m
+[21:09:19.115] [INFO] Checking the health of your project(s)..
+[21:09:19.116] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/packages/shadcn/package.json...
+[21:09:19.116] [DEBUG] Using cached package.json for /Users/umam3/projects/boardwalk/p-zero/autoform/package.json...
+[21:09:19.117] [DEBUG] Executing command: pnpm list "@storybook/*" "storybook" --json --depth=99
+[21:09:19.287] [WARN] /packages/shadcn/.storybook: 1 issue found
+[21:09:19.287] [INFO] You are currently using Storybook [1m10.1.10[22m but you have packages which are incompatible with it:
+
+- @storybook/addon-essentials@8.6.15 which depends on 8.6.15
+ Repo: https://github.com/storybookjs/storybook/tree/next/code/addons/essentials
+
+Please consider updating your packages or contacting the maintainers for compatibility details.
+
+For more details on compatibility guidance, see:
+https://github.com/storybookjs/storybook/issues/32836
+[21:09:19.288] [INFO] Storybook doctor is complete!
+[21:09:19.288] [INFO] You can always recheck the health of your project(s) by running:
+[36mnpx storybook doctor[39m
+[21:09:19.288] [INFO] [33mYour project(s) have been upgraded successfully, but some issues were found which need your attention, please check Storybook doctor logs above.[39m
+[21:09:19.288] [INFO] For a full list of changes, please check our migration guide: [36mhttps://storybook.js.org/docs/releases/migration-guide?ref=upgrade[39m
+[21:09:20.488] [INFO] Storybook upgrade completed!

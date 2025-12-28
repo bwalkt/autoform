@@ -1,4 +1,4 @@
-# @autoform/typescript-config
+# @bwalk/typescript-config
 
 ## 2.0.0
 

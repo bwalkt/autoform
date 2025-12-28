@@ -4,7 +4,7 @@ import {
   parseSchema,
   getDefaultValues,
   removeEmptyValues,
-} from "@autoform/core";
+} from "@bwalk/core";
 import { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";

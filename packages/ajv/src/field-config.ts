@@ -1,5 +1,5 @@
 import type { Schema } from "ajv";
-import type { FieldConfig } from "@autoform/core";
+import type { FieldConfig } from "@bwalk/core";
 
 // Symbol for storing field configuration in JSON schema
 export const AJV_FIELD_CONFIG_SYMBOL = Symbol("AjvFieldConfig");

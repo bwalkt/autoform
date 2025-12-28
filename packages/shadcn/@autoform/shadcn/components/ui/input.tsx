@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "@autoform/shadcn/lib/utils"
+import { cn } from "@bwalk/shadcn/lib/utils"
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (

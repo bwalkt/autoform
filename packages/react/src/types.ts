@@ -5,7 +5,7 @@ import {
   Renderable,
   SchemaProvider,
   FieldConfig as BaseFieldConfig,
-} from "@autoform/core";
+} from "@bwalk/core";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
 export interface AutoFormProps<T extends FieldValues> {

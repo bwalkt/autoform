@@ -1,4 +1,4 @@
-# @autoform/eslint-config
+# @bwalk/eslint-config
 
 ## 2.0.0
 

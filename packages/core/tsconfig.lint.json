@@ -1,5 +1,5 @@
 {
-  "extends": "@autoform/typescript-config/react-library.json",
+  "extends": "@bwalk/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },

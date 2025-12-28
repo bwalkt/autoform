@@ -1,5 +1,5 @@
 import type { Schema } from "ajv";
-import { ParsedField, ParsedSchema } from "@autoform/core";
+import { ParsedField, ParsedSchema } from "@bwalk/core";
 import { AJV_FIELD_CONFIG_SYMBOL } from "./field-config";
 
 type JSONSchema = Schema & {

@@ -1,5 +1,5 @@
 import { TextField } from "@/elements";
-import { AutoFormFieldProps } from "@autoform/react";
+import { AutoFormFieldProps } from "@bwalk/react";
 import React from "react";
 
 export const DateField: React.FC<AutoFormFieldProps> = ({

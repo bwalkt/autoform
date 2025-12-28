@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { AutoForm } from '../components/ui/autoform';
 
@@ -23,7 +23,7 @@ export const AjvProviderTest: Story = {
           console.log('Starting AJV Provider test...');
           
           // Dynamic import to test
-          const ajvModule = await import('@autoform/ajv');
+          const ajvModule = await import('@bwalk/ajv');
           console.log('AJV Module imported:', ajvModule);
           
           const { AjvProvider } = ajvModule;

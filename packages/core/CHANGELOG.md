@@ -1,4 +1,4 @@
-# @autoform/core
+# @bwalk/core
 
 ## 3.0.0
 
