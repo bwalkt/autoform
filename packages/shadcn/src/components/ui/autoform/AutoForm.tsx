@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   AutoForm as BaseAutoForm,
   type AutoFormUIComponents,
@@ -36,7 +36,7 @@ export const ShadcnAutoFormFieldComponents = {
 } as const;
 export type FieldTypes = keyof typeof ShadcnAutoFormFieldComponents;
 
-export function AutoForm<T extends Record<string, any>>({
+export function AutoForm<T extends Record<string, unknown>>({
   uiComponents,
   formComponents,
   ...props

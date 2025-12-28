@@ -1,137 +1,113 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
 
 const meta: Meta = {
-  title: "Debug/AJV Instance Debug",
+  title: 'Debug/AJV Instance Debug',
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const AjvInstanceTest: Story = {
   render: () => {
-    const [debugInfo, setDebugInfo] = React.useState<string>("Loading...");
+    const [debugInfo, setDebugInfo] = React.useState<string>('Loading...')
 
     React.useEffect(() => {
       async function debugAjvProvider() {
         try {
-          console.log("=== Starting AJV Provider Debug ===");
+          console.log('=== Starting AJV Provider Debug ===')
 
           // Step 1: Import the module
-          console.log("1. Importing AJV module...");
-          const ajvModule = await import("@bwalkt/ajv");
-          console.log("   AJV Module:", ajvModule);
+          console.log('1. Importing AJV module...')
+          const ajvModule = await import('@bwalkt/ajv')
+          console.log('   AJV Module:', ajvModule)
 
           // Step 2: Check if AjvProvider exists
-          console.log("2. Checking AjvProvider class...");
-          const { AjvProvider } = ajvModule;
+          console.log('2. Checking AjvProvider class...')
+          const { AjvProvider } = ajvModule
           if (!AjvProvider) {
-            throw new Error("AjvProvider not found in module");
+            throw new Error('AjvProvider not found in module')
           }
-          console.log("   AjvProvider class:", AjvProvider);
-          console.log("   AjvProvider prototype:", AjvProvider.prototype);
-          console.log(
-            "   AjvProvider prototype methods:",
-            Object.getOwnPropertyNames(AjvProvider.prototype),
-          );
+          console.log('   AjvProvider class:', AjvProvider)
+          console.log('   AjvProvider prototype:', AjvProvider.prototype)
+          console.log('   AjvProvider prototype methods:', Object.getOwnPropertyNames(AjvProvider.prototype))
 
           // Step 3: Create schema
-          console.log("3. Creating test schema...");
+          console.log('3. Creating test schema...')
           const schema = {
-            type: "object",
+            type: 'object',
             properties: {
-              name: { type: "string", title: "Name" },
-              email: { type: "string", format: "email", title: "Email" },
+              name: { type: 'string', title: 'Name' },
+              email: { type: 'string', format: 'email', title: 'Email' },
             },
-            required: ["name"],
-          };
-          console.log("   Schema:", schema);
+            required: ['name'],
+          }
+          console.log('   Schema:', schema)
 
           // Step 4: Create instance
-          console.log("4. Creating AjvProvider instance...");
-          const provider = new AjvProvider(schema);
-          console.log("   Provider instance:", provider);
-          console.log(
-            "   Provider constructor name:",
-            provider.constructor.name,
-          );
-          console.log(
-            "   Provider instanceof AjvProvider:",
-            provider instanceof AjvProvider,
-          );
+          console.log('4. Creating AjvProvider instance...')
+          const provider = new AjvProvider(schema)
+          console.log('   Provider instance:', provider)
+          console.log('   Provider constructor name:', provider.constructor.name)
+          console.log('   Provider instanceof AjvProvider:', provider instanceof AjvProvider)
 
           // Step 5: Check methods exist
-          console.log("5. Checking methods on instance...");
-          console.log("   provider.parseSchema:", provider.parseSchema);
-          console.log(
-            "   typeof provider.parseSchema:",
-            typeof provider.parseSchema,
-          );
-          console.log("   provider.validateSchema:", provider.validateSchema);
-          console.log(
-            "   typeof provider.validateSchema:",
-            typeof provider.validateSchema,
-          );
-          console.log(
-            "   provider.getDefaultValues:",
-            provider.getDefaultValues,
-          );
-          console.log(
-            "   typeof provider.getDefaultValues:",
-            typeof provider.getDefaultValues,
-          );
+          console.log('5. Checking methods on instance...')
+          console.log('   provider.parseSchema:', provider.parseSchema)
+          console.log('   typeof provider.parseSchema:', typeof provider.parseSchema)
+          console.log('   provider.validateSchema:', provider.validateSchema)
+          console.log('   typeof provider.validateSchema:', typeof provider.validateSchema)
+          console.log('   provider.getDefaultValues:', provider.getDefaultValues)
+          console.log('   typeof provider.getDefaultValues:', typeof provider.getDefaultValues)
 
           // Step 6: Test method calls
-          console.log("6. Testing method calls...");
+          console.log('6. Testing method calls...')
 
-          if (typeof provider.parseSchema === "function") {
-            console.log("   Calling parseSchema...");
-            const parsed = provider.parseSchema();
-            console.log("   parseSchema result:", parsed);
+          if (typeof provider.parseSchema === 'function') {
+            console.log('   Calling parseSchema...')
+            const parsed = provider.parseSchema()
+            console.log('   parseSchema result:', parsed)
           } else {
-            console.error("   parseSchema is not a function!");
+            console.error('   parseSchema is not a function!')
           }
 
-          if (typeof provider.validateSchema === "function") {
-            console.log("   Calling validateSchema...");
-            const validated = provider.validateSchema({ name: "test" });
-            console.log("   validateSchema result:", validated);
+          if (typeof provider.validateSchema === 'function') {
+            console.log('   Calling validateSchema...')
+            const validated = provider.validateSchema({ name: 'test' })
+            console.log('   validateSchema result:', validated)
           } else {
-            console.error("   validateSchema is not a function!");
+            console.error('   validateSchema is not a function!')
           }
 
-          if (typeof provider.getDefaultValues === "function") {
-            console.log("   Calling getDefaultValues...");
-            const defaults = provider.getDefaultValues();
-            console.log("   getDefaultValues result:", defaults);
+          if (typeof provider.getDefaultValues === 'function') {
+            console.log('   Calling getDefaultValues...')
+            const defaults = provider.getDefaultValues()
+            console.log('   getDefaultValues result:', defaults)
           } else {
-            console.error("   getDefaultValues is not a function!");
+            console.error('   getDefaultValues is not a function!')
           }
 
-          console.log("=== AJV Provider Debug Complete ===");
-          setDebugInfo(
-            "✅ Debug complete - check browser console for detailed logs",
-          );
+          console.log('=== AJV Provider Debug Complete ===')
+          setDebugInfo('✅ Debug complete - check browser console for detailed logs')
         } catch (error) {
-          console.error("=== AJV Provider Debug Error ===");
-          console.error("Error:", error);
-          console.error("Stack:", error.stack);
-          setDebugInfo(`❌ Error: ${error.message}`);
+          console.error('=== AJV Provider Debug Error ===')
+          console.error('Error:', error)
+          console.error('Stack:', error.stack)
+          setDebugInfo(`❌ Error: ${error.message}`)
         }
       }
 
-      debugAjvProvider();
-    }, []);
+      debugAjvProvider()
+    }, [])
 
     return (
       <div className="p-6 space-y-4">
         <h2 className="text-xl font-bold">AJV Provider Instance Debug</h2>
         <p className="text-gray-600">
-          This debug story checks the AjvProvider class instantiation and method
-          availability.
+          This debug story checks the AjvProvider class instantiation and method availability.
           <strong> Check the browser console for detailed logging.</strong>
         </p>
 
@@ -141,17 +117,12 @@ export const AjvInstanceTest: Story = {
         </div>
 
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h3 className="font-medium text-blue-900 mb-2">
-            🔍 What this tests:
-          </h3>
+          <h3 className="font-medium text-blue-900 mb-2">🔍 What this tests:</h3>
           <ul className="text-sm text-blue-800 space-y-1">
             <li>• Module import from @bwalkt/ajv</li>
             <li>• AjvProvider class existence and structure</li>
             <li>• Instance creation with test schema</li>
-            <li>
-              • Method availability (parseSchema, validateSchema,
-              getDefaultValues)
-            </li>
+            <li>• Method availability (parseSchema, validateSchema, getDefaultValues)</li>
             <li>• Method type checking and execution</li>
             <li>• Detailed console logging for debugging</li>
           </ul>
@@ -164,13 +135,12 @@ export const AjvInstanceTest: Story = {
             <br />
             2. Go to Console tab
             <br />
-            3. Look for detailed logs starting with "=== Starting AJV Provider
-            Debug ==="
+            3. Look for detailed logs starting with "=== Starting AJV Provider Debug ==="
             <br />
             4. Check if any methods are missing or throwing errors
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}

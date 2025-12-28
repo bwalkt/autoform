@@ -1,9 +1,9 @@
 declare module '@bwalkt/core' {
   type Renderable<AdditionalRenderable = null> = string | number | boolean | null | undefined | AdditionalRenderable;
   
-  interface FieldConfig<AdditionalRenderable = null, FieldTypes = string, FieldWrapper = any, CustomData = Record<string, any>> {
+  interface FieldConfig<AdditionalRenderable = null, FieldTypes = string, FieldWrapper = unknown, CustomData = Record<string, unknown>> {
     description?: Renderable<AdditionalRenderable>;
-    inputProps?: Record<string, any>;
+    inputProps?: Record<string, unknown>;
     label?: Renderable<AdditionalRenderable>;
     fieldType?: FieldTypes;
     order?: number;
@@ -15,7 +15,7 @@ declare module '@bwalkt/core' {
     key: string;
     type: string;
     required: boolean;
-    default?: any;
+    default?: unknown;
     description?: Renderable;
     fieldConfig?: FieldConfig<AdditionalRenderable, FieldTypes>;
     options?: [string, string][];
@@ -28,7 +28,7 @@ declare module '@bwalkt/core' {
   
   type SuccessfulSchemaValidation = {
     success: true;
-    data: any;
+    data: unknown;
   };
   
   type SchemaValidationError = {
@@ -43,17 +43,17 @@ declare module '@bwalkt/core' {
   
   type SchemaValidation = SuccessfulSchemaValidation | ErrorSchemaValidation;
   
-  interface SchemaProvider<T = any> {
+  interface SchemaProvider<T = unknown> {
     parseSchema(): ParsedSchema;
     validateSchema(_values: T): SchemaValidation;
-    getDefaultValues(): Record<string, any>;
+    getDefaultValues(): Record<string, unknown>;
   }
   
   export function getLabel(field: ParsedField): string | number | true;
   export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema;
-  export function validateSchema(schemaProvider: SchemaProvider, values: any): SchemaValidation;
-  export function getDefaultValues(schemaProvider: SchemaProvider): Record<string, any>;
-  export function removeEmptyValues<T extends Record<string, any>>(values: T): Partial<T>;
+  export function validateSchema(schemaProvider: SchemaProvider, values: unknown): SchemaValidation;
+  export function getDefaultValues(schemaProvider: SchemaProvider): Record<string, unknown>;
+  export function removeEmptyValues<T extends Record<string, unknown>>(values: T): Partial<T>;
   export function sortFieldsByOrder(fields: ParsedField[] | undefined): ParsedField[];
   
   export {

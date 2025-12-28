@@ -11,13 +11,14 @@ export const ObjectField: React.FC<{
 
   return (
     <uiComponents.ObjectWrapper label={getLabel(field)} field={field}>
-      {Object.entries(field.schema!).map(([_key, subField]) => (
+      {field.schema && Object.entries(field.schema).map(([_key, subField]) => (
         <AutoFormField
           key={`${path.join(".")}.${subField.key}`}
           field={subField}
           path={[...path, subField.key]}
         />
       ))}
+      {!field.schema && <div>No schema defined for object field</div>}
     </uiComponents.ObjectWrapper>
   );
 };

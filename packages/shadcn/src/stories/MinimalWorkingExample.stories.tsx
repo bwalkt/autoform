@@ -1,52 +1,52 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { AutoForm } from "../components/ui/autoform";
-import { AjvProvider } from "@bwalkt/ajv";
+import { AjvProvider } from '@bwalkt/ajv'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
+import { AutoForm } from '../components/ui/autoform'
 
 const meta: Meta = {
-  title: "AJV/Working Example",
+  title: 'AJV/Working Example',
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const BasicTest: Story = {
   render: () => {
-    const [isReady, setIsReady] = React.useState(false);
-    const [provider, setProvider] = React.useState<AjvProvider | null>(null);
-    const [error, setError] = React.useState<string | null>(null);
+    const [isReady, setIsReady] = React.useState(false)
+    const [provider, setProvider] = React.useState<AjvProvider | null>(null)
+    const [error, setError] = React.useState<string | null>(null)
 
     React.useEffect(() => {
       try {
-        console.log("Creating simple AJV provider...");
+        console.log('Creating simple AJV provider...')
 
         const simpleSchema = {
-          type: "object",
+          type: 'object',
           properties: {
             name: {
-              type: "string",
-              title: "Your Name",
+              type: 'string',
+              title: 'Your Name',
             },
           },
-          required: ["name"],
-        };
+          required: ['name'],
+        }
 
-        const ajvProvider = new AjvProvider(simpleSchema);
+        const ajvProvider = new AjvProvider(simpleSchema)
 
         // Test that it works
-        const parsed = ajvProvider.parseSchema();
-        console.log("Schema parsed successfully:", parsed);
+        const parsed = ajvProvider.parseSchema()
+        console.log('Schema parsed successfully:', parsed)
 
-        setProvider(ajvProvider);
-        setIsReady(true);
+        setProvider(ajvProvider)
+        setIsReady(true)
       } catch (err) {
-        console.error("Error creating provider:", err);
-        setError(err.message);
+        console.error('Error creating provider:', err)
+        setError(err.message)
       }
-    }, []);
+    }, [])
 
     if (error) {
       return (
@@ -54,7 +54,7 @@ export const BasicTest: Story = {
           <h3 className="font-medium text-red-800">Error</h3>
           <p className="text-red-700">{error}</p>
         </div>
-      );
+      )
     }
 
     if (!isReady || !provider) {
@@ -62,7 +62,7 @@ export const BasicTest: Story = {
         <div className="p-4">
           <p>Loading...</p>
         </div>
-      );
+      )
     }
 
     return (
@@ -72,14 +72,14 @@ export const BasicTest: Story = {
         <div className="border rounded-lg p-4 bg-white">
           <AutoForm
             schema={provider}
-            onSubmit={(data) => {
-              console.log("Form submitted:", data);
-              alert(`Hello ${data.name}!`);
+            onSubmit={data => {
+              console.log('Form submitted:', data)
+              alert(`Hello ${data.name}!`)
             }}
             withSubmit={true}
           />
         </div>
       </div>
-    );
+    )
   },
-};
+}

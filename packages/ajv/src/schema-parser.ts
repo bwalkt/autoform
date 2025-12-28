@@ -5,8 +5,8 @@ import { AJV_FIELD_CONFIG_SYMBOL } from "./field-config";
 type JSONSchema = Schema & {
   properties?: Record<string, JSONSchema>;
   items?: JSONSchema | JSONSchema[];
-  enum?: any[];
-  default?: any;
+  enum?: unknown[];
+  default?: unknown;
   description?: string;
   required?: string[];
   type?: string | string[];
@@ -19,7 +19,7 @@ type JSONSchema = Schema & {
   minLength?: number;
   maxLength?: number;
   pattern?: string;
-  [AJV_FIELD_CONFIG_SYMBOL]?: any;
+  [AJV_FIELD_CONFIG_SYMBOL]?: unknown;
 };
 
 export function parseSchema(schema: Schema): ParsedSchema {

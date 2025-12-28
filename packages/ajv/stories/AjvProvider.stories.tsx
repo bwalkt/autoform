@@ -1,4 +1,4 @@
-import React from "react";
+
 import type { Meta, StoryObj } from "@storybook/react";
 
 // Import AJV components locally to avoid path issues

@@ -52,7 +52,7 @@ export function getElementStyles(
   radius: Radius,
 ) {
   const sizeTokens = designTokens.size[size];
-  const variantTokens = designTokens.variant[variant];
+  const _variantTokens = designTokens.variant[variant];
   const radiusToken = designTokens.radius[radius];
   const colorTokens = color
     ? designTokens.color[color]

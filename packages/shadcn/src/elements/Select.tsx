@@ -3,7 +3,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../lib/utils";
 import { getElementStyles } from "./utils";
-import type { Size, Variant, Color, Radius, ResponsiveSize } from "./tokens";
+import type { Variant, Color, Radius, ResponsiveSize } from "./tokens";
 
 export interface SelectProps {
   size?: ResponsiveSize;

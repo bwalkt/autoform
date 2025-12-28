@@ -35,7 +35,7 @@ const registry: z.infer<typeof registryEntrySchema> = {
 const files = await glob(`./src/components/ui/autoform/**/*`, { nodir: true });
 for (const file of files) {
   const content = await readFile(file, "utf-8");
-  registry.files!.push({
+  registry.files?.push({
     path: file.replace("src/components/ui/", ""),
     target: file.replace("src/", ""),
     content,

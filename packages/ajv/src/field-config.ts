@@ -32,7 +32,7 @@ export function withFieldConfig<T extends Schema>(
  * @returns JSON schema with field config
  */
 export function createField(
-  type: string | { type: string; [key: string]: any },
+  type: string | { type: string; [key: string]: unknown },
   config?: FieldConfig,
 ): JSONSchema {
   const schema: JSONSchema = typeof type === "string" ? { type } : type;

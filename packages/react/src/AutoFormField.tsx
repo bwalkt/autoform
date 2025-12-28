@@ -36,7 +36,10 @@ export const AutoFormField: React.FC<{
   } else if (field.type === "object") {
     FieldComponent = ObjectField;
   } else if (field.type in formComponents) {
-    FieldComponent = formComponents[field.type as keyof typeof formComponents]!;
+    const component = formComponents[field.type as keyof typeof formComponents];
+    if (component) {
+      FieldComponent = component;
+    }
   } else if ("fallback" in formComponents) {
     FieldComponent = formComponents.fallback;
   }

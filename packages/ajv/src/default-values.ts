@@ -3,7 +3,7 @@ import type { Schema } from "ajv";
 type JSONSchema = Schema & {
   properties?: Record<string, JSONSchema>;
   items?: JSONSchema | JSONSchema[];
-  default?: any;
+  default?: unknown;
   type?: string | string[];
   anyOf?: JSONSchema[];
   oneOf?: JSONSchema[];
@@ -11,14 +11,14 @@ type JSONSchema = Schema & {
   required?: string[];
 };
 
-export function getDefaultValues(schema: Schema): Record<string, any> {
+export function getDefaultValues(schema: Schema): Record<string, unknown> {
   const jsonSchema = schema as JSONSchema;
 
   if (jsonSchema.type !== "object" || !jsonSchema.properties) {
     return {};
   }
 
-  const defaults: Record<string, any> = {};
+  const defaults: Record<string, unknown> = {};
 
   for (const [key, fieldSchema] of Object.entries(jsonSchema.properties)) {
     const fieldDefault = getFieldDefault(fieldSchema);
@@ -30,7 +30,7 @@ export function getDefaultValues(schema: Schema): Record<string, any> {
   return defaults;
 }
 
-function getFieldDefault(schema: JSONSchema): any {
+function getFieldDefault(schema: JSONSchema): unknown {
   // If explicit default is provided, use it
   if (schema.default !== undefined) {
     return schema.default;
@@ -56,7 +56,7 @@ function getFieldDefault(schema: JSONSchema): any {
   switch (type) {
     case "object":
       if (schema.properties) {
-        const objectDefaults: Record<string, any> = {};
+        const objectDefaults: Record<string, unknown> = {};
         for (const [key, subSchema] of Object.entries(schema.properties)) {
           const subDefault = getFieldDefault(subSchema);
           if (subDefault !== undefined) {

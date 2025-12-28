@@ -1,69 +1,70 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { AjvProvider } from "@bwalkt/ajv";
+import { AjvProvider } from '@bwalkt/ajv'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
+import { Label } from '../components/ui/label'
 
 const meta: Meta = {
-  title: "Debug/Base AutoForm Test",
+  title: 'Debug/Base AutoForm Test',
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const DirectBaseAutoFormTest: Story = {
   render: () => {
-    const [status, setStatus] = React.useState<string>("Initializing...");
-    const [provider, setProvider] = React.useState<AjvProvider | null>(null);
+    const [status, setStatus] = React.useState<string>('Initializing...')
+    const [provider, setProvider] = React.useState<AjvProvider | null>(null)
 
     React.useEffect(() => {
       async function initializeProvider() {
         try {
-          console.log("=== Base AutoForm Test ===");
+          console.log('=== Base AutoForm Test ===')
 
           // Create provider
           const schema = {
-            type: "object" as const,
+            type: 'object' as const,
             properties: {
-              name: { type: "string" as const, title: "Name" },
+              name: { type: 'string' as const, title: 'Name' },
               email: {
-                type: "string" as const,
-                format: "email",
-                title: "Email",
+                type: 'string' as const,
+                format: 'email',
+                title: 'Email',
               },
             },
-            required: ["name"],
-          };
+            required: ['name'],
+          }
 
-          console.log("Creating AjvProvider...");
-          const ajvProvider = new AjvProvider(schema);
+          console.log('Creating AjvProvider...')
+          const ajvProvider = new AjvProvider(schema)
 
-          console.log("Provider created:", ajvProvider);
-          console.log("Provider methods:", {
+          console.log('Provider created:', ajvProvider)
+          console.log('Provider methods:', {
             parseSchema: typeof ajvProvider.parseSchema,
             validateSchema: typeof ajvProvider.validateSchema,
             getDefaultValues: typeof ajvProvider.getDefaultValues,
-          });
+          })
 
           // Test provider methods work
-          console.log("Testing provider methods...");
-          const parsed = ajvProvider.parseSchema();
-          const validated = ajvProvider.validateSchema({ name: "test" });
-          const defaults = ajvProvider.getDefaultValues();
+          console.log('Testing provider methods...')
+          const parsed = ajvProvider.parseSchema()
+          const validated = ajvProvider.validateSchema({ name: 'test' })
+          const defaults = ajvProvider.getDefaultValues()
 
-          console.log("Method results:", { parsed, validated, defaults });
+          console.log('Method results:', { parsed, validated, defaults })
 
-          setProvider(ajvProvider);
-          setStatus("Provider ready - testing with BaseAutoForm...");
+          setProvider(ajvProvider)
+          setStatus('Provider ready - testing with BaseAutoForm...')
         } catch (error) {
-          console.error("Provider initialization error:", error);
-          setStatus(`Provider error: ${error.message}`);
+          console.error('Provider initialization error:', error)
+          setStatus(`Provider error: ${error.message}`)
         }
       }
 
-      initializeProvider();
-    }, []);
+      initializeProvider()
+    }, [])
 
     if (!provider) {
       return (
@@ -73,7 +74,7 @@ export const DirectBaseAutoFormTest: Story = {
             <pre className="text-sm">{status}</pre>
           </div>
         </div>
-      );
+      )
     }
 
     return (
@@ -81,9 +82,7 @@ export const DirectBaseAutoFormTest: Story = {
         <h3 className="text-lg font-medium mb-4">Base AutoForm Test</h3>
 
         <div className="p-4 bg-green-50 border border-green-200 rounded">
-          <p className="text-sm text-green-700">
-            ✅ Provider initialized successfully
-          </p>
+          <p className="text-sm text-green-700">✅ Provider initialized successfully</p>
         </div>
 
         <div className="border p-4 rounded">
@@ -91,49 +90,46 @@ export const DirectBaseAutoFormTest: Story = {
           <DirectBaseAutoForm provider={provider} />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
-const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({
-  provider,
-}) => {
+const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({ provider }) => {
   React.useEffect(() => {
-    console.log("=== DirectBaseAutoForm Render ===");
-    console.log("Received provider:", provider);
-    console.log("Provider type:", typeof provider);
-    console.log("Provider constructor:", provider?.constructor?.name);
-    console.log("Provider parseSchema:", provider?.parseSchema);
-    console.log("Provider parseSchema type:", typeof provider?.parseSchema);
-  }, [provider]);
+    console.log('=== DirectBaseAutoForm Render ===')
+    console.log('Received provider:', provider)
+    console.log('Provider type:', typeof provider)
+    console.log('Provider constructor:', provider?.constructor?.name)
+    console.log('Provider parseSchema:', provider?.parseSchema)
+    console.log('Provider parseSchema type:', typeof provider?.parseSchema)
+  }, [provider])
 
   try {
     // Import BaseAutoForm dynamically to test
-    const [BaseAutoForm, setBaseAutoForm] = React.useState<any>(null);
-    const [error, setError] = React.useState<string | null>(null);
+    const [BaseAutoForm, setBaseAutoForm] = React.useState<any>(null)
+    const [error, setError] = React.useState<string | null>(null)
 
     React.useEffect(() => {
       async function loadBaseAutoForm() {
         try {
-          console.log("Loading BaseAutoForm from @bwalkt/react...");
-          const { AutoForm: BaseAutoFormComponent } =
-            await import("@bwalkt/react");
-          console.log("BaseAutoForm loaded:", BaseAutoFormComponent);
-          setBaseAutoForm(() => BaseAutoFormComponent);
+          console.log('Loading BaseAutoForm from @bwalkt/react...')
+          const { AutoForm: BaseAutoFormComponent } = await import('@bwalkt/react')
+          console.log('BaseAutoForm loaded:', BaseAutoFormComponent)
+          setBaseAutoForm(() => BaseAutoFormComponent)
         } catch (error) {
-          console.error("Error loading BaseAutoForm:", error);
-          setError(`Failed to load BaseAutoForm: ${error.message}`);
+          console.error('Error loading BaseAutoForm:', error)
+          setError(`Failed to load BaseAutoForm: ${error.message}`)
         }
       }
-      loadBaseAutoForm();
-    }, []);
+      loadBaseAutoForm()
+    }, [])
 
     if (error) {
       return (
         <div className="p-3 bg-red-50 border border-red-200 rounded">
           <p className="text-red-700 text-sm">Error: {error}</p>
         </div>
-      );
+      )
     }
 
     if (!BaseAutoForm) {
@@ -141,27 +137,22 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({
         <div className="p-3 bg-yellow-50 border border-yellow-200 rounded">
           <p className="text-yellow-700 text-sm">Loading BaseAutoForm...</p>
         </div>
-      );
+      )
     }
 
     // Mock UI components for testing
     const mockUIComponents = {
       Form: (props: any) => <form {...props} className="space-y-4" />,
-      FieldWrapper: ({ label, children, error }: any) => (
+      FieldWrapper: ({ label, children, error, id }: any) => (
         <div className="space-y-1">
-          {label && <label className="text-sm font-medium">{label}</label>}
+          {label && <Label htmlFor={id}>{label}</Label>}
           {children}
           {error && <p className="text-red-600 text-sm">{error}</p>}
         </div>
       ),
-      ErrorMessage: ({ error }: any) => (
-        <p className="text-red-600 text-sm">{error}</p>
-      ),
+      ErrorMessage: ({ error }: any) => <p className="text-red-600 text-sm">{error}</p>,
       SubmitButton: ({ children }: any) => (
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-        >
+        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
           {children}
         </button>
       ),
@@ -175,11 +166,7 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({
         <div className="space-y-2">
           {label && <h4 className="font-medium">{label}</h4>}
           <div className="space-y-2">{children}</div>
-          <button
-            type="button"
-            onClick={onAddItem}
-            className="text-sm text-blue-600"
-          >
+          <button type="button" onClick={onAddItem} className="text-sm text-blue-600">
             Add Item
           </button>
         </div>
@@ -187,35 +174,19 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({
       ArrayElementWrapper: ({ children, onRemove }: any) => (
         <div className="flex items-center space-x-2">
           <div className="flex-1">{children}</div>
-          <button
-            type="button"
-            onClick={onRemove}
-            className="text-sm text-red-600"
-          >
+          <button type="button" onClick={onRemove} className="text-sm text-red-600">
             Remove
           </button>
         </div>
       ),
-    };
+    }
 
     const mockFormComponents = {
-      string: (props: any) => (
-        <input
-          type="text"
-          className="w-full border rounded px-2 py-1"
-          {...props.inputProps}
-        />
-      ),
-      email: (props: any) => (
-        <input
-          type="email"
-          className="w-full border rounded px-2 py-1"
-          {...props.inputProps}
-        />
-      ),
-    };
+      string: (props: any) => <input type="text" className="w-full border rounded px-2 py-1" {...props.inputProps} />,
+      email: (props: any) => <input type="email" className="w-full border rounded px-2 py-1" {...props.inputProps} />,
+    }
 
-    console.log("Attempting to render BaseAutoForm with provider:", provider);
+    console.log('Attempting to render BaseAutoForm with provider:', provider)
 
     return (
       <BaseAutoForm
@@ -223,19 +194,19 @@ const DirectBaseAutoForm: React.FC<{ provider: AjvProvider }> = ({
         uiComponents={mockUIComponents}
         formComponents={mockFormComponents}
         onSubmit={(data: any) => {
-          console.log("Form submitted:", data);
-          alert("Form submitted! Check console for data.");
+          console.log('Form submitted:', data)
+          alert('Form submitted! Check console for data.')
         }}
         withSubmit={true}
       />
-    );
+    )
   } catch (error) {
-    console.error("Error in DirectBaseAutoForm:", error);
+    console.error('Error in DirectBaseAutoForm:', error)
     return (
       <div className="p-3 bg-red-50 border border-red-200 rounded">
         <p className="text-red-700 text-sm">Component error: {error.message}</p>
         <pre className="text-xs mt-2 text-red-600">{error.stack}</pre>
       </div>
-    );
+    )
   }
-};
+}

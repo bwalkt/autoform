@@ -12,7 +12,7 @@ export interface AutoFormProps<T extends FieldValues> {
   schema: SchemaProvider<T>;
   onSubmit?: (
     values: T,
-    form: UseFormReturn<T, any, T>,
+    form: UseFormReturn<T, unknown, T>,
   ) => void | Promise<void>;
 
   defaultValues?: Partial<T>;
@@ -22,8 +22,8 @@ export interface AutoFormProps<T extends FieldValues> {
   uiComponents: AutoFormUIComponents;
   formComponents: AutoFormFieldComponents;
   withSubmit?: boolean;
-  onFormInit?: (form: UseFormReturn<T, any, T>) => void;
-  formProps?: React.ComponentProps<"form"> | Record<string, any>;
+  onFormInit?: (form: UseFormReturn<T, unknown, T>) => void;
+  formProps?: React.ComponentProps<"form"> | Record<string, unknown>;
 }
 
 export type ExtendableAutoFormProps<T extends FieldValues> = Omit<
@@ -78,11 +78,11 @@ export interface ObjectWrapperProps {
 export interface AutoFormFieldProps {
   label: Renderable<ReactNode>;
   field: ParsedField;
-  value: any;
+  value: unknown;
   error?: string;
   id: string;
   path: string[];
-  inputProps: any;
+  inputProps: Record<string, unknown>;
 }
 
 export interface AutoFormContextType {
@@ -93,7 +93,7 @@ export interface AutoFormContextType {
 
 export type FieldConfig<
   FieldTypes = string,
-  CustomData = Record<string, any>,
+  CustomData = Record<string, unknown>,
 > = BaseFieldConfig<
   ReactNode,
   FieldTypes,

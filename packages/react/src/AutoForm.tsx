@@ -1,11 +1,11 @@
-import React, { FormEventHandler, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
-import { parseSchema, getDefaultValues, removeEmptyValues, type SchemaValidationError, type ParsedField } from "@bwalkt/core";
+import { parseSchema, getDefaultValues, removeEmptyValues, type ParsedField } from "@bwalkt/core";
 import type { AutoFormProps } from "./types";
 import { AutoFormProvider } from "./context";
 import { AutoFormField } from "./AutoFormField";
 
-export function AutoForm<T extends Record<string, any>>({
+export function AutoForm<T extends Record<string, unknown>>({
   schema,
   onSubmit = () => {},
   defaultValues,
@@ -41,10 +41,10 @@ export function AutoForm<T extends Record<string, any>>({
     } else {
       methods.clearErrors();
       let isFocused: boolean = false;
-      validationResult.errors?.forEach((error: SchemaValidationError) => {
+      for (const error of validationResult.errors || []) {
         const path = error.path.join(".");
         methods.setError(
-          path as any,
+          path as keyof T,
           {
             type: "custom",
             message: error.message,
@@ -57,12 +57,12 @@ export function AutoForm<T extends Record<string, any>>({
         // For some custom errors, zod adds the final element twice for some reason
         const correctedPath = error.path?.slice?.(0, -1);
         if (correctedPath?.length > 0) {
-          methods.setError(correctedPath.join(".") as any, {
+          methods.setError(correctedPath.join(".") as keyof T, {
             type: "custom",
             message: error.message,
           });
         }
-      });
+      }
     }
   };
 

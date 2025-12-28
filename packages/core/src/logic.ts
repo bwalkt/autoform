@@ -9,18 +9,18 @@ export function parseSchema(schemaProvider: SchemaProvider): ParsedSchema {
   };
 }
 
-export function validateSchema(schemaProvider: SchemaProvider, values: any) {
+export function validateSchema(schemaProvider: SchemaProvider, values: unknown) {
   return schemaProvider.validateSchema(values);
 }
 
 export function getDefaultValues(
   schemaProvider: SchemaProvider,
-): Record<string, any> {
+): Record<string, unknown> {
   return schemaProvider.getDefaultValues();
 }
 
 // Recursively remove empty values from an object (null, undefined, "", [], {})
-export function removeEmptyValues<T extends Record<string, any>>(
+export function removeEmptyValues<T extends Record<string, unknown>>(
   values: T,
 ): Partial<T> {
   const result: Partial<T> = {};
@@ -31,15 +31,15 @@ export function removeEmptyValues<T extends Record<string, any>>(
     }
 
     if (Array.isArray(value)) {
-      const newArray = value.map((item: any) => {
+      const newArray = value.map((item: unknown) => {
         if (typeof item === "object") {
           return removeEmptyValues(item);
         }
         return item;
       });
-      result[key] = newArray.filter((item: any) => item !== null);
+      result[key] = newArray.filter((item: unknown) => item !== null);
     } else if (typeof value === "object") {
-      result[key] = removeEmptyValues(value) as any;
+      result[key] = removeEmptyValues(value) as T[keyof T];
     } else {
       result[key] = value;
     }

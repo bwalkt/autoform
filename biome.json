@@ -55,49 +55,12 @@
         "noFunctionAssign": "error",
         "noImportAssign": "error",
         "noRedeclare": "error",
-        "noExplicitAny": "warn"
+        "noExplicitAny": "warn",
+        "noArrayIndexKey": "off"
       }
     }
   },
-  "overrides": [
-    {
-      "includes": ["packages/**", "examples/*/packages/**"],
-      "formatter": {
-        "enabled": true
-      },
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "recommended": "warn"
-        }
-      }
-    },
-    {
-      "includes": ["packages/server/**"],
-      "formatter": {
-        "enabled": false
-      },
-      "linter": {
-        "enabled": false
-      }
-    },
-    {
-      "includes": [
-        "**/*.test.ts",
-        "**/*.test.tsx",
-        "**/*.test.js",
-        "**/*.test.jsx",
-        "**/*.spec.ts",
-        "**/*.spec.tsx",
-        "**/*.spec.js",
-        "**/*.spec.jsx",
-        "**/__tests__/**"
-      ],
-      "linter": {
-        "enabled": false
-      }
-    }
-  ],
+  "overrides": [],
   "javascript": {
     "formatter": {
       "jsxQuoteStyle": "double",

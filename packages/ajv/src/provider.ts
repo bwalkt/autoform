@@ -9,9 +9,9 @@ import type {
 import { parseSchema } from "./schema-parser";
 import { getDefaultValues } from "./default-values";
 
-export class AjvProvider<T = any> implements SchemaProvider<T> {
+export class AjvProvider<T = unknown> implements SchemaProvider<T> {
   private ajv: Ajv;
-  private compiledSchema: any;
+  private compiledSchema: unknown;
 
   /**
    * Provider to use AJV JSON schemas for AutoForm
@@ -21,7 +21,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
    */
   constructor(
     private schema: JSONSchemaType<T> | Schema,
-    ajvOptions: any = {},
+    ajvOptions: Record<string, unknown> = {},
   ) {
     if (!schema) {
       throw new Error("AjvProvider: schema is required");
@@ -58,7 +58,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
     const errors = this.compiledSchema.errors || [];
     return {
       success: false,
-      errors: errors.map((error: any) => ({
+      errors: errors.map((error: Record<string, unknown>) => ({
         path: error.instancePath
           ? error.instancePath.split("/").filter(Boolean)
           : [],
@@ -67,7 +67,7 @@ export class AjvProvider<T = any> implements SchemaProvider<T> {
     } as const;
   }
 
-  getDefaultValues(): Record<string, any> {
+  getDefaultValues(): Record<string, unknown> {
     return getDefaultValues(this.schema);
   }
 }

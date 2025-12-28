@@ -16,7 +16,7 @@ export const ArrayField: React.FC<{
   });
 
   const subFieldType = field.schema?.[0]?.type;
-  let defaultValue: any;
+  let defaultValue: unknown;
   if (subFieldType === "object") {
     defaultValue = {};
   } else if (subFieldType === "array") {
@@ -37,10 +37,12 @@ export const ArrayField: React.FC<{
           onRemove={() => remove(index)}
           index={index}
         >
-          <AutoFormField
-            field={field.schema![0]!}
-            path={[...path, index.toString()]}
-          />
+          {field.schema?.[0] && (
+            <AutoFormField
+              field={field.schema[0]}
+              path={[...path, index.toString()]}
+            />
+          )}
         </uiComponents.ArrayElementWrapper>
       ))}
     </uiComponents.ArrayWrapper>

@@ -1,98 +1,100 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Button } from '../components/ui/button'
+import { Label } from '../components/ui/label'
 
 // Completely static demo without any React state or hooks
 const StaticSchemaDemo = () => {
   // Complex JSON Schema definition
   const userProfileSchema = {
-    type: "object",
-    title: "User Profile",
+    type: 'object',
+    title: 'User Profile',
     properties: {
       personalInfo: {
-        type: "object",
-        title: "Personal Information",
-        description: "Basic information about yourself",
+        type: 'object',
+        title: 'Personal Information',
+        description: 'Basic information about yourself',
         properties: {
           firstName: {
-            type: "string",
+            type: 'string',
             minLength: 2,
             maxLength: 50,
-            title: "First Name",
+            title: 'First Name',
           },
           lastName: {
-            type: "string",
+            type: 'string',
             minLength: 2,
             maxLength: 50,
-            title: "Last Name",
+            title: 'Last Name',
           },
           email: {
-            type: "string",
-            format: "email",
-            title: "Email Address",
+            type: 'string',
+            format: 'email',
+            title: 'Email Address',
           },
           phone: {
-            type: "string",
-            pattern: "^[\\+]?[1-9][\\d]{0,15}$",
-            title: "Phone Number",
+            type: 'string',
+            pattern: '^[\\+]?[1-9][\\d]{0,15}$',
+            title: 'Phone Number',
           },
           birthDate: {
-            type: "string",
-            format: "date",
-            title: "Date of Birth",
+            type: 'string',
+            format: 'date',
+            title: 'Date of Birth',
           },
         },
-        required: ["firstName", "lastName", "email", "birthDate"],
+        required: ['firstName', 'lastName', 'email', 'birthDate'],
       },
       address: {
-        type: "object",
-        title: "Address",
+        type: 'object',
+        title: 'Address',
         properties: {
           street: {
-            type: "string",
+            type: 'string',
             minLength: 5,
-            title: "Street Address",
+            title: 'Street Address',
           },
           city: {
-            type: "string",
+            type: 'string',
             minLength: 2,
-            title: "City",
+            title: 'City',
           },
           zipCode: {
-            type: "string",
-            pattern: "^[\\d]{5}(-[\\d]{4})?$",
-            title: "ZIP Code",
+            type: 'string',
+            pattern: '^[\\d]{5}(-[\\d]{4})?$',
+            title: 'ZIP Code',
           },
           country: {
-            type: "string",
-            enum: ["US", "CA", "UK", "DE", "FR"],
-            default: "US",
-            title: "Country",
+            type: 'string',
+            enum: ['US', 'CA', 'UK', 'DE', 'FR'],
+            default: 'US',
+            title: 'Country',
           },
         },
-        required: ["street", "city", "zipCode", "country"],
+        required: ['street', 'city', 'zipCode', 'country'],
       },
       preferences: {
-        type: "object",
-        title: "Preferences",
+        type: 'object',
+        title: 'Preferences',
         properties: {
           newsletter: {
-            type: "boolean",
+            type: 'boolean',
             default: false,
-            title: "Newsletter Subscription",
+            title: 'Newsletter Subscription',
           },
           theme: {
-            type: "string",
-            enum: ["light", "dark", "auto"],
-            default: "auto",
-            title: "Theme",
+            type: 'string',
+            enum: ['light', 'dark', 'auto'],
+            default: 'auto',
+            title: 'Theme',
           },
         },
-        required: ["newsletter", "theme"],
+        required: ['newsletter', 'theme'],
       },
       skills: {
-        type: "array",
-        title: "Skills",
+        type: 'array',
+        title: 'Skills',
         items: {
-          type: "string",
+          type: 'string',
           minLength: 2,
         },
         minItems: 1,
@@ -100,27 +102,22 @@ const StaticSchemaDemo = () => {
         default: [],
       },
     },
-    required: ["personalInfo", "address", "preferences", "skills"],
-  };
+    required: ['personalInfo', 'address', 'preferences', 'skills'],
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          AJV AutoForm Schema Demo
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">AJV AutoForm Schema Demo</h1>
         <p className="text-gray-600 mb-6">
-          This demonstrates the JSON Schema structure that would be used with
-          the AJV provider for AutoForm.
+          This demonstrates the JSON Schema structure that would be used with the AJV provider for AutoForm.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Schema Display */}
           <div className="space-y-4">
             <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="font-semibold text-gray-900 mb-3">
-                📋 Complete JSON Schema
-              </h3>
+              <h3 className="font-semibold text-gray-900 mb-3">📋 Complete JSON Schema</h3>
               <pre className="text-xs text-gray-600 overflow-auto max-h-96 bg-white p-3 rounded border">
                 {JSON.stringify(userProfileSchema, null, 2)}
               </pre>
@@ -130,25 +127,19 @@ const StaticSchemaDemo = () => {
           {/* Features List */}
           <div className="space-y-4">
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <h3 className="font-semibold text-blue-900 mb-3">
-                ✨ Form Features
-              </h3>
+              <h3 className="font-semibold text-blue-900 mb-3">✨ Form Features</h3>
               <ul className="space-y-2 text-sm text-blue-800">
                 <li>
-                  <strong>🔍 Nested Objects:</strong> personalInfo, address,
-                  preferences
+                  <strong>🔍 Nested Objects:</strong> personalInfo, address, preferences
                 </li>
                 <li>
-                  <strong>📝 String Validation:</strong> minLength, maxLength,
-                  pattern
+                  <strong>📝 String Validation:</strong> minLength, maxLength, pattern
                 </li>
                 <li>
-                  <strong>📧 Format Validation:</strong> email, date, phone
-                  patterns
+                  <strong>📧 Format Validation:</strong> email, date, phone patterns
                 </li>
                 <li>
-                  <strong>🔢 Array Management:</strong> skills with min/max
-                  items
+                  <strong>🔢 Array Management:</strong> skills with min/max items
                 </li>
                 <li>
                   <strong>📋 Enums:</strong> country, theme dropdowns
@@ -166,9 +157,7 @@ const StaticSchemaDemo = () => {
             </div>
 
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-              <h3 className="font-semibold text-green-900 mb-3">
-                🚀 AJV Integration
-              </h3>
+              <h3 className="font-semibold text-green-900 mb-3">🚀 AJV Integration</h3>
               <div className="text-sm text-green-800 space-y-2">
                 <p>
                   <strong>Provider Setup:</strong>
@@ -188,9 +177,7 @@ const StaticSchemaDemo = () => {
             </div>
 
             <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <h3 className="font-semibold text-purple-900 mb-3">
-                🎨 Generated Form Fields
-              </h3>
+              <h3 className="font-semibold text-purple-900 mb-3">🎨 Generated Form Fields</h3>
               <ul className="space-y-1 text-sm text-purple-800">
                 <li>• Text inputs with validation</li>
                 <li>• Email input with format checking</li>
@@ -207,16 +194,13 @@ const StaticSchemaDemo = () => {
 
         {/* Mock Form Preview */}
         <div className="mt-8 p-6 bg-yellow-50 border-2 border-yellow-200 border-dashed rounded-lg">
-          <h3 className="font-semibold text-yellow-800 mb-3">
-            🎯 AutoForm Would Render Here
-          </h3>
+          <h3 className="font-semibold text-yellow-800 mb-3">🎯 AutoForm Would Render Here</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-3">
               <div className="border border-gray-300 rounded p-2 bg-white">
-                <label className="text-sm font-medium text-gray-700">
-                  First Name *
-                </label>
+                <Label htmlFor="firstName">First Name *</Label>
                 <input
+                  id="firstName"
                   type="text"
                   placeholder="Enter first name"
                   className="w-full mt-1 p-1 text-sm"
@@ -224,10 +208,9 @@ const StaticSchemaDemo = () => {
                 />
               </div>
               <div className="border border-gray-300 rounded p-2 bg-white">
-                <label className="text-sm font-medium text-gray-700">
-                  Email *
-                </label>
+                <Label htmlFor="emailField">Email *</Label>
                 <input
+                  id="emailField"
                   type="email"
                   placeholder="user@example.com"
                   className="w-full mt-1 p-1 text-sm"
@@ -235,20 +218,17 @@ const StaticSchemaDemo = () => {
                 />
               </div>
               <div className="border border-gray-300 rounded p-2 bg-white">
-                <label className="text-sm font-medium text-gray-700">
-                  Country *
-                </label>
-                <select className="w-full mt-1 p-1 text-sm" disabled>
+                <Label htmlFor="country">Country *</Label>
+                <select id="country" className="w-full mt-1 p-1 text-sm" disabled>
                   <option>US</option>
                 </select>
               </div>
             </div>
             <div className="space-y-3">
               <div className="border border-gray-300 rounded p-2 bg-white">
-                <label className="text-sm font-medium text-gray-700">
-                  Last Name *
-                </label>
+                <Label htmlFor="lastName">Last Name *</Label>
                 <input
+                  id="lastName"
                   type="text"
                   placeholder="Enter last name"
                   className="w-full mt-1 p-1 text-sm"
@@ -256,26 +236,20 @@ const StaticSchemaDemo = () => {
                 />
               </div>
               <div className="border border-gray-300 rounded p-2 bg-white">
-                <label className="text-sm font-medium text-gray-700">
-                  Birth Date *
-                </label>
-                <input
-                  type="date"
-                  className="w-full mt-1 p-1 text-sm"
-                  disabled
-                />
+                <Label htmlFor="birthDate">Birth Date *</Label>
+                <input id="birthDate" type="date" className="w-full mt-1 p-1 text-sm" disabled />
               </div>
               <div className="border border-gray-300 rounded p-2 bg-white">
-                <label className="flex items-center text-sm font-medium text-gray-700">
-                  <input type="checkbox" className="mr-2" disabled />
+                <Label htmlFor="newsletter" className="flex items-center">
+                  <input id="newsletter" type="checkbox" className="mr-2" disabled />
                   Subscribe to newsletter
-                </label>
+                </Label>
               </div>
             </div>
           </div>
           <p className="text-yellow-700 text-sm mt-4 italic">
-            This is a mock preview. The actual AutoForm component would generate
-            all these fields automatically from the JSON schema above.
+            This is a mock preview. The actual AutoForm component would generate all these fields automatically from the
+            JSON schema above.
           </p>
         </div>
 
@@ -301,29 +275,27 @@ function MyForm() {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const meta: Meta<typeof StaticSchemaDemo> = {
-  title: "AJV/Static Schema Demo",
+  title: 'AJV/Static Schema Demo',
   component: StaticSchemaDemo,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const CompleteSchema: Story = {};
+export const CompleteSchema: Story = {}
 
 export const SimpleExample: Story = {
   render: () => (
     <div className="max-w-2xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Simple AJV Schema Example
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Simple AJV Schema Example</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -357,10 +329,9 @@ export const SimpleExample: Story = {
             <h3 className="font-semibold text-gray-900 mb-2">Generated Form</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Full Name *
-                </label>
+                <Label htmlFor="fullname">Full Name *</Label>
                 <input
+                  id="fullname"
                   type="text"
                   className="w-full border rounded p-2 text-sm"
                   disabled
@@ -368,10 +339,9 @@ export const SimpleExample: Story = {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Email *
-                </label>
+                <Label htmlFor="email">Email *</Label>
                 <input
+                  id="email"
                   type="email"
                   className="w-full border rounded p-2 text-sm"
                   disabled
@@ -379,26 +349,16 @@ export const SimpleExample: Story = {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Age *
-                </label>
-                <input
-                  type="number"
-                  className="w-full border rounded p-2 text-sm"
-                  disabled
-                  placeholder="25"
-                />
+                <Label htmlFor="age">Age *</Label>
+                <input id="age" type="number" className="w-full border rounded p-2 text-sm" disabled placeholder="25" />
               </div>
-              <button
-                className="w-full bg-blue-600 text-white py-2 rounded"
-                disabled
-              >
+              <Button type="button" className="w-full" disabled>
                 Submit
-              </button>
+              </Button>
             </div>
           </div>
         </div>
       </div>
     </div>
   ),
-};
+}

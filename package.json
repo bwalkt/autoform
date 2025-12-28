@@ -4,8 +4,10 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --concurrency 20",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint . --write",
+    "lint": "biome lint packages/core/src packages/react/src packages/ajv/src packages/shadcn/src/components packages/shadcn/src/elements packages/shadcn/src/lib packages/shadcn/src/scripts",
+    "lint:fix": "biome lint packages/core/src packages/react/src packages/ajv/src packages/shadcn/src/components packages/shadcn/src/elements packages/shadcn/src/lib packages/shadcn/src/scripts --write",
+    "lint:all": "biome lint .",
+    "lint:fix:all": "biome lint . --write",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

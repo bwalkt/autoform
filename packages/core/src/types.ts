@@ -9,11 +9,11 @@ export type Renderable<AdditionalRenderable = null> =
 export interface FieldConfig<
   AdditionalRenderable = null,
   FieldTypes = string,
-  FieldWrapper = any,
-  CustomData = Record<string, any>,
+  FieldWrapper = unknown,
+  CustomData = Record<string, unknown>,
 > {
   description?: Renderable<AdditionalRenderable>;
-  inputProps?: Record<string, any>;
+  inputProps?: Record<string, unknown>;
   label?: Renderable<AdditionalRenderable>;
   fieldType?: FieldTypes;
   order?: number;
@@ -25,7 +25,7 @@ export interface ParsedField<AdditionalRenderable = null, FieldTypes = string> {
   key: string;
   type: string;
   required: boolean;
-  default?: any;
+  default?: unknown;
   description?: Renderable;
   fieldConfig?: FieldConfig<AdditionalRenderable, FieldTypes>;
 
@@ -43,7 +43,7 @@ export interface ParsedSchema<
 
 export type SuccessfulSchemaValidation = {
   success: true;
-  data: any;
+  data: unknown;
 };
 export type SchemaValidationError = {
   path: (string | number)[];

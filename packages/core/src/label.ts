@@ -23,7 +23,7 @@ function beautifyLabel(label: string) {
 
   // Never return a number for the label
   // This primarily important for array fields so we don't get "0" as a label
-  if (!isNaN(Number(output))) {
+  if (!Number.isNaN(Number(output))) {
     return "";
   }
 

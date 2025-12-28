@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
 import { getElementStyles } from "./utils";
-import type { Size, Variant, Color, Radius, ResponsiveSize } from "./tokens";
+import type { Variant, Color, Radius, ResponsiveSize } from "./tokens";
 
 export interface TextFieldProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

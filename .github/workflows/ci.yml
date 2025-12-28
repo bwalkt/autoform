@@ -48,11 +48,13 @@ jobs:
 
       - name: Run tests
         run: |
-          if pnpm test 2>&1 | grep -q "no test"; then
+          output=$(pnpm test 2>&1) || exit_code=$?
+          if echo "$output" | grep -q "no test"; then
             echo "⚠️ Warning: No tests found in the project"
             exit 0
           fi
-          pnpm test
+          echo "$output"
+          exit ${exit_code:-0}
 
   build:
     name: Build
@@ -95,6 +97,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
-          path: |
-            packages/*/dist
-            packages/*/build
+          path: packages/*/dist
