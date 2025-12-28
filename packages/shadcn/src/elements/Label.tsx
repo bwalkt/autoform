@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { cn } from "../lib/utils";
-import { Text, type TextProps } from "./Text";
+import { Text, type TextProps } from "./typography/Text";
 
 export interface LabelProps 
   extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> {

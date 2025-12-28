@@ -5,12 +5,20 @@ export { Textarea, type TextareaProps } from "./Textarea";
 export { Label, type LabelProps } from "./Label";
 
 // Typography components
-export { Text, type TextProps } from "./Text";
-export { Heading, type HeadingProps } from "./Heading";
-export { Em, type EmProps } from "./Em";
-export { Strong, type StrongProps } from "./Strong";
-export { Code, type CodeProps } from "./Code";
-export { Quote, type QuoteProps } from "./Quote";
+export {
+  Text,
+  Heading,
+  Em,
+  Strong,
+  Code,
+  Quote,
+  type TextProps,
+  type HeadingProps,
+  type EmProps,
+  type StrongProps,
+  type CodeProps,
+  type QuoteProps,
+} from "./typography";
 
 // Design tokens and types
 export {
