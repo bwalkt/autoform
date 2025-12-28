@@ -1,13 +1,13 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
 import { getElementStyles } from "./utils";
-import type { Variant, Color, Radius, ResponsiveSize } from "./tokens";
+import type { Variant, Color, Radius, Size } from "./tokens";
 
 export interface TextareaProps extends Omit<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   "size"
 > {
-  size?: ResponsiveSize;
+  size?: Size;
   variant?: Variant;
   color?: Color;
   radius?: Radius;
@@ -31,7 +31,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref,
   ) => {
-    const resolvedSize = typeof size === "string" ? size : size.initial || "2";
+    const resolvedSize = size || "2";
     const elementStyles = getElementStyles(
       resolvedSize,
       variant,

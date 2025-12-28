@@ -2,8 +2,7 @@
   "extends": "@bwalkt/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": ".",
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "baseUrl": "."
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

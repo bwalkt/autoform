@@ -8,7 +8,8 @@
     "lint:fix": "biome lint packages/core/src packages/react/src packages/ajv/src packages/shadcn/src/components packages/shadcn/src/elements packages/shadcn/src/lib packages/shadcn/src/scripts --write",
     "lint:all": "biome lint .",
     "lint:fix:all": "biome lint . --write",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "echo \"no test specified\" && exit 0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.10",

@@ -12,6 +12,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
 
   return (
     <Select
+      id={_id}
       onValueChange={(value) => {
         const syntheticEvent = {
           target: {
