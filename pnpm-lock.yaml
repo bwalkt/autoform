@@ -203,7 +203,7 @@ importers:
   packages/react:
     dependencies:
       '@bwalkt/core':
-        specifier: file:../core
+        specifier: workspace:*
         version: link:../core
       '@hookform/resolvers':
         specifier: 'catalog:'
@@ -241,7 +241,7 @@ importers:
     dependencies:
       '@bwalkt/react':
         specifier: file:../react
-        version: link:../react
+        version: file:packages/react(@hookform/resolvers@5.2.2(react-hook-form@7.69.0(react@19.2.3)))(react-hook-form@7.69.0(react@19.2.3))(react@19.2.3)
       '@radix-ui/react-checkbox':
         specifier: ^1.1.2
         version: 1.3.3(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -487,6 +487,13 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@bwalkt/react@file:packages/react':
+    resolution: {directory: packages/react, type: directory}
+    peerDependencies:
+      '@hookform/resolvers': ^5.2.2
+      react: ^16.8.0 || ^17 || ^18 || ^19
+      react-hook-form: ^7
 
   '@changesets/apply-release-plan@7.0.14':
     resolution: {integrity: sha512-ddBvf9PHdy2YY0OUiEl3TV78mH9sckndJR14QAt87KLEbIov81XO0q0QAmvooBxXlqRRP8I9B7XOzZwQG7JkWA==}
@@ -3719,6 +3726,13 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.3.10':
     optional: true
+
+  '@bwalkt/react@file:packages/react(@hookform/resolvers@5.2.2(react-hook-form@7.69.0(react@19.2.3)))(react-hook-form@7.69.0(react@19.2.3))(react@19.2.3)':
+    dependencies:
+      '@bwalkt/core': link:packages/core
+      '@hookform/resolvers': 5.2.2(react-hook-form@7.69.0(react@19.2.3))
+      react: 19.2.3
+      react-hook-form: 7.69.0(react@19.2.3)
 
   '@changesets/apply-release-plan@7.0.14':
     dependencies:
