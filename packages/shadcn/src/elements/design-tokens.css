@@ -157,7 +157,6 @@
 
 @supports not (text-wrap: balance) {
   .text-balance {
-    /* Fallback to normal text behavior */
-    text-align: left;
+    /* No fallback - let default text flow handle it */
   }
 }
