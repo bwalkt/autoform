@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn } from "../lib/utils";
-import type { TypographySize, Color } from "./tokens";
+import { cn } from "../../lib/utils";
+import { designTokens, type TypographySize, type Color } from "../tokens";
 
 export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   size?: TypographySize;
@@ -22,6 +22,13 @@ export const Code = React.forwardRef<HTMLElement, CodeProps>(
     },
     ref,
   ) => {
+    const typographyTokens = designTokens.typography[size];
+    
+    const codeStyles: React.CSSProperties = {
+      fontSize: typographyTokens.fontSize,
+      ...style,
+    };
+
     return (
       <code
         ref={ref}
@@ -29,7 +36,7 @@ export const Code = React.forwardRef<HTMLElement, CodeProps>(
           // Base styles
           "font-mono inline-flex items-center",
           "rounded-sm border px-1.5 py-0.5",
-          "text-sm font-medium",
+          "font-medium",
           
           // Variant styles
           variant === "solid" && [
@@ -73,7 +80,7 @@ export const Code = React.forwardRef<HTMLElement, CodeProps>(
           
           className
         )}
-        style={style}
+        style={codeStyles}
         {...props}
       />
     );

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn } from "../lib/utils";
-import type { TypographySize, Color } from "./tokens";
+import { cn } from "../../lib/utils";
+import { designTokens, type TypographySize, type Color } from "../tokens";
 
 export interface QuoteProps extends React.HTMLAttributes<HTMLElement> {
   size?: TypographySize;
@@ -24,6 +24,15 @@ export const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
     },
     ref,
   ) => {
+    const typographyTokens = designTokens.typography[size];
+    
+    const quoteStyles: React.CSSProperties = {
+      fontSize: typographyTokens.fontSize,
+      lineHeight: typographyTokens.lineHeight,
+      letterSpacing: typographyTokens.letterSpacing,
+      ...style,
+    };
+
     return (
       <blockquote
         ref={ref}
@@ -66,7 +75,7 @@ export const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
           
           className
         )}
-        style={style}
+        style={quoteStyles}
         {...props}
       />
     );
