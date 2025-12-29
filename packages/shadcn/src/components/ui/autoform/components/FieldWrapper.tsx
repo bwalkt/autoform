@@ -1,5 +1,5 @@
 import type React from "react";
-import { Label } from "@/components/ui/label";
+import { Label } from "../../../elements";
 import type { FieldWrapperProps } from "@bwalkt/react";
 
 const DISABLED_LABELS = ["boolean", "object", "array"];

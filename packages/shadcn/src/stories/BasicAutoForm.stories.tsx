@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { Button } from '../components/ui/button'
-import { Label } from '../components/ui/label'
+import { Label } from '../elements'
 
 // Simple demo without complex imports first
 const BasicFormDemo = () => {

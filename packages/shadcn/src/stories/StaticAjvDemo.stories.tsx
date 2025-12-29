@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Button } from '../components/ui/button'
-import { Label } from '../components/ui/label'
+import { Label } from '../elements'
 
 // Completely static demo without any React state or hooks
 const StaticSchemaDemo = () => {

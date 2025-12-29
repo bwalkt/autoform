@@ -115,3 +115,48 @@
     --color-error-background: #0f172a;
   }
 }
+
+/* Typography Utilities */
+.leading-trim-start {
+  /* Custom leading trim - using margin adjustments for now */
+  margin-top: -0.2em;
+}
+
+.leading-trim-end {
+  /* Custom leading trim - using margin adjustments for now */
+  margin-bottom: -0.2em;
+}
+
+.leading-trim-both {
+  /* Custom leading trim - using margin adjustments for now */
+  margin-top: -0.2em;
+  margin-bottom: -0.2em;
+}
+
+/* Text wrap utilities with browser support detection */
+@supports (text-wrap: pretty) {
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+@supports (text-wrap: balance) {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Fallbacks for browsers without text-wrap support */
+@supports not (text-wrap: pretty) {
+  .text-pretty {
+    /* Fallback to normal word-wrap behavior */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+@supports not (text-wrap: balance) {
+  .text-balance {
+    /* No fallback - let default text flow handle it */
+  }
+}
