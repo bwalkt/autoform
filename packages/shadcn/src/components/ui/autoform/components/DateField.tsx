@@ -14,8 +14,8 @@ export const DateField: React.FC<AutoFormFieldProps> = ({
       id={id}
       type="date"
       color={error ? "error" : "default"}
-      variant="surface"
-      size="2"
+      variant="outline"
+      size="md"
       {...props}
     />
   );

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { ChevronDown, CheckIcon } from "lucide-react";
 import { cn } from "../lib/utils";
-import { getElementStyles } from "./utils";
+import { getSizeStyles, getRadiusStyles } from "./utils";
 import type { Variant, Color, Radius, Size } from "./tokens";
 
 export interface SelectProps {
@@ -26,10 +26,10 @@ export const Select = React.forwardRef<
 >(
   (
     {
-      size = "2",
-      variant = "surface",
+      size = "md",
+      variant = "outline",
       color,
-      radius = "medium",
+      radius = "md",
       error = false,
       placeholder = "Select...",
       value,
@@ -40,18 +40,26 @@ export const Select = React.forwardRef<
     },
     ref,
   ) => {
-    const resolvedSize = size || "2";
-    const elementStyles = getElementStyles(
-      resolvedSize,
-      variant,
-      color,
-      radius,
-    );
+    const sizeStyles = getSizeStyles(size);
+    const radiusStyles = getRadiusStyles(radius);
+
+    const combinedStyles = {
+      ...sizeStyles,
+      ...radiusStyles,
+    };
+
+    const handleValueChange = onValueChange
+      ? (newValue: string | null) => {
+          if (newValue !== null) {
+            onValueChange(newValue);
+          }
+        }
+      : undefined;
 
     return (
       <SelectPrimitive.Root
         value={value}
-        onValueChange={onValueChange}
+        onValueChange={handleValueChange}
         disabled={disabled}
       >
         <SelectPrimitive.Trigger
@@ -65,38 +73,47 @@ export const Select = React.forwardRef<
             "text-[var(--color-text)]",
 
             // Variant-specific styles
-            variant === "classic" && [
-              "border border-[var(--color-border)]",
-              "bg-[var(--color-background)]",
-              "focus:border-[var(--color-primary)]",
-              "focus:ring-2 focus:ring-[var(--color-primary-alpha)]",
+            variant === "solid" && [
+              "border-0",
+              "bg-primary text-primary-foreground",
+              "hover:bg-primary/90",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
             ],
-            variant === "surface" && [
-              "border border-[var(--color-border-subtle)]",
-              "bg-[var(--color-surface)]",
-              "focus:border-[var(--color-primary)]",
-              "focus:ring-2 focus:ring-[var(--color-primary-alpha)]",
+            variant === "outline" && [
+              "border border-input",
+              "bg-background",
+              "hover:bg-accent hover:text-accent-foreground",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
             ],
             variant === "soft" && [
               "border-0",
-              "bg-[var(--color-soft-background)]",
-              "hover:bg-[var(--color-soft-background-hover)]",
-              "focus:bg-[var(--color-soft-background-hover)]",
+              "bg-secondary text-secondary-foreground",
+              "hover:bg-secondary/80",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
+            ],
+            variant === "ghost" && [
+              "border-0",
+              "bg-transparent",
+              "hover:bg-accent hover:text-accent-foreground",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
             ],
 
             // Error state
             error && [
-              "border-red-500 focus:border-red-500",
-              variant === "soft" && "bg-red-50",
+              "border-destructive focus:border-destructive",
+              "focus:ring-destructive/20",
+              variant === "soft" && "bg-destructive/10",
             ],
 
             // Disabled state
             disabled && ["opacity-50 cursor-not-allowed"],
           )}
-          style={elementStyles}
+          style={combinedStyles}
           {...props}
         >
-          <SelectPrimitive.Value placeholder={placeholder} />
+          <SelectPrimitive.Value>
+            {value || <span className="text-muted-foreground">{placeholder}</span>}
+          </SelectPrimitive.Value>
           <SelectPrimitive.Icon
             render={<ChevronDown className="h-4 w-4 opacity-50 ml-2" />}
           />

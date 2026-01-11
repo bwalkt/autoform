@@ -98,8 +98,8 @@ export const UserRegistrationForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">First Name</label>
             <TextField
-              size="2"
-              variant="surface"
+              size="md"
+              variant="outline"
               color={errors.firstName ? 'error' : 'default'}
               leftIcon={<User />}
               placeholder="John"
@@ -112,8 +112,8 @@ export const UserRegistrationForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">Last Name</label>
             <TextField
-              size="2"
-              variant="surface"
+              size="md"
+              variant="outline"
               color={errors.lastName ? 'error' : 'default'}
               placeholder="Doe"
               value={formData.lastName}
@@ -126,8 +126,8 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Email Address</label>
           <TextField
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color={errors.email ? 'error' : 'info'}
             leftIcon={<Mail />}
             type="email"
@@ -141,8 +141,8 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Password</label>
           <TextField
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color={errors.password ? 'error' : 'default'}
             leftIcon={<Lock />}
             type="password"
@@ -156,8 +156,8 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Confirm Password</label>
           <TextField
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color={errors.confirmPassword ? 'error' : 'default'}
             leftIcon={<Lock />}
             type="password"
@@ -171,8 +171,8 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Role (Optional)</label>
           <Select
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color="default"
             placeholder="Select your role"
             value={formData.role}
@@ -189,8 +189,8 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Bio (Optional)</label>
           <Textarea
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color="default"
             placeholder="Tell us about yourself..."
             rows={3}
@@ -260,8 +260,8 @@ export const ContactForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">Your Name</label>
             <TextField
-              size="2"
-              variant="surface"
+              size="md"
+              variant="outline"
               color="default"
               leftIcon={<User />}
               placeholder="Enter your name"
@@ -274,8 +274,8 @@ export const ContactForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">Email</label>
             <TextField
-              size="2"
-              variant="surface"
+              size="md"
+              variant="outline"
               color="info"
               leftIcon={<Mail />}
               type="email"
@@ -290,8 +290,8 @@ export const ContactForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Subject</label>
           <TextField
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color="default"
             placeholder="What is this about?"
             value={contactData.subject}
@@ -303,8 +303,8 @@ export const ContactForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Priority</label>
           <Select
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color="warning"
             placeholder="Select priority level"
             value={contactData.priority}
@@ -320,8 +320,8 @@ export const ContactForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Message</label>
           <Textarea
-            size="2"
-            variant="surface"
+            size="md"
+            variant="outline"
             color="default"
             placeholder="Describe your inquiry or feedback..."
             rows={5}

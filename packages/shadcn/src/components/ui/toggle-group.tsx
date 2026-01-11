@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group";
+import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import type { VariantProps } from "class-variance-authority";
 
 import { cn } from "@bwalkt/shadcn/lib/utils";
@@ -40,11 +41,11 @@ function ToggleGroupItem({
   variant,
   size,
   ...props
-}: ToggleGroupPrimitive.Item.Props & VariantProps<typeof toggleVariants>) {
+}: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
   const context = React.useContext(ToggleGroupContext);
 
   return (
-    <ToggleGroupPrimitive.Item
+    <TogglePrimitive
       data-slot="toggle-group-item"
       className={cn(
         toggleVariants({
@@ -56,7 +57,7 @@ function ToggleGroupItem({
       {...props}
     >
       {children}
-    </ToggleGroupPrimitive.Item>
+    </TogglePrimitive>
   );
 }
 

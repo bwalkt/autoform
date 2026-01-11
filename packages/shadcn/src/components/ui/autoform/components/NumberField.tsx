@@ -14,8 +14,8 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
       id={id}
       type="number"
       color={error ? "error" : "default"}
-      variant="surface"
-      size="2"
+      variant="outline"
+      size="md"
       {...props}
     />
   );
