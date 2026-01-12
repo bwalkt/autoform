@@ -93,7 +93,7 @@ const Inset = React.forwardRef<HTMLDivElement, InsetProps>(
         style={{
           ...style,
           // Use CSS variable for the inset padding, defaults to 1rem (p-4)
-          "--inset-padding": clip === "current" ? "inherit" : `${parseInt(clip) * 0.25}rem`,
+          "--inset-padding": clip === "current" ? "inherit" : `${parseInt(clip, 10) * 0.25}rem`,
         } as React.CSSProperties}
         {...props}
       >

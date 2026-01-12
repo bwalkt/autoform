@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
+import type * as React from "react";
 import { Theme, ThemePanel, useThemeContext } from "./Theme";
 import { Button } from "./Button";
 import { Card } from "./Card";

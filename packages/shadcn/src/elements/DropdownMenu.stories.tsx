@@ -7,8 +7,6 @@ import {
   LogOut,
   Plus,
   CreditCard,
-  Mail,
-  MessageSquare,
   UserPlus,
   Cloud,
   LifeBuoy,

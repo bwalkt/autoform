@@ -484,7 +484,7 @@ export const SubscriptionFeatures: Story = {
 
     const total = features.reduce((sum, f) => {
       const feature = featureList.find((fl) => fl.value === f);
-      return sum + (feature ? parseInt(feature.price) : 0);
+      return sum + (feature ? parseInt(feature.price, 10) : 0);
     }, 0);
 
     return (

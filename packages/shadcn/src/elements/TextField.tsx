@@ -104,7 +104,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
   ) => {
     const sizeStyles = getSizeStyles(size);
     const radiusStyles = getRadiusStyles(radius);
-    const inputId = id || React.useId();
+    const generatedId = React.useId();
+    const inputId = id || generatedId;
 
     const combinedStyles = {
       ...sizeStyles,
