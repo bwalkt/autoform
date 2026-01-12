@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
 import { getSizeStyles, getRadiusStyles } from "./utils";
+import { useFieldGroup } from "./FieldGroupContext";
 import type { Color, Radius, Size } from "./tokens";
 
 // Combined variant type - regular and floating label variants
@@ -116,8 +117,8 @@ const getFloatingStyle = (variant: TextFieldVariant): "filled" | "standard" | "o
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
-      size = "2",
-      variant = "outline",
+      size: sizeProp,
+      variant: variantProp,
       color,
       radius = "md",
       error = false,
@@ -132,6 +133,11 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     },
     ref,
   ) => {
+    // Get context values from FieldGroup (if wrapped)
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup?.size ?? "2";
+    const variant = variantProp ?? fieldGroup?.variant ?? "outline";
+
     const sizeStyles = getSizeStyles(size);
     const radiusStyles = getRadiusStyles(radius);
     const generatedId = React.useId();

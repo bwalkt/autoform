@@ -1,5 +1,7 @@
 // Form elements
-export { TextField, type TextFieldProps, type FloatingLabelStyle } from "./TextField";
+export { TextField, type TextFieldProps, type TextFieldVariant } from "./TextField";
+export { FieldGroup, type FieldGroupProps } from "./FieldGroup";
+export { FieldGroupProvider, useFieldGroup, type FieldGroupContextValue } from "./FieldGroupContext";
 export { Select, SelectItem, type SelectProps } from "./Select";
 export { Textarea, type TextareaProps } from "./Textarea";
 export { Button, type ButtonProps } from "./Button";
