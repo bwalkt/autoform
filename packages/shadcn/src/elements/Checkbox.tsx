@@ -9,25 +9,25 @@ import type { Size, Color } from "./tokens";
 
 // Checkbox-specific size tokens (smaller than form elements)
 const checkboxSizes = {
-  xs: {
-    box: "h-3.5 w-3.5",
-    icon: "h-3 w-3",
-    radius: "rounded-sm",
+  "1": {
+    boxSize: "0.875rem", // 14px
+    iconSize: "0.75rem",  // 12px
+    borderRadius: "0.125rem",
   },
-  sm: {
-    box: "h-4 w-4",
-    icon: "h-3.5 w-3.5",
-    radius: "rounded-sm",
+  "2": {
+    boxSize: "1rem",      // 16px
+    iconSize: "0.875rem", // 14px
+    borderRadius: "0.125rem",
   },
-  md: {
-    box: "h-5 w-5",
-    icon: "h-4 w-4",
-    radius: "rounded",
+  "3": {
+    boxSize: "1.25rem",   // 20px
+    iconSize: "1rem",     // 16px
+    borderRadius: "0.25rem",
   },
-  lg: {
-    box: "h-6 w-6",
-    icon: "h-5 w-5",
-    radius: "rounded",
+  "4": {
+    boxSize: "1.5rem",    // 24px
+    iconSize: "1.25rem",  // 20px
+    borderRadius: "0.25rem",
   },
 } as const;
 
@@ -61,63 +61,79 @@ export interface CheckboxProps {
   className?: string;
   /** The id attribute */
   id?: string;
+  /** Additional inline styles */
+  style?: React.CSSProperties;
 }
 
-// Color-specific styles for checked state
+// Color-specific styles for checked state - following Radix Themes patterns
 const colorStyles: Record<Color, { solid: string; soft: string; outline: string }> = {
   default: {
-    solid: "data-[checked]:bg-primary data-[checked]:border-primary",
-    soft: "data-[checked]:bg-primary/20 data-[checked]:text-primary",
-    outline: "data-[checked]:border-primary data-[checked]:text-primary",
+    solid: "data-[checked]:bg-gray-900 data-[checked]:border-transparent dark:data-[checked]:bg-gray-100 dark:data-[checked]:border-transparent",
+    soft: "bg-gray-100 data-[checked]:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:data-[checked]:bg-gray-700 dark:text-gray-300",
+    outline: "data-[checked]:border-gray-900 text-gray-700 dark:data-[checked]:border-gray-100 dark:text-gray-300",
   },
   primary: {
-    solid: "data-[checked]:bg-primary data-[checked]:border-primary",
-    soft: "data-[checked]:bg-primary/20 data-[checked]:text-primary",
-    outline: "data-[checked]:border-primary data-[checked]:text-primary",
+    solid: "data-[checked]:bg-primary data-[checked]:border-transparent data-[checked]:text-primary-foreground",
+    soft: "bg-primary/10 data-[checked]:bg-primary/20 text-primary",
+    outline: "data-[checked]:border-primary text-primary",
+  },
+  neutral: {
+    solid: "data-[checked]:bg-gray-500 data-[checked]:border-transparent data-[checked]:text-white dark:data-[checked]:bg-gray-400 dark:data-[checked]:text-gray-900",
+    soft: "bg-muted data-[checked]:bg-muted text-muted-foreground",
+    outline: "data-[checked]:border-gray-500 text-muted-foreground dark:data-[checked]:border-gray-400",
   },
   info: {
-    solid: "data-[checked]:bg-blue-500 data-[checked]:border-blue-500",
-    soft: "data-[checked]:bg-blue-500/20 data-[checked]:text-blue-600",
-    outline: "data-[checked]:border-blue-500 data-[checked]:text-blue-600",
+    solid: "data-[checked]:bg-blue-500 data-[checked]:border-transparent data-[checked]:text-white",
+    soft: "bg-blue-50 data-[checked]:bg-blue-100 text-blue-600 dark:bg-blue-950 dark:data-[checked]:bg-blue-900 dark:text-blue-400",
+    outline: "data-[checked]:border-blue-500 text-blue-600 dark:text-blue-400",
   },
   success: {
-    solid: "data-[checked]:bg-green-500 data-[checked]:border-green-500",
-    soft: "data-[checked]:bg-green-500/20 data-[checked]:text-green-600",
-    outline: "data-[checked]:border-green-500 data-[checked]:text-green-600",
+    solid: "data-[checked]:bg-green-500 data-[checked]:border-transparent data-[checked]:text-white",
+    soft: "bg-green-50 data-[checked]:bg-green-100 text-green-600 dark:bg-green-950 dark:data-[checked]:bg-green-900 dark:text-green-400",
+    outline: "data-[checked]:border-green-500 text-green-600 dark:text-green-400",
   },
   warning: {
-    solid: "data-[checked]:bg-amber-500 data-[checked]:border-amber-500",
-    soft: "data-[checked]:bg-amber-500/20 data-[checked]:text-amber-600",
-    outline: "data-[checked]:border-amber-500 data-[checked]:text-amber-600",
+    solid: "data-[checked]:bg-amber-500 data-[checked]:border-transparent data-[checked]:text-white",
+    soft: "bg-amber-50 data-[checked]:bg-amber-100 text-amber-600 dark:bg-amber-950 dark:data-[checked]:bg-amber-900 dark:text-amber-400",
+    outline: "data-[checked]:border-amber-500 text-amber-600 dark:text-amber-400",
   },
   error: {
-    solid: "data-[checked]:bg-red-500 data-[checked]:border-red-500",
-    soft: "data-[checked]:bg-red-500/20 data-[checked]:text-red-600",
-    outline: "data-[checked]:border-red-500 data-[checked]:text-red-600",
+    solid: "data-[checked]:bg-red-500 data-[checked]:border-transparent data-[checked]:text-white",
+    soft: "bg-red-50 data-[checked]:bg-red-100 text-red-600 dark:bg-red-950 dark:data-[checked]:bg-red-900 dark:text-red-400",
+    outline: "data-[checked]:border-red-500 text-red-600 dark:text-red-400",
   },
 };
 
-// Variant base styles
+// Variant base styles - following Radix Themes subtle aesthetic
 const variantStyles: Record<CheckboxVariant, string> = {
   solid: cn(
-    "border-2 border-input bg-background",
-    "data-[checked]:text-primary-foreground",
-    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+    // Subtle border like Radix Themes
+    "border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900",
+    // White tick on colored background when checked
+    "data-[checked]:text-white dark:data-[checked]:text-gray-900",
+    "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1",
+    "hover:border-gray-300 dark:hover:border-gray-600",
+    "transition-colors duration-150",
   ),
   soft: cn(
-    "border-0 bg-secondary",
-    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+    // Soft has subtle background, colored tick
+    "border-0",
+    "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1",
+    "transition-colors duration-150",
   ),
   outline: cn(
-    "border-2 border-input bg-transparent",
-    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+    // Outline has transparent bg, subtle border
+    "border border-gray-200 bg-transparent dark:border-gray-700",
+    "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1",
+    "hover:border-gray-300 dark:hover:border-gray-600",
+    "transition-colors duration-150",
   ),
 };
 
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   (
     {
-      size = "md",
+      size = "2",
       variant = "solid",
       color = "default",
       checked,
@@ -130,11 +146,25 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
       value,
       className,
       id,
+      style,
       ...props
     },
     ref,
   ) => {
     const sizeConfig = checkboxSizes[size];
+
+    // Use inline styles for reliable sizing
+    const checkboxStyles: React.CSSProperties = {
+      width: sizeConfig.boxSize,
+      height: sizeConfig.boxSize,
+      borderRadius: sizeConfig.borderRadius,
+      ...style,
+    };
+
+    const indicatorStyles: React.CSSProperties = {
+      width: sizeConfig.iconSize,
+      height: sizeConfig.iconSize,
+    };
 
     return (
       <CheckboxPrimitive.Root
@@ -147,12 +177,11 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         disabled={disabled}
         required={required}
         name={name}
+        style={checkboxStyles}
         className={cn(
           "peer inline-flex items-center justify-center shrink-0",
           "transition-all duration-150 ease-in-out",
           "outline-none",
-          sizeConfig.box,
-          sizeConfig.radius,
           variantStyles[variant],
           colorStyles[color][variant],
           // Indeterminate state
@@ -164,15 +193,13 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         {...props}
       >
         <CheckboxPrimitive.Indicator
-          className={cn(
-            "flex items-center justify-center",
-            sizeConfig.icon,
-          )}
+          className="flex items-center justify-center text-inherit"
+          style={indicatorStyles}
         >
           {indeterminate ? (
-            <Minus className="h-full w-full" strokeWidth={3} />
+            <Minus className="h-full w-full stroke-current" strokeWidth={3} />
           ) : (
-            <Check className="h-full w-full" strokeWidth={3} />
+            <Check className="h-full w-full stroke-current" strokeWidth={3} />
           )}
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
@@ -193,22 +220,22 @@ export interface CheckboxWithLabelProps extends CheckboxProps {
 export const CheckboxWithLabel = React.forwardRef<
   HTMLButtonElement,
   CheckboxWithLabelProps
->(({ label, description, id, size = "md", className, ...props }, ref) => {
+>(({ label, description, id, size = "2", className, ...props }, ref) => {
   const generatedId = React.useId();
   const checkboxId = id || generatedId;
 
   const textSizes = {
-    xs: "text-xs",
-    sm: "text-sm",
-    md: "text-sm",
-    lg: "text-base",
+    "1": "text-xs",
+    "2": "text-sm",
+    "3": "text-sm",
+    "4": "text-base",
   };
 
   const descriptionSizes = {
-    xs: "text-xs",
-    sm: "text-xs",
-    md: "text-sm",
-    lg: "text-sm",
+    "1": "text-xs",
+    "2": "text-xs",
+    "3": "text-sm",
+    "4": "text-sm",
   };
 
   return (
@@ -255,7 +282,7 @@ interface CheckboxGroupContextValue {
 }
 
 const CheckboxGroupContext = React.createContext<CheckboxGroupContextValue>({
-  size: "md",
+  size: "2",
   variant: "solid",
   color: "default",
 });
@@ -284,7 +311,7 @@ export interface CheckboxGroupRootProps {
 const CheckboxGroupRoot = React.forwardRef<HTMLDivElement, CheckboxGroupRootProps>(
   (
     {
-      size = "md",
+      size = "2",
       variant = "solid",
       color = "default",
       value,
@@ -339,21 +366,33 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
     const sizeConfig = checkboxSizes[context.size];
 
     const textSizes = {
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-sm",
-      lg: "text-base",
+      "1": "text-xs",
+      "2": "text-sm",
+      "3": "text-sm",
+      "4": "text-base",
     };
 
     const descriptionSizes = {
-      xs: "text-xs",
-      sm: "text-xs",
-      md: "text-sm",
-      lg: "text-sm",
+      "1": "text-xs",
+      "2": "text-xs",
+      "3": "text-sm",
+      "4": "text-sm",
     };
 
     const isDisabled = disabled || context.disabled;
     const displayLabel = label || children;
+
+    // Use inline styles for reliable sizing
+    const checkboxStyles: React.CSSProperties = {
+      width: sizeConfig.boxSize,
+      height: sizeConfig.boxSize,
+      borderRadius: sizeConfig.borderRadius,
+    };
+
+    const indicatorStyles: React.CSSProperties = {
+      width: sizeConfig.iconSize,
+      height: sizeConfig.iconSize,
+    };
 
     return (
       <div className={cn("flex items-start gap-2", className)}>
@@ -362,12 +401,11 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
           id={id}
           name={value}
           disabled={isDisabled}
+          style={checkboxStyles}
           className={cn(
             "peer inline-flex items-center justify-center shrink-0",
             "transition-all duration-150 ease-in-out",
             "outline-none",
-            sizeConfig.box,
-            sizeConfig.radius,
             variantStyles[context.variant],
             colorStyles[context.color][context.variant],
             "data-[indeterminate]:bg-primary data-[indeterminate]:border-primary data-[indeterminate]:text-primary-foreground",
@@ -376,12 +414,10 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
           {...props}
         >
           <CheckboxPrimitive.Indicator
-            className={cn(
-              "flex items-center justify-center",
-              sizeConfig.icon,
-            )}
+            className="flex items-center justify-center text-inherit"
+            style={indicatorStyles}
           >
-            <Check className="h-full w-full" strokeWidth={3} />
+            <Check className="h-full w-full stroke-current" strokeWidth={3} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
 

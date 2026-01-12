@@ -98,7 +98,7 @@ export const UserRegistrationForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">First Name</label>
             <TextField
-              size="md"
+              size="2"
               variant="outline"
               color={errors.firstName ? 'error' : 'default'}
               leftIcon={<User />}
@@ -112,7 +112,7 @@ export const UserRegistrationForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">Last Name</label>
             <TextField
-              size="md"
+              size="2"
               variant="outline"
               color={errors.lastName ? 'error' : 'default'}
               placeholder="Doe"
@@ -126,7 +126,7 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Email Address</label>
           <TextField
-            size="md"
+            size="2"
             variant="outline"
             color={errors.email ? 'error' : 'info'}
             leftIcon={<Mail />}
@@ -141,7 +141,7 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Password</label>
           <TextField
-            size="md"
+            size="2"
             variant="outline"
             color={errors.password ? 'error' : 'default'}
             leftIcon={<Lock />}
@@ -156,7 +156,7 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Confirm Password</label>
           <TextField
-            size="md"
+            size="2"
             variant="outline"
             color={errors.confirmPassword ? 'error' : 'default'}
             leftIcon={<Lock />}
@@ -171,7 +171,7 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Role (Optional)</label>
           <Select
-            size="md"
+            size="2"
             variant="outline"
             color="default"
             placeholder="Select your role"
@@ -189,7 +189,7 @@ export const UserRegistrationForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Bio (Optional)</label>
           <Textarea
-            size="md"
+            size="2"
             variant="outline"
             color="default"
             placeholder="Tell us about yourself..."
@@ -260,7 +260,7 @@ export const ContactForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">Your Name</label>
             <TextField
-              size="md"
+              size="2"
               variant="outline"
               color="default"
               leftIcon={<User />}
@@ -274,7 +274,7 @@ export const ContactForm: Story = {
           <div>
             <label className="block text-sm font-medium mb-2">Email</label>
             <TextField
-              size="md"
+              size="2"
               variant="outline"
               color="info"
               leftIcon={<Mail />}
@@ -290,7 +290,7 @@ export const ContactForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Subject</label>
           <TextField
-            size="md"
+            size="2"
             variant="outline"
             color="default"
             placeholder="What is this about?"
@@ -303,7 +303,7 @@ export const ContactForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Priority</label>
           <Select
-            size="md"
+            size="2"
             variant="outline"
             color="warning"
             placeholder="Select priority level"
@@ -320,7 +320,7 @@ export const ContactForm: Story = {
         <div>
           <label className="block text-sm font-medium mb-2">Message</label>
           <Textarea
-            size="md"
+            size="2"
             variant="outline"
             color="default"
             placeholder="Describe your inquiry or feedback..."

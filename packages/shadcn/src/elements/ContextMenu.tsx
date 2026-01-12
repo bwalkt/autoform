@@ -4,38 +4,90 @@ import * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
 import { Check, ChevronRight, Circle } from "lucide-react";
 import { cn } from "../lib/utils";
-import type { Color } from "./tokens";
+import type { Color, Size } from "./tokens";
 
-// Size tokens for context menu
-const menuSizes = {
-  sm: {
-    content: "min-w-[180px] text-xs",
-    item: "px-2 py-1.5",
-    shortcut: "text-[10px]",
-    icon: "h-3 w-3",
-    indicator: "h-3 w-3",
-  },
-  md: {
-    content: "min-w-[220px] text-sm",
-    item: "px-3 py-2",
-    shortcut: "text-xs",
-    icon: "h-4 w-4",
-    indicator: "h-4 w-4",
-  },
-} as const;
+// ============================================================================
+// Size & Variant Tokens
+// ============================================================================
 
-type MenuSize = "sm" | "md";
 type MenuVariant = "solid" | "soft";
 
-// Context for sharing props
+// Size configurations with CSS values
+const sizeConfig: Record<Size, {
+  content: { minWidth: string; padding: string };
+  item: { padding: string; fontSize: string; lineHeight: string; borderRadius: string };
+  shortcut: { fontSize: string };
+  iconSize: string;
+}> = {
+  "1": {
+    content: { minWidth: "100px", padding: "2px" },
+    item: { padding: "2px 6px", fontSize: "11px", lineHeight: "16px", borderRadius: "2px" },
+    shortcut: { fontSize: "9px" },
+    iconSize: "10px",
+  },
+  "2": {
+    content: { minWidth: "140px", padding: "4px" },
+    item: { padding: "4px 8px", fontSize: "12px", lineHeight: "18px", borderRadius: "3px" },
+    shortcut: { fontSize: "10px" },
+    iconSize: "12px",
+  },
+  "3": {
+    content: { minWidth: "180px", padding: "6px" },
+    item: { padding: "6px 10px", fontSize: "14px", lineHeight: "20px", borderRadius: "4px" },
+    shortcut: { fontSize: "11px" },
+    iconSize: "14px",
+  },
+  "4": {
+    content: { minWidth: "240px", padding: "8px" },
+    item: { padding: "10px 14px", fontSize: "16px", lineHeight: "24px", borderRadius: "6px" },
+    shortcut: { fontSize: "13px" },
+    iconSize: "18px",
+  },
+};
+
+// Color styles for item hover/focus states
+// Base UI uses data-highlighted for keyboard navigation, we also add hover for mouse
+// Color affects text color always, and background on hover/highlight
+const itemColorStyles: Record<Color, { solid: string; soft: string }> = {
+  default: {
+    solid: "hover:bg-gray-100 dark:hover:bg-gray-800 data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800",
+    soft: "hover:bg-gray-100 dark:hover:bg-gray-800 data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-gray-800",
+  },
+  primary: {
+    solid: "text-indigo-600 hover:bg-indigo-600 hover:text-white data-[highlighted]:bg-indigo-600 data-[highlighted]:text-white",
+    soft: "text-indigo-600 hover:bg-indigo-600/10 data-[highlighted]:bg-indigo-600/10",
+  },
+  neutral: {
+    solid: "text-gray-600 hover:bg-gray-500 hover:text-white data-[highlighted]:bg-gray-500 data-[highlighted]:text-white dark:text-gray-400",
+    soft: "text-gray-600 hover:bg-gray-500/10 data-[highlighted]:bg-gray-500/10 dark:text-gray-400",
+  },
+  info: {
+    solid: "text-blue-600 hover:bg-blue-600 hover:text-white data-[highlighted]:bg-blue-600 data-[highlighted]:text-white",
+    soft: "text-blue-600 hover:bg-blue-500/10 data-[highlighted]:bg-blue-500/10",
+  },
+  success: {
+    solid: "text-green-600 hover:bg-green-600 hover:text-white data-[highlighted]:bg-green-600 data-[highlighted]:text-white",
+    soft: "text-green-600 hover:bg-green-500/10 data-[highlighted]:bg-green-500/10",
+  },
+  warning: {
+    solid: "text-amber-600 hover:bg-amber-500 hover:text-white data-[highlighted]:bg-amber-500 data-[highlighted]:text-white",
+    soft: "text-amber-600 hover:bg-amber-500/10 data-[highlighted]:bg-amber-500/10",
+  },
+  error: {
+    solid: "text-red-600 hover:bg-red-600 hover:text-white data-[highlighted]:bg-red-600 data-[highlighted]:text-white",
+    soft: "text-red-600 hover:bg-red-500/10 data-[highlighted]:bg-red-500/10",
+  },
+};
+
+// Context for sharing props across components
 interface ContextMenuContextValue {
-  size: MenuSize;
+  size: Size;
   variant: MenuVariant;
   color: Color;
 }
 
 const ContextMenuContext = React.createContext<ContextMenuContextValue>({
-  size: "md",
+  size: "2",
   variant: "solid",
   color: "default",
 });
@@ -85,58 +137,56 @@ ContextMenuTrigger.displayName = "ContextMenu.Trigger";
 
 export interface ContextMenuContentProps {
   /** Size of the menu */
-  size?: MenuSize;
+  size?: Size;
   /** Visual variant */
   variant?: MenuVariant;
-  /** Accent color */
+  /** Accent color for item highlights */
   color?: Color;
   /** Additional class names */
   className?: string;
   /** Menu items */
   children: React.ReactNode;
-  /** Side offset from trigger */
-  sideOffset?: number;
-  /** Alignment offset */
-  alignOffset?: number;
 }
 
 const ContextMenuContent = React.forwardRef<HTMLDivElement, ContextMenuContentProps>(
   (
     {
-      size = "md",
+      size = "2",
       variant = "solid",
       color = "default",
       className,
       children,
-      sideOffset = 4,
-      alignOffset = 0,
       ...props
     },
     ref,
   ) => {
-    const sizeConfig = menuSizes[size];
+    const config = sizeConfig[size];
+
+    const contentStyles: React.CSSProperties = {
+      minWidth: config.content.minWidth,
+      padding: config.content.padding,
+    };
 
     return (
       <ContextMenuContext.Provider value={{ size, variant, color }}>
         <ContextMenuPrimitive.Portal>
-          <ContextMenuPrimitive.Positioner sideOffset={sideOffset} alignOffset={alignOffset}>
+          <ContextMenuPrimitive.Positioner>
             <ContextMenuPrimitive.Popup
               ref={ref}
+              style={{
+                ...contentStyles,
+                border: 'none',
+                outline: 'none',
+              }}
               className={cn(
-                "z-50 overflow-hidden rounded-md border shadow-lg",
-                "animate-in fade-in-0 zoom-in-95",
-                "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-                sizeConfig.content,
-
-                // Variant styles
-                variant === "solid" && "bg-popover text-popover-foreground",
-                variant === "soft" && "bg-secondary/95 text-secondary-foreground backdrop-blur-sm",
-
+                "z-50 overflow-hidden rounded-md border-0",
+                "shadow-lg bg-white dark:bg-zinc-900",
+                "text-zinc-900 dark:text-zinc-100",
                 className,
               )}
               {...props}
             >
-              <div className="p-1">{children}</div>
+              {children}
             </ContextMenuPrimitive.Popup>
           </ContextMenuPrimitive.Positioner>
         </ContextMenuPrimitive.Portal>
@@ -150,16 +200,6 @@ ContextMenuContent.displayName = "ContextMenu.Content";
 // ============================================================================
 // Item
 // ============================================================================
-
-// Color styles for items
-const itemColorStyles: Record<Color, string> = {
-  default: "focus:bg-accent focus:text-accent-foreground",
-  primary: "focus:bg-primary focus:text-primary-foreground",
-  info: "focus:bg-blue-500 focus:text-white",
-  success: "focus:bg-green-500 focus:text-white",
-  warning: "focus:bg-amber-500 focus:text-white",
-  error: "focus:bg-red-500 focus:text-white text-red-600",
-};
 
 export interface ContextMenuItemProps {
   /** Color override for this item */
@@ -179,18 +219,26 @@ export interface ContextMenuItemProps {
 const ContextMenuItem = React.forwardRef<HTMLDivElement, ContextMenuItemProps>(
   ({ color, shortcut, disabled, className, children, onClick, ...props }, ref) => {
     const context = React.useContext(ContextMenuContext);
-    const sizeConfig = menuSizes[context.size];
+    const config = sizeConfig[context.size];
     const itemColor = color || context.color;
+
+    const itemStyles: React.CSSProperties = {
+      padding: config.item.padding,
+      fontSize: config.item.fontSize,
+      lineHeight: config.item.lineHeight,
+      borderRadius: config.item.borderRadius,
+    };
 
     return (
       <ContextMenuPrimitive.Item
         ref={ref}
         disabled={disabled}
         onClick={onClick}
+        style={itemStyles}
         className={cn(
-          "relative flex cursor-pointer select-none items-center rounded-sm outline-none transition-colors",
-          sizeConfig.item,
-          itemColorStyles[itemColor],
+          "relative flex cursor-default select-none items-center gap-2 outline-none",
+          "transition-colors duration-75",
+          itemColorStyles[itemColor][context.variant],
           disabled && "pointer-events-none opacity-50",
           className,
         )}
@@ -199,10 +247,8 @@ const ContextMenuItem = React.forwardRef<HTMLDivElement, ContextMenuItemProps>(
         <span className="flex-1">{children}</span>
         {shortcut && (
           <span
-            className={cn(
-              "ml-auto text-muted-foreground",
-              sizeConfig.shortcut,
-            )}
+            style={{ fontSize: config.shortcut.fontSize }}
+            className="ml-auto text-muted-foreground/70 tracking-widest"
           >
             {shortcut}
           </span>
@@ -253,8 +299,21 @@ const ContextMenuCheckboxItem = React.forwardRef<
     ref,
   ) => {
     const context = React.useContext(ContextMenuContext);
-    const sizeConfig = menuSizes[context.size];
+    const config = sizeConfig[context.size];
     const itemColor = color || context.color;
+
+    const itemStyles: React.CSSProperties = {
+      padding: config.item.padding,
+      paddingLeft: `calc(${config.item.padding.split(" ")[0]} + 20px)`,
+      fontSize: config.item.fontSize,
+      lineHeight: config.item.lineHeight,
+      borderRadius: config.item.borderRadius,
+    };
+
+    const iconStyles: React.CSSProperties = {
+      width: config.iconSize,
+      height: config.iconSize,
+    };
 
     return (
       <ContextMenuPrimitive.CheckboxItem
@@ -262,11 +321,11 @@ const ContextMenuCheckboxItem = React.forwardRef<
         checked={checked}
         onCheckedChange={onCheckedChange}
         disabled={disabled}
+        style={itemStyles}
         className={cn(
-          "relative flex cursor-pointer select-none items-center rounded-sm outline-none transition-colors",
-          sizeConfig.item,
-          "pl-8",
-          itemColorStyles[itemColor],
+          "relative flex cursor-default select-none items-center gap-2 outline-none",
+          "transition-colors duration-75",
+          itemColorStyles[itemColor][context.variant],
           disabled && "pointer-events-none opacity-50",
           className,
         )}
@@ -274,12 +333,15 @@ const ContextMenuCheckboxItem = React.forwardRef<
       >
         <span className="absolute left-2 flex items-center justify-center">
           <ContextMenuPrimitive.CheckboxItemIndicator>
-            <Check className={sizeConfig.indicator} />
+            <Check style={iconStyles} strokeWidth={2.5} />
           </ContextMenuPrimitive.CheckboxItemIndicator>
         </span>
         <span className="flex-1">{children}</span>
         {shortcut && (
-          <span className={cn("ml-auto text-muted-foreground", sizeConfig.shortcut)}>
+          <span
+            style={{ fontSize: config.shortcut.fontSize }}
+            className="ml-auto text-muted-foreground/70 tracking-widest"
+          >
             {shortcut}
           </span>
         )}
@@ -343,19 +405,32 @@ const ContextMenuRadioItem = React.forwardRef<
   ContextMenuRadioItemProps
 >(({ value, color, disabled, className, children, ...props }, ref) => {
   const context = React.useContext(ContextMenuContext);
-  const sizeConfig = menuSizes[context.size];
+  const config = sizeConfig[context.size];
   const itemColor = color || context.color;
+
+  const itemStyles: React.CSSProperties = {
+    padding: config.item.padding,
+    paddingLeft: `calc(${config.item.padding.split(" ")[0]} + 20px)`,
+    fontSize: config.item.fontSize,
+    lineHeight: config.item.lineHeight,
+    borderRadius: config.item.borderRadius,
+  };
+
+  const iconStyles: React.CSSProperties = {
+    width: config.iconSize,
+    height: config.iconSize,
+  };
 
   return (
     <ContextMenuPrimitive.RadioItem
       ref={ref}
       value={value}
       disabled={disabled}
+      style={itemStyles}
       className={cn(
-        "relative flex cursor-pointer select-none items-center rounded-sm outline-none transition-colors",
-        sizeConfig.item,
-        "pl-8",
-        itemColorStyles[itemColor],
+        "relative flex cursor-default select-none items-center gap-2 outline-none",
+        "transition-colors duration-75",
+        itemColorStyles[itemColor][context.variant],
         disabled && "pointer-events-none opacity-50",
         className,
       )}
@@ -363,7 +438,7 @@ const ContextMenuRadioItem = React.forwardRef<
     >
       <span className="absolute left-2 flex items-center justify-center">
         <ContextMenuPrimitive.RadioItemIndicator>
-          <Circle className={cn(sizeConfig.indicator, "fill-current")} />
+          <Circle style={iconStyles} className="fill-current" strokeWidth={0} />
         </ContextMenuPrimitive.RadioItemIndicator>
       </span>
       {children}
@@ -387,14 +462,20 @@ export interface ContextMenuLabelProps {
 const ContextMenuLabel = React.forwardRef<HTMLDivElement, ContextMenuLabelProps>(
   ({ className, children, ...props }, ref) => {
     const context = React.useContext(ContextMenuContext);
-    const sizeConfig = menuSizes[context.size];
+    const config = sizeConfig[context.size];
+
+    const labelStyles: React.CSSProperties = {
+      padding: config.item.padding,
+      fontSize: config.item.fontSize,
+      lineHeight: config.item.lineHeight,
+    };
 
     return (
       <div
         ref={ref}
+        style={labelStyles}
         className={cn(
-          "font-semibold text-foreground",
-          sizeConfig.item,
+          "font-medium text-muted-foreground",
           className,
         )}
         {...props}
@@ -446,7 +527,7 @@ const ContextMenuSeparator = React.forwardRef<
   return (
     <ContextMenuPrimitive.Separator
       ref={ref}
-      className={cn("-mx-1 my-1 h-px bg-border", className)}
+      className={cn("h-px bg-muted my-1", className)}
       {...props}
     />
   );
@@ -489,24 +570,37 @@ const ContextMenuSubTrigger = React.forwardRef<
   ContextMenuSubTriggerProps
 >(({ color, disabled, className, children, ...props }, ref) => {
   const context = React.useContext(ContextMenuContext);
-  const sizeConfig = menuSizes[context.size];
+  const config = sizeConfig[context.size];
   const itemColor = color || context.color;
+
+  const itemStyles: React.CSSProperties = {
+    padding: config.item.padding,
+    fontSize: config.item.fontSize,
+    lineHeight: config.item.lineHeight,
+    borderRadius: config.item.borderRadius,
+  };
+
+  const iconStyles: React.CSSProperties = {
+    width: config.iconSize,
+    height: config.iconSize,
+  };
 
   return (
     <ContextMenuPrimitive.SubmenuTrigger
       ref={ref}
       disabled={disabled}
+      style={itemStyles}
       className={cn(
-        "relative flex cursor-pointer select-none items-center rounded-sm outline-none transition-colors",
-        sizeConfig.item,
-        itemColorStyles[itemColor],
+        "relative flex cursor-default select-none items-center gap-2 outline-none",
+        "transition-colors duration-75",
+        itemColorStyles[itemColor][context.variant],
         disabled && "pointer-events-none opacity-50",
         className,
       )}
       {...props}
     >
       <span className="flex-1">{children}</span>
-      <ChevronRight className={cn("ml-auto", sizeConfig.icon)} />
+      <ChevronRight style={iconStyles} className="ml-auto opacity-60" />
     </ContextMenuPrimitive.SubmenuTrigger>
   );
 });
@@ -531,29 +625,31 @@ const ContextMenuSubContent = React.forwardRef<
   ContextMenuSubContentProps
 >(({ className, children, sideOffset = 2, ...props }, ref) => {
   const context = React.useContext(ContextMenuContext);
-  const sizeConfig = menuSizes[context.size];
+  const config = sizeConfig[context.size];
+
+  const contentStyles: React.CSSProperties = {
+    minWidth: config.content.minWidth,
+    padding: config.content.padding,
+    border: 'none',
+    outline: 'none',
+  };
 
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Positioner sideOffset={sideOffset} side="right" align="start">
         <ContextMenuPrimitive.Popup
           ref={ref}
+          style={contentStyles}
           className={cn(
-            "z-50 overflow-hidden rounded-md border shadow-lg",
-            "animate-in fade-in-0 zoom-in-95",
-            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-            sizeConfig.content,
-
-            // Variant styles
-            context.variant === "solid" && "bg-popover text-popover-foreground",
-            context.variant === "soft" &&
-              "bg-secondary/95 text-secondary-foreground backdrop-blur-sm",
-
+            "z-50 overflow-hidden rounded-md border-0",
+            "shadow-lg bg-white dark:bg-zinc-900",
+            "text-zinc-900 dark:text-zinc-100",
+            context.variant === "soft" && "bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md",
             className,
           )}
           {...props}
         >
-          <div className="p-1">{children}</div>
+          {children}
         </ContextMenuPrimitive.Popup>
       </ContextMenuPrimitive.Positioner>
     </ContextMenuPrimitive.Portal>

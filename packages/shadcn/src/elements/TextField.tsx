@@ -31,6 +31,12 @@ export interface TextFieldProps
 
 // Variant styles for regular (non-floating) mode
 const variantStyles: Record<Variant, string> = {
+  classic: cn(
+    "border border-input",
+    "bg-gradient-to-b from-background to-muted/30 text-foreground shadow-sm",
+    "focus:border-ring",
+    "focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  ),
   solid: cn(
     "border-0",
     "bg-primary/10 text-foreground",
@@ -42,6 +48,12 @@ const variantStyles: Record<Variant, string> = {
     "bg-secondary text-foreground",
     "hover:bg-secondary/80",
     "focus:bg-secondary/80",
+    "focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  ),
+  surface: cn(
+    "border border-input",
+    "bg-background text-foreground shadow-sm",
+    "focus:border-ring",
     "focus:ring-2 focus:ring-ring focus:ring-offset-2",
   ),
   outline: cn(
@@ -63,6 +75,7 @@ const variantStyles: Record<Variant, string> = {
 const colorStyles: Record<Color, string> = {
   default: "",
   primary: "focus:border-primary focus:ring-primary/20",
+  neutral: "focus:border-gray-500 focus:ring-gray-500/20",
   info: "focus:border-blue-500 focus:ring-blue-500/20",
   success: "focus:border-green-500 focus:ring-green-500/20",
   warning: "focus:border-amber-500 focus:ring-amber-500/20",
@@ -72,7 +85,7 @@ const colorStyles: Record<Color, string> = {
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
-      size = "md",
+      size = "2",
       variant = "outline",
       color,
       radius = "md",

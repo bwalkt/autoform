@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { ContextMenu } from "./ContextMenu";
-import { Box } from "./Box";
+import { Box } from "../layouts/Box";
 import {
   FolderOpen,
   FileText,
@@ -20,7 +20,7 @@ const meta: Meta<typeof ContextMenu.Content> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["sm", "md"],
+      options: ["1", "2", "3", "4"],
       description: "The size of the menu",
     },
     variant: {
@@ -44,14 +44,19 @@ type Story = StoryObj<typeof meta>;
 // ============================================================================
 
 export const Default: Story = {
-  render: () => (
+  args: {
+    size: "2",
+    variant: "solid",
+    color: "default",
+  },
+  render: (args) => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <div className="flex h-40 w-80 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
           <span className="text-sm text-muted-foreground">Right-click here</span>
         </div>
       </ContextMenu.Trigger>
-      <ContextMenu.Content>
+      <ContextMenu.Content size={args.size} variant={args.variant} color={args.color}>
         <ContextMenu.Item>Back</ContextMenu.Item>
         <ContextMenu.Item>Forward</ContextMenu.Item>
         <ContextMenu.Item>Reload</ContextMenu.Item>
@@ -91,40 +96,25 @@ export const WithShortcuts: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <Box display="flex" className="gap-8">
-      <div>
-        <h3 className="text-sm font-medium mb-3">Small</h3>
-        <ContextMenu.Root>
-          <ContextMenu.Trigger>
-            <div className="flex h-32 w-48 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
-              <span className="text-xs text-muted-foreground">Right-click</span>
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content size="sm">
-            <ContextMenu.Item>Edit</ContextMenu.Item>
-            <ContextMenu.Item>Duplicate</ContextMenu.Item>
-            <ContextMenu.Separator />
-            <ContextMenu.Item color="error">Delete</ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu.Root>
-      </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-3">Medium (default)</h3>
-        <ContextMenu.Root>
-          <ContextMenu.Trigger>
-            <div className="flex h-32 w-48 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
-              <span className="text-xs text-muted-foreground">Right-click</span>
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content size="md">
-            <ContextMenu.Item>Edit</ContextMenu.Item>
-            <ContextMenu.Item>Duplicate</ContextMenu.Item>
-            <ContextMenu.Separator />
-            <ContextMenu.Item color="error">Delete</ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu.Root>
-      </div>
+    <Box display="flex" className="gap-6 flex-wrap">
+      {(["1", "2", "3", "4"] as const).map((size) => (
+        <div key={size}>
+          <h3 className="text-sm font-medium mb-3">size="{size}"</h3>
+          <ContextMenu.Root>
+            <ContextMenu.Trigger>
+              <div className="flex h-28 w-40 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
+                <span className="text-xs text-muted-foreground">Right-click</span>
+              </div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content size={size}>
+              <ContextMenu.Item>Edit</ContextMenu.Item>
+              <ContextMenu.Item>Duplicate</ContextMenu.Item>
+              <ContextMenu.Separator />
+              <ContextMenu.Item color="error">Delete</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu.Root>
+        </div>
+      ))}
     </Box>
   ),
 };
@@ -134,14 +124,19 @@ export const AllSizes: Story = {
 // ============================================================================
 
 export const VariantSolid: Story = {
-  render: () => (
+  args: {
+    size: "2",
+    variant: "solid",
+    color: "default",
+  },
+  render: (args) => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <div className="flex h-40 w-80 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
           <span className="text-sm text-muted-foreground">Solid variant</span>
         </div>
       </ContextMenu.Trigger>
-      <ContextMenu.Content variant="solid">
+      <ContextMenu.Content size={args.size} variant={args.variant} color={args.color}>
         <ContextMenu.Item>Option 1</ContextMenu.Item>
         <ContextMenu.Item>Option 2</ContextMenu.Item>
         <ContextMenu.Item>Option 3</ContextMenu.Item>
@@ -151,14 +146,19 @@ export const VariantSolid: Story = {
 };
 
 export const VariantSoft: Story = {
-  render: () => (
+  args: {
+    size: "2",
+    variant: "soft",
+    color: "default",
+  },
+  render: (args) => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <div className="flex h-40 w-80 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
           <span className="text-sm text-muted-foreground">Soft variant</span>
         </div>
       </ContextMenu.Trigger>
-      <ContextMenu.Content variant="soft">
+      <ContextMenu.Content size={args.size} variant={args.variant} color={args.color}>
         <ContextMenu.Item>Option 1</ContextMenu.Item>
         <ContextMenu.Item>Option 2</ContextMenu.Item>
         <ContextMenu.Item>Option 3</ContextMenu.Item>

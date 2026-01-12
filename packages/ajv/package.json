@@ -16,10 +16,6 @@
   },
   "devDependencies": {
     "@bwalkt/typescript-config": "workspace:*",
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/addon-interactions": "catalog:",
-    "@storybook/addon-links": "catalog:",
-    "@storybook/blocks": "catalog:",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@turbo/gen": "^1.12.4",

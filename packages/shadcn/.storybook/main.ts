@@ -9,7 +9,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)", "../src/**/*.mdx"],
-  addons: [],
+  addons: [
+    getAbsolutePath("@storybook/addon-docs"),
+  ],
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},

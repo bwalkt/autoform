@@ -24,14 +24,14 @@
     "./lib/*": "./src/lib/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./components/*": "./src/components/*.tsx",
-    "./elements": "./src/elements/index.ts"
+    "./elements": "./src/elements/index.ts",
+    "./layouts": "./src/layouts/index.ts"
   },
   "devDependencies": {
     "@bwalkt/ajv": "workspace:*",
     "@bwalkt/core": "workspace:*",
     "@bwalkt/typescript-config": "file:../typescript-config",
-    "@storybook/addon-essentials": "catalog:",
-    "@storybook/addon-links": "catalog:",
+    "@storybook/addon-docs": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@tailwindcss/postcss": "^4",
     "@types/node": "catalog:",

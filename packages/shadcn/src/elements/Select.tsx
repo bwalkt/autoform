@@ -26,7 +26,7 @@ export const Select = React.forwardRef<
 >(
   (
     {
-      size = "md",
+      size = "2",
       variant = "outline",
       color,
       radius = "md",

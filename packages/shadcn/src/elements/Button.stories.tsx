@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "./Button";
-import { Box } from "./Box";
-import { Mail, Loader2, ChevronRight, Plus, Trash2, Download, Heart, Send } from "lucide-react";
+import { Box } from "../layouts/Box";
+import { Mail, ChevronRight, Plus, Trash2, Download, Heart, Send } from "lucide-react";
 
 const meta: Meta<typeof Button> = {
   title: "Elements/Button",
@@ -13,17 +13,17 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: ["1", "2", "3", "4"],
       description: "The size of the button",
     },
     variant: {
       control: "select",
-      options: ["solid", "soft", "outline", "ghost"],
+      options: ["classic", "solid", "soft", "surface", "outline", "ghost"],
       description: "The visual variant of the button",
     },
     color: {
       control: "select",
-      options: ["default", "primary", "info", "success", "warning", "error"],
+      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
       description: "The accent color of the button",
     },
     radius: {
@@ -38,6 +38,10 @@ const meta: Meta<typeof Button> = {
     disabled: {
       control: "boolean",
       description: "Whether the button is disabled",
+    },
+    highContrast: {
+      control: "boolean",
+      description: "High contrast mode for better accessibility",
     },
   },
 };
@@ -84,28 +88,28 @@ export const Ghost: Story = {
 // Sizes
 export const ExtraSmall: Story = {
   args: {
-    size: "xs",
+    size: "1",
     children: "Extra Small",
   },
 };
 
 export const Small: Story = {
   args: {
-    size: "sm",
+    size: "2",
     children: "Small",
   },
 };
 
 export const Medium: Story = {
   args: {
-    size: "md",
+    size: "2",
     children: "Medium",
   },
 };
 
 export const Large: Story = {
   args: {
-    size: "lg",
+    size: "3",
     children: "Large",
   },
 };
@@ -222,10 +226,10 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="gap-4 items-center">
-      <Button size="xs">Extra Small</Button>
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
+      <Button size="1">Extra Small</Button>
+      <Button size="2">Small</Button>
+      <Button size="2">Medium</Button>
+      <Button size="3">Large</Button>
     </Box>
   ),
 };
@@ -290,7 +294,7 @@ export const AllColorsGhost: Story = {
 export const SizeVariantMatrix: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
-      {(["xs", "sm", "md", "lg"] as const).map((size) => (
+      {(["1", "2", "3", "4"] as const).map((size) => (
         <Box key={size} display="flex" className="gap-4 items-center">
           <span className="w-12 text-sm text-muted-foreground">{size}</span>
           <Button size={size} variant="solid">Solid</Button>

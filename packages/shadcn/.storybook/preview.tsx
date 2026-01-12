@@ -4,6 +4,11 @@ import "../src/globals.css";
 const preview: Preview = {
   parameters: {
     layout: "centered",
+    options: {
+      storySort: {
+        order: ["Typography", "Layouts", "Elements", "*"],
+      },
+    },
   },
 };
 

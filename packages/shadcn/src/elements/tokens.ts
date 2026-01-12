@@ -1,6 +1,7 @@
 export const designTokens = {
+  // Element sizes for form components (Radix-style 1-4)
   size: {
-    xs: {
+    "1": {
       height: "1.5rem",
       fontSize: "0.75rem",
       paddingX: "0.5rem",
@@ -9,33 +10,90 @@ export const designTokens = {
       iconSize: "0.75rem",
       gap: "0.25rem",
     },
-    sm: {
+    "2": {
       height: "2rem",
       fontSize: "0.875rem",
       paddingX: "0.75rem",
       paddingY: "0.375rem",
       lineHeight: "1.25rem",
-      iconSize: "0.875rem",
+      iconSize: "1rem",
       gap: "0.375rem",
     },
-    md: {
+    "3": {
       height: "2.5rem",
-      fontSize: "0.875rem",
+      fontSize: "1rem",
       paddingX: "1rem",
       paddingY: "0.5rem",
-      lineHeight: "1.25rem",
-      iconSize: "1rem",
+      lineHeight: "1.5rem",
+      iconSize: "1.25rem",
       gap: "0.5rem",
     },
-    lg: {
+    "4": {
       height: "3rem",
-      fontSize: "1rem",
+      fontSize: "1.125rem",
       paddingX: "1.25rem",
       paddingY: "0.625rem",
-      lineHeight: "1.5rem",
-      iconSize: "1.125rem",
-      gap: "0.5rem",
+      lineHeight: "1.75rem",
+      iconSize: "1.5rem",
+      gap: "0.625rem",
     },
+  },
+
+  // Typography scale (9-step scale based on Radix UI)
+  typography: {
+    "1": {
+      fontSize: "0.75rem",    // 12px
+      lineHeight: "1rem",     // 16px
+      letterSpacing: "0.0025em",
+    },
+    "2": {
+      fontSize: "0.875rem",   // 14px
+      lineHeight: "1.25rem",  // 20px
+      letterSpacing: "0em",
+    },
+    "3": {
+      fontSize: "1rem",       // 16px
+      lineHeight: "1.5rem",   // 24px
+      letterSpacing: "0em",
+    },
+    "4": {
+      fontSize: "1.125rem",   // 18px
+      lineHeight: "1.625rem", // 26px
+      letterSpacing: "-0.0025em",
+    },
+    "5": {
+      fontSize: "1.25rem",    // 20px
+      lineHeight: "1.75rem",  // 28px
+      letterSpacing: "-0.005em",
+    },
+    "6": {
+      fontSize: "1.5rem",     // 24px
+      lineHeight: "1.875rem", // 30px
+      letterSpacing: "-0.00625em",
+    },
+    "7": {
+      fontSize: "1.75rem",    // 28px
+      lineHeight: "2.25rem",  // 36px
+      letterSpacing: "-0.0075em",
+    },
+    "8": {
+      fontSize: "2.1875rem",  // 35px
+      lineHeight: "2.5rem",   // 40px
+      letterSpacing: "-0.01em",
+    },
+    "9": {
+      fontSize: "3.75rem",    // 60px
+      lineHeight: "3.75rem",  // 60px
+      letterSpacing: "-0.025em",
+    },
+  },
+
+  // Font weights
+  weight: {
+    light: "300",
+    regular: "400",
+    medium: "500",
+    bold: "700",
   },
 
   radius: {
@@ -46,7 +104,6 @@ export const designTokens = {
     full: "9999px",
   },
 
-  // Button/interactive element variants
   variant: {
     solid: {
       background: "var(--color-accent-9)",
@@ -87,6 +144,28 @@ export const designTokens = {
       primaryAlpha: "var(--color-default-primary-alpha)",
       text: "var(--color-default-text)",
       background: "var(--color-default-background)",
+    },
+    primary: {
+      border: "var(--color-primary-border)",
+      borderSubtle: "var(--color-primary-border-subtle)",
+      surface: "var(--color-primary-surface)",
+      softBackground: "var(--color-primary-soft)",
+      softBackgroundHover: "var(--color-primary-soft-hover)",
+      primary: "var(--color-primary-primary)",
+      primaryAlpha: "var(--color-primary-primary-alpha)",
+      text: "var(--color-primary-text)",
+      background: "var(--color-primary-background)",
+    },
+    neutral: {
+      border: "var(--color-neutral-border)",
+      borderSubtle: "var(--color-neutral-border-subtle)",
+      surface: "var(--color-neutral-surface)",
+      softBackground: "var(--color-neutral-soft)",
+      softBackgroundHover: "var(--color-neutral-soft-hover)",
+      primary: "var(--color-neutral-primary)",
+      primaryAlpha: "var(--color-neutral-primary-alpha)",
+      text: "var(--color-neutral-text)",
+      background: "var(--color-neutral-background)",
     },
     info: {
       border: "var(--color-info-border)",
@@ -135,10 +214,21 @@ export const designTokens = {
   },
 } as const;
 
-export type Size = "xs" | "sm" | "md" | "lg";
-export type Variant = "solid" | "soft" | "outline" | "ghost";
+// Element size (Radix-style 1-4)
+export type Size = "1" | "2" | "3" | "4";
+
+// Typography size (Radix-style 1-9)
+export type TypographySize = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+// Font weight
+export type Weight = "light" | "regular" | "medium" | "bold";
+
+// Variants
+export type Variant = "classic" | "solid" | "soft" | "surface" | "outline" | "ghost";
+
 export type Radius = "none" | "sm" | "md" | "lg" | "full";
-export type Color = "default" | "primary" | "info" | "success" | "warning" | "error";
+
+export type Color = "default" | "primary" | "neutral" | "info" | "success" | "warning" | "error";
 
 export type ResponsiveSize = Responsive<Size>;
 

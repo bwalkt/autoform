@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TextField } from "./TextField";
-import { Box } from "./Box";
-import { Mail, Search, Eye, EyeOff, User, Lock, Phone } from "lucide-react";
+import { Box } from "../layouts/Box";
+import { Mail, Search, Eye, User, Lock, Phone } from "lucide-react";
 
 const meta: Meta<typeof TextField> = {
   title: "Elements/TextField",
@@ -13,7 +13,7 @@ const meta: Meta<typeof TextField> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: ["1", "2", "3", "4"],
       description: "The size of the text field",
     },
     variant: {
@@ -122,10 +122,10 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-md">
-      <TextField size="xs" placeholder="Extra Small" />
-      <TextField size="sm" placeholder="Small" />
-      <TextField size="md" placeholder="Medium (default)" />
-      <TextField size="lg" placeholder="Large" />
+      <TextField size="1" placeholder="Extra Small" />
+      <TextField size="2" placeholder="Small" />
+      <TextField size="2" placeholder="Medium (default)" />
+      <TextField size="3" placeholder="Large" />
     </Box>
   ),
 };
@@ -375,9 +375,9 @@ export const MinimalForm: Story = {
 export const FloatingSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
-      <TextField size="sm" label="Small" floatingLabel="outlined" />
-      <TextField size="md" label="Medium" floatingLabel="outlined" />
-      <TextField size="lg" label="Large" floatingLabel="outlined" />
+      <TextField size="2" label="Small" floatingLabel="outlined" />
+      <TextField size="2" label="Medium" floatingLabel="outlined" />
+      <TextField size="3" label="Large" floatingLabel="outlined" />
     </Box>
   ),
 };

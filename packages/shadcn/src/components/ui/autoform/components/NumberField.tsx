@@ -15,7 +15,7 @@ export const NumberField: React.FC<AutoFormFieldProps> = ({
       type="number"
       color={error ? "error" : "default"}
       variant="outline"
-      size="md"
+      size="2"
       {...props}
     />
   );

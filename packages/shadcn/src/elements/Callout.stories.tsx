@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Callout, CalloutRoot } from "./Callout";
-import { Box } from "./Box";
+import { Box } from "../layouts/Box";
 import {
   Info,
   AlertCircle,
@@ -23,7 +23,7 @@ const meta: Meta<typeof CalloutRoot> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: ["1", "2", "3", "4"],
       description: "The size of the callout",
     },
     variant: {
@@ -33,8 +33,12 @@ const meta: Meta<typeof CalloutRoot> = {
     },
     color: {
       control: "select",
-      options: ["default", "primary", "info", "success", "warning", "error"],
+      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
       description: "The accent color of the callout",
+    },
+    highContrast: {
+      control: "boolean",
+      description: "High contrast mode for better accessibility",
     },
   },
 };
@@ -55,7 +59,7 @@ export const Default: Story = {
     </Callout.Root>
   ),
   args: {
-    size: "md",
+    size: "2",
     variant: "soft",
     color: "default",
   },
@@ -104,7 +108,7 @@ export const Outline: Story = {
 // Sizes
 export const ExtraSmall: Story = {
   render: () => (
-    <Callout.Root size="xs" color="info">
+    <Callout.Root size="1" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
@@ -115,7 +119,7 @@ export const ExtraSmall: Story = {
 
 export const Small: Story = {
   render: () => (
-    <Callout.Root size="sm" color="info">
+    <Callout.Root size="2" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
@@ -126,7 +130,7 @@ export const Small: Story = {
 
 export const Medium: Story = {
   render: () => (
-    <Callout.Root size="md" color="info">
+    <Callout.Root size="2" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
@@ -137,7 +141,7 @@ export const Medium: Story = {
 
 export const Large: Story = {
   render: () => (
-    <Callout.Root size="lg" color="info">
+    <Callout.Root size="3" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
@@ -251,29 +255,29 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
-      <Callout.Root size="xs" color="info">
+      <Callout.Root size="1" color="info">
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Extra small (xs)</Callout.Text>
+        <Callout.Text>Extra small (1)</Callout.Text>
       </Callout.Root>
-      <Callout.Root size="sm" color="info">
+      <Callout.Root size="2" color="info">
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Small (sm)</Callout.Text>
+        <Callout.Text>Small (2)</Callout.Text>
       </Callout.Root>
-      <Callout.Root size="md" color="info">
+      <Callout.Root size="2" color="info">
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Medium (md)</Callout.Text>
+        <Callout.Text>Medium (2)</Callout.Text>
       </Callout.Root>
-      <Callout.Root size="lg" color="info">
+      <Callout.Root size="3" color="info">
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Large (lg)</Callout.Text>
+        <Callout.Text>Large (3)</Callout.Text>
       </Callout.Root>
     </Box>
   ),
@@ -406,6 +410,32 @@ export const AllColorsOutline: Story = {
           <XCircle />
         </Callout.Icon>
         <Callout.Text>Error</Callout.Text>
+      </Callout.Root>
+    </Box>
+  ),
+};
+
+// High contrast mode
+export const HighContrast: Story = {
+  render: () => (
+    <Box display="flex" className="flex-col gap-4">
+      <Callout.Root color="info" highContrast>
+        <Callout.Icon>
+          <Info />
+        </Callout.Icon>
+        <Callout.Text>High contrast soft (default variant)</Callout.Text>
+      </Callout.Root>
+      <Callout.Root variant="surface" color="success" highContrast>
+        <Callout.Icon>
+          <CheckCircle />
+        </Callout.Icon>
+        <Callout.Text>High contrast surface variant</Callout.Text>
+      </Callout.Root>
+      <Callout.Root variant="outline" color="warning" highContrast>
+        <Callout.Icon>
+          <AlertTriangle />
+        </Callout.Icon>
+        <Callout.Text>High contrast outline variant</Callout.Text>
       </Callout.Root>
     </Box>
   ),

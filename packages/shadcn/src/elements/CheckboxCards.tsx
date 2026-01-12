@@ -9,28 +9,28 @@ import type { Size, Color } from "./tokens";
 
 // Card-specific size tokens
 const cardSizes = {
-  xs: {
+  "1": {
     card: "p-3",
     checkbox: "h-3.5 w-3.5",
     checkIcon: "h-3 w-3",
     text: "text-xs",
     gap: "gap-2",
   },
-  sm: {
+  "2": {
     card: "p-3",
     checkbox: "h-4 w-4",
     checkIcon: "h-3.5 w-3.5",
     text: "text-sm",
     gap: "gap-2",
   },
-  md: {
+  "3": {
     card: "p-4",
     checkbox: "h-5 w-5",
     checkIcon: "h-4 w-4",
     text: "text-sm",
     gap: "gap-3",
   },
-  lg: {
+  "4": {
     card: "p-5",
     checkbox: "h-6 w-6",
     checkIcon: "h-5 w-5",
@@ -51,7 +51,7 @@ interface CheckboxCardsContextValue {
 }
 
 const CheckboxCardsContext = React.createContext<CheckboxCardsContextValue>({
-  size: "md",
+  size: "2",
   variant: "surface",
   color: "default",
 });
@@ -107,7 +107,7 @@ export interface CheckboxCardsRootProps {
 const CheckboxCardsRoot = React.forwardRef<HTMLDivElement, CheckboxCardsRootProps>(
   (
     {
-      size = "md",
+      size = "2",
       variant = "surface",
       color = "default",
       columns = "auto",
@@ -151,6 +151,7 @@ CheckboxCardsRoot.displayName = "CheckboxCards.Root";
 const colorStyles: Record<Color, string> = {
   default: "data-[checked]:border-primary data-[checked]:bg-primary/5",
   primary: "data-[checked]:border-primary data-[checked]:bg-primary/5",
+  neutral: "data-[checked]:border-gray-500 data-[checked]:bg-gray-500/5 dark:data-[checked]:border-gray-400",
   info: "data-[checked]:border-blue-500 data-[checked]:bg-blue-500/5",
   success: "data-[checked]:border-green-500 data-[checked]:bg-green-500/5",
   warning: "data-[checked]:border-amber-500 data-[checked]:bg-amber-500/5",
@@ -160,6 +161,7 @@ const colorStyles: Record<Color, string> = {
 const checkboxColorStyles: Record<Color, string> = {
   default: "data-[checked]:bg-primary data-[checked]:border-primary",
   primary: "data-[checked]:bg-primary data-[checked]:border-primary",
+  neutral: "data-[checked]:bg-gray-500 data-[checked]:border-gray-500 dark:data-[checked]:bg-gray-400 dark:data-[checked]:border-gray-400",
   info: "data-[checked]:bg-blue-500 data-[checked]:border-blue-500",
   success: "data-[checked]:bg-green-500 data-[checked]:border-green-500",
   warning: "data-[checked]:bg-amber-500 data-[checked]:border-amber-500",
@@ -189,25 +191,25 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
         ref={ref}
         htmlFor={id}
         className={cn(
-          "relative flex cursor-pointer select-none rounded-lg border-2 transition-all duration-150",
+          "relative flex cursor-pointer select-none rounded-xl border transition-all duration-150",
           sizeConfig.card,
           sizeConfig.gap,
 
-          // Variant styles
+          // Variant styles - subtle like Radix Themes
           context.variant === "surface" && [
-            "border-border bg-card",
-            "hover:border-muted-foreground/50 hover:bg-accent/50",
+            "border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900",
+            "hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-700 dark:hover:bg-gray-800/50",
           ],
           context.variant === "outline" && [
-            "border-border bg-transparent",
-            "hover:border-muted-foreground/50",
+            "border-gray-200 bg-transparent dark:border-gray-800",
+            "hover:border-gray-300 dark:hover:border-gray-700",
           ],
 
           // Color styles for checked state (applied via data attribute)
           colorStyles[context.color],
 
           // Disabled state
-          isDisabled && "cursor-not-allowed opacity-50 hover:border-border hover:bg-card",
+          isDisabled && "cursor-not-allowed opacity-50 hover:border-gray-200 hover:bg-white",
 
           className,
         )}
@@ -220,10 +222,10 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
           disabled={isDisabled}
           className={cn(
             "peer inline-flex shrink-0 items-center justify-center rounded",
-            "border-2 border-input bg-background",
+            "border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900",
             "transition-all duration-150",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            "data-[checked]:text-primary-foreground",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1",
+            "data-[checked]:text-white data-[checked]:border-transparent",
             "disabled:cursor-not-allowed disabled:opacity-50",
             sizeConfig.checkbox,
             checkboxColorStyles[context.color],
@@ -231,11 +233,11 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
         >
           <CheckboxPrimitive.Indicator
             className={cn(
-              "flex items-center justify-center",
+              "flex items-center justify-center text-inherit",
               sizeConfig.checkIcon,
             )}
           >
-            <Check className="h-full w-full" strokeWidth={3} />
+            <Check className="h-full w-full stroke-current" strokeWidth={3} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
 

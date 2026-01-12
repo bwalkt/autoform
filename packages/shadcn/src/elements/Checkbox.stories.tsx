@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { Checkbox, CheckboxWithLabel, CheckboxGroup } from "./Checkbox";
-import { Box } from "./Box";
+import { Box } from "../layouts/Box";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Elements/Checkbox",
@@ -13,7 +13,7 @@ const meta: Meta<typeof Checkbox> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: ["1", "2", "3", "4"],
       description: "The size of the checkbox",
     },
     variant: {
@@ -49,7 +49,9 @@ type Story = StoryObj<typeof meta>;
 // ============================================================================
 
 export const Default: Story = {
-  args: {},
+  args: {
+    defaultChecked: true,
+  },
 };
 
 export const Checked: Story = {
@@ -84,10 +86,10 @@ export const DisabledChecked: Story = {
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="items-center gap-4">
-      <Checkbox size="xs" defaultChecked />
-      <Checkbox size="sm" defaultChecked />
-      <Checkbox size="md" defaultChecked />
-      <Checkbox size="lg" defaultChecked />
+      <Checkbox size="1" defaultChecked />
+      <Checkbox size="2" defaultChecked />
+      <Checkbox size="2" defaultChecked />
+      <Checkbox size="3" defaultChecked />
     </Box>
   ),
 };
@@ -95,10 +97,10 @@ export const AllSizes: Story = {
 export const SizesWithLabels: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
-      <CheckboxWithLabel size="xs" label="Extra Small" defaultChecked />
-      <CheckboxWithLabel size="sm" label="Small" defaultChecked />
-      <CheckboxWithLabel size="md" label="Medium (default)" defaultChecked />
-      <CheckboxWithLabel size="lg" label="Large" defaultChecked />
+      <CheckboxWithLabel size="1" label="Extra Small" defaultChecked />
+      <CheckboxWithLabel size="2" label="Small" defaultChecked />
+      <CheckboxWithLabel size="2" label="Medium (default)" defaultChecked />
+      <CheckboxWithLabel size="3" label="Large" defaultChecked />
     </Box>
   ),
 };
@@ -130,21 +132,39 @@ export const VariantOutline: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <Box display="flex" className="flex-col gap-6">
+    <Box display="flex" className="flex-col gap-8">
       <div>
-        <h3 className="text-sm font-medium mb-3">Unchecked</h3>
-        <Box display="flex" className="items-center gap-4">
-          <Checkbox variant="solid" />
-          <Checkbox variant="soft" />
-          <Checkbox variant="outline" />
+        <h3 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wide">Unchecked</h3>
+        <Box display="flex" className="items-center gap-6">
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox variant="solid" />
+            <span className="text-xs text-muted-foreground">Solid</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox variant="soft" />
+            <span className="text-xs text-muted-foreground">Soft</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox variant="outline" />
+            <span className="text-xs text-muted-foreground">Outline</span>
+          </div>
         </Box>
       </div>
       <div>
-        <h3 className="text-sm font-medium mb-3">Checked</h3>
-        <Box display="flex" className="items-center gap-4">
-          <Checkbox variant="solid" defaultChecked />
-          <Checkbox variant="soft" defaultChecked />
-          <Checkbox variant="outline" defaultChecked />
+        <h3 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wide">Checked</h3>
+        <Box display="flex" className="items-center gap-6">
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Solid</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Soft</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Outline</span>
+          </div>
         </Box>
       </div>
     </Box>
@@ -157,38 +177,94 @@ export const AllVariants: Story = {
 
 export const AllColors: Story = {
   render: () => (
-    <Box display="flex" className="flex-col gap-6">
+    <Box display="flex" className="flex-col gap-10">
       <div>
-        <h3 className="text-sm font-medium mb-3">Solid Variant</h3>
-        <Box display="flex" className="items-center gap-4">
-          <Checkbox color="default" variant="solid" defaultChecked />
-          <Checkbox color="primary" variant="solid" defaultChecked />
-          <Checkbox color="info" variant="solid" defaultChecked />
-          <Checkbox color="success" variant="solid" defaultChecked />
-          <Checkbox color="warning" variant="solid" defaultChecked />
-          <Checkbox color="error" variant="solid" defaultChecked />
+        <h3 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wide">Solid Variant</h3>
+        <Box display="flex" className="items-center gap-6">
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="default" variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Default</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="primary" variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Primary</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="info" variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Info</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="success" variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Success</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="warning" variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Warning</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="error" variant="solid" defaultChecked />
+            <span className="text-xs text-muted-foreground">Error</span>
+          </div>
         </Box>
       </div>
+
       <div>
-        <h3 className="text-sm font-medium mb-3">Soft Variant</h3>
-        <Box display="flex" className="items-center gap-4">
-          <Checkbox color="default" variant="soft" defaultChecked />
-          <Checkbox color="primary" variant="soft" defaultChecked />
-          <Checkbox color="info" variant="soft" defaultChecked />
-          <Checkbox color="success" variant="soft" defaultChecked />
-          <Checkbox color="warning" variant="soft" defaultChecked />
-          <Checkbox color="error" variant="soft" defaultChecked />
+        <h3 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wide">Soft Variant</h3>
+        <Box display="flex" className="items-center gap-6">
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="default" variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Default</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="primary" variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Primary</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="info" variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Info</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="success" variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Success</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="warning" variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Warning</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="error" variant="soft" defaultChecked />
+            <span className="text-xs text-muted-foreground">Error</span>
+          </div>
         </Box>
       </div>
+
       <div>
-        <h3 className="text-sm font-medium mb-3">Outline Variant</h3>
-        <Box display="flex" className="items-center gap-4">
-          <Checkbox color="default" variant="outline" defaultChecked />
-          <Checkbox color="primary" variant="outline" defaultChecked />
-          <Checkbox color="info" variant="outline" defaultChecked />
-          <Checkbox color="success" variant="outline" defaultChecked />
-          <Checkbox color="warning" variant="outline" defaultChecked />
-          <Checkbox color="error" variant="outline" defaultChecked />
+        <h3 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wide">Outline Variant</h3>
+        <Box display="flex" className="items-center gap-6">
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="default" variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Default</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="primary" variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Primary</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="info" variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Info</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="success" variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Success</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="warning" variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Warning</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Checkbox color="error" variant="outline" defaultChecked />
+            <span className="text-xs text-muted-foreground">Error</span>
+          </div>
         </Box>
       </div>
     </Box>
@@ -468,21 +544,21 @@ export const GroupSizes: Story = {
     <Box display="flex" className="gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">Small</h3>
-        <CheckboxGroup.Root size="sm" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="2" defaultValue={["a"]}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Medium</h3>
-        <CheckboxGroup.Root size="md" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="2" defaultValue={["a"]}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Large</h3>
-        <CheckboxGroup.Root size="lg" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="3" defaultValue={["a"]}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>

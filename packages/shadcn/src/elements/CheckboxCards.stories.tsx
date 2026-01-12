@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { CheckboxCards } from "./CheckboxCards";
-import { Box } from "./Box";
+import { Box } from "../layouts/Box";
 import { Wifi, Bluetooth, Nfc, Monitor, Smartphone, Tablet, Laptop } from "lucide-react";
 
 const meta: Meta<typeof CheckboxCards.Root> = {
@@ -14,7 +14,7 @@ const meta: Meta<typeof CheckboxCards.Root> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: ["1", "2", "3", "4"],
       description: "The size of all cards",
     },
     variant: {
@@ -48,8 +48,22 @@ type Story = StoryObj<typeof meta>;
 // ============================================================================
 
 export const Default: Story = {
-  render: () => (
-    <CheckboxCards.Root defaultValue={["1"]}>
+  args: {
+    size: "2",
+    variant: "surface",
+    color: "default",
+    columns: "3",
+    gap: "4",
+  },
+  render: (args) => (
+    <CheckboxCards.Root
+      defaultValue={["1"]}
+      size={args.size}
+      variant={args.variant}
+      color={args.color}
+      columns={args.columns}
+      gap={args.gap}
+    >
       <CheckboxCards.Item value="1">
         <div className="font-medium">Option 1</div>
         <div className="text-muted-foreground">Description for option 1</div>
@@ -67,8 +81,22 @@ export const Default: Story = {
 };
 
 export const WithIcons: Story = {
-  render: () => (
-    <CheckboxCards.Root defaultValue={["wifi"]} columns="3">
+  args: {
+    size: "2",
+    variant: "surface",
+    color: "default",
+    columns: "3",
+    gap: "4",
+  },
+  render: (args) => (
+    <CheckboxCards.Root
+      defaultValue={["wifi"]}
+      size={args.size}
+      variant={args.variant}
+      color={args.color}
+      columns={args.columns}
+      gap={args.gap}
+    >
       <CheckboxCards.Item value="wifi">
         <div className="flex items-center gap-2">
           <Wifi className="h-4 w-4" />
@@ -103,7 +131,7 @@ export const AllSizes: Story = {
     <Box display="flex" className="flex-col gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">Extra Small</h3>
-        <CheckboxCards.Root size="xs" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="1" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -118,7 +146,7 @@ export const AllSizes: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Small</h3>
-        <CheckboxCards.Root size="sm" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="2" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -133,7 +161,7 @@ export const AllSizes: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Medium (default)</h3>
-        <CheckboxCards.Root size="md" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="2" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -148,7 +176,7 @@ export const AllSizes: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Large</h3>
-        <CheckboxCards.Root size="lg" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="3" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>

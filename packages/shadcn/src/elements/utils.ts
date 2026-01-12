@@ -13,7 +13,7 @@ export function getResponsiveSize(size: ResponsiveSize): string {
   }
 
   const breakpoints = {
-    initial: size.initial || "md",
+    initial: size.initial || "2",
     xs: size.xs,
     sm: size.sm,
     md: size.md,

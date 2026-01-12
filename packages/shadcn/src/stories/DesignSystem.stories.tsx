@@ -19,29 +19,29 @@ export const AllSizes: Story = {
       <div>
         <h3 className="text-lg font-medium mb-4">TextField Sizes</h3>
         <div className="space-y-4">
-          <TextField size="xs" placeholder="Size xs - Extra Small" />
-          <TextField size="sm" placeholder="Size sm - Small" />
-          <TextField size="md" placeholder="Size md - Medium (default)" />
-          <TextField size="lg" placeholder="Size lg - Large" />
+          <TextField size="1" placeholder="Size xs - Extra Small" />
+          <TextField size="2" placeholder="Size sm - Small" />
+          <TextField size="2" placeholder="Size md - Medium (default)" />
+          <TextField size="3" placeholder="Size lg - Large" />
         </div>
       </div>
 
       <div>
         <h3 className="text-lg font-medium mb-4">Select Sizes</h3>
         <div className="space-y-4">
-          <Select size="xs" placeholder="Size xs">
+          <Select size="1" placeholder="Size xs">
             <SelectItem value="option1">Option 1</SelectItem>
             <SelectItem value="option2">Option 2</SelectItem>
           </Select>
-          <Select size="sm" placeholder="Size sm">
+          <Select size="2" placeholder="Size sm">
             <SelectItem value="option1">Option 1</SelectItem>
             <SelectItem value="option2">Option 2</SelectItem>
           </Select>
-          <Select size="md" placeholder="Size md (default)">
+          <Select size="2" placeholder="Size md (default)">
             <SelectItem value="option1">Option 1</SelectItem>
             <SelectItem value="option2">Option 2</SelectItem>
           </Select>
-          <Select size="lg" placeholder="Size lg">
+          <Select size="3" placeholder="Size lg">
             <SelectItem value="option1">Option 1</SelectItem>
             <SelectItem value="option2">Option 2</SelectItem>
           </Select>
@@ -51,10 +51,10 @@ export const AllSizes: Story = {
       <div>
         <h3 className="text-lg font-medium mb-4">Textarea Sizes</h3>
         <div className="space-y-4">
-          <Textarea size="xs" placeholder="Size xs" rows={3} />
-          <Textarea size="sm" placeholder="Size sm" rows={3} />
-          <Textarea size="md" placeholder="Size md (default)" rows={3} />
-          <Textarea size="lg" placeholder="Size lg" rows={3} />
+          <Textarea size="1" placeholder="Size xs" rows={3} />
+          <Textarea size="2" placeholder="Size sm" rows={3} />
+          <Textarea size="2" placeholder="Size md (default)" rows={3} />
+          <Textarea size="3" placeholder="Size lg" rows={3} />
         </div>
       </div>
     </div>
@@ -195,27 +195,27 @@ export const WithIcons: Story = {
       <div>
         <h3 className="text-lg font-medium mb-4">TextField with Icons - Size sm</h3>
         <div className="space-y-4">
-          <TextField size="sm" leftIcon={<Mail />} placeholder="Email address" />
-          <TextField size="sm" leftIcon={<Search />} placeholder="Search..." />
-          <TextField size="sm" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
+          <TextField size="2" leftIcon={<Mail />} placeholder="Email address" />
+          <TextField size="2" leftIcon={<Search />} placeholder="Search..." />
+          <TextField size="2" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
         </div>
       </div>
 
       <div>
         <h3 className="text-lg font-medium mb-4">TextField with Icons - Size md (Default)</h3>
         <div className="space-y-4">
-          <TextField size="md" leftIcon={<Mail />} placeholder="Email address" />
-          <TextField size="md" leftIcon={<Search />} placeholder="Search..." />
-          <TextField size="md" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
+          <TextField size="2" leftIcon={<Mail />} placeholder="Email address" />
+          <TextField size="2" leftIcon={<Search />} placeholder="Search..." />
+          <TextField size="2" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
         </div>
       </div>
 
       <div>
         <h3 className="text-lg font-medium mb-4">TextField with Icons - Size lg</h3>
         <div className="space-y-4">
-          <TextField size="lg" leftIcon={<Mail />} placeholder="Email address" />
-          <TextField size="lg" leftIcon={<Search />} placeholder="Search..." />
-          <TextField size="lg" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
+          <TextField size="3" leftIcon={<Mail />} placeholder="Email address" />
+          <TextField size="3" leftIcon={<Search />} placeholder="Search..." />
+          <TextField size="3" leftIcon={<User />} rightIcon={<Search />} placeholder="Search users" />
         </div>
       </div>
 
@@ -332,7 +332,7 @@ export const FormExample: Story = {
         />
 
         <Select
-          size="md"
+          size="2"
           variant="outline"
           placeholder="Select your role"
           value={formData.role}
@@ -345,7 +345,7 @@ export const FormExample: Story = {
         </Select>
 
         <Textarea
-          size="md"
+          size="2"
           variant="outline"
           placeholder="Tell us about yourself"
           rows={4}
