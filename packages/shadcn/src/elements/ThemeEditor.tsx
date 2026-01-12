@@ -342,19 +342,33 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
     return JSON.stringify(config, null, 2);
   }, [config]);
 
-  const contextValue: ThemeEditorContextValue = {
-    config,
-    mode,
-    setMode,
-    updateColors,
-    updateTypography,
-    updateLayout,
-    updateShadow,
-    applyPreset,
-    resetToDefault,
-    exportCSS,
-    exportJSON,
-  };
+  const contextValue = React.useMemo<ThemeEditorContextValue>(
+    () => ({
+      config,
+      mode,
+      setMode,
+      updateColors,
+      updateTypography,
+      updateLayout,
+      updateShadow,
+      applyPreset,
+      resetToDefault,
+      exportCSS,
+      exportJSON,
+    }),
+    [
+      config,
+      mode,
+      updateColors,
+      updateTypography,
+      updateLayout,
+      updateShadow,
+      applyPreset,
+      resetToDefault,
+      exportCSS,
+      exportJSON,
+    ],
+  );
 
   // Apply CSS variables to document
   React.useEffect(() => {

@@ -6,9 +6,15 @@ settings:
 
 catalogs:
   default:
+    '@hookform/resolvers':
+      specifier: ^5.2.2
+      version: 5.2.2
     '@storybook/addon-docs':
       specifier: 10.1.11
       version: 10.1.11
+    '@storybook/react':
+      specifier: 10.1.10
+      version: 10.1.10
     '@storybook/react-vite':
       specifier: 10.1.10
       version: 10.1.10
@@ -21,6 +27,12 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.2.3
       version: 19.2.3
+    ajv:
+      specifier: 8.17.1
+      version: 8.17.1
+    ajv-formats:
+      specifier: ^3.0.1
+      version: 3.0.1
     autoprefixer:
       specifier: ^10.4.19
       version: 10.4.23
@@ -33,6 +45,9 @@ catalogs:
     postcss-load-config:
       specifier: ^6.0.1
       version: 6.0.1
+    prettier:
+      specifier: ^3.2.5
+      version: 3.7.4
     react:
       specifier: 19.2.3
       version: 19.2.3
@@ -42,9 +57,15 @@ catalogs:
     react-hook-form:
       specifier: ^7.69.0
       version: 7.69.0
+    storybook:
+      specifier: 10.1.10
+      version: 10.1.10
     tsup:
       specifier: 8.5.1
       version: 8.5.1
+    turbo:
+      specifier: ^2.1.3
+      version: 2.7.2
     typescript:
       specifier: ^5.4.5
       version: 5.9.3
@@ -59,9 +80,6 @@ importers:
       '@changesets/cli':
         specifier: ^2.27.9
         version: 2.29.8(@types/node@20.19.27)
-      crypto:
-        specifier: ^1.0.1
-        version: 1.0.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.3.10
@@ -234,9 +252,6 @@ importers:
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
-      zod:
-        specifier: ^3
-        version: 3.25.76
     devDependencies:
       '@bwalkt/ajv':
         specifier: workspace:*
@@ -246,7 +261,7 @@ importers:
         version: link:../core
       '@bwalkt/typescript-config':
         specifier: file:../typescript-config
-        version: file:packages/typescript-config
+        version: link:../typescript-config
       '@storybook/addon-docs':
         specifier: 'catalog:'
         version: 10.1.11(@types/react@19.2.7)(esbuild@0.27.2)(rollup@4.54.0)(storybook@10.1.10(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.0(@types/node@20.19.27)(jiti@2.6.1)(lightningcss@1.30.2)(sugarss@5.0.1(postcss@8.5.6)))
@@ -464,9 +479,6 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
-
-  '@bwalkt/typescript-config@file:packages/typescript-config':
-    resolution: {directory: packages/typescript-config, type: directory}
 
   '@changesets/apply-release-plan@7.0.14':
     resolution: {integrity: sha512-ddBvf9PHdy2YY0OUiEl3TV78mH9sckndJR14QAt87KLEbIov81XO0q0QAmvooBxXlqRRP8I9B7XOzZwQG7JkWA==}
@@ -1532,10 +1544,6 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
-
-  crypto@1.0.1:
-    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
-    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
 
   css.escape@1.5.1:
     resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
@@ -3048,9 +3056,6 @@ packages:
     resolution: {integrity: sha512-U/PBtDf35ff0D8X8D0jfdzHYEPFxAI7jJlxZXwCSez5M3190m+QobIfh+sWDWSHMCWWJN2AWamkegn6vr6YBTw==}
     engines: {node: '>=18'}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
-
 snapshots:
 
   '@adobe/css-tools@4.4.4': {}
@@ -3222,8 +3227,6 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.3.10':
     optional: true
-
-  '@bwalkt/typescript-config@file:packages/typescript-config': {}
 
   '@changesets/apply-release-plan@7.0.14':
     dependencies:
@@ -4312,8 +4315,6 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-
-  crypto@1.0.1: {}
 
   css.escape@1.5.1: {}
 
@@ -5805,5 +5806,3 @@ snapshots:
 
   yoctocolors-cjs@2.1.3:
     optional: true
-
-  zod@3.25.76: {}

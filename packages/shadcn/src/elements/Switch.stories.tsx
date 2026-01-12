@@ -103,6 +103,21 @@ export const Disabled: Story = {
   ),
 };
 
+export const HighContrast: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-4">
+        <Switch defaultChecked />
+        <span className="text-sm">Default</span>
+      </div>
+      <div className="flex items-center gap-4">
+        <Switch defaultChecked highContrast />
+        <span className="text-sm">High Contrast</span>
+      </div>
+    </div>
+  ),
+};
+
 export const SettingsExample: Story = {
   render: () => {
     const [settings, setSettings] = useState({

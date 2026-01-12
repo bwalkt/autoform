@@ -1,0 +1,235 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
+import { Tabs, TextField, Button } from "../elements";
+
+const meta: Meta = {
+  title: "Elements/Tabs",
+  parameters: {
+    layout: "centered",
+  },
+};
+
+export default meta;
+
+export const Default: StoryObj = {
+  render: () => (
+    <Tabs.Root defaultValue="account" className="w-[400px]">
+      <Tabs.List>
+        <Tabs.Trigger value="account">Account</Tabs.Trigger>
+        <Tabs.Trigger value="password">Password</Tabs.Trigger>
+        <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+      </Tabs.List>
+      <Tabs.Content value="account">
+        <div className="space-y-4">
+          <h3 className="font-medium">Account Settings</h3>
+          <p className="text-sm text-muted-foreground">
+            Manage your account settings and preferences.
+          </p>
+        </div>
+      </Tabs.Content>
+      <Tabs.Content value="password">
+        <div className="space-y-4">
+          <h3 className="font-medium">Password</h3>
+          <p className="text-sm text-muted-foreground">
+            Change your password here.
+          </p>
+        </div>
+      </Tabs.Content>
+      <Tabs.Content value="settings">
+        <div className="space-y-4">
+          <h3 className="font-medium">Settings</h3>
+          <p className="text-sm text-muted-foreground">
+            Configure your application settings.
+          </p>
+        </div>
+      </Tabs.Content>
+    </Tabs.Root>
+  ),
+};
+
+export const Sizes: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      {(["1", "2", "3", "4"] as const).map((size) => (
+        <div key={size}>
+          <p className="text-sm text-muted-foreground mb-2">Size {size}</p>
+          <Tabs.Root size={size} defaultValue="tab1" className="w-[400px]">
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="tab1">Content for Tab 1</Tabs.Content>
+            <Tabs.Content value="tab2">Content for Tab 2</Tabs.Content>
+            <Tabs.Content value="tab3">Content for Tab 3</Tabs.Content>
+          </Tabs.Root>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Variants: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      {(["surface", "classic"] as const).map((variant) => (
+        <div key={variant}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">{variant}</p>
+          <Tabs.Root variant={variant} defaultValue="tab1" className="w-[400px]">
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="tab1">Overview content</Tabs.Content>
+            <Tabs.Content value="tab2">Analytics content</Tabs.Content>
+            <Tabs.Content value="tab3">Reports content</Tabs.Content>
+          </Tabs.Root>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Colors: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      {(["default", "primary", "info", "success", "warning", "error"] as const).map((color) => (
+        <div key={color}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
+          <Tabs.Root color={color} defaultValue="tab1" className="w-[400px]">
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Controlled: StoryObj = {
+  render: () => {
+    const [value, setValue] = useState("overview");
+
+    return (
+      <div className="w-[400px]">
+        <Tabs.Root value={value} onValueChange={setValue}>
+          <Tabs.List>
+            <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="analytics">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="reports">Reports</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="overview">
+            <p>Overview content here.</p>
+          </Tabs.Content>
+          <Tabs.Content value="analytics">
+            <p>Analytics content here.</p>
+          </Tabs.Content>
+          <Tabs.Content value="reports">
+            <p>Reports content here.</p>
+          </Tabs.Content>
+        </Tabs.Root>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Current tab: <span className="font-medium">{value}</span>
+        </p>
+      </div>
+    );
+  },
+};
+
+export const DisabledTab: StoryObj = {
+  render: () => (
+    <Tabs.Root defaultValue="tab1" className="w-[400px]">
+      <Tabs.List>
+        <Tabs.Trigger value="tab1">Active</Tabs.Trigger>
+        <Tabs.Trigger value="tab2" disabled>Disabled</Tabs.Trigger>
+        <Tabs.Trigger value="tab3">Another</Tabs.Trigger>
+      </Tabs.List>
+      <Tabs.Content value="tab1">Active tab content</Tabs.Content>
+      <Tabs.Content value="tab2">Disabled tab content</Tabs.Content>
+      <Tabs.Content value="tab3">Another tab content</Tabs.Content>
+    </Tabs.Root>
+  ),
+};
+
+export const AccountSettings: StoryObj = {
+  render: () => (
+    <div className="w-[500px] border rounded-lg p-6">
+      <h2 className="text-xl font-semibold mb-4">Account Settings</h2>
+      <Tabs.Root defaultValue="profile">
+        <Tabs.List>
+          <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
+          <Tabs.Trigger value="security">Security</Tabs.Trigger>
+          <Tabs.Trigger value="notifications">Notifications</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="profile">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Display Name</label>
+              <TextField placeholder="Enter your name" defaultValue="John Doe" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Email</label>
+              <TextField type="email" placeholder="Enter your email" defaultValue="john@example.com" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Bio</label>
+              <TextField placeholder="Tell us about yourself" />
+            </div>
+            <Button>Save Changes</Button>
+          </div>
+        </Tabs.Content>
+        <Tabs.Content value="security">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Current Password</label>
+              <TextField type="password" placeholder="Enter current password" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">New Password</label>
+              <TextField type="password" placeholder="Enter new password" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Confirm Password</label>
+              <TextField type="password" placeholder="Confirm new password" />
+            </div>
+            <Button>Update Password</Button>
+          </div>
+        </Tabs.Content>
+        <Tabs.Content value="notifications">
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Configure how you receive notifications.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium text-sm">Email Notifications</p>
+                  <p className="text-xs text-muted-foreground">Receive updates via email</p>
+                </div>
+                <input type="checkbox" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium text-sm">Push Notifications</p>
+                  <p className="text-xs text-muted-foreground">Receive push notifications</p>
+                </div>
+                <input type="checkbox" />
+              </div>
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium text-sm">SMS Notifications</p>
+                  <p className="text-xs text-muted-foreground">Receive SMS updates</p>
+                </div>
+                <input type="checkbox" />
+              </div>
+            </div>
+          </div>
+        </Tabs.Content>
+      </Tabs.Root>
+    </div>
+  ),
+};

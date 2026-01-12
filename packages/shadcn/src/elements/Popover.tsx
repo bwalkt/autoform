@@ -124,7 +124,7 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
             className={cn(
               "z-50 w-full rounded-lg border bg-popover p-4 text-popover-foreground shadow-lg",
               "animate-in fade-in-0 zoom-in-95",
-              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+              "data-[closed]:animate-out data-[closed]:fade-out-0 data-[closed]:zoom-out-95",
               "focus:outline-none",
               maxWidthStyles[maxWidth],
               className,
