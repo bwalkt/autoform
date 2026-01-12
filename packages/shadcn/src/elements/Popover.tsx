@@ -70,7 +70,7 @@ PopoverTrigger.displayName = "Popover.Trigger";
 // Content
 // ============================================================================
 
-type MaxWidth = "xs" | "sm" | "md" | "lg" | "xl";
+export type MaxWidth = "xs" | "sm" | "md" | "lg" | "xl";
 
 const maxWidthStyles: Record<MaxWidth, string> = {
   xs: "max-w-xs",
@@ -165,8 +165,12 @@ const PopoverClose = React.forwardRef<HTMLButtonElement, PopoverCloseProps>(
         )}
         {...props}
       >
-        {children || <X className="h-4 w-4" />}
-        <span className="sr-only">Close</span>
+        {children || (
+          <>
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </>
+        )}
       </PopoverPrimitive.Close>
     );
   },
@@ -183,14 +187,17 @@ export interface PopoverArrowProps {
   className?: string;
 }
 
-const PopoverArrow: React.FC<PopoverArrowProps> = ({ className, ...props }) => {
-  return (
-    <PopoverPrimitive.Arrow
-      className={cn("fill-popover", className)}
-      {...props}
-    />
-  );
-};
+const PopoverArrow = React.forwardRef<HTMLDivElement, PopoverArrowProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <PopoverPrimitive.Arrow
+        ref={ref}
+        className={cn("fill-popover", className)}
+        {...props}
+      />
+    );
+  },
+);
 
 PopoverArrow.displayName = "Popover.Arrow";
 

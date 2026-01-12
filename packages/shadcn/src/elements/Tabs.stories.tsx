@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Tabs, TextField, Button } from "../elements";
+import { Tabs, TextField, Button, Switch } from "../elements";
 
 const meta: Meta = {
   title: "Elements/Tabs",
+  component: Tabs.Root,
   parameters: {
     layout: "centered",
   },
@@ -210,21 +211,21 @@ export const AccountSettings: StoryObj = {
                   <p className="font-medium text-sm">Email Notifications</p>
                   <p className="text-xs text-muted-foreground">Receive updates via email</p>
                 </div>
-                <input type="checkbox" defaultChecked />
+                <Switch defaultChecked aria-label="Email notifications" />
               </div>
               <div className="flex items-center justify-between p-3 border rounded-lg">
                 <div>
                   <p className="font-medium text-sm">Push Notifications</p>
                   <p className="text-xs text-muted-foreground">Receive push notifications</p>
                 </div>
-                <input type="checkbox" />
+                <Switch aria-label="Push notifications" />
               </div>
               <div className="flex items-center justify-between p-3 border rounded-lg">
                 <div>
                   <p className="font-medium text-sm">SMS Notifications</p>
                   <p className="text-xs text-muted-foreground">Receive SMS updates</p>
                 </div>
-                <input type="checkbox" />
+                <Switch aria-label="SMS notifications" />
               </div>
             </div>
           </div>

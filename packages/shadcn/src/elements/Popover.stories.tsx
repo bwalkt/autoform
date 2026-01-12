@@ -5,6 +5,7 @@ import { Settings, Calendar, Bell } from "lucide-react";
 
 const meta: Meta = {
   title: "Elements/Popover",
+  component: Popover.Root,
   parameters: {
     layout: "centered",
   },
@@ -95,12 +96,12 @@ export const WithForm: StoryObj = {
           <h4 className="font-medium">Dimensions</h4>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Width</label>
-              <TextField placeholder="100%" />
+              <label htmlFor="width-input" className="text-sm font-medium">Width</label>
+              <TextField id="width-input" placeholder="100%" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Height</label>
-              <TextField placeholder="auto" />
+              <label htmlFor="height-input" className="text-sm font-medium">Height</label>
+              <TextField id="height-input" placeholder="auto" />
             </div>
           </div>
           <div className="flex justify-end">
@@ -162,7 +163,7 @@ export const DatePicker: StoryObj = {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <button className="p-1 hover:bg-muted rounded">&lt;</button>
-            <span className="font-medium text-sm">January 2025</span>
+            <span className="font-medium text-sm">January 2026</span>
             <button className="p-1 hover:bg-muted rounded">&gt;</button>
           </div>
           <div className="grid grid-cols-7 gap-1 text-center text-xs">

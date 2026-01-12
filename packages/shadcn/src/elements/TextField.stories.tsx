@@ -10,43 +10,63 @@ const meta: Meta<typeof TextField> = {
     layout: "padded",
   },
   tags: ["autodocs"],
+  args: {
+    // Set defaults to match component defaults
+    size: "2",
+    variant: "outline",
+    radius: "md",
+    color: "default",
+    error: false,
+    disabled: false,
+  },
   argTypes: {
     size: {
       control: "select",
       options: ["1", "2", "3", "4"],
       description: "The size of the text field",
+      table: { defaultValue: { summary: "2" } },
     },
     variant: {
       control: "select",
-      options: ["solid", "soft", "outline", "ghost"],
-      description: "The visual variant",
+      options: [
+        "classic",
+        "solid",
+        "soft",
+        "surface",
+        "outline",
+        "ghost",
+        "floating-filled",
+        "floating-standard",
+        "floating-outlined",
+      ],
+      description: "The visual variant. Use floating-* variants with a label prop for floating labels.",
+      table: { defaultValue: { summary: "outline" } },
     },
     color: {
       control: "select",
-      options: ["default", "primary", "info", "success", "warning", "error"],
+      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
       description: "The accent color",
+      table: { defaultValue: { summary: "default" } },
     },
     radius: {
       control: "select",
       options: ["none", "sm", "md", "lg", "full"],
       description: "The border radius",
-    },
-    floatingLabel: {
-      control: "radio",
-      options: ["filled", "outlined", "standard"],
-      description: "Floating label style (requires label prop to be set)",
+      table: { defaultValue: { summary: "md" } },
     },
     label: {
       control: "text",
-      description: "Label text (required for floating label)",
+      description: "Label text (required for floating-* variants)",
     },
     error: {
       control: "boolean",
       description: "Error state",
+      table: { defaultValue: { summary: "false" } },
     },
     disabled: {
       control: "boolean",
       description: "Disabled state",
+      table: { defaultValue: { summary: "false" } },
     },
   },
 };
@@ -60,15 +80,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: "Email address",
-    floatingLabel: "outlined",
+    placeholder: "Enter text...",
   },
 };
 
-export const WithPlaceholder: Story = {
-  name: "Without Floating Label",
+export const WithFloatingLabel: Story = {
+  name: "With Floating Label",
   args: {
-    placeholder: "john@example.com",
+    label: "Email address",
+    variant: "floating-outlined",
   },
 };
 
@@ -137,14 +157,14 @@ export const AllSizes: Story = {
 export const FloatingFilled: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "filled",
+    variant: "floating-filled",
   },
 };
 
 export const FloatingFilledWithValue: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "filled",
+    variant: "floating-filled",
     defaultValue: "john@example.com",
   },
 };
@@ -156,14 +176,14 @@ export const FloatingFilledWithValue: Story = {
 export const FloatingOutlined: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "outlined",
+    variant: "floating-outlined",
   },
 };
 
 export const FloatingOutlinedWithValue: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "outlined",
+    variant: "floating-outlined",
     defaultValue: "john@example.com",
   },
 };
@@ -175,14 +195,14 @@ export const FloatingOutlinedWithValue: Story = {
 export const FloatingStandard: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "standard",
+    variant: "floating-standard",
   },
 };
 
 export const FloatingStandardWithValue: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "standard",
+    variant: "floating-standard",
     defaultValue: "john@example.com",
   },
 };
@@ -194,9 +214,9 @@ export const FloatingStandardWithValue: Story = {
 export const AllFloatingVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
-      <TextField label="Filled Label" floatingLabel="filled" />
-      <TextField label="Outlined Label" floatingLabel="outlined" />
-      <TextField label="Standard Label" floatingLabel="standard" />
+      <TextField label="Filled Label" variant="floating-filled" />
+      <TextField label="Outlined Label" variant="floating-outlined" />
+      <TextField label="Standard Label" variant="floating-standard" />
     </Box>
   ),
 };
@@ -210,17 +230,17 @@ export const FloatingWithIcons: Story = {
     <Box display="flex" className="flex-col gap-6 max-w-md">
       <TextField
         label="Email"
-        floatingLabel="filled"
+        variant="floating-filled"
         leftIcon={<Mail />}
       />
       <TextField
         label="Email"
-        floatingLabel="outlined"
+        variant="floating-outlined"
         leftIcon={<Mail />}
       />
       <TextField
         label="Search"
-        floatingLabel="standard"
+        variant="floating-standard"
         leftIcon={<Search />}
       />
     </Box>
@@ -234,11 +254,11 @@ export const FloatingWithIcons: Story = {
 export const FloatingWithColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
-      <TextField label="Primary" floatingLabel="outlined" color="primary" />
-      <TextField label="Info" floatingLabel="outlined" color="info" />
-      <TextField label="Success" floatingLabel="outlined" color="success" />
-      <TextField label="Warning" floatingLabel="outlined" color="warning" />
-      <TextField label="Error" floatingLabel="outlined" error />
+      <TextField label="Primary" variant="floating-outlined" color="primary" />
+      <TextField label="Info" variant="floating-outlined" color="info" />
+      <TextField label="Success" variant="floating-outlined" color="success" />
+      <TextField label="Warning" variant="floating-outlined" color="warning" />
+      <TextField label="Error" variant="floating-outlined" error />
     </Box>
   ),
 };
@@ -292,7 +312,7 @@ export const DisabledState: Story = {
 export const FloatingError: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "outlined",
+    variant: "floating-outlined",
     error: true,
     defaultValue: "invalid@",
   },
@@ -301,7 +321,7 @@ export const FloatingError: Story = {
 export const FloatingDisabled: Story = {
   args: {
     label: "Email address",
-    floatingLabel: "outlined",
+    variant: "floating-outlined",
     disabled: true,
     defaultValue: "disabled@example.com",
   },
@@ -317,13 +337,13 @@ export const LoginForm: Story = {
       <h2 className="text-xl font-semibold mb-2">Sign In</h2>
       <TextField
         label="Email"
-        floatingLabel="outlined"
+        variant="floating-outlined"
         leftIcon={<Mail />}
         type="email"
       />
       <TextField
         label="Password"
-        floatingLabel="outlined"
+        variant="floating-outlined"
         leftIcon={<Lock />}
         rightIcon={<Eye />}
         type="password"
@@ -338,18 +358,18 @@ export const ContactForm: Story = {
       <h2 className="text-xl font-semibold mb-2">Contact Us</h2>
       <TextField
         label="Full Name"
-        floatingLabel="filled"
+        variant="floating-filled"
         leftIcon={<User />}
       />
       <TextField
         label="Email"
-        floatingLabel="filled"
+        variant="floating-filled"
         leftIcon={<Mail />}
         type="email"
       />
       <TextField
         label="Phone"
-        floatingLabel="filled"
+        variant="floating-filled"
         leftIcon={<Phone />}
         type="tel"
       />
@@ -361,9 +381,9 @@ export const MinimalForm: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-sm p-6">
       <h2 className="text-xl font-semibold">Minimal Style</h2>
-      <TextField label="First Name" floatingLabel="standard" />
-      <TextField label="Last Name" floatingLabel="standard" />
-      <TextField label="Email" floatingLabel="standard" type="email" />
+      <TextField label="First Name" variant="floating-standard" />
+      <TextField label="Last Name" variant="floating-standard" />
+      <TextField label="Email" variant="floating-standard" type="email" />
     </Box>
   ),
 };
@@ -375,9 +395,10 @@ export const MinimalForm: Story = {
 export const FloatingSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
-      <TextField size="2" label="Small" floatingLabel="outlined" />
-      <TextField size="2" label="Medium" floatingLabel="outlined" />
-      <TextField size="3" label="Large" floatingLabel="outlined" />
+      <TextField size="1" label="Extra Small" variant="floating-outlined" />
+      <TextField size="2" label="Small" variant="floating-outlined" />
+      <TextField size="3" label="Medium" variant="floating-outlined" />
+      <TextField size="4" label="Large" variant="floating-outlined" />
     </Box>
   ),
 };

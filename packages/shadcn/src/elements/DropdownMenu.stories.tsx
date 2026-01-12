@@ -16,6 +16,7 @@ import {
 
 const meta: Meta = {
   title: "Elements/DropdownMenu",
+  component: DropdownMenu.Root,
   parameters: {
     layout: "centered",
   },
