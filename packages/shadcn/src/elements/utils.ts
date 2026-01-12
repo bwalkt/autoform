@@ -1,3 +1,4 @@
+import type React from "react";
 import {
   designTokens,
   type Size,
@@ -45,34 +46,33 @@ export function getResponsiveSize(size: ResponsiveSize): string {
   return classes.trim();
 }
 
-export function getElementStyles(
-  size: Size,
-  variant: Variant,
-  color: Color | undefined,
-  radius: Radius,
-) {
+export function getSizeStyles(size: Size) {
   const sizeTokens = designTokens.size[size];
-  const _variantTokens = designTokens.variant[variant];
-  const radiusToken = designTokens.radius[radius];
-  const colorTokens = color
-    ? designTokens.color[color]
-    : designTokens.color.default;
-
   return {
     "--element-height": sizeTokens.height,
     "--element-font-size": sizeTokens.fontSize,
     "--element-padding-x": sizeTokens.paddingX,
     "--element-padding-y": sizeTokens.paddingY,
     "--element-line-height": sizeTokens.lineHeight,
-    "--element-border-radius": radiusToken,
-    "--color-border": colorTokens.border,
-    "--color-border-subtle": colorTokens.borderSubtle,
-    "--color-background": colorTokens.background,
-    "--color-surface": colorTokens.surface,
-    "--color-soft-background": colorTokens.softBackground,
-    "--color-soft-background-hover": colorTokens.softBackgroundHover,
-    "--color-primary": colorTokens.primary,
-    "--color-primary-alpha": colorTokens.primaryAlpha,
-    "--color-text": colorTokens.text,
+    "--element-icon-size": sizeTokens.iconSize,
+    "--element-gap": sizeTokens.gap,
+  } as React.CSSProperties;
+}
+
+export function getRadiusStyles(radius: Radius) {
+  return {
+    "--element-border-radius": designTokens.radius[radius],
+  } as React.CSSProperties;
+}
+
+export function getElementStyles(
+  size: Size,
+  _variant: Variant,
+  _color: Color | undefined,
+  radius: Radius,
+) {
+  return {
+    ...getSizeStyles(size),
+    ...getRadiusStyles(radius),
   } as React.CSSProperties;
 }

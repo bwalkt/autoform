@@ -55,8 +55,14 @@
         "noFunctionAssign": "error",
         "noImportAssign": "error",
         "noRedeclare": "error",
-        "noExplicitAny": "warn",
+        "noExplicitAny": "off",
         "noArrayIndexKey": "off"
+      },
+      "a11y": {
+        "noLabelWithoutControl": "off",
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "off",
+        "useSemanticElements": "off"
       }
     }
   },

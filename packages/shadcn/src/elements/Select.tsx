@@ -1,8 +1,10 @@
+"use client";
+
 import * as React from "react";
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { ChevronDown } from "lucide-react";
+import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { ChevronDown, CheckIcon } from "lucide-react";
 import { cn } from "../lib/utils";
-import { getElementStyles } from "./utils";
+import { getSizeStyles, getRadiusStyles } from "./utils";
 import type { Variant, Color, Radius, Size } from "./tokens";
 
 export interface SelectProps {
@@ -19,15 +21,15 @@ export interface SelectProps {
 }
 
 export const Select = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Trigger>,
+  HTMLButtonElement,
   SelectProps
 >(
   (
     {
       size = "2",
-      variant = "surface",
+      variant = "outline",
       color,
-      radius = "medium",
+      radius = "md",
       error = false,
       placeholder = "Select...",
       value,
@@ -38,18 +40,26 @@ export const Select = React.forwardRef<
     },
     ref,
   ) => {
-    const resolvedSize = size || "2";
-    const elementStyles = getElementStyles(
-      resolvedSize,
-      variant,
-      color,
-      radius,
-    );
+    const sizeStyles = getSizeStyles(size);
+    const radiusStyles = getRadiusStyles(radius);
+
+    const combinedStyles = {
+      ...sizeStyles,
+      ...radiusStyles,
+    };
+
+    const handleValueChange = onValueChange
+      ? (newValue: string | null) => {
+          if (newValue !== null) {
+            onValueChange(newValue);
+          }
+        }
+      : undefined;
 
     return (
       <SelectPrimitive.Root
         value={value}
-        onValueChange={onValueChange}
+        onValueChange={handleValueChange}
         disabled={disabled}
       >
         <SelectPrimitive.Trigger
@@ -63,60 +73,69 @@ export const Select = React.forwardRef<
             "text-[var(--color-text)]",
 
             // Variant-specific styles
-            variant === "classic" && [
-              "border border-[var(--color-border)]",
-              "bg-[var(--color-background)]",
-              "focus:border-[var(--color-primary)]",
-              "focus:ring-2 focus:ring-[var(--color-primary-alpha)]",
+            variant === "solid" && [
+              "border-0",
+              "bg-primary text-primary-foreground",
+              "hover:bg-primary/90",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
             ],
-            variant === "surface" && [
-              "border border-[var(--color-border-subtle)]",
-              "bg-[var(--color-surface)]",
-              "focus:border-[var(--color-primary)]",
-              "focus:ring-2 focus:ring-[var(--color-primary-alpha)]",
+            variant === "outline" && [
+              "border border-input",
+              "bg-background",
+              "hover:bg-accent hover:text-accent-foreground",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
             ],
             variant === "soft" && [
               "border-0",
-              "bg-[var(--color-soft-background)]",
-              "hover:bg-[var(--color-soft-background-hover)]",
-              "focus:bg-[var(--color-soft-background-hover)]",
+              "bg-secondary text-secondary-foreground",
+              "hover:bg-secondary/80",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
+            ],
+            variant === "ghost" && [
+              "border-0",
+              "bg-transparent",
+              "hover:bg-accent hover:text-accent-foreground",
+              "focus:ring-2 focus:ring-ring focus:ring-offset-2",
             ],
 
             // Error state
             error && [
-              "border-red-500 focus:border-red-500",
-              variant === "soft" && "bg-red-50",
+              "border-destructive focus:border-destructive",
+              "focus:ring-destructive/20",
+              variant === "soft" && "bg-destructive/10",
             ],
 
             // Disabled state
             disabled && ["opacity-50 cursor-not-allowed"],
           )}
-          style={elementStyles}
+          style={combinedStyles}
           {...props}
         >
-          <SelectPrimitive.Value placeholder={placeholder} />
-          <SelectPrimitive.Icon className="ml-2">
-            <ChevronDown className="h-4 w-4 opacity-50" />
-          </SelectPrimitive.Icon>
+          <SelectPrimitive.Value>
+            {value || <span className="text-muted-foreground">{placeholder}</span>}
+          </SelectPrimitive.Value>
+          <SelectPrimitive.Icon
+            render={<ChevronDown className="h-4 w-4 opacity-50 ml-2" />}
+          />
         </SelectPrimitive.Trigger>
 
         <SelectPrimitive.Portal>
-          <SelectPrimitive.Content
-            className={cn(
-              "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-white text-popover-foreground shadow-md",
-              "data-[state=open]:animate-in data-[state=closed]:animate-out",
-              "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-              "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-              "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
-              "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-            )}
-            position="popper"
-            sideOffset={4}
-          >
-            <SelectPrimitive.Viewport className="p-1">
-              {children}
-            </SelectPrimitive.Viewport>
-          </SelectPrimitive.Content>
+          <SelectPrimitive.Positioner sideOffset={4} className="z-50">
+            <SelectPrimitive.Popup
+              className={cn(
+                "relative min-w-[8rem] overflow-hidden rounded-md border bg-white text-popover-foreground shadow-md",
+                "data-open:animate-in data-closed:animate-out",
+                "data-closed:fade-out-0 data-open:fade-in-0",
+                "data-closed:zoom-out-95 data-open:zoom-in-95",
+                "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
+                "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+              )}
+            >
+              <SelectPrimitive.List className="p-1">
+                {children}
+              </SelectPrimitive.List>
+            </SelectPrimitive.Popup>
+          </SelectPrimitive.Positioner>
         </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
     );
@@ -125,22 +144,31 @@ export const Select = React.forwardRef<
 
 Select.displayName = "Select";
 
-export const SelectItem = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none",
-      "focus:bg-accent focus:text-accent-foreground",
-      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className,
-    )}
-    {...props}
-  >
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
-));
+export function SelectItem({
+  className,
+  children,
+  ...props
+}: SelectPrimitive.Item.Props) {
+  return (
+    <SelectPrimitive.Item
+      className={cn(
+        "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none",
+        "focus:bg-accent focus:text-accent-foreground",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        className,
+      )}
+      {...props}
+    >
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemIndicator
+        render={
+          <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
+        }
+      >
+        <CheckIcon className="size-4" />
+      </SelectPrimitive.ItemIndicator>
+    </SelectPrimitive.Item>
+  );
+}
 
 SelectItem.displayName = "SelectItem";

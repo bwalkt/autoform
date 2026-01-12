@@ -24,7 +24,7 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
       }}
       value={props.value || field.default}
       color={error ? "error" : "default"}
-      variant="surface"
+      variant="outline"
       size="2"
       placeholder="Select an option"
     >

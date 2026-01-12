@@ -13,7 +13,7 @@ export const StringField: React.FC<AutoFormFieldProps> = ({
     <TextField
       id={id}
       color={error ? "error" : "default"}
-      variant="surface"
+      variant="outline"
       size="2"
       {...props}
     />

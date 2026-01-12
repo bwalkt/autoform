@@ -53,13 +53,13 @@
     {
       "path": "autoform/components/StringField.tsx",
       "target": "components/ui/autoform/components/StringField.tsx",
-      "content": "import { TextField } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <TextField\n      id={id}\n      color={error ? \"error\" : \"default\"}\n      variant=\"surface\"\n      size=\"2\"\n      {...props}\n    />\n  );\n};\n",
+      "content": "import { TextField } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const StringField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <TextField\n      id={id}\n      color={error ? \"error\" : \"default\"}\n      variant=\"outline\"\n      size=\"2\"\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
       "path": "autoform/components/SelectField.tsx",
       "target": "components/ui/autoform/components/SelectField.tsx",
-      "content": "import { Select, SelectItem } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  inputProps,\n  error,\n  id: _id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Select\n      id={_id}\n      onValueChange={(value) => {\n        const syntheticEvent = {\n          target: {\n            value,\n            name: field.key,\n          },\n        } as React.ChangeEvent<HTMLInputElement>;\n        props.onChange(syntheticEvent);\n      }}\n      value={props.value || field.default}\n      color={error ? \"error\" : \"default\"}\n      variant=\"surface\"\n      size=\"2\"\n      placeholder=\"Select an option\"\n    >\n      {(field.options || []).map(([key, label]) => (\n        <SelectItem key={key} value={key}>\n          {label}\n        </SelectItem>\n      ))}\n    </Select>\n  );\n};\n",
+      "content": "import { Select, SelectItem } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const SelectField: React.FC<AutoFormFieldProps> = ({\n  field,\n  inputProps,\n  error,\n  id: _id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <Select\n      id={_id}\n      onValueChange={(value) => {\n        const syntheticEvent = {\n          target: {\n            value,\n            name: field.key,\n          },\n        } as React.ChangeEvent<HTMLInputElement>;\n        props.onChange(syntheticEvent);\n      }}\n      value={props.value || field.default}\n      color={error ? \"error\" : \"default\"}\n      variant=\"outline\"\n      size=\"2\"\n      placeholder=\"Select an option\"\n    >\n      {(field.options || []).map(([key, label]) => (\n        <SelectItem key={key} value={key}>\n          {label}\n        </SelectItem>\n      ))}\n    </Select>\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -71,7 +71,7 @@
     {
       "path": "autoform/components/NumberField.tsx",
       "target": "components/ui/autoform/components/NumberField.tsx",
-      "content": "import { TextField } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <TextField\n      id={id}\n      type=\"number\"\n      color={error ? \"error\" : \"default\"}\n      variant=\"surface\"\n      size=\"2\"\n      {...props}\n    />\n  );\n};\n",
+      "content": "import { TextField } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const NumberField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <TextField\n      id={id}\n      type=\"number\"\n      color={error ? \"error\" : \"default\"}\n      variant=\"outline\"\n      size=\"2\"\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
@@ -95,7 +95,7 @@
     {
       "path": "autoform/components/DateField.tsx",
       "target": "components/ui/autoform/components/DateField.tsx",
-      "content": "import { TextField } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <TextField\n      id={id}\n      type=\"date\"\n      color={error ? \"error\" : \"default\"}\n      variant=\"surface\"\n      size=\"2\"\n      {...props}\n    />\n  );\n};\n",
+      "content": "import { TextField } from \"@/elements\";\nimport type { AutoFormFieldProps } from \"@bwalkt/react\";\nimport type React from \"react\";\n\nexport const DateField: React.FC<AutoFormFieldProps> = ({\n  inputProps,\n  error,\n  id,\n}) => {\n  const { key, ...props } = inputProps;\n\n  return (\n    <TextField\n      id={id}\n      type=\"date\"\n      color={error ? \"error\" : \"default\"}\n      variant=\"outline\"\n      size=\"2\"\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     },
     {
