@@ -376,10 +376,10 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
     const colors = config.colors[mode];
 
     // Colors
-    Object.entries(colors).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(colors)) {
       const cssVar = `--${camelToKebab(key)}`;
       root.style.setProperty(cssVar, value);
-    });
+    }
 
     // Typography
     root.style.setProperty("--font-sans", config.typography.fontSans);
