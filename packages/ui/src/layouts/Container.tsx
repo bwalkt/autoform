@@ -102,7 +102,6 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
           return "mr-auto";
         case "right":
           return "ml-auto";
-        case "center":
         default:
           return "mx-auto";
       }

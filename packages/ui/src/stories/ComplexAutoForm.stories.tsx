@@ -4,7 +4,7 @@ import { Button } from '@bwalkt/shadcn/components/ui/button'
 
 // For now, let's create a simplified version that demonstrates the concept
 // without complex cross-package imports
-const MockAutoForm = ({ children, onSubmit, ...props }: any) => {
+const MockAutoForm = ({ onSubmit }: any) => {
   return (
     <div className="p-4 border-2 border-dashed border-gray-300 rounded-lg">
       <p className="text-sm text-gray-500 mb-4">📋 This would be the AutoForm component with AJV provider</p>

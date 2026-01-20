@@ -68,7 +68,7 @@ export const ColumnVariants: Story = {
         <div key={cols}>
           <p className="text-sm text-muted-foreground mb-2">columns="{cols}"</p>
           <Grid columns={cols} gap="2">
-            {Array.from({ length: parseInt(cols) * 2 }, (_, i) => (
+            {Array.from({ length: parseInt(cols, 10) * 2 }, (_, i) => (
               <DemoBox key={i}>{i + 1}</DemoBox>
             ))}
           </Grid>

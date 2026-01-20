@@ -146,7 +146,9 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     const floatingStyle = getFloatingStyle(variant);
 
     // For floating variants, use placeholder as label if no label provided
-    const effectiveLabel = label || (isFloatingVariant(variant) ? props.placeholder : undefined);
+    // Strip placeholder from props for floating variants to prevent text collision with label
+    const { placeholder, ...inputProps } = props;
+    const effectiveLabel = label || (isFloatingVariant(variant) ? placeholder : undefined);
 
     // If floating variant, render the floating version
     if (isFloatingVariant(variant)) {
@@ -203,7 +205,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
               leftIcon && "pl-[calc(var(--element-padding-x)*2+1rem)]",
               rightIcon && "pr-[calc(var(--element-padding-x)*2+1rem)]",
             )}
-            {...props}
+            {...inputProps}
           />
 
           {effectiveLabel && (
@@ -299,7 +301,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             // Disabled state
             disabled && "opacity-50 cursor-not-allowed",
           )}
-          {...props}
+          placeholder={placeholder}
+          {...inputProps}
         />
 
         {rightIcon && (

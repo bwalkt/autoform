@@ -37,9 +37,9 @@ export const Default: StoryObj = {
           </div>
         </Dialog.Body>
         <Dialog.Footer>
-          <Dialog.Trigger>
+          <Dialog.Close asChild>
             <Button variant="outline">Cancel</Button>
-          </Dialog.Trigger>
+          </Dialog.Close>
           <Button>Save changes</Button>
         </Dialog.Footer>
       </Dialog.Content>

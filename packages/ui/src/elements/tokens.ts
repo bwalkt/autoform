@@ -131,6 +131,22 @@ export const designTokens = {
       hoverBackground: "var(--color-accent-a3)",
       activeBackground: "var(--color-accent-a4)",
     },
+    classic: {
+      background: "var(--color-surface)",
+      color: "var(--color-accent-12)",
+      border: "1px solid",
+      borderColor: "var(--color-accent-a6)",
+      hoverBackground: "var(--color-accent-a2)",
+      activeBackground: "var(--color-accent-a3)",
+    },
+    surface: {
+      background: "var(--color-accent-a2)",
+      color: "var(--color-accent-11)",
+      border: "1px solid",
+      borderColor: "var(--color-accent-a6)",
+      hoverBackground: "var(--color-accent-a3)",
+      activeBackground: "var(--color-accent-a4)",
+    },
   },
 
   color: {
@@ -223,8 +239,8 @@ export type TypographySize = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 // Font weight
 export type Weight = "light" | "regular" | "medium" | "bold";
 
-// Variants
-export type Variant = "classic" | "solid" | "soft" | "surface" | "outline" | "ghost";
+// Variants (derived from designTokens.variant keys)
+export type Variant = keyof typeof designTokens.variant;
 
 export type Radius = "none" | "sm" | "md" | "lg" | "full";
 

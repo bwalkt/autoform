@@ -254,6 +254,8 @@ DialogDescription.displayName = "Dialog.Description";
 // ============================================================================
 
 export interface DialogCloseProps {
+  /** Render as child element (for custom close buttons) */
+  asChild?: boolean;
   /** Additional class names */
   className?: string;
   /** Close button content */
@@ -261,7 +263,15 @@ export interface DialogCloseProps {
 }
 
 const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ asChild = false, className, children, ...props }, ref) => {
+    // When asChild is true, render as the child element (e.g., for footer cancel buttons)
+    if (asChild && React.isValidElement(children)) {
+      return (
+        <DialogPrimitive.Close ref={ref} render={children} {...props} />
+      );
+    }
+
+    // Default: render as X icon button in top-right corner
     return (
       <DialogPrimitive.Close
         ref={ref}

@@ -88,8 +88,8 @@ export const AllSizes: Story = {
     <Box display="flex" className="items-center gap-4">
       <Checkbox size="1" defaultChecked />
       <Checkbox size="2" defaultChecked />
-      <Checkbox size="2" defaultChecked />
       <Checkbox size="3" defaultChecked />
+      <Checkbox size="4" defaultChecked />
     </Box>
   ),
 };
@@ -97,10 +97,10 @@ export const AllSizes: Story = {
 export const SizesWithLabels: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
-      <CheckboxWithLabel size="1" label="Extra Small" defaultChecked />
-      <CheckboxWithLabel size="2" label="Small" defaultChecked />
-      <CheckboxWithLabel size="2" label="Medium (default)" defaultChecked />
-      <CheckboxWithLabel size="3" label="Large" defaultChecked />
+      <CheckboxWithLabel size="1" label="Size 1 (Extra Small)" defaultChecked />
+      <CheckboxWithLabel size="2" label="Size 2 (Small, default)" defaultChecked />
+      <CheckboxWithLabel size="3" label="Size 3 (Medium)" defaultChecked />
+      <CheckboxWithLabel size="4" label="Size 4 (Large)" defaultChecked />
     </Box>
   ),
 };
@@ -543,22 +543,29 @@ export const GroupSizes: Story = {
   render: () => (
     <Box display="flex" className="gap-8">
       <div>
-        <h3 className="text-sm font-medium mb-3">Small</h3>
+        <h3 className="text-sm font-medium mb-3">Size 1</h3>
+        <CheckboxGroup.Root size="1" defaultValue={["a"]}>
+          <CheckboxGroup.Item value="a" label="Option A" />
+          <CheckboxGroup.Item value="b" label="Option B" />
+        </CheckboxGroup.Root>
+      </div>
+      <div>
+        <h3 className="text-sm font-medium mb-3">Size 2</h3>
         <CheckboxGroup.Root size="2" defaultValue={["a"]}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
-        <h3 className="text-sm font-medium mb-3">Medium</h3>
-        <CheckboxGroup.Root size="2" defaultValue={["a"]}>
-          <CheckboxGroup.Item value="a" label="Option A" />
-          <CheckboxGroup.Item value="b" label="Option B" />
-        </CheckboxGroup.Root>
-      </div>
-      <div>
-        <h3 className="text-sm font-medium mb-3">Large</h3>
+        <h3 className="text-sm font-medium mb-3">Size 3</h3>
         <CheckboxGroup.Root size="3" defaultValue={["a"]}>
+          <CheckboxGroup.Item value="a" label="Option A" />
+          <CheckboxGroup.Item value="b" label="Option B" />
+        </CheckboxGroup.Root>
+      </div>
+      <div>
+        <h3 className="text-sm font-medium mb-3">Size 4</h3>
+        <CheckboxGroup.Root size="4" defaultValue={["a"]}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>

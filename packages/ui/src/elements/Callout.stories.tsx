@@ -106,46 +106,50 @@ export const Outline: Story = {
 };
 
 // Sizes
-export const ExtraSmall: Story = {
+export const Size1: Story = {
+  name: "Size 1 (Extra Small)",
   render: () => (
     <Callout.Root size="1" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>Extra small callout</Callout.Text>
+      <Callout.Text>Size 1 callout</Callout.Text>
     </Callout.Root>
   ),
 };
 
-export const Small: Story = {
+export const Size2: Story = {
+  name: "Size 2 (Small, default)",
   render: () => (
     <Callout.Root size="2" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>Small callout</Callout.Text>
+      <Callout.Text>Size 2 callout (default)</Callout.Text>
     </Callout.Root>
   ),
 };
 
-export const Medium: Story = {
-  render: () => (
-    <Callout.Root size="2" color="info">
-      <Callout.Icon>
-        <Info />
-      </Callout.Icon>
-      <Callout.Text>Medium callout (default)</Callout.Text>
-    </Callout.Root>
-  ),
-};
-
-export const Large: Story = {
+export const Size3: Story = {
+  name: "Size 3 (Medium)",
   render: () => (
     <Callout.Root size="3" color="info">
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>Large callout</Callout.Text>
+      <Callout.Text>Size 3 callout</Callout.Text>
+    </Callout.Root>
+  ),
+};
+
+export const Size4: Story = {
+  name: "Size 4 (Large)",
+  render: () => (
+    <Callout.Root size="4" color="info">
+      <Callout.Icon>
+        <Info />
+      </Callout.Icon>
+      <Callout.Text>Size 4 callout</Callout.Text>
     </Callout.Root>
   ),
 };
@@ -259,25 +263,25 @@ export const AllSizes: Story = {
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Extra small (1)</Callout.Text>
+        <Callout.Text>Size 1 (Extra Small)</Callout.Text>
       </Callout.Root>
       <Callout.Root size="2" color="info">
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Small (2)</Callout.Text>
-      </Callout.Root>
-      <Callout.Root size="2" color="info">
-        <Callout.Icon>
-          <Info />
-        </Callout.Icon>
-        <Callout.Text>Medium (2)</Callout.Text>
+        <Callout.Text>Size 2 (Small, default)</Callout.Text>
       </Callout.Root>
       <Callout.Root size="3" color="info">
         <Callout.Icon>
           <Info />
         </Callout.Icon>
-        <Callout.Text>Large (3)</Callout.Text>
+        <Callout.Text>Size 3 (Medium)</Callout.Text>
+      </Callout.Root>
+      <Callout.Root size="4" color="info">
+        <Callout.Icon>
+          <Info />
+        </Callout.Icon>
+        <Callout.Text>Size 4 (Large)</Callout.Text>
       </Callout.Root>
     </Box>
   ),

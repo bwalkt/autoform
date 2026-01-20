@@ -78,7 +78,7 @@ export const WithIcons: StoryObj = {
     <div className="flex gap-4">
       <Tooltip.Root>
         <Tooltip.Trigger>
-          <Button variant="ghost" size="1" className="p-2">
+          <Button variant="ghost" size="1" className="p-2" aria-label="More information">
             <Info className="h-4 w-4" />
           </Button>
         </Tooltip.Trigger>
@@ -86,7 +86,7 @@ export const WithIcons: StoryObj = {
       </Tooltip.Root>
       <Tooltip.Root>
         <Tooltip.Trigger>
-          <Button variant="ghost" size="1" className="p-2">
+          <Button variant="ghost" size="1" className="p-2" aria-label="Help">
             <HelpCircle className="h-4 w-4" />
           </Button>
         </Tooltip.Trigger>
@@ -94,7 +94,7 @@ export const WithIcons: StoryObj = {
       </Tooltip.Root>
       <Tooltip.Root>
         <Tooltip.Trigger>
-          <Button variant="ghost" size="1" className="p-2">
+          <Button variant="ghost" size="1" className="p-2" aria-label="Settings">
             <Settings className="h-4 w-4" />
           </Button>
         </Tooltip.Trigger>
@@ -108,17 +108,17 @@ export const IconButtonsToolbar: StoryObj = {
   render: () => (
     <div className="flex items-center gap-1 p-2 border rounded-lg bg-muted/30">
       <SimpleTooltip content="Copy">
-        <IconButton variant="ghost" size="2">
+        <IconButton variant="ghost" size="2" aria-label="Copy">
           <Copy className="h-4 w-4" />
         </IconButton>
       </SimpleTooltip>
       <SimpleTooltip content="Delete">
-        <IconButton variant="ghost" size="2">
+        <IconButton variant="ghost" size="2" aria-label="Delete">
           <Trash2 className="h-4 w-4" />
         </IconButton>
       </SimpleTooltip>
       <SimpleTooltip content="Settings">
-        <IconButton variant="ghost" size="2">
+        <IconButton variant="ghost" size="2" aria-label="Settings">
           <Settings className="h-4 w-4" />
         </IconButton>
       </SimpleTooltip>
@@ -151,7 +151,13 @@ export const FormFieldHelp: StoryObj = {
         <label className="text-sm font-medium">API Key</label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <HelpCircle className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+            <button
+              type="button"
+              aria-label="Help"
+              className="inline-flex items-center justify-center text-muted-foreground"
+            >
+              <HelpCircle className="h-3.5 w-3.5" />
+            </button>
           </Tooltip.Trigger>
           <Tooltip.Content side="right" maxWidth="md">
             Your API key can be found in the dashboard under Settings &gt; API Keys.

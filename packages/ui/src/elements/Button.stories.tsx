@@ -86,31 +86,35 @@ export const Ghost: Story = {
 };
 
 // Sizes
-export const ExtraSmall: Story = {
+export const Size1: Story = {
+  name: "Size 1 (Extra Small)",
   args: {
     size: "1",
-    children: "Extra Small",
+    children: "Size 1",
   },
 };
 
-export const Small: Story = {
+export const Size2: Story = {
+  name: "Size 2 (Small, default)",
   args: {
     size: "2",
-    children: "Small",
+    children: "Size 2",
   },
 };
 
-export const Medium: Story = {
-  args: {
-    size: "2",
-    children: "Medium",
-  },
-};
-
-export const Large: Story = {
+export const Size3: Story = {
+  name: "Size 3 (Medium)",
   args: {
     size: "3",
-    children: "Large",
+    children: "Size 3",
+  },
+};
+
+export const Size4: Story = {
+  name: "Size 4 (Large)",
+  args: {
+    size: "4",
+    children: "Size 4",
   },
 };
 
@@ -226,10 +230,10 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="gap-4 items-center">
-      <Button size="1">Extra Small</Button>
-      <Button size="2">Small</Button>
-      <Button size="2">Medium</Button>
-      <Button size="3">Large</Button>
+      <Button size="1">Size 1</Button>
+      <Button size="2">Size 2 (default)</Button>
+      <Button size="3">Size 3</Button>
+      <Button size="4">Size 4</Button>
     </Box>
   ),
 };

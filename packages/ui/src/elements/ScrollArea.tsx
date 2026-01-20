@@ -14,17 +14,15 @@ const scrollbarSizes: Record<ScrollbarSize, string> = {
 };
 
 // Type configurations
-type ScrollType = "auto" | "always" | "scroll" | "hover";
+type ScrollType = "auto" | "always" | "hover";
 
 export interface ScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Type of scrollbar visibility */
+  /** Type of scrollbar visibility: auto (show when needed), always (always visible), hover (show on hover) */
   type?: ScrollType;
-  /** Scrollbar size */
+  /** Scrollbar direction */
   scrollbars?: "vertical" | "horizontal" | "both";
   /** Size of the scrollbar */
   size?: ScrollbarSize;
-  /** Scroll hiding behavior */
-  scrollHideDelay?: number;
 }
 
 const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
@@ -48,7 +46,6 @@ const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
           // Scrollbar visibility by type
           type === "always" && "overflow-scroll",
           type === "auto" && "overflow-auto",
-          type === "scroll" && "overflow-scroll",
           type === "hover" && "overflow-auto hover:overflow-scroll",
 
           // Scrollbar direction

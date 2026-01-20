@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "../lib/utils";
+import { Slot } from "../layouts/layout-utils";
 import type { Size } from "./tokens";
 
 // Size configurations for padding
@@ -25,9 +26,11 @@ export interface CardRootProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const CardRoot = React.forwardRef<HTMLDivElement, CardRootProps>(
-  ({ size = "2", variant = "surface", className, children, ...props }, ref) => {
+  ({ size = "2", variant = "surface", asChild = false, className, children, ...props }, ref) => {
+    const Comp = asChild ? Slot : "div";
+
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "rounded-lg",
@@ -43,7 +46,7 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardRootProps>(
         {...props}
       >
         {children}
-      </div>
+      </Comp>
     );
   },
 );

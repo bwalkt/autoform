@@ -68,7 +68,7 @@ export type GridProps = GridDivProps | GridSpanProps;
 // Grid Component
 // ============================================================================
 
-export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
+export const Grid = React.forwardRef<HTMLElement, GridProps>(
   (
     {
       as: Tag = "div",
@@ -153,7 +153,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 
     return (
       <Comp
-        ref={ref}
+        ref={ref as React.Ref<HTMLDivElement>}
         className={classes}
         style={Object.keys(styles).length > 0 ? styles : undefined}
         {...restProps}

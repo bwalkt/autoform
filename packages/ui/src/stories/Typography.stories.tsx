@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import * as React from "react";
 import { Text, Heading, Em, Strong, Code, Quote, Blockquote } from "@bwalkt/ui/elements";
 
 const meta: Meta = {

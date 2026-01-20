@@ -130,7 +130,7 @@ export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
       <div>
-        <h3 className="text-sm font-medium mb-3">Extra Small</h3>
+        <h3 className="text-sm font-medium mb-3">Size 1 (Extra Small)</h3>
         <CheckboxCards.Root size="1" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
@@ -145,7 +145,7 @@ export const AllSizes: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-3">Small</h3>
+        <h3 className="text-sm font-medium mb-3">Size 2 (Small, default)</h3>
         <CheckboxCards.Root size="2" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
@@ -160,23 +160,23 @@ export const AllSizes: Story = {
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-3">Medium (default)</h3>
-        <CheckboxCards.Root size="2" columns="3" defaultValue={["a"]}>
-          <CheckboxCards.Item value="a">
-            <div className="font-medium">Option A</div>
-          </CheckboxCards.Item>
-          <CheckboxCards.Item value="b">
-            <div className="font-medium">Option B</div>
-          </CheckboxCards.Item>
-          <CheckboxCards.Item value="c">
-            <div className="font-medium">Option C</div>
-          </CheckboxCards.Item>
-        </CheckboxCards.Root>
-      </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-3">Large</h3>
+        <h3 className="text-sm font-medium mb-3">Size 3 (Medium)</h3>
         <CheckboxCards.Root size="3" columns="3" defaultValue={["a"]}>
+          <CheckboxCards.Item value="a">
+            <div className="font-medium">Option A</div>
+          </CheckboxCards.Item>
+          <CheckboxCards.Item value="b">
+            <div className="font-medium">Option B</div>
+          </CheckboxCards.Item>
+          <CheckboxCards.Item value="c">
+            <div className="font-medium">Option C</div>
+          </CheckboxCards.Item>
+        </CheckboxCards.Root>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3">Size 4 (Large)</h3>
+        <CheckboxCards.Root size="4" columns="3" defaultValue={["a"]}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>

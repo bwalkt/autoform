@@ -133,8 +133,9 @@ export const NotificationSettings: StoryObj = {
             <h4 className="font-medium text-sm">Notifications</h4>
             {Object.entries(settings).map(([key, value]) => (
               <div key={key} className="flex items-center justify-between">
-                <label className="text-sm capitalize">{key}</label>
+                <label htmlFor={`notification-${key}`} className="text-sm capitalize">{key}</label>
                 <input
+                  id={`notification-${key}`}
                   type="checkbox"
                   checked={value}
                   onChange={(e) =>
@@ -162,9 +163,9 @@ export const DatePicker: StoryObj = {
       <Popover.Content align="start" maxWidth="sm">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <button className="p-1 hover:bg-muted rounded">&lt;</button>
+            <button className="p-1 hover:bg-muted rounded" aria-label="Previous month">&lt;</button>
             <span className="font-medium text-sm">January 2026</span>
-            <button className="p-1 hover:bg-muted rounded">&gt;</button>
+            <button className="p-1 hover:bg-muted rounded" aria-label="Next month">&gt;</button>
           </div>
           <div className="grid grid-cols-7 gap-1 text-center text-xs">
             {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (

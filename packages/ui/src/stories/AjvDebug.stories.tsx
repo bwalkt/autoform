@@ -62,7 +62,7 @@ export const AjvProviderTest: Story = {
           )
         } catch (error) {
           console.error('Error testing AJV Provider:', error)
-          setResult(`❌ Error: ${error.message}`)
+          setResult(`❌ Error: ${error instanceof Error ? error.message : String(error)}`)
         }
       }
 
@@ -89,10 +89,10 @@ export const AjvProviderTest: Story = {
                     console.log('Testing parseSchema method...')
                     const result = provider.parseSchema()
                     console.log('parseSchema result:', result)
-                    alert(`parseSchema success! Found ${result.fields?.length || 0} fields. Check console for details.`)
+                    alert(`parseSchema success! Found ${Object.keys(result.fields || {}).length} fields. Check console for details.`)
                   } catch (error) {
                     console.error('parseSchema error:', error)
-                    alert(`parseSchema error: ${error.message}`)
+                    alert(`parseSchema error: ${error instanceof Error ? error.message : String(error)}`)
                   }
                 }}
                 className="bg-blue-500 text-white"
@@ -115,7 +115,7 @@ export const AjvProviderTest: Story = {
                     alert(`validateSchema success! Result: ${result.success}. Check console for details.`)
                   } catch (error) {
                     console.error('validateSchema error:', error)
-                    alert(`validateSchema error: ${error.message}`)
+                    alert(`validateSchema error: ${error instanceof Error ? error.message : String(error)}`)
                   }
                 }}
                 className="bg-green-500 text-white"
@@ -134,7 +134,7 @@ export const AjvProviderTest: Story = {
                     alert(`getDefaultValues success! Check console for details.`)
                   } catch (error) {
                     console.error('getDefaultValues error:', error)
-                    alert(`getDefaultValues error: ${error.message}`)
+                    alert(`getDefaultValues error: ${error instanceof Error ? error.message : String(error)}`)
                   }
                 }}
                 className="bg-yellow-500 text-white"

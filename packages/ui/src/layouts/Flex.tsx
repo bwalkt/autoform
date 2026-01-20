@@ -62,7 +62,7 @@ export type FlexProps = FlexDivProps | FlexSpanProps;
 // Flex Component
 // ============================================================================
 
-export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
+export const Flex = React.forwardRef<HTMLElement, FlexProps>(
   (
     {
       as: Tag = "div",
@@ -134,7 +134,7 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
 
     return (
       <Comp
-        ref={ref}
+        ref={ref as React.Ref<HTMLDivElement>}
         className={classes}
         style={Object.keys(styles).length > 0 ? styles : undefined}
         {...restProps}

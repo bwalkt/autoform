@@ -143,9 +143,9 @@ export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-md">
       <TextField size="1" placeholder="Extra Small" />
-      <TextField size="2" placeholder="Small" />
-      <TextField size="2" placeholder="Medium (default)" />
-      <TextField size="3" placeholder="Large" />
+      <TextField size="2" placeholder="Small (default)" />
+      <TextField size="3" placeholder="Medium" />
+      <TextField size="4" placeholder="Large" />
     </Box>
   ),
 };

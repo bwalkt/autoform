@@ -158,7 +158,7 @@ export interface FieldGroupSectionProps extends React.HTMLAttributes<HTMLDivElem
   title?: string;
   /** Section description */
   description?: string;
-  /** Whether to show a separator above (default: true, except for first section) */
+  /** Whether to show a separator above (default: true). Pass false for the first section. */
   separator?: boolean;
   /** Gap between fields in the section */
   gap?: Spacing;
