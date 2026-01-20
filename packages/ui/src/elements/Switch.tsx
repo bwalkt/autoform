@@ -75,12 +75,14 @@ export interface SwitchProps {
   disabled?: boolean;
   /** High contrast mode */
   highContrast?: boolean;
-  /** Additional class names */
-  className?: string;
   /** Name for form submission */
   name?: string;
   /** Required for form */
   required?: boolean;
+  /** ID for accessibility/label association */
+  id?: string;
+  /** Additional class names */
+  className?: string;
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
@@ -98,7 +100,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       className,
       name,
       required,
-      ...props
+      id,
     },
     ref,
   ) => {
@@ -121,6 +123,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     return (
       <SwitchPrimitive.Root
         ref={ref as React.Ref<HTMLElement>}
+        id={id}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
@@ -145,7 +148,6 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
 
           className,
         )}
-        {...props}
       >
         <SwitchPrimitive.Thumb
           style={{
@@ -176,8 +178,9 @@ export interface SwitchWithLabelProps extends SwitchProps {
 }
 
 const SwitchWithLabel = React.forwardRef<HTMLButtonElement, SwitchWithLabelProps>(
-  ({ label, labelPosition = "right", size = "2", className, ...props }, ref) => {
-    const id = React.useId();
+  ({ label, labelPosition = "right", size = "2", className, id: idProp, ...props }, ref) => {
+    const generatedId = React.useId();
+    const id = idProp ?? generatedId;
 
     return (
       <div
@@ -187,7 +190,7 @@ const SwitchWithLabel = React.forwardRef<HTMLButtonElement, SwitchWithLabelProps
           className,
         )}
       >
-        <Switch ref={ref} {...props} size={size} />
+        <Switch ref={ref} id={id} {...props} size={size} />
         <label
           htmlFor={id}
           className={cn(

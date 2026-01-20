@@ -177,6 +177,7 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         disabled={disabled}
         required={required}
         name={name}
+        value={value}
         style={checkboxStyles}
         className={cn(
           "peer inline-flex items-center justify-center shrink-0",

@@ -147,15 +147,15 @@ const CheckboxCardsRoot = React.forwardRef<HTMLDivElement, CheckboxCardsRootProp
 
 CheckboxCardsRoot.displayName = "CheckboxCards.Root";
 
-// Color styles for checked state
+// Color styles for checked state (using :has() selector to detect checked child)
 const colorStyles: Record<Color, string> = {
-  default: "data-[checked]:border-primary data-[checked]:bg-primary/5",
-  primary: "data-[checked]:border-primary data-[checked]:bg-primary/5",
-  neutral: "data-[checked]:border-gray-500 data-[checked]:bg-gray-500/5 dark:data-[checked]:border-gray-400",
-  info: "data-[checked]:border-blue-500 data-[checked]:bg-blue-500/5",
-  success: "data-[checked]:border-green-500 data-[checked]:bg-green-500/5",
-  warning: "data-[checked]:border-amber-500 data-[checked]:bg-amber-500/5",
-  error: "data-[checked]:border-red-500 data-[checked]:bg-red-500/5",
+  default: "has-[[data-checked]]:border-primary has-[[data-checked]]:bg-primary/5",
+  primary: "has-[[data-checked]]:border-primary has-[[data-checked]]:bg-primary/5",
+  neutral: "has-[[data-checked]]:border-gray-500 has-[[data-checked]]:bg-gray-500/5 dark:has-[[data-checked]]:border-gray-400",
+  info: "has-[[data-checked]]:border-blue-500 has-[[data-checked]]:bg-blue-500/5",
+  success: "has-[[data-checked]]:border-green-500 has-[[data-checked]]:bg-green-500/5",
+  warning: "has-[[data-checked]]:border-amber-500 has-[[data-checked]]:bg-amber-500/5",
+  error: "has-[[data-checked]]:border-red-500 has-[[data-checked]]:bg-red-500/5",
 };
 
 const checkboxColorStyles: Record<Color, string> = {
@@ -205,7 +205,7 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
             "hover:border-gray-300 dark:hover:border-gray-700",
           ],
 
-          // Color styles for checked state (applied via data attribute)
+          // Color styles for checked state (using :has() to detect checked child)
           colorStyles[context.color],
 
           // Disabled state

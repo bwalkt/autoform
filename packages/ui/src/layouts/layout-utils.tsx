@@ -2,34 +2,34 @@
 
 import * as React from "react";
 import { cn } from "../lib/utils";
+import type {
+  Responsive,
+  Spacing,
+  Display,
+  Position,
+  Overflow,
+  FlexDirection,
+  FlexWrap,
+  AlignItems,
+  JustifyContent,
+} from "../elements/tokens";
 
-// ============================================================================
-// Responsive Types
-// ============================================================================
-
-export type Responsive<T> = T | {
-  initial?: T;
-  xs?: T;
-  sm?: T;
-  md?: T;
-  lg?: T;
-  xl?: T;
+// Re-export shared types for convenience
+export type {
+  Responsive,
+  Spacing,
+  Display,
+  Position,
+  Overflow,
+  FlexDirection,
+  FlexWrap,
+  AlignItems,
+  JustifyContent,
 };
 
 // ============================================================================
-// Layout Token Types
+// Layout-specific Types
 // ============================================================================
-
-export type Spacing = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
-export type Display = "none" | "inline" | "inline-block" | "block" | "flex" | "inline-flex" | "grid" | "inline-grid";
-export type Position = "static" | "relative" | "absolute" | "fixed" | "sticky";
-export type Overflow = "visible" | "hidden" | "clip" | "scroll" | "auto";
-
-// Flex types
-export type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
-export type FlexWrap = "nowrap" | "wrap" | "wrap-reverse";
-export type AlignItems = "start" | "center" | "end" | "baseline" | "stretch";
-export type JustifyContent = "start" | "center" | "end" | "between" | "around" | "evenly";
 
 // Grid types
 export type GridFlow = "row" | "column" | "dense" | "row-dense" | "column-dense";
@@ -115,6 +115,7 @@ const displayMap: Record<Display, string> = {
   "inline-flex": "inline-flex",
   "grid": "grid",
   "inline-grid": "inline-grid",
+  "contents": "contents",
 };
 
 export function getDisplayClasses(prop: Responsive<Display> | undefined): string {
