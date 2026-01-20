@@ -58,10 +58,6 @@ export const spacingScale: Record<Spacing, string> = {
   "9": "12",
 };
 
-// Gap scale (can use larger values)
-export const gapScale: Record<string, string> = {
-  ...spacingScale,
-};
 
 // ============================================================================
 // Responsive Class Helpers
@@ -102,7 +98,7 @@ export function getGapClasses(
   prop: Responsive<Spacing> | undefined,
   prefix: string,
 ): string {
-  return getResponsiveClasses(prop, prefix, gapScale);
+  return getResponsiveClasses(prop, prefix, spacingScale);
 }
 
 // Display mapping

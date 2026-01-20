@@ -4,6 +4,7 @@ import * as React from "react";
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import { cn } from "../lib/utils";
 import type { Size, Color, Radius } from "./tokens";
+import { useFieldGroup } from "./FieldGroupContext";
 
 // Size configurations
 const sliderSizes = {
@@ -86,7 +87,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       min = 0,
       max = 100,
       step = 1,
-      size = "2",
+      size: sizeProp,
       variant = "surface",
       color = "primary",
       radius = "full",
@@ -96,6 +97,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     },
     ref,
   ) => {
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup.size;
     const sizeConfig = sliderSizes[size];
 
     return (
@@ -125,10 +128,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
             orientation === "horizontal" && "w-full",
             orientation === "vertical" && "h-full",
 
-            // Variant styles
-            variant === "surface" && "bg-secondary",
-            variant === "classic" && "bg-secondary border border-border",
-            variant === "soft" && "bg-secondary/50",
+            // Variant styles for track background
+            variant === "surface" && "bg-gray-200 dark:bg-gray-700",
+            variant === "classic" && "bg-gray-100 border border-gray-300 dark:bg-gray-800 dark:border-gray-600",
+            variant === "soft" && "bg-gray-100/50 dark:bg-gray-800/50",
           )}
         >
           <SliderPrimitive.Indicator
@@ -145,9 +148,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
           <SliderPrimitive.Thumb
             key={index}
             className={cn(
-              "block rounded-full border-2 bg-background shadow transition-colors",
+              "block border-2 bg-background shadow transition-colors",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               "disabled:pointer-events-none disabled:opacity-50",
+              radiusStyles[radius],
               sizeConfig.thumb,
               color === "default" || color === "primary"
                 ? "border-primary"

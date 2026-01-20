@@ -22,12 +22,7 @@
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./hooks/*": "./src/hooks/*.ts",
-    "./components/*": "./src/components/*.tsx",
-    "./elements": "./src/elements/index.ts",
-    "./layouts": "./src/layouts/index.ts",
-    "./typography": "./src/typography/index.ts"
+    "./components/*": "./src/components/*.tsx"
   },
   "devDependencies": {
     "@bwalkt/ajv": "workspace:*",

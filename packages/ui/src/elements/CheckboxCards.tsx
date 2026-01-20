@@ -6,6 +6,7 @@ import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox
 import { Check } from "lucide-react";
 import { cn } from "../lib/utils";
 import type { Size, Color } from "./tokens";
+import { useFieldGroup } from "./FieldGroupContext";
 
 // Card-specific size tokens
 const cardSizes = {
@@ -107,7 +108,7 @@ export interface CheckboxCardsRootProps {
 const CheckboxCardsRoot = React.forwardRef<HTMLDivElement, CheckboxCardsRootProps>(
   (
     {
-      size = "2",
+      size: sizeProp,
       variant = "surface",
       color = "default",
       columns = "auto",
@@ -122,6 +123,9 @@ const CheckboxCardsRoot = React.forwardRef<HTMLDivElement, CheckboxCardsRootProp
     },
     ref,
   ) => {
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup.size;
+
     return (
       <CheckboxCardsContext.Provider value={{ size, variant, color, disabled }}>
         <CheckboxGroupPrimitive

@@ -4,6 +4,7 @@ import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { cn } from "../lib/utils";
 import type { Size, Color, Radius } from "./tokens";
+import { useFieldGroup } from "./FieldGroupContext";
 
 // Size configurations with CSS values for reliable styling
 const switchSizes = {
@@ -56,7 +57,10 @@ const colorStyles: Record<Color, string> = {
 // Variant styles
 type SwitchVariant = "surface" | "classic" | "soft";
 
-export interface SwitchProps {
+export interface SwitchProps extends Omit<
+  React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root>,
+  "checked" | "defaultChecked" | "onCheckedChange"
+> {
   /** Whether the switch is checked */
   checked?: boolean;
   /** Default checked state */
@@ -71,18 +75,8 @@ export interface SwitchProps {
   color?: Color;
   /** Border radius */
   radius?: Radius;
-  /** Whether the switch is disabled */
-  disabled?: boolean;
   /** High contrast mode */
   highContrast?: boolean;
-  /** Name for form submission */
-  name?: string;
-  /** Required for form */
-  required?: boolean;
-  /** ID for accessibility/label association */
-  id?: string;
-  /** Additional class names */
-  className?: string;
 }
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
@@ -91,19 +85,18 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       checked,
       defaultChecked,
       onCheckedChange,
-      size = "2",
+      size: sizeProp,
       variant = "surface",
       color = "primary",
       radius = "full",
-      disabled = false,
       highContrast = false,
       className,
-      name,
-      required,
-      id,
+      ...props
     },
     ref,
   ) => {
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup.size;
     const sizeConfig = switchSizes[size];
 
     // Inline styles for reliable sizing
@@ -123,13 +116,9 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     return (
       <SwitchPrimitive.Root
         ref={ref as React.Ref<HTMLElement>}
-        id={id}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
-        disabled={disabled}
-        name={name}
-        required={required}
         style={rootStyles}
         className={cn(
           "peer inline-flex shrink-0 cursor-pointer items-center border-2 border-transparent transition-colors",
@@ -148,6 +137,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
 
           className,
         )}
+        {...props}
       >
         <SwitchPrimitive.Thumb
           style={{

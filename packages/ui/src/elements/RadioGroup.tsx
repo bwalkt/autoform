@@ -5,6 +5,7 @@ import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { cn } from "../lib/utils";
 import type { Size, Color } from "./tokens";
+import { useFieldGroup } from "./FieldGroupContext";
 
 // Size configurations with CSS values for reliable styling
 const radioSizes = {
@@ -85,7 +86,7 @@ export interface RadioGroupRootProps {
 const RadioGroupRoot = React.forwardRef<HTMLDivElement, RadioGroupRootProps>(
   (
     {
-      size = "2",
+      size: sizeProp,
       color = "default",
       value,
       defaultValue,
@@ -98,6 +99,9 @@ const RadioGroupRoot = React.forwardRef<HTMLDivElement, RadioGroupRootProps>(
     },
     ref,
   ) => {
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup.size;
+
     const handleValueChange = React.useCallback(
       (newValue: unknown) => {
         if (onValueChange && typeof newValue === "string") {

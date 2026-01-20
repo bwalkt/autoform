@@ -25,7 +25,6 @@ export {
   // Utilities
   Slot,
   spacingScale,
-  gapScale,
   getResponsiveClasses,
   getSpacingClasses,
   getGapClasses,

@@ -29,15 +29,14 @@ interface FieldGroupAwareProps {
  */
 export function withFieldGroup<P extends FieldGroupAwareProps>(
   WrappedComponent: React.ComponentType<P>,
-  defaults?: { size?: Size; variant?: TextFieldVariant },
 ) {
   const WithFieldGroup = React.forwardRef<unknown, P>((props, ref) => {
     const fieldGroup = useFieldGroup();
 
     const mergedProps = {
       ...props,
-      size: props.size ?? fieldGroup?.size ?? defaults?.size ?? "2",
-      variant: props.variant ?? fieldGroup?.variant ?? defaults?.variant ?? "outline",
+      size: props.size ?? fieldGroup.size,
+      variant: props.variant ?? fieldGroup.variant,
       ref,
     } as P & { ref: typeof ref };
 

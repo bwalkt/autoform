@@ -6,6 +6,7 @@ import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox
 import { Check, Minus } from "lucide-react";
 import { cn } from "../lib/utils";
 import type { Size, Color } from "./tokens";
+import { useFieldGroup } from "./FieldGroupContext";
 
 // Checkbox-specific size tokens (smaller than form elements)
 const checkboxSizes = {
@@ -133,7 +134,7 @@ const variantStyles: Record<CheckboxVariant, string> = {
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   (
     {
-      size = "2",
+      size: sizeProp,
       variant = "solid",
       color = "default",
       checked,
@@ -151,6 +152,8 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
     },
     ref,
   ) => {
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup.size;
     const sizeConfig = checkboxSizes[size];
 
     // Use inline styles for reliable sizing

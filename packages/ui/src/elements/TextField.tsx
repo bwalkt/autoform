@@ -126,8 +126,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
   ) => {
     // Get context values from FieldGroup (if wrapped)
     const fieldGroup = useFieldGroup();
-    const size = sizeProp ?? fieldGroup?.size ?? "2";
-    const variant = variantProp ?? fieldGroup?.variant ?? "outline";
+    const size = sizeProp ?? fieldGroup.size;
+    const variant = variantProp ?? fieldGroup.variant;
 
     const sizeStyles = getSizeStyles(size);
     const radiusStyles = getRadiusStyles(radius);

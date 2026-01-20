@@ -6,6 +6,7 @@ import { ChevronDown, CheckIcon } from "lucide-react";
 import { cn } from "../lib/utils";
 import { getSizeStyles, getRadiusStyles } from "./utils";
 import type { Variant, Color, Radius, Size } from "./tokens";
+import { useFieldGroup } from "./FieldGroupContext";
 
 export interface SelectProps {
   size?: Size;
@@ -26,8 +27,8 @@ export const Select = React.forwardRef<
 >(
   (
     {
-      size = "2",
-      variant = "outline",
+      size: sizeProp,
+      variant: variantProp,
       color,
       radius = "md",
       error = false,
@@ -40,6 +41,9 @@ export const Select = React.forwardRef<
     },
     ref,
   ) => {
+    const fieldGroup = useFieldGroup();
+    const size = sizeProp ?? fieldGroup.size;
+    const variant = variantProp ?? fieldGroup.variant;
     const sizeStyles = getSizeStyles(size);
     const radiusStyles = getRadiusStyles(radius);
 
