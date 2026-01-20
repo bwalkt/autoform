@@ -27,7 +27,6 @@ export {
   spacingScale,
   getResponsiveClasses,
   getSpacingClasses,
-  getGapClasses,
   getDisplayClasses,
   getFlexDirectionClasses,
   getFlexWrapClasses,

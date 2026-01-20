@@ -94,14 +94,36 @@ export function getSpacingClasses(
   return getResponsiveClasses(prop, prefix, spacingScale);
 }
 
-export function getGapClasses(
-  prop: Responsive<Spacing> | undefined,
-  prefix: string,
-): string {
-  return getResponsiveClasses(prop, prefix, spacingScale);
+// ============================================================================
+// Generic Factory for Mapped Class Helpers
+// ============================================================================
+
+/**
+ * Creates a responsive class helper function from a value-to-class mapping.
+ * This reduces repetition for functions like getDisplayClasses, getPositionClasses, etc.
+ */
+function createMappedClassHelper<T extends string>(
+  map: Record<T, string>
+): (prop: Responsive<T> | undefined) => string {
+  return (prop) => {
+    if (prop === undefined) return "";
+    if (typeof prop === "string") return map[prop] || "";
+
+    const classes: string[] = [];
+    if (prop.initial) classes.push(map[prop.initial]);
+    if (prop.xs) classes.push(`xs:${map[prop.xs]}`);
+    if (prop.sm) classes.push(`sm:${map[prop.sm]}`);
+    if (prop.md) classes.push(`md:${map[prop.md]}`);
+    if (prop.lg) classes.push(`lg:${map[prop.lg]}`);
+    if (prop.xl) classes.push(`xl:${map[prop.xl]}`);
+    return classes.join(" ");
+  };
 }
 
-// Display mapping
+// ============================================================================
+// Display & Position Class Helpers
+// ============================================================================
+
 const displayMap: Record<Display, string> = {
   "none": "hidden",
   "inline": "inline",
@@ -114,25 +136,6 @@ const displayMap: Record<Display, string> = {
   "contents": "contents",
 };
 
-export function getDisplayClasses(prop: Responsive<Display> | undefined): string {
-  if (prop === undefined) return "";
-
-  if (typeof prop === "string") {
-    return displayMap[prop] || "";
-  }
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(displayMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${displayMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${displayMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${displayMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${displayMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${displayMap[prop.xl]}`);
-
-  return classes.join(" ");
-}
-
-// Position mapping (no prefix needed - Tailwind uses bare class names)
 const positionMap: Record<Position, string> = {
   "static": "static",
   "relative": "relative",
@@ -141,23 +144,8 @@ const positionMap: Record<Position, string> = {
   "sticky": "sticky",
 };
 
-export function getPositionClasses(prop: Responsive<Position> | undefined): string {
-  if (prop === undefined) return "";
-
-  if (typeof prop === "string") {
-    return positionMap[prop] || "";
-  }
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(positionMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${positionMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${positionMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${positionMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${positionMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${positionMap[prop.xl]}`);
-
-  return classes.join(" ");
-}
+export const getDisplayClasses = createMappedClassHelper(displayMap);
+export const getPositionClasses = createMappedClassHelper(positionMap);
 
 // ============================================================================
 // Flex Class Helpers
@@ -193,63 +181,6 @@ const justifyContentMap: Record<JustifyContent, string> = {
   "evenly": "justify-evenly",
 };
 
-export function getFlexDirectionClasses(prop: Responsive<FlexDirection> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return flexDirectionMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(flexDirectionMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${flexDirectionMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${flexDirectionMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${flexDirectionMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${flexDirectionMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${flexDirectionMap[prop.xl]}`);
-  return classes.join(" ");
-}
-
-export function getFlexWrapClasses(prop: Responsive<FlexWrap> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return flexWrapMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(flexWrapMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${flexWrapMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${flexWrapMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${flexWrapMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${flexWrapMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${flexWrapMap[prop.xl]}`);
-  return classes.join(" ");
-}
-
-export function getAlignItemsClasses(prop: Responsive<AlignItems> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return alignItemsMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(alignItemsMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${alignItemsMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${alignItemsMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${alignItemsMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${alignItemsMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${alignItemsMap[prop.xl]}`);
-  return classes.join(" ");
-}
-
-export function getJustifyContentClasses(prop: Responsive<JustifyContent> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return justifyContentMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(justifyContentMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${justifyContentMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${justifyContentMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${justifyContentMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${justifyContentMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${justifyContentMap[prop.xl]}`);
-  return classes.join(" ");
-}
-
-// Flex grow/shrink mapping (Tailwind uses grow/grow-0, not grow-1/grow-0)
 const flexGrowMap: Record<"0" | "1", string> = {
   "0": "grow-0",
   "1": "grow",
@@ -260,33 +191,12 @@ const flexShrinkMap: Record<"0" | "1", string> = {
   "1": "shrink",
 };
 
-export function getFlexGrowClasses(prop: Responsive<"0" | "1"> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return flexGrowMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(flexGrowMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${flexGrowMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${flexGrowMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${flexGrowMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${flexGrowMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${flexGrowMap[prop.xl]}`);
-  return classes.join(" ");
-}
-
-export function getFlexShrinkClasses(prop: Responsive<"0" | "1"> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return flexShrinkMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(flexShrinkMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${flexShrinkMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${flexShrinkMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${flexShrinkMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${flexShrinkMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${flexShrinkMap[prop.xl]}`);
-  return classes.join(" ");
-}
+export const getFlexDirectionClasses = createMappedClassHelper(flexDirectionMap);
+export const getFlexWrapClasses = createMappedClassHelper(flexWrapMap);
+export const getAlignItemsClasses = createMappedClassHelper(alignItemsMap);
+export const getJustifyContentClasses = createMappedClassHelper(justifyContentMap);
+export const getFlexGrowClasses = createMappedClassHelper(flexGrowMap);
+export const getFlexShrinkClasses = createMappedClassHelper(flexShrinkMap);
 
 // ============================================================================
 // Grid Class Helpers
@@ -300,19 +210,7 @@ const gridFlowMap: Record<GridFlow, string> = {
   "column-dense": "grid-flow-col-dense",
 };
 
-export function getGridFlowClasses(prop: Responsive<GridFlow> | undefined): string {
-  if (prop === undefined) return "";
-  if (typeof prop === "string") return gridFlowMap[prop];
-
-  const classes: string[] = [];
-  if (prop.initial) classes.push(gridFlowMap[prop.initial]);
-  if (prop.xs) classes.push(`xs:${gridFlowMap[prop.xs]}`);
-  if (prop.sm) classes.push(`sm:${gridFlowMap[prop.sm]}`);
-  if (prop.md) classes.push(`md:${gridFlowMap[prop.md]}`);
-  if (prop.lg) classes.push(`lg:${gridFlowMap[prop.lg]}`);
-  if (prop.xl) classes.push(`xl:${gridFlowMap[prop.xl]}`);
-  return classes.join(" ");
-}
+export const getGridFlowClasses = createMappedClassHelper(gridFlowMap);
 
 // Grid columns - map to Tailwind grid-cols-{n} classes
 const gridColumnsMap: Record<string, string> = {
