@@ -1,13 +1,7 @@
 // Form elements
 export { TextField, type TextFieldProps, type TextFieldVariant } from "./TextField";
-export {
-  FieldGroup,
-  type FieldGroupProps,
-  type FieldGroupSectionProps,
-  type FieldGroupRowProps,
-} from "./FieldGroup";
+export { FieldGroup, type FieldGroupProps } from "./FieldGroup";
 export { FieldGroupProvider, useFieldGroup, type FieldGroupContextValue } from "./FieldGroupContext";
-export { withFieldGroup } from "./withFieldGroup";
 export { Select, SelectItem, type SelectProps } from "./Select";
 export { Textarea, type TextareaProps } from "./Textarea";
 export { Button, type ButtonProps } from "./Button";
@@ -152,8 +146,6 @@ export {
   type JustifySelf,
   type Spacing,
   type Responsive,
-  type FieldGroupLayout,
-  type GridColumns,
 } from "./tokens";
 export { getElementStyles, getResponsiveSize, getSizeStyles, getRadiusStyles } from "./utils";
 

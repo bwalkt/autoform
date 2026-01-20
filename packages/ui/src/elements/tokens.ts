@@ -256,12 +256,6 @@ export const layoutTokens = {
 
   // Spacing scale (0-9)
   spacing: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] as const,
-
-  // Form layout modes
-  fieldGroupLayout: ["stacked", "inline", "grid", "side-labels", "sectioned"] as const,
-
-  // Grid column presets (using 12-column grid system)
-  gridColumns: ["1", "2", "3", "4", "6", "12"] as const,
 } as const;
 
 export type Display = (typeof layoutTokens.display)[number];
@@ -275,8 +269,6 @@ export type JustifyContent = (typeof layoutTokens.justifyContent)[number];
 export type AlignSelf = (typeof layoutTokens.alignSelf)[number];
 export type JustifySelf = (typeof layoutTokens.justifySelf)[number];
 export type Spacing = (typeof layoutTokens.spacing)[number];
-export type FieldGroupLayout = (typeof layoutTokens.fieldGroupLayout)[number];
-export type GridColumns = (typeof layoutTokens.gridColumns)[number];
 
 // Responsive prop type helper
 export type Responsive<T> = T | {
