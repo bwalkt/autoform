@@ -1,32 +1,27 @@
 {
-  "name": "@bwalkt/shadcn",
-  "version": "4.0.0",
+  "name": "@bwalkt/ui",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "biome lint .",
     "lint:fix": "biome lint . --write",
-    "build": "npx tsx src/scripts/build.ts",
+    "build": "tsup src/index.ts --format esm --dts --external react --external react-dom",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vantezzen/autoform"
-  },
   "exports": {
+    ".": "./src/index.ts",
     "./globals.css": "./src/globals.css",
-    "./postcss.config": "./postcss.config.mjs",
-    "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
-    "./components/*": "./src/components/*.tsx"
+    "./hooks": "./src/hooks/index.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./elements": "./src/elements/index.ts",
+    "./layouts": "./src/layouts/index.ts",
+    "./typography": "./src/typography/index.ts"
   },
   "devDependencies": {
-    "@bwalkt/ajv": "workspace:*",
-    "@bwalkt/core": "workspace:*",
+    "@bwalkt/shadcn": "workspace:*",
     "@bwalkt/typescript-config": "file:../typescript-config",
     "@storybook/addon-docs": "catalog:",
     "@storybook/react-vite": "catalog:",
@@ -35,13 +30,11 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "autoprefixer": "catalog:",
-    "glob": "catalog:",
     "postcss": "catalog:",
     "postcss-load-config": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "catalog:",
-    "storybook": "10.1.10",
+    "storybook": "catalog:",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4",
     "tsup": "catalog:",
@@ -50,7 +43,6 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
-    "@bwalkt/react": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -59,6 +51,6 @@
   },
   "peerDependencies": {
     "react": "^19",
-    "react-hook-form": "^7.71.0"
+    "react-dom": "^19"
   }
 }
