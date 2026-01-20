@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { DropdownMenu, Button } from "../elements";
+import { DropdownMenu, Button } from "@/elements";
 import {
   User,
   Settings,

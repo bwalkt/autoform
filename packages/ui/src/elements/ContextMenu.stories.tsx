@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { ContextMenu } from "./ContextMenu";
-import { Box } from "../layouts/Box";
+import { Box } from "@/layouts/Box";
 import {
   FolderOpen,
   FileText,

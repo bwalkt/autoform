@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Quote, Text, Box } from "../elements";
+import { Quote, Text, Box } from "@/elements";
 
 const meta: Meta<typeof Quote> = {
   title: "Typography/Quote",

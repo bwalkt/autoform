@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 
 // Common aspect ratios
 type Ratio = "1/1" | "4/3" | "16/9" | "21/9" | "3/4" | "9/16" | "3/2" | "2/3";

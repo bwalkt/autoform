@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
-import { Slot } from "../layouts/layout-utils";
+import { cn } from "@/lib/utils";
+import { Slot } from "@/layouts/layout-utils";
 import type { Size } from "./tokens";
 
 // Size configurations for padding

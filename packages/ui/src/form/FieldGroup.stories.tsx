@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FieldGroup } from "./FieldGroup";
 import { TextField } from "./TextField";
-import { Separator } from "./Separator";
-import { Box } from "../layouts/Box";
-import { Button } from "./Button";
+import { Separator } from "@/elements/Separator";
+import { Box } from "@/layouts/Box";
+import { Button } from "@/elements/Button";
 import { Mail, User, Phone, Lock, MapPin, Building, CreditCard, Calendar } from "lucide-react";
 
 const meta: Meta<typeof FieldGroup> = {
-  title: "Elements/FieldGroup",
+  title: "Form/FieldGroup",
   component: FieldGroup,
   parameters: {
     layout: "padded",

@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
-import { getSizeStyles, getRadiusStyles } from "./utils";
+import { cn } from "@/lib/utils";
+import { getSizeStyles, getRadiusStyles } from "@/elements/utils";
 import { useFieldGroup } from "./FieldGroupContext";
-import type { Color, Radius, Size, TextFieldVariant } from "./tokens";
+import type { Color, Radius, Size, TextFieldVariant } from "@/elements/tokens";
 
 // Re-export for backward compatibility
-export type { TextFieldVariant } from "./tokens";
+export type { TextFieldVariant } from "@/elements/tokens";
 
 export interface TextFieldProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {

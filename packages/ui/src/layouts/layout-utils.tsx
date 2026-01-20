@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import type {
   Responsive,
   Spacing,
@@ -12,7 +12,7 @@ import type {
   FlexWrap,
   AlignItems,
   JustifyContent,
-} from "../elements/tokens";
+} from "@/elements/tokens";
 
 // Re-export shared types for convenience
 export type {

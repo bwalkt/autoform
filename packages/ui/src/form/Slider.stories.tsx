@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Slider } from "../elements";
+import { Slider } from "./Slider";
 
 const meta: Meta<typeof Slider> = {
-  title: "Elements/Slider",
+  title: "Form/Slider",
   component: Slider,
   parameters: {
     layout: "centered",

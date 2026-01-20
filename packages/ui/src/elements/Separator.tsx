@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import type { Size, Color } from "./tokens";
 
 // Size configurations

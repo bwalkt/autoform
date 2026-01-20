@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Tooltip, SimpleTooltip, Button, IconButton } from "../elements";
+import { Tooltip, SimpleTooltip, Button, IconButton } from "@/elements";
 import { Info, HelpCircle, Settings, Copy, Trash2 } from "lucide-react";
 
 const meta: Meta = {

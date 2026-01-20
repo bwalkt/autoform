@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "./Button";
-import { TextField } from "./TextField";
+import { TextField } from "@/form/TextField";
 import { Tabs } from "./Tabs";
 import { SegmentedControl } from "./SegmentedControl";
 import { Card } from "./Card";
 import { Badge } from "./Badge";
 import { ScrollArea } from "./ScrollArea";
-import { Code } from "../typography";
-import { Flex, Box } from "../layouts";
-import { useClipboard } from "../hooks";
+import { Code } from "@/typography";
+import { Flex, Box } from "@/layouts";
+import { useClipboard } from "@/hooks";
 
 // ============================================================================
 // Theme Configuration Types

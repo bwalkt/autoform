@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Switch, SwitchWithLabel } from "../elements";
+import { Switch, SwitchWithLabel } from "./Switch";
 
 const meta: Meta<typeof Switch> = {
-  title: "Elements/Switch",
+  title: "Form/Switch",
   component: Switch,
   parameters: {
     layout: "centered",

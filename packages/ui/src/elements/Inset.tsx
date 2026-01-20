@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 
 // Side configurations
 type Side = "all" | "x" | "y" | "top" | "right" | "bottom" | "left";
