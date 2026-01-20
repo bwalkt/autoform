@@ -135,6 +135,33 @@ export function getDisplayClasses(prop: Responsive<Display> | undefined): string
   return classes.join(" ");
 }
 
+// Position mapping (no prefix needed - Tailwind uses bare class names)
+const positionMap: Record<Position, string> = {
+  "static": "static",
+  "relative": "relative",
+  "absolute": "absolute",
+  "fixed": "fixed",
+  "sticky": "sticky",
+};
+
+export function getPositionClasses(prop: Responsive<Position> | undefined): string {
+  if (prop === undefined) return "";
+
+  if (typeof prop === "string") {
+    return positionMap[prop] || "";
+  }
+
+  const classes: string[] = [];
+  if (prop.initial) classes.push(positionMap[prop.initial]);
+  if (prop.xs) classes.push(`xs:${positionMap[prop.xs]}`);
+  if (prop.sm) classes.push(`sm:${positionMap[prop.sm]}`);
+  if (prop.md) classes.push(`md:${positionMap[prop.md]}`);
+  if (prop.lg) classes.push(`lg:${positionMap[prop.lg]}`);
+  if (prop.xl) classes.push(`xl:${positionMap[prop.xl]}`);
+
+  return classes.join(" ");
+}
+
 // ============================================================================
 // Flex Class Helpers
 // ============================================================================
@@ -472,7 +499,7 @@ export function getSharedLayoutClasses(props: SharedLayoutProps): string {
     getSpacingClasses(mb, "mb"),
     getSpacingClasses(ml, "ml"),
     // Position
-    getResponsiveClasses(position, ""),
+    getPositionClasses(position),
     getSpacingClasses(inset, "inset"),
     getSpacingClasses(top, "top"),
     getSpacingClasses(right, "right"),

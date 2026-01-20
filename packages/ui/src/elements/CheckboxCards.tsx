@@ -219,6 +219,7 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
         <CheckboxPrimitive.Root
           id={id}
           name={value}
+          value={value}
           disabled={isDisabled}
           className={cn(
             "peer inline-flex shrink-0 items-center justify-center rounded",

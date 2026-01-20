@@ -141,17 +141,20 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
             )}
           />
         </SliderPrimitive.Track>
-        <SliderPrimitive.Thumb
-          className={cn(
-            "block rounded-full border-2 bg-background shadow transition-colors",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            "disabled:pointer-events-none disabled:opacity-50",
-            sizeConfig.thumb,
-            color === "default" || color === "primary"
-              ? "border-primary"
-              : colorStyles[color].replace("bg-", "border-"),
-          )}
-        />
+        {(value ?? defaultValue).map((_, index) => (
+          <SliderPrimitive.Thumb
+            key={index}
+            className={cn(
+              "block rounded-full border-2 bg-background shadow transition-colors",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              "disabled:pointer-events-none disabled:opacity-50",
+              sizeConfig.thumb,
+              color === "default" || color === "primary"
+                ? "border-primary"
+                : colorStyles[color].replace("bg-", "border-"),
+            )}
+          />
+        ))}
       </SliderPrimitive.Root>
     );
   },

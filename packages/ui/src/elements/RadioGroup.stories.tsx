@@ -131,30 +131,30 @@ export const ShippingMethod: StoryObj = {
         <h3 className="font-semibold mb-4">Shipping Method</h3>
         <RadioGroup.Root value={method} onValueChange={setMethod} color="primary">
           <div className="space-y-3">
-            <div className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50">
+            <label className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer">
               <RadioGroup.Item value="standard" />
               <div className="flex-1">
                 <p className="font-medium">Standard Shipping</p>
                 <p className="text-sm text-muted-foreground">5-7 business days</p>
               </div>
               <span className="font-medium">$4.99</span>
-            </div>
-            <div className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50">
+            </label>
+            <label className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer">
               <RadioGroup.Item value="express" />
               <div className="flex-1">
                 <p className="font-medium">Express Shipping</p>
                 <p className="text-sm text-muted-foreground">2-3 business days</p>
               </div>
               <span className="font-medium">$14.99</span>
-            </div>
-            <div className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50">
+            </label>
+            <label className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer">
               <RadioGroup.Item value="overnight" />
               <div className="flex-1">
                 <p className="font-medium">Overnight Shipping</p>
                 <p className="text-sm text-muted-foreground">Next business day</p>
               </div>
               <span className="font-medium">$29.99</span>
-            </div>
+            </label>
           </div>
         </RadioGroup.Root>
       </div>

@@ -400,6 +400,7 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
           ref={ref}
           id={id}
           name={value}
+          value={value}
           disabled={isDisabled}
           style={checkboxStyles}
           className={cn(
