@@ -191,7 +191,8 @@ const SwitchWithLabel = React.forwardRef<HTMLButtonElement, SwitchWithLabelProps
         <label
           htmlFor={id}
           className={cn(
-            "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+            "text-sm font-medium leading-none",
+            props.disabled && "cursor-not-allowed opacity-70",
           )}
         >
           {label}

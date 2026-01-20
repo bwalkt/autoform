@@ -246,7 +246,7 @@ export const CheckboxWithLabel = React.forwardRef<
           htmlFor={checkboxId}
           className={cn(
             "font-medium leading-none cursor-pointer",
-            "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+            props.disabled && "cursor-not-allowed opacity-70",
             textSizes[size],
           )}
         >

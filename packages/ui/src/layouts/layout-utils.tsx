@@ -252,6 +252,45 @@ export function getJustifyContentClasses(prop: Responsive<JustifyContent> | unde
   return classes.join(" ");
 }
 
+// Flex grow/shrink mapping (Tailwind uses grow/grow-0, not grow-1/grow-0)
+const flexGrowMap: Record<"0" | "1", string> = {
+  "0": "grow-0",
+  "1": "grow",
+};
+
+const flexShrinkMap: Record<"0" | "1", string> = {
+  "0": "shrink-0",
+  "1": "shrink",
+};
+
+export function getFlexGrowClasses(prop: Responsive<"0" | "1"> | undefined): string {
+  if (prop === undefined) return "";
+  if (typeof prop === "string") return flexGrowMap[prop];
+
+  const classes: string[] = [];
+  if (prop.initial) classes.push(flexGrowMap[prop.initial]);
+  if (prop.xs) classes.push(`xs:${flexGrowMap[prop.xs]}`);
+  if (prop.sm) classes.push(`sm:${flexGrowMap[prop.sm]}`);
+  if (prop.md) classes.push(`md:${flexGrowMap[prop.md]}`);
+  if (prop.lg) classes.push(`lg:${flexGrowMap[prop.lg]}`);
+  if (prop.xl) classes.push(`xl:${flexGrowMap[prop.xl]}`);
+  return classes.join(" ");
+}
+
+export function getFlexShrinkClasses(prop: Responsive<"0" | "1"> | undefined): string {
+  if (prop === undefined) return "";
+  if (typeof prop === "string") return flexShrinkMap[prop];
+
+  const classes: string[] = [];
+  if (prop.initial) classes.push(flexShrinkMap[prop.initial]);
+  if (prop.xs) classes.push(`xs:${flexShrinkMap[prop.xs]}`);
+  if (prop.sm) classes.push(`sm:${flexShrinkMap[prop.sm]}`);
+  if (prop.md) classes.push(`md:${flexShrinkMap[prop.md]}`);
+  if (prop.lg) classes.push(`lg:${flexShrinkMap[prop.lg]}`);
+  if (prop.xl) classes.push(`xl:${flexShrinkMap[prop.xl]}`);
+  return classes.join(" ");
+}
+
 // ============================================================================
 // Grid Class Helpers
 // ============================================================================
@@ -349,9 +388,9 @@ export function getGridColumnsStyle(columns: Responsive<string> | undefined): Re
   if (columns === undefined) return {};
 
   if (typeof columns === "string") {
-    // Check if it's a number
-    const num = parseInt(columns, 10);
-    if (!isNaN(num)) {
+    // Check if it's a pure number (strict check to avoid parsing "200px 1fr" as 200)
+    if (/^\d+$/.test(columns)) {
+      const num = Number(columns);
       return { gridTemplateColumns: `repeat(${num}, minmax(0, 1fr))` };
     }
     return { gridTemplateColumns: columns };
@@ -361,8 +400,8 @@ export function getGridColumnsStyle(columns: Responsive<string> | undefined): Re
   // This is simplified - in production you'd use CSS custom properties with media queries
   const initial = columns.initial;
   if (initial) {
-    const num = parseInt(initial, 10);
-    if (!isNaN(num)) {
+    if (/^\d+$/.test(initial)) {
+      const num = Number(initial);
       return { gridTemplateColumns: `repeat(${num}, minmax(0, 1fr))` };
     }
     return { gridTemplateColumns: initial };
@@ -375,8 +414,9 @@ export function getGridRowsStyle(rows: Responsive<string> | undefined): React.CS
   if (rows === undefined) return {};
 
   if (typeof rows === "string") {
-    const num = parseInt(rows, 10);
-    if (!isNaN(num)) {
+    // Check if it's a pure number (strict check to avoid parsing "200px 1fr" as 200)
+    if (/^\d+$/.test(rows)) {
+      const num = Number(rows);
       return { gridTemplateRows: `repeat(${num}, minmax(0, 1fr))` };
     }
     return { gridTemplateRows: rows };
@@ -384,8 +424,8 @@ export function getGridRowsStyle(rows: Responsive<string> | undefined): React.CS
 
   const initial = rows.initial;
   if (initial) {
-    const num = parseInt(initial, 10);
-    if (!isNaN(num)) {
+    if (/^\d+$/.test(initial)) {
+      const num = Number(initial);
       return { gridTemplateRows: `repeat(${num}, minmax(0, 1fr))` };
     }
     return { gridTemplateRows: initial };
@@ -510,8 +550,8 @@ export function getSharedLayoutClasses(props: SharedLayoutProps): string {
     getResponsiveClasses(overflowX, "overflow-x"),
     getResponsiveClasses(overflowY, "overflow-y"),
     // Flex
-    getResponsiveClasses(flexGrow, "grow"),
-    getResponsiveClasses(flexShrink, "shrink"),
+    getFlexGrowClasses(flexGrow),
+    getFlexShrinkClasses(flexShrink),
   );
 }
 
