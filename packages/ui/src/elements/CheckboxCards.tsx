@@ -151,15 +151,15 @@ const CheckboxCardsRoot = React.forwardRef<HTMLDivElement, CheckboxCardsRootProp
 
 CheckboxCardsRoot.displayName = "CheckboxCards.Root";
 
-// Color styles for checked state (using :has() selector to detect checked child)
+// Color styles for checked state (using peer modifier to detect sibling checkbox state)
 const colorStyles: Record<Color, string> = {
-  default: "has-[[data-checked]]:border-primary has-[[data-checked]]:bg-primary/5",
-  primary: "has-[[data-checked]]:border-primary has-[[data-checked]]:bg-primary/5",
-  neutral: "has-[[data-checked]]:border-gray-500 has-[[data-checked]]:bg-gray-500/5 dark:has-[[data-checked]]:border-gray-400",
-  info: "has-[[data-checked]]:border-blue-500 has-[[data-checked]]:bg-blue-500/5",
-  success: "has-[[data-checked]]:border-green-500 has-[[data-checked]]:bg-green-500/5",
-  warning: "has-[[data-checked]]:border-amber-500 has-[[data-checked]]:bg-amber-500/5",
-  error: "has-[[data-checked]]:border-red-500 has-[[data-checked]]:bg-red-500/5",
+  default: "peer-data-[checked]:border-primary peer-data-[checked]:bg-primary/5",
+  primary: "peer-data-[checked]:border-primary peer-data-[checked]:bg-primary/5",
+  neutral: "peer-data-[checked]:border-gray-500 peer-data-[checked]:bg-gray-500/5 dark:peer-data-[checked]:border-gray-400",
+  info: "peer-data-[checked]:border-blue-500 peer-data-[checked]:bg-blue-500/5",
+  success: "peer-data-[checked]:border-green-500 peer-data-[checked]:bg-green-500/5",
+  warning: "peer-data-[checked]:border-amber-500 peer-data-[checked]:bg-amber-500/5",
+  error: "peer-data-[checked]:border-red-500 peer-data-[checked]:bg-red-500/5",
 };
 
 const checkboxColorStyles: Record<Color, string> = {
@@ -195,26 +195,11 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
         ref={ref}
         htmlFor={id}
         className={cn(
-          "relative flex cursor-pointer select-none rounded-xl border transition-all duration-150",
+          "group relative flex cursor-pointer select-none rounded-xl",
           sizeConfig.card,
           sizeConfig.gap,
-
-          // Variant styles - subtle like Radix Themes
-          context.variant === "surface" && [
-            "border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900",
-            "hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-700 dark:hover:bg-gray-800/50",
-          ],
-          context.variant === "outline" && [
-            "border-gray-200 bg-transparent dark:border-gray-800",
-            "hover:border-gray-300 dark:hover:border-gray-700",
-          ],
-
-          // Color styles for checked state (using :has() to detect checked child)
-          colorStyles[context.color],
-
           // Disabled state
-          isDisabled && "cursor-not-allowed opacity-50 hover:border-gray-200 hover:bg-white",
-
+          isDisabled && "cursor-not-allowed opacity-50",
           className,
         )}
         data-disabled={isDisabled || undefined}
@@ -226,7 +211,7 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
           value={value}
           disabled={isDisabled}
           className={cn(
-            "peer inline-flex shrink-0 items-center justify-center rounded",
+            "peer relative z-10 inline-flex shrink-0 items-center justify-center rounded",
             "border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900",
             "transition-all duration-150",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1",
@@ -246,7 +231,26 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
 
-        <div className={cn("flex flex-1 flex-col", sizeConfig.text)}>
+        {/* Background span - uses peer modifier to respond to checkbox state */}
+        <span
+          className={cn(
+            "absolute inset-0 rounded-xl border transition-all duration-150 -z-0",
+            // Variant styles
+            context.variant === "surface" && [
+              "border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900",
+              !isDisabled && "group-hover:border-gray-300 group-hover:bg-gray-50 dark:group-hover:border-gray-700 dark:group-hover:bg-gray-800/50",
+            ],
+            context.variant === "outline" && [
+              "border-gray-200 bg-transparent dark:border-gray-800",
+              !isDisabled && "group-hover:border-gray-300 dark:group-hover:border-gray-700",
+            ],
+            // Color styles for checked state
+            colorStyles[context.color],
+          )}
+          aria-hidden="true"
+        />
+
+        <div className={cn("relative z-10 flex flex-1 flex-col", sizeConfig.text)}>
           {children}
         </div>
       </label>

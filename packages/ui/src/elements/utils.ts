@@ -10,7 +10,7 @@ import {
 
 export function getResponsiveSize(size: ResponsiveSize): string {
   if (typeof size === "string") {
-    return size;
+    return `size-${size}`;
   }
 
   const breakpoints = {

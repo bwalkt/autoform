@@ -86,6 +86,12 @@ const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
     const [hasError, setHasError] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(!!src);
 
+    // Reset loading/error state when src changes
+    React.useEffect(() => {
+      setHasError(false);
+      setIsLoading(!!src);
+    }, [src]);
+
     const showImage = src && !hasError;
     const showFallback = !showImage || isLoading;
 

@@ -116,7 +116,9 @@ export const Select = React.forwardRef<
           {...props}
         >
           <SelectPrimitive.Value>
-            {value || <span className="text-muted-foreground">{placeholder}</span>}
+            {(selectedValue: string | null) =>
+              selectedValue || <span className="text-muted-foreground">{placeholder}</span>
+            }
           </SelectPrimitive.Value>
           <SelectPrimitive.Icon
             render={<ChevronDown className="h-4 w-4 opacity-50 ml-2" />}

@@ -274,34 +274,54 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
       "--theme-scaling": scaling,
     } as React.CSSProperties;
 
-    const componentProps = asChild
-      ? {}
-      : {
-          ref,
-          className: cn(
-            "radix-themes",
-            appearance === "light" && "light",
-            appearance === "dark" && "dark",
-            hasBackgroundProp && "bg-background text-foreground",
-            className,
-          ),
-          "data-accent-color": accentColor,
-          "data-gray-color": resolvedGrayColor,
-          "data-radius": radius,
-          "data-scaling": scaling,
-          "data-panel-background": panelBackground,
-          "data-has-background": hasBackgroundProp,
-          style: themeStyles,
-          ...props,
-        };
+    const themeClassName = cn(
+      "radix-themes",
+      appearance === "light" && "light",
+      appearance === "dark" && "dark",
+      hasBackgroundProp && "bg-background text-foreground",
+      className,
+    );
+
+    const themeDataAttributes = {
+      "data-accent-color": accentColor,
+      "data-gray-color": resolvedGrayColor,
+      "data-radius": radius,
+      "data-scaling": scaling,
+      "data-panel-background": panelBackground,
+      "data-has-background": hasBackgroundProp,
+    };
+
+    if (asChild) {
+      const child = React.Children.only(children) as React.ReactElement<{
+        className?: string;
+        style?: React.CSSProperties;
+        ref?: React.Ref<HTMLElement>;
+      }>;
+
+      return (
+        <ThemeContext.Provider value={contextValue}>
+          {React.cloneElement(child, {
+            ref,
+            className: cn(child.props.className, themeClassName),
+            style: { ...themeStyles, ...child.props.style },
+            ...themeDataAttributes,
+            ...props,
+          })}
+        </ThemeContext.Provider>
+      );
+    }
 
     return (
       <ThemeContext.Provider value={contextValue}>
-        {asChild ? (
-          children
-        ) : (
-          <div {...componentProps}>{children}</div>
-        )}
+        <div
+          ref={ref}
+          className={themeClassName}
+          style={themeStyles}
+          {...themeDataAttributes}
+          {...props}
+        >
+          {children}
+        </div>
       </ThemeContext.Provider>
     );
   },

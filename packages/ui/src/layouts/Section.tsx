@@ -40,6 +40,42 @@ const sectionSizeClasses: Record<SectionSize, string> = {
   "4": "py-24",   // 96px
 };
 
+// Display mapping for Section (limited to none/initial)
+const sectionDisplayMap: Record<SectionDisplay, string> = {
+  "none": "hidden",
+  "initial": "block",
+};
+
+// Generate responsive size classes
+function getSectionSizeClasses(sizeProp: Responsive<SectionSize> | undefined): string {
+  if (!sizeProp) return sectionSizeClasses["3"]; // default
+  if (typeof sizeProp === "string") return sectionSizeClasses[sizeProp];
+
+  const classes: string[] = [];
+  if (sizeProp.initial) classes.push(sectionSizeClasses[sizeProp.initial]);
+  if (sizeProp.xs) classes.push(`xs:${sectionSizeClasses[sizeProp.xs]}`);
+  if (sizeProp.sm) classes.push(`sm:${sectionSizeClasses[sizeProp.sm]}`);
+  if (sizeProp.md) classes.push(`md:${sectionSizeClasses[sizeProp.md]}`);
+  if (sizeProp.lg) classes.push(`lg:${sectionSizeClasses[sizeProp.lg]}`);
+  if (sizeProp.xl) classes.push(`xl:${sectionSizeClasses[sizeProp.xl]}`);
+  return classes.join(" ");
+}
+
+// Generate responsive display classes
+function getSectionDisplayClasses(displayProp: Responsive<SectionDisplay> | undefined): string {
+  if (!displayProp) return "";
+  if (typeof displayProp === "string") return sectionDisplayMap[displayProp];
+
+  const classes: string[] = [];
+  if (displayProp.initial) classes.push(sectionDisplayMap[displayProp.initial]);
+  if (displayProp.xs) classes.push(`xs:${sectionDisplayMap[displayProp.xs]}`);
+  if (displayProp.sm) classes.push(`sm:${sectionDisplayMap[displayProp.sm]}`);
+  if (displayProp.md) classes.push(`md:${sectionDisplayMap[displayProp.md]}`);
+  if (displayProp.lg) classes.push(`lg:${sectionDisplayMap[displayProp.lg]}`);
+  if (displayProp.xl) classes.push(`xl:${sectionDisplayMap[displayProp.xl]}`);
+  return classes.join(" ");
+}
+
 // ============================================================================
 // Section Component
 // ============================================================================
@@ -84,25 +120,14 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       gridRow, gridRowStart, gridRowEnd,
     };
 
-    // Get resolved size value for default padding
-    const resolvedSize = typeof size === "string" ? size : size.initial || "3";
-    const sizeClass = sectionSizeClasses[resolvedSize];
-
-    // Get display classes
-    const getDisplayClass = (displayProp: Responsive<SectionDisplay> | undefined) => {
-      if (!displayProp) return "";
-      const displayValue = typeof displayProp === "string" ? displayProp : displayProp.initial;
-      return displayValue === "none" ? "hidden" : "";
-    };
-
     // Only apply default size padding if py/p/pt/pb are not specified
     const hasPaddingOverride = py !== undefined || p !== undefined || pt !== undefined || pb !== undefined;
 
     const classes = cn(
       "rt-Section",
       "box-border",
-      getDisplayClass(display),
-      !hasPaddingOverride && sizeClass,
+      getSectionDisplayClasses(display),
+      !hasPaddingOverride && getSectionSizeClasses(size),
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     );

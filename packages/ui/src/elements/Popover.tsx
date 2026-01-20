@@ -55,7 +55,10 @@ const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(
     return (
       <PopoverPrimitive.Trigger
         ref={ref}
-        className={cn("outline-none", className)}
+        className={cn(
+          "outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2",
+          className,
+        )}
         {...props}
       >
         {children}
