@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Dialog, Button, TextField } from "../elements";
+import { Dialog, Button, TextField } from "@/elements";
 
 const meta: Meta = {
   title: "Elements/Dialog",

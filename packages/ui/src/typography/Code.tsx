@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { typographyTokens, type TypographySize, type TypographyColor } from "./tokens";
 
 export interface CodeProps extends React.HTMLAttributes<HTMLElement> {

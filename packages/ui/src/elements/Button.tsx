@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { Loader2 } from "lucide-react";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { getSizeStyles, getRadiusStyles } from "./utils";
 import type { Size, Variant, Color, Radius, Responsive } from "./tokens";
 

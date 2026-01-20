@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import type { Size, Color, Radius } from "./tokens";
 
 // Size configurations

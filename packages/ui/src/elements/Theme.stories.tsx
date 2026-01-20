@@ -4,10 +4,10 @@ import { Theme, ThemePanel, useThemeContext } from "./Theme";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Badge } from "./Badge";
-import { Switch } from "../form/Switch";
-import { Slider } from "../form/Slider";
+import { Switch } from "@/form/Switch";
+import { Slider } from "@/form/Slider";
 import { Progress } from "./Progress";
-import { Box } from "../layouts/Box";
+import { Box } from "@/layouts/Box";
 
 const meta: Meta<typeof Theme> = {
   title: "Elements/Theme",

@@ -16,7 +16,7 @@ interface FieldGroupAwareProps {
  *
  * @example
  * ```tsx
- * import { withFieldGroup, Textarea } from "@bwalkt/ui/elements";
+ * import { withFieldGroup, Textarea, FieldGroup, TextField } from "@/form";
  *
  * const FieldGroupTextarea = withFieldGroup(Textarea);
  *

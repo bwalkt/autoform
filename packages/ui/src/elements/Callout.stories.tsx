@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Callout, CalloutRoot } from "./Callout";
-import { Box } from "../layouts/Box";
+import { Box } from "@/layouts/Box";
 import {
   Info,
   AlertCircle,
