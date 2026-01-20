@@ -1,6 +1,9 @@
 // Re-export all from elements
 export * from "./elements";
 
+// Re-export all from form
+export * from "./form";
+
 // Re-export all from layouts
 export * from "./layouts";
 

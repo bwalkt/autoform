@@ -5,8 +5,10 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { Check, Minus } from "lucide-react";
 import { cn } from "../lib/utils";
-import type { Size, Color } from "./tokens";
+import { Text } from "../typography";
+import type { Size, Color } from "../elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
+import { Label } from "./Label";
 
 // Checkbox-specific size tokens (smaller than form elements)
 const checkboxSizes = {
@@ -228,43 +230,17 @@ export const CheckboxWithLabel = React.forwardRef<
   const generatedId = React.useId();
   const checkboxId = id || generatedId;
 
-  const textSizes = {
-    "1": "text-xs",
-    "2": "text-sm",
-    "3": "text-sm",
-    "4": "text-base",
-  };
-
-  const descriptionSizes = {
-    "1": "text-xs",
-    "2": "text-xs",
-    "3": "text-sm",
-    "4": "text-sm",
-  };
-
   return (
     <div className={cn("flex items-start gap-2", className)}>
       <Checkbox ref={ref} id={checkboxId} size={size} {...props} />
       <div className="flex flex-col">
-        <label
-          htmlFor={checkboxId}
-          className={cn(
-            "font-medium leading-none cursor-pointer",
-            props.disabled && "cursor-not-allowed opacity-70",
-            textSizes[size],
-          )}
-        >
+        <Label htmlFor={checkboxId} size={size} disabled={props.disabled}>
           {label}
-        </label>
+        </Label>
         {description && (
-          <p
-            className={cn(
-              "text-muted-foreground mt-1",
-              descriptionSizes[size],
-            )}
-          >
+          <Text size="1" className="text-muted-foreground mt-1">
             {description}
-          </p>
+          </Text>
         )}
       </div>
     </div>
@@ -369,20 +345,6 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
     const id = React.useId();
     const sizeConfig = checkboxSizes[context.size];
 
-    const textSizes = {
-      "1": "text-xs",
-      "2": "text-sm",
-      "3": "text-sm",
-      "4": "text-base",
-    };
-
-    const descriptionSizes = {
-      "1": "text-xs",
-      "2": "text-xs",
-      "3": "text-sm",
-      "4": "text-sm",
-    };
-
     const isDisabled = disabled || context.disabled;
     const displayLabel = label || children;
 
@@ -428,25 +390,13 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
 
         {displayLabel && (
           <div className="flex flex-col">
-            <label
-              htmlFor={id}
-              className={cn(
-                "font-medium leading-none cursor-pointer",
-                isDisabled && "cursor-not-allowed opacity-70",
-                textSizes[context.size],
-              )}
-            >
+            <Label htmlFor={id} size={context.size} disabled={isDisabled}>
               {displayLabel}
-            </label>
+            </Label>
             {description && (
-              <p
-                className={cn(
-                  "text-muted-foreground mt-1",
-                  descriptionSizes[context.size],
-                )}
-              >
+              <Text size="1" className="text-muted-foreground mt-1">
                 {description}
-              </p>
+              </Text>
             )}
           </div>
         )}

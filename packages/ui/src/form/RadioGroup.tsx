@@ -4,7 +4,8 @@ import * as React from "react";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { cn } from "../lib/utils";
-import type { Size, Color } from "./tokens";
+import { Text } from "../typography";
+import type { Size, Color } from "../elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
 
 // Size configurations with CSS values for reliable styling
@@ -12,25 +13,25 @@ const radioSizes = {
   "1": {
     radioSize: "0.75rem",      // 12px
     indicatorSize: "0.375rem", // 6px
-    labelClass: "text-xs",
+    textSize: "1" as const,
     gapClass: "gap-1.5",
   },
   "2": {
     radioSize: "1rem",         // 16px
     indicatorSize: "0.5rem",   // 8px
-    labelClass: "text-sm",
+    textSize: "2" as const,
     gapClass: "gap-2",
   },
   "3": {
     radioSize: "1.25rem",      // 20px
     indicatorSize: "0.625rem", // 10px
-    labelClass: "text-sm",
+    textSize: "2" as const,
     gapClass: "gap-2.5",
   },
   "4": {
     radioSize: "1.5rem",       // 24px
     indicatorSize: "0.75rem",  // 12px
-    labelClass: "text-base",
+    textSize: "3" as const,
     gapClass: "gap-3",
   },
 } as const;
@@ -203,9 +204,9 @@ const RadioGroupItem = React.forwardRef<HTMLButtonElement, RadioGroupItemProps>(
           />
         </RadioPrimitive.Root>
         {(label || children) && (
-          <span className={cn("text-foreground", sizeConfig.labelClass)}>
+          <Text size={sizeConfig.textSize} weight="medium">
             {label || children}
-          </span>
+          </Text>
         )}
       </label>
     );

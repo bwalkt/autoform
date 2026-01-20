@@ -4,7 +4,7 @@ import { Checkbox, CheckboxWithLabel, CheckboxGroup } from "./Checkbox";
 import { Box } from "../layouts/Box";
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Elements/Checkbox",
+  title: "Form/Checkbox",
   component: Checkbox,
   parameters: {
     layout: "padded",

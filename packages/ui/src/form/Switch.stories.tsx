@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Switch, SwitchWithLabel } from "../elements";
 
 const meta: Meta<typeof Switch> = {
-  title: "Elements/Switch",
+  title: "Form/Switch",
   component: Switch,
   parameters: {
     layout: "centered",

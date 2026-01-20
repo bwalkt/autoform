@@ -5,7 +5,7 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { Check } from "lucide-react";
 import { cn } from "../lib/utils";
-import type { Size, Color } from "./tokens";
+import type { Size, Color } from "../elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
 
 // Card-specific size tokens

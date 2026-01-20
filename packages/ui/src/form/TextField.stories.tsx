@@ -4,7 +4,7 @@ import { Box } from "../layouts/Box";
 import { Mail, Search, Eye, User, Lock, Phone } from "lucide-react";
 
 const meta: Meta<typeof TextField> = {
-  title: "Elements/TextField",
+  title: "Form/TextField",
   component: TextField,
   parameters: {
     layout: "padded",

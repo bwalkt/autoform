@@ -3,10 +3,10 @@
 import * as React from "react";
 import { cn } from "../lib/utils";
 import { FieldGroupProvider } from "./FieldGroupContext";
-import { Separator } from "./Separator";
+import { Separator } from "../elements/Separator";
 import { Flex } from "../layouts/Flex";
 import { Grid } from "../layouts/Grid";
-import type { Size, Spacing, FieldGroupLayout, GridColumns, AlignItems, Responsive, TextFieldVariant } from "./tokens";
+import type { Size, Spacing, FieldGroupLayout, GridColumns, AlignItems, Responsive, TextFieldVariant } from "../elements/tokens";
 
 // ============================================================================
 // FieldGroup Root Component

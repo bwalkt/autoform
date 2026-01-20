@@ -3,8 +3,9 @@
 import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { cn } from "../lib/utils";
-import type { Size, Color, Radius } from "./tokens";
+import type { Size, Color, Radius } from "../elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
+import { Label } from "./Label";
 
 // Size configurations with CSS values for reliable styling
 const switchSizes = {
@@ -181,15 +182,9 @@ const SwitchWithLabel = React.forwardRef<HTMLButtonElement, SwitchWithLabelProps
         )}
       >
         <Switch ref={ref} id={id} {...props} size={size} />
-        <label
-          htmlFor={id}
-          className={cn(
-            "text-sm font-medium leading-none",
-            props.disabled && "cursor-not-allowed opacity-70",
-          )}
-        >
+        <Label htmlFor={id} size={size} disabled={props.disabled}>
           {label}
-        </label>
+        </Label>
       </div>
     );
   },

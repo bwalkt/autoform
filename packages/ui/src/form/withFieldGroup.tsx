@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useFieldGroup } from "./FieldGroupContext";
-import type { Size } from "./tokens";
+import type { Size } from "../elements/tokens";
 import type { TextFieldVariant } from "./TextField";
 
 interface FieldGroupAwareProps {

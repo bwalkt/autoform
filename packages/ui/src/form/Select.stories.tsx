@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Select, SelectItem } from "../elements";
 
 const meta: Meta<typeof Select> = {
-  title: "Elements/Select",
+  title: "Form/Select",
   component: Select,
   parameters: {
     layout: "centered",
