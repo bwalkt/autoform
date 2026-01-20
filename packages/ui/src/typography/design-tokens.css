@@ -1,0 +1,35 @@
+/* Typography Design Tokens */
+
+:root {
+  /* Typography colors - Light mode */
+  --typography-color-default: #1a1a1a;
+  --typography-color-primary: hsl(var(--primary));
+  --typography-color-neutral: #6b7280;
+  --typography-color-info: #1d4ed8;
+  --typography-color-success: #047857;
+  --typography-color-warning: #b45309;
+  --typography-color-error: #b91c1c;
+}
+
+.dark {
+  /* Typography colors - Dark mode */
+  --typography-color-default: #fafafa;
+  --typography-color-primary: hsl(var(--primary));
+  --typography-color-neutral: #9ca3af;
+  --typography-color-info: #60a5fa;
+  --typography-color-success: #34d399;
+  --typography-color-warning: #fbbf24;
+  --typography-color-error: #f87171;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --typography-color-default: #fafafa;
+    --typography-color-primary: hsl(var(--primary));
+    --typography-color-neutral: #9ca3af;
+    --typography-color-info: #60a5fa;
+    --typography-color-success: #34d399;
+    --typography-color-warning: #fbbf24;
+    --typography-color-error: #f87171;
+  }
+}

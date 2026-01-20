@@ -1,0 +1,40 @@
+/* ============================================================================
+ * Layout Components CSS
+ * Following Radix Themes naming convention (rt-*)
+ * ============================================================================ */
+
+/* Container size CSS custom properties */
+:root {
+  --container-1: 28rem;   /* 448px */
+  --container-2: 43rem;   /* 688px */
+  --container-3: 55rem;   /* 880px */
+  --container-4: 71rem;   /* 1136px */
+}
+
+/* Section size CSS custom properties */
+:root {
+  --section-padding-1: 1.5rem;  /* 24px */
+  --section-padding-2: 2.5rem;  /* 40px */
+  --section-padding-3: 4rem;    /* 64px */
+  --section-padding-4: 6rem;    /* 96px */
+}
+
+/* Base layout component styles */
+.rt-Box,
+.rt-Flex,
+.rt-Grid,
+.rt-Container,
+.rt-Section {
+  box-sizing: border-box;
+}
+
+/* Container component */
+.rt-Container {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Section component */
+.rt-Section {
+  flex-shrink: 0;
+}

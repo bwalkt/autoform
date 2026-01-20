@@ -1,0 +1,220 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Box } from "./Box";
+
+const meta: Meta<typeof Box> = {
+  title: "Layouts/Box",
+  component: Box,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    as: {
+      control: "select",
+      options: ["div", "span"],
+    },
+    display: {
+      control: "select",
+      options: ["none", "block", "flex", "inline-flex", "grid", "inline-grid"],
+    },
+    p: {
+      control: "select",
+      options: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// ============================================================================
+// Basic Examples
+// ============================================================================
+
+export const Default: Story = {
+  args: {
+    p: "4",
+    children: "Basic Box with padding",
+    className: "bg-muted rounded-md",
+  },
+};
+
+export const AsSpan: Story = {
+  args: {
+    as: "span",
+    p: "2",
+    children: "Box as span",
+    className: "bg-primary text-primary-foreground rounded",
+  },
+};
+
+// ============================================================================
+// Padding Examples
+// ============================================================================
+
+export const PaddingScale: Story = {
+  render: () => (
+    <div className="space-y-2">
+      {(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] as const).map((p) => (
+        <Box key={p} p={p} className="bg-muted rounded">
+          <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+            p={p}
+          </span>
+        </Box>
+      ))}
+    </div>
+  ),
+};
+
+export const DirectionalPadding: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 gap-4">
+      <Box px="6" className="bg-muted rounded">
+        <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+          px=6
+        </span>
+      </Box>
+      <Box py="6" className="bg-muted rounded">
+        <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+          py=6
+        </span>
+      </Box>
+      <Box pt="6" className="bg-muted rounded">
+        <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+          pt=6
+        </span>
+      </Box>
+      <Box pb="6" className="bg-muted rounded">
+        <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+          pb=6
+        </span>
+      </Box>
+    </div>
+  ),
+};
+
+// ============================================================================
+// Responsive Examples
+// ============================================================================
+
+export const ResponsivePadding: Story = {
+  render: () => (
+    <Box
+      p={{ initial: "2", sm: "4", md: "6", lg: "8" }}
+      className="bg-muted rounded-md"
+    >
+      <span className="text-sm">
+        Responsive padding: p-2 → sm:p-4 → md:p-6 → lg:p-8
+      </span>
+    </Box>
+  ),
+};
+
+// ============================================================================
+// Sizing Examples
+// ============================================================================
+
+export const CustomSizing: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <Box width="200px" height="100px" className="bg-muted rounded-md flex items-center justify-center">
+        200px × 100px
+      </Box>
+      <Box width="100%" maxWidth="400px" p="4" className="bg-muted rounded-md">
+        100% width, max 400px
+      </Box>
+      <Box minHeight="150px" p="4" className="bg-muted rounded-md">
+        Min height 150px
+      </Box>
+    </div>
+  ),
+};
+
+// ============================================================================
+// Position Examples
+// ============================================================================
+
+export const Positioning: Story = {
+  render: () => (
+    <Box position="relative" height="200px" className="bg-muted rounded-md">
+      <Box
+        position="absolute"
+        top="2"
+        left="2"
+        p="2"
+        className="bg-primary text-primary-foreground rounded"
+      >
+        Top Left
+      </Box>
+      <Box
+        position="absolute"
+        top="2"
+        right="2"
+        p="2"
+        className="bg-primary text-primary-foreground rounded"
+      >
+        Top Right
+      </Box>
+      <Box
+        position="absolute"
+        bottom="2"
+        left="2"
+        p="2"
+        className="bg-primary text-primary-foreground rounded"
+      >
+        Bottom Left
+      </Box>
+      <Box
+        position="absolute"
+        bottom="2"
+        right="2"
+        p="2"
+        className="bg-primary text-primary-foreground rounded"
+      >
+        Bottom Right
+      </Box>
+    </Box>
+  ),
+};
+
+// ============================================================================
+// Display Examples
+// ============================================================================
+
+export const DisplayModes: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <Box display="block" p="4" className="bg-muted rounded">
+        display="block" (full width)
+      </Box>
+      <Box display="inline-block" p="4" className="bg-muted rounded">
+        display="inline-block"
+      </Box>
+      <Box display="flex" p="4" className="bg-muted rounded gap-2">
+        <span className="bg-primary text-primary-foreground px-2 py-1 rounded">Flex</span>
+        <span className="bg-primary text-primary-foreground px-2 py-1 rounded">Items</span>
+      </Box>
+    </div>
+  ),
+};
+
+// ============================================================================
+// Overflow Examples
+// ============================================================================
+
+export const OverflowBehavior: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 gap-4">
+      <Box overflow="auto" width="200px" height="100px" p="2" className="bg-muted rounded">
+        <div className="w-[300px] h-[200px] bg-primary/20 rounded p-2">
+          overflow="auto" - scrollable content
+        </div>
+      </Box>
+      <Box overflow="hidden" width="200px" height="100px" p="2" className="bg-muted rounded">
+        <div className="w-[300px] h-[200px] bg-primary/20 rounded p-2">
+          overflow="hidden" - clipped content
+        </div>
+      </Box>
+    </div>
+  ),
+};
