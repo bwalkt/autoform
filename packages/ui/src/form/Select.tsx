@@ -3,9 +3,9 @@
 import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { ChevronDown, CheckIcon } from "lucide-react";
-import { cn } from "../lib/utils";
-import { getSizeStyles, getRadiusStyles } from "../elements/utils";
-import type { Variant, Color, Radius, Size } from "../elements/tokens";
+import { cn } from "@/lib/utils";
+import { getSizeStyles, getRadiusStyles } from "@/elements/utils";
+import type { Variant, Color, Radius, Size } from "@/elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
 
 export interface SelectProps {

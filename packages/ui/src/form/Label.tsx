@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
-import { Text, type TextProps } from "../typography";
+import { cn } from "@/lib/utils";
+import { Text, type TextProps } from "@/typography";
 import { useFieldGroup } from "./FieldGroupContext";
-import type { Size } from "../elements/tokens";
+import type { Size } from "@/elements/tokens";
 
 // Map form Size to Typography size
 const sizeMap: Record<Size, TextProps["size"]> = {

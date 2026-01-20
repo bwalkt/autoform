@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { CheckboxCards } from "./CheckboxCards";
-import { Box } from "../layouts/Box";
+import { Box } from "@/layouts/Box";
 import { Wifi, Bluetooth, Nfc, Monitor, Smartphone, Tablet, Laptop } from "lucide-react";
 
 const meta: Meta<typeof CheckboxCards.Root> = {

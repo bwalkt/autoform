@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
-import { cn } from "../lib/utils";
-import type { Size, Color, Radius } from "../elements/tokens";
+import { cn } from "@/lib/utils";
+import type { Size, Color, Radius } from "@/elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
 import { Label } from "./Label";
 

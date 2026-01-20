@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn } from "../lib/utils";
-import { getSizeStyles, getRadiusStyles } from "../elements/utils";
-import type { Variant, Color, Radius, Size } from "../elements/tokens";
+import { cn } from "@/lib/utils";
+import { getSizeStyles, getRadiusStyles } from "@/elements/utils";
+import type { Variant, Color, Radius, Size } from "@/elements/tokens";
 
 export interface TextareaProps extends Omit<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,

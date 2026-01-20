@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TextField } from "./TextField";
-import { Box } from "../layouts/Box";
+import { Box } from "@/layouts/Box";
 import { Mail, Search, Eye, User, Lock, Phone } from "lucide-react";
 
 const meta: Meta<typeof TextField> = {

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { Size, FieldGroupLayout, TextFieldVariant } from "../elements/tokens";
+import type { Size, FieldGroupLayout, TextFieldVariant } from "@/elements/tokens";
 
 // Props for FieldGroupProvider (optional values)
 export interface FieldGroupContextValue {

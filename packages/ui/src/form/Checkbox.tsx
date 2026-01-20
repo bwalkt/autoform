@@ -4,9 +4,9 @@ import * as React from "react";
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { Check, Minus } from "lucide-react";
-import { cn } from "../lib/utils";
-import { Text } from "../typography";
-import type { Size, Color } from "../elements/tokens";
+import { cn } from "@/lib/utils";
+import { Text } from "@/typography";
+import type { Size, Color } from "@/elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
 import { Label } from "./Label";
 

@@ -3,9 +3,9 @@
 import * as React from "react";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
-import { cn } from "../lib/utils";
-import { Text } from "../typography";
-import type { Size, Color } from "../elements/tokens";
+import { cn } from "@/lib/utils";
+import { Text } from "@/typography";
+import type { Size, Color } from "@/elements/tokens";
 import { useFieldGroup } from "./FieldGroupContext";
 
 // Size configurations with CSS values for reliable styling
