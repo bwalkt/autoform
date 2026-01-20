@@ -251,6 +251,72 @@ export function getGridFlowClasses(prop: Responsive<GridFlow> | undefined): stri
   return classes.join(" ");
 }
 
+// Grid columns - map to Tailwind grid-cols-{n} classes
+const gridColumnsMap: Record<string, string> = {
+  "1": "grid-cols-1",
+  "2": "grid-cols-2",
+  "3": "grid-cols-3",
+  "4": "grid-cols-4",
+  "5": "grid-cols-5",
+  "6": "grid-cols-6",
+  "7": "grid-cols-7",
+  "8": "grid-cols-8",
+  "9": "grid-cols-9",
+  "10": "grid-cols-10",
+  "11": "grid-cols-11",
+  "12": "grid-cols-12",
+  "none": "grid-cols-none",
+};
+
+export type GridColumns = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "none";
+
+export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | undefined): string {
+  if (prop === undefined) return "";
+
+  if (typeof prop === "string") {
+    // If it's a known column count, use the class
+    if (gridColumnsMap[prop]) {
+      return gridColumnsMap[prop];
+    }
+    // Otherwise return empty (will fall back to style)
+    return "";
+  }
+
+  const classes: string[] = [];
+  if (prop.initial && gridColumnsMap[prop.initial]) {
+    classes.push(gridColumnsMap[prop.initial]);
+  }
+  if (prop.xs && gridColumnsMap[prop.xs]) {
+    classes.push(`xs:${gridColumnsMap[prop.xs]}`);
+  }
+  if (prop.sm && gridColumnsMap[prop.sm]) {
+    classes.push(`sm:${gridColumnsMap[prop.sm]}`);
+  }
+  if (prop.md && gridColumnsMap[prop.md]) {
+    classes.push(`md:${gridColumnsMap[prop.md]}`);
+  }
+  if (prop.lg && gridColumnsMap[prop.lg]) {
+    classes.push(`lg:${gridColumnsMap[prop.lg]}`);
+  }
+  if (prop.xl && gridColumnsMap[prop.xl]) {
+    classes.push(`xl:${gridColumnsMap[prop.xl]}`);
+  }
+
+  return classes.join(" ");
+}
+
+// Check if columns value can be handled by classes (is numeric preset)
+export function canUseGridColumnsClasses(prop: Responsive<string> | undefined): boolean {
+  if (prop === undefined) return false;
+
+  if (typeof prop === "string") {
+    return !!gridColumnsMap[prop];
+  }
+
+  // For responsive objects, check if all values are known
+  return Object.values(prop).every(val => !val || gridColumnsMap[val]);
+}
+
 // Grid columns/rows - returns style object for custom values
 export function getGridColumnsStyle(columns: Responsive<string> | undefined): React.CSSProperties {
   if (columns === undefined) return {};

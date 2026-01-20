@@ -9,6 +9,8 @@ import {
   getAlignItemsClasses,
   getJustifyContentClasses,
   getGapClasses,
+  getGridColumnsClasses,
+  canUseGridColumnsClasses,
   getGridColumnsStyle,
   getGridRowsStyle,
   getSharedLayoutClasses,
@@ -118,6 +120,9 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
     // Default to grid display if not specified
     const resolvedDisplay = display || "grid";
 
+    // Use classes for standard column counts, fall back to styles for custom values
+    const useColumnsClasses = canUseGridColumnsClasses(columns);
+
     const classes = cn(
       "rt-Grid",
       "box-border",
@@ -128,13 +133,14 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       getGapClasses(gap, "gap"),
       getGapClasses(gapX, "gap-x"),
       getGapClasses(gapY, "gap-y"),
+      useColumnsClasses && getGridColumnsClasses(columns),
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     );
 
-    // Build grid-specific styles
+    // Build grid-specific styles (only use style for columns if not using classes)
     const gridStyles: React.CSSProperties = {
-      ...getGridColumnsStyle(columns),
+      ...(!useColumnsClasses ? getGridColumnsStyle(columns) : {}),
       ...getGridRowsStyle(rows),
       ...(areas && typeof areas === "string" && { gridTemplateAreas: areas }),
     };

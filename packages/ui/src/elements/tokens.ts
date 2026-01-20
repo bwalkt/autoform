@@ -270,6 +270,35 @@ export type AlignSelf = (typeof layoutTokens.alignSelf)[number];
 export type JustifySelf = (typeof layoutTokens.justifySelf)[number];
 export type Spacing = (typeof layoutTokens.spacing)[number];
 
+// FieldGroup layout tokens
+export const fieldGroupTokens = {
+  // Form layout modes
+  layout: ["stacked", "inline", "grid", "side-labels", "sectioned"] as const,
+
+  // Grid column presets
+  gridColumns: ["1", "2", "3", "4", "6", "12"] as const,
+} as const;
+
+export type FieldGroupLayout = (typeof fieldGroupTokens.layout)[number];
+export type GridColumns = (typeof fieldGroupTokens.gridColumns)[number];
+
+// TextField variant tokens
+export const textFieldTokens = {
+  variant: [
+    "classic",
+    "solid",
+    "soft",
+    "surface",
+    "outline",
+    "ghost",
+    "floating-filled",
+    "floating-standard",
+    "floating-outlined",
+  ] as const,
+} as const;
+
+export type TextFieldVariant = (typeof textFieldTokens.variant)[number];
+
 // Responsive prop type helper
 export type Responsive<T> = T | {
   initial?: T;

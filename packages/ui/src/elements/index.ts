@@ -1,6 +1,7 @@
 // Form elements
-export { TextField, type TextFieldProps, type TextFieldVariant } from "./TextField";
-export { FieldGroup, type FieldGroupProps } from "./FieldGroup";
+export { TextField, type TextFieldProps } from "./TextField";
+export { FieldGroup, type FieldGroupProps, type FieldGroupSectionProps, type FieldGroupRowProps } from "./FieldGroup";
+export { withFieldGroup } from "./withFieldGroup";
 export { FieldGroupProvider, useFieldGroup, type FieldGroupContextValue } from "./FieldGroupContext";
 export { Select, SelectItem, type SelectProps } from "./Select";
 export { Textarea, type TextareaProps } from "./Textarea";
@@ -129,6 +130,8 @@ export {
 export {
   designTokens,
   layoutTokens,
+  fieldGroupTokens,
+  textFieldTokens,
   type Size,
   type Variant,
   type Color,
@@ -146,6 +149,9 @@ export {
   type JustifySelf,
   type Spacing,
   type Responsive,
+  type FieldGroupLayout,
+  type GridColumns,
+  type TextFieldVariant,
 } from "./tokens";
 export { getElementStyles, getResponsiveSize, getSizeStyles, getRadiusStyles } from "./utils";
 

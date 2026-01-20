@@ -4,19 +4,10 @@ import * as React from "react";
 import { cn } from "../lib/utils";
 import { getSizeStyles, getRadiusStyles } from "./utils";
 import { useFieldGroup } from "./FieldGroupContext";
-import type { Color, Radius, Size } from "./tokens";
+import type { Color, Radius, Size, TextFieldVariant } from "./tokens";
 
-// Combined variant type - regular and floating label variants
-export type TextFieldVariant =
-  | "classic"
-  | "solid"
-  | "soft"
-  | "surface"
-  | "outline"
-  | "ghost"
-  | "floating-filled"
-  | "floating-standard"
-  | "floating-outlined";
+// Re-export for backward compatibility
+export type { TextFieldVariant } from "./tokens";
 
 export interface TextFieldProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
@@ -154,6 +145,9 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
 
     const floatingStyle = getFloatingStyle(variant);
 
+    // For floating variants, use placeholder as label if no label provided
+    const effectiveLabel = label || (isFloatingVariant(variant) ? props.placeholder : undefined);
+
     // If floating variant, render the floating version
     if (isFloatingVariant(variant)) {
       return (
@@ -212,7 +206,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             {...props}
           />
 
-          {label && (
+          {effectiveLabel && (
             <label
               htmlFor={inputId}
               className={cn(
@@ -249,7 +243,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                 error && "text-red-500 peer-focus:text-red-500",
               )}
             >
-              {label}
+              {effectiveLabel}
             </label>
           )}
 

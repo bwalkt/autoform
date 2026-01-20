@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import type { Size } from "./tokens";
-import type { TextFieldVariant } from "./TextField";
+import type { Size, FieldGroupLayout, TextFieldVariant } from "./tokens";
 
 export interface FieldGroupContextValue {
   size?: Size;
   variant?: TextFieldVariant;
+  layout?: FieldGroupLayout;
 }
 
 const FieldGroupContext = React.createContext<FieldGroupContextValue | null>(null);
