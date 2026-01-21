@@ -179,12 +179,12 @@ export const MorningAfternoon: Story = {
     return (
       <div className="flex flex-col gap-4 w-[200px]">
         <div>
-          <Label className="mb-1 block">Morning (24h)</Label>
-          <TimePicker value={morning} onChange={setMorning} />
+          <Label htmlFor="morning-time" className="mb-1 block">Morning (24h)</Label>
+          <TimePicker id="morning-time" value={morning} onChange={setMorning} />
         </div>
         <div>
-          <Label className="mb-1 block">Afternoon (12h)</Label>
-          <TimePicker value={afternoon} onChange={setAfternoon} use12HourFormat />
+          <Label htmlFor="afternoon-time" className="mb-1 block">Afternoon (12h)</Label>
+          <TimePicker id="afternoon-time" value={afternoon} onChange={setAfternoon} use12HourFormat />
         </div>
       </div>
     );

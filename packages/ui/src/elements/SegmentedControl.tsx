@@ -19,7 +19,7 @@ const segmentSizes = {
     item: "px-4 h-9",
   },
   "4": {
-    root: "h-13 p-1.5 text-base gap-1",
+    root: "h-14 p-1.5 text-base gap-1",
     item: "px-5 h-10",
   },
 };

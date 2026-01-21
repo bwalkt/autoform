@@ -3,7 +3,7 @@
 :root {
   /* Typography colors - Light mode */
   --typography-color-default: #1a1a1a;
-  --typography-color-primary: hsl(var(--primary));
+  --typography-color-primary: var(--primary);
   --typography-color-neutral: #6b7280;
   --typography-color-info: #1d4ed8;
   --typography-color-success: #047857;
@@ -14,7 +14,7 @@
 .dark {
   /* Typography colors - Dark mode */
   --typography-color-default: #fafafa;
-  --typography-color-primary: hsl(var(--primary));
+  --typography-color-primary: var(--primary);
   --typography-color-neutral: #9ca3af;
   --typography-color-info: #60a5fa;
   --typography-color-success: #34d399;
@@ -25,7 +25,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     --typography-color-default: #fafafa;
-    --typography-color-primary: hsl(var(--primary));
+    --typography-color-primary: var(--primary);
     --typography-color-neutral: #9ca3af;
     --typography-color-info: #60a5fa;
     --typography-color-success: #34d399;
