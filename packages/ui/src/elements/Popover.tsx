@@ -73,7 +73,7 @@ PopoverTrigger.displayName = "Popover.Trigger";
 // Content
 // ============================================================================
 
-export type MaxWidth = "xs" | "sm" | "md" | "lg" | "xl";
+export type MaxWidth = "xs" | "sm" | "md" | "lg" | "xl" | "none";
 
 const maxWidthStyles: Record<MaxWidth, string> = {
   xs: "max-w-xs",
@@ -81,6 +81,7 @@ const maxWidthStyles: Record<MaxWidth, string> = {
   md: "max-w-md",
   lg: "max-w-lg",
   xl: "max-w-xl",
+  none: "",
 };
 
 export interface PopoverContentProps {

@@ -185,6 +185,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <ButtonPrimitive
         ref={ref}
+        type="button"
         className={buttonClasses}
         style={combinedStyles}
         disabled={disabled || loading}
