@@ -1,9 +1,7 @@
-"use client";
-
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DatePicker } from "./DatePicker";
-import { FieldGroup } from "../FieldGroup";
+import { FieldGroup, Label } from "@/form";
 
 const meta: Meta<typeof DatePicker> = {
   title: "Form/Date/DatePicker",
@@ -163,27 +161,27 @@ export const Variants: Story = {
     return (
       <div className="flex flex-col gap-4 w-[280px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Outline (default)</label>
+          <Label className="mb-1 block">Outline (default)</Label>
           <DatePicker value={date1} onChange={setDate1} variant="outline" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Solid</label>
+          <Label className="mb-1 block">Solid</Label>
           <DatePicker value={date2} onChange={setDate2} variant="solid" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft</label>
+          <Label className="mb-1 block">Soft</Label>
           <DatePicker value={date3} onChange={setDate3} variant="soft" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Surface</label>
+          <Label className="mb-1 block">Surface</Label>
           <DatePicker value={date4} onChange={setDate4} variant="surface" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Ghost</label>
+          <Label className="mb-1 block">Ghost</Label>
           <DatePicker value={date5} onChange={setDate5} variant="ghost" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Classic</label>
+          <Label className="mb-1 block">Classic</Label>
           <DatePicker value={date6} onChange={setDate6} variant="classic" />
         </div>
       </div>
@@ -268,23 +266,23 @@ export const Colors: Story = {
     return (
       <div className="flex flex-col gap-4 w-[280px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Primary</label>
+          <Label className="mb-1 block">Primary</Label>
           <DatePicker value={date1} onChange={setDate1} variant="solid" color="primary" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Success</label>
+          <Label className="mb-1 block">Success</Label>
           <DatePicker value={date2} onChange={setDate2} variant="solid" color="success" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Warning</label>
+          <Label className="mb-1 block">Warning</Label>
           <DatePicker value={date3} onChange={setDate3} variant="solid" color="warning" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Error</label>
+          <Label className="mb-1 block">Error</Label>
           <DatePicker value={date4} onChange={setDate4} variant="solid" color="error" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Info</label>
+          <Label className="mb-1 block">Info</Label>
           <DatePicker value={date5} onChange={setDate5} variant="solid" color="info" />
         </div>
       </div>

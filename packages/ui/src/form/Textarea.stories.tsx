@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Textarea } from "./Textarea";
+import { Label } from "@/form";
 
 const meta: Meta<typeof Textarea> = {
   title: "Form/Textarea",
@@ -103,8 +104,8 @@ export const Disabled: Story = {
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
-      <label className="text-sm font-medium">Description</label>
-      <Textarea placeholder="Enter a detailed description..." rows={4} />
+      <Label htmlFor="description">Description</Label>
+      <Textarea id="description" placeholder="Enter a detailed description..." rows={4} />
       <p className="text-xs text-muted-foreground">
         Provide a detailed description of your issue.
       </p>
@@ -117,8 +118,9 @@ export const CharacterCount: Story = {
     const maxLength = 200;
     return (
       <div className="w-80 space-y-2">
-        <label className="text-sm font-medium">Bio</label>
+        <Label htmlFor="bio">Bio</Label>
         <Textarea
+          id="bio"
           placeholder="Tell us about yourself..."
           maxLength={maxLength}
           rows={3}
@@ -136,16 +138,18 @@ export const ContactForm: Story = {
     <div className="w-96 space-y-4 p-4 border rounded-lg">
       <h3 className="font-semibold">Contact Us</h3>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Subject</label>
+        <Label htmlFor="subject">Subject</Label>
         <input
+          id="subject"
           type="text"
           placeholder="What's this about?"
           className="w-full px-3 py-2 text-sm border rounded-md"
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Message</label>
+        <Label htmlFor="message">Message</Label>
         <Textarea
+          id="message"
           placeholder="How can we help you?"
           rows={5}
           resize="none"
@@ -161,8 +165,9 @@ export const ContactForm: Story = {
 export const CodeInput: Story = {
   render: () => (
     <div className="w-96 space-y-2">
-      <label className="text-sm font-medium">JSON Configuration</label>
+      <Label htmlFor="json-config">JSON Configuration</Label>
       <Textarea
+        id="json-config"
         className="font-mono"
         placeholder='{"key": "value"}'
         rows={8}

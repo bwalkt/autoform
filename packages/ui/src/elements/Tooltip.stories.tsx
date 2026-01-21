@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Tooltip, SimpleTooltip, Button, IconButton } from "@/elements";
+import { Label } from "@/form";
 import { Info, HelpCircle, Settings, Copy, Trash2 } from "lucide-react";
 
 const meta: Meta = {
@@ -148,7 +149,7 @@ export const FormFieldHelp: StoryObj = {
   render: () => (
     <div className="w-72 space-y-2">
       <div className="flex items-center gap-2">
-        <label className="text-sm font-medium">API Key</label>
+        <Label>API Key</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
             <button

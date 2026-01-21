@@ -148,21 +148,21 @@ const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
 
 TabsList.displayName = "Tabs.List";
 
-// Color styles for trigger
+// Color styles for trigger - using aria-selected for Base UI compatibility
 const triggerColorStyles: Record<Color, string> = {
   default:
-    "data-[selected]:text-foreground data-[selected]:bg-background data-[selected]:shadow-sm",
+    "aria-selected:text-foreground aria-selected:bg-background aria-selected:shadow",
   primary:
-    "data-[selected]:text-primary data-[selected]:bg-primary/10",
+    "aria-selected:text-primary aria-selected:bg-primary/10 aria-selected:shadow-sm",
   neutral:
-    "data-[selected]:text-muted-foreground data-[selected]:bg-muted",
-  info: "data-[selected]:text-blue-600 data-[selected]:bg-blue-500/10 dark:data-[selected]:text-blue-400",
+    "aria-selected:text-foreground aria-selected:bg-background aria-selected:shadow-sm",
+  info: "aria-selected:text-blue-600 aria-selected:bg-blue-500/10 aria-selected:shadow-sm dark:aria-selected:text-blue-400",
   success:
-    "data-[selected]:text-green-600 data-[selected]:bg-green-500/10 dark:data-[selected]:text-green-400",
+    "aria-selected:text-green-600 aria-selected:bg-green-500/10 aria-selected:shadow-sm dark:aria-selected:text-green-400",
   warning:
-    "data-[selected]:text-amber-600 data-[selected]:bg-amber-500/10 dark:data-[selected]:text-amber-400",
+    "aria-selected:text-amber-600 aria-selected:bg-amber-500/10 aria-selected:shadow-sm dark:aria-selected:text-amber-400",
   error:
-    "data-[selected]:text-red-600 data-[selected]:bg-red-500/10 dark:data-[selected]:text-red-400",
+    "aria-selected:text-red-600 aria-selected:bg-red-500/10 aria-selected:shadow-sm dark:aria-selected:text-red-400",
 };
 
 // ============================================================================

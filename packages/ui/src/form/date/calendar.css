@@ -16,13 +16,13 @@
 }
 
 .rdp-calendar .rdp-day_button:hover:not([disabled]) {
-  background-color: hsl(var(--accent));
-  color: hsl(var(--accent-foreground));
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 .rdp-calendar .rdp-day_button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px hsl(var(--ring)), 0 0 0 4px hsl(var(--background));
+  box-shadow: 0 0 0 2px var(--ring), 0 0 0 4px var(--background);
 }
 
 /* Selected state (single date mode) */
@@ -64,13 +64,13 @@
 /* Range middle */
 .rdp-calendar .rdp-range_middle > .rdp-day_button {
   background-color: var(--cal-accent-soft);
-  color: hsl(var(--foreground));
+  color: var(--foreground);
   border-radius: 0;
 }
 
 .rdp-calendar .rdp-range_middle > .rdp-day_button:hover {
   background-color: var(--cal-accent-soft);
-  color: hsl(var(--foreground));
+  color: var(--foreground);
 }
 
 /* Today indicator (when not selected) */
@@ -81,18 +81,18 @@
 
 /* Outside days (previous/next month) */
 .rdp-calendar .rdp-outside {
-  color: hsl(var(--muted-foreground));
+  color: var(--muted-foreground);
   opacity: 0.5;
 }
 
 .rdp-calendar .rdp-outside > .rdp-day_button:hover {
-  background-color: hsl(var(--accent));
-  color: hsl(var(--accent-foreground));
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 /* Disabled days */
 .rdp-calendar .rdp-disabled {
-  color: hsl(var(--muted-foreground));
+  color: var(--muted-foreground);
   opacity: 0.5;
 }
 

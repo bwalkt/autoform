@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { TimePicker, type TimeValue } from "./TimePicker";
-import { FieldGroup } from "../FieldGroup";
+import { FieldGroup, Label } from "@/form";
 
 const meta: Meta<typeof TimePicker> = {
   title: "Form/Date/TimePicker",
@@ -179,12 +179,12 @@ export const MorningAfternoon: Story = {
     return (
       <div className="flex flex-col gap-4 w-[200px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Morning (24h)</label>
-          <TimePicker value={morning} onChange={setMorning} />
+          <Label htmlFor="morning-time" className="mb-1 block">Morning (24h)</Label>
+          <TimePicker id="morning-time" value={morning} onChange={setMorning} />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Afternoon (12h)</label>
-          <TimePicker value={afternoon} onChange={setAfternoon} use12HourFormat />
+          <Label htmlFor="afternoon-time" className="mb-1 block">Afternoon (12h)</Label>
+          <TimePicker id="afternoon-time" value={afternoon} onChange={setAfternoon} use12HourFormat />
         </div>
       </div>
     );
@@ -204,27 +204,27 @@ export const Variants: Story = {
     return (
       <div className="flex flex-col gap-4 w-[200px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Outline (default)</label>
+          <Label className="mb-1 block">Outline (default)</Label>
           <TimePicker value={time1} onChange={setTime1} variant="outline" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Solid</label>
+          <Label className="mb-1 block">Solid</Label>
           <TimePicker value={time2} onChange={setTime2} variant="solid" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft</label>
+          <Label className="mb-1 block">Soft</Label>
           <TimePicker value={time3} onChange={setTime3} variant="soft" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Surface</label>
+          <Label className="mb-1 block">Surface</Label>
           <TimePicker value={time4} onChange={setTime4} variant="surface" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Ghost</label>
+          <Label className="mb-1 block">Ghost</Label>
           <TimePicker value={time5} onChange={setTime5} variant="ghost" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Classic</label>
+          <Label className="mb-1 block">Classic</Label>
           <TimePicker value={time6} onChange={setTime6} variant="classic" />
         </div>
       </div>
@@ -244,23 +244,23 @@ export const Colors: Story = {
     return (
       <div className="flex flex-col gap-4 w-[200px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Primary</label>
+          <Label className="mb-1 block">Primary</Label>
           <TimePicker value={time1} onChange={setTime1} variant="solid" color="primary" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Success</label>
+          <Label className="mb-1 block">Success</Label>
           <TimePicker value={time2} onChange={setTime2} variant="solid" color="success" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Warning</label>
+          <Label className="mb-1 block">Warning</Label>
           <TimePicker value={time3} onChange={setTime3} variant="solid" color="warning" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Error</label>
+          <Label className="mb-1 block">Error</Label>
           <TimePicker value={time4} onChange={setTime4} variant="solid" color="error" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Info</label>
+          <Label className="mb-1 block">Info</Label>
           <TimePicker value={time5} onChange={setTime5} variant="solid" color="info" />
         </div>
       </div>
@@ -279,19 +279,19 @@ export const SoftColors: Story = {
     return (
       <div className="flex flex-col gap-4 w-[200px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft Primary</label>
+          <Label className="mb-1 block">Soft Primary</Label>
           <TimePicker value={time1} onChange={setTime1} variant="soft" color="primary" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft Success</label>
+          <Label className="mb-1 block">Soft Success</Label>
           <TimePicker value={time2} onChange={setTime2} variant="soft" color="success" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft Warning</label>
+          <Label className="mb-1 block">Soft Warning</Label>
           <TimePicker value={time3} onChange={setTime3} variant="soft" color="warning" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft Error</label>
+          <Label className="mb-1 block">Soft Error</Label>
           <TimePicker value={time4} onChange={setTime4} variant="soft" color="error" />
         </div>
       </div>

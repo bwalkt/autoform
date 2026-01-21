@@ -70,7 +70,6 @@ export { DropdownMenu } from "./DropdownMenu";
 // Theme
 export {
   Theme,
-  ThemePanel,
   useThemeContext,
   type ThemeProps,
   type ThemeContextValue,

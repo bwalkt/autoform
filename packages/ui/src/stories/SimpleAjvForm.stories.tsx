@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type React from 'react'
 import { useState } from 'react'
+import { Label } from '@/form'
 
 // Let's first create a manual form to test the UI without complex imports
 interface SimpleFormData {
@@ -77,7 +78,7 @@ const SimpleAjvFormDemo = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name Field */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+          <Label className="block mb-1">Full Name *</Label>
           <input
             type="text"
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -92,7 +93,7 @@ const SimpleAjvFormDemo = () => {
 
         {/* Email Field */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+          <Label className="block mb-1">Email Address *</Label>
           <input
             type="email"
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -107,7 +108,7 @@ const SimpleAjvFormDemo = () => {
 
         {/* Age Field */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Age *</label>
+          <Label className="block mb-1">Age *</Label>
           <input
             type="number"
             min="18"
@@ -128,7 +129,7 @@ const SimpleAjvFormDemo = () => {
 
         {/* Skills Array */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Skills</label>
+          <Label className="block mb-2">Skills</Label>
           <div className="space-y-2">
             {formData.skills.map((skill, index) => (
               <div key={index} className="flex gap-2">
@@ -167,9 +168,9 @@ const SimpleAjvFormDemo = () => {
             checked={formData.isActive}
             onChange={e => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
           />
-          <label htmlFor="isActive" className="ml-2 block text-sm text-gray-700">
+          <Label htmlFor="isActive" className="ml-2 block">
             Active user account
-          </label>
+          </Label>
         </div>
 
         {/* Submit Button */}

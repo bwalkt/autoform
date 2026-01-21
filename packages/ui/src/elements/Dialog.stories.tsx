@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Dialog, Button, TextField } from "@/elements";
+import { Label } from "@/form";
 
 const meta: Meta = {
   title: "Elements/Dialog",
@@ -27,12 +28,12 @@ export const Default: StoryObj = {
         <Dialog.Body>
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Name</label>
-              <TextField placeholder="Enter your name" />
+              <Label htmlFor="name">Name</Label>
+              <TextField id="name" placeholder="Enter your name" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
-              <TextField type="email" placeholder="Enter your email" />
+              <Label htmlFor="email">Email</Label>
+              <TextField id="email" type="email" placeholder="Enter your email" />
             </div>
           </div>
         </Dialog.Body>
@@ -98,21 +99,21 @@ export const WithForm: StoryObj = {
           <form className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">First Name</label>
-                <TextField placeholder="John" />
+                <Label htmlFor="first-name">First Name</Label>
+                <TextField id="first-name" placeholder="John" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Last Name</label>
-                <TextField placeholder="Doe" />
+                <Label htmlFor="last-name">Last Name</Label>
+                <TextField id="last-name" placeholder="Doe" />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
-              <TextField type="email" placeholder="john@example.com" />
+              <Label htmlFor="create-email">Email</Label>
+              <TextField id="create-email" type="email" placeholder="john@example.com" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Password</label>
-              <TextField type="password" placeholder="Create a password" />
+              <Label htmlFor="password">Password</Label>
+              <TextField id="password" type="password" placeholder="Create a password" />
             </div>
           </form>
         </Dialog.Body>

@@ -103,6 +103,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     return (
       <button
         ref={ref}
+        type="button"
         disabled={disabled || loading}
         className={cn(
           "inline-flex items-center justify-center transition-colors",

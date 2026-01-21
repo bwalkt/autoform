@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./Button";
-import { TextField } from "@/form/TextField";
+import { TextField, Label } from "@/form";
 import { Tabs } from "./Tabs";
 import { SegmentedControl } from "./SegmentedControl";
 import { Card } from "./Card";
@@ -386,10 +386,10 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
     const colors = config.colors[mode];
     const setVars: string[] = [];
 
-    // Colors
+    // Colors - wrap HSL values in hsl() function
     for (const [key, value] of Object.entries(colors)) {
       const cssVar = `--${camelToKebab(key)}`;
-      root.style.setProperty(cssVar, value);
+      root.style.setProperty(cssVar, `hsl(${value})`);
       setVars.push(cssVar);
     }
 
@@ -435,7 +435,7 @@ function camelToKebab(str: string): string {
 function generateCSS(config: ThemeConfig): string {
   const generateColorVars = (colors: ThemeColors) => {
     return Object.entries(colors)
-      .map(([key, value]) => `    --${camelToKebab(key)}: ${value};`)
+      .map(([key, value]) => `    --${camelToKebab(key)}: hsl(${value});`)
       .join("\n");
   };
 
@@ -493,7 +493,7 @@ const ColorInput: React.FC<ColorInputProps> = ({ label, value, onChange }) => {
       </Flex>
       <Flex gap="2">
         <Box className="flex-1">
-          <label htmlFor={`${inputId}-h`} className="text-[10px] text-muted-foreground block mb-1">H</label>
+          <Label htmlFor={`${inputId}-h`} size="1" className="block mb-1">H</Label>
           <TextField
             id={`${inputId}-h`}
             type="number"
@@ -503,7 +503,7 @@ const ColorInput: React.FC<ColorInputProps> = ({ label, value, onChange }) => {
           />
         </Box>
         <Box className="flex-1">
-          <label htmlFor={`${inputId}-s`} className="text-[10px] text-muted-foreground block mb-1">S</label>
+          <Label htmlFor={`${inputId}-s`} size="1" className="block mb-1">S</Label>
           <TextField
             id={`${inputId}-s`}
             type="number"
@@ -513,7 +513,7 @@ const ColorInput: React.FC<ColorInputProps> = ({ label, value, onChange }) => {
           />
         </Box>
         <Box className="flex-1">
-          <label htmlFor={`${inputId}-l`} className="text-[10px] text-muted-foreground block mb-1">L</label>
+          <Label htmlFor={`${inputId}-l`} size="1" className="block mb-1">L</Label>
           <TextField
             id={`${inputId}-l`}
             type="number"
@@ -634,7 +634,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
 
       {/* Presets */}
       <Box className="border-b p-4">
-        <label className="text-sm font-medium mb-2 block">Presets</label>
+        <Label className="mb-2 block">Presets</Label>
         <Flex wrap="wrap" gap="2">
           {Object.keys(presetThemes).map((preset) => {
             const presetColors = presetThemes[preset]?.colors?.[editor.mode];
@@ -660,7 +660,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
 
       {/* Current Color Preview */}
       <Box className="border-b p-4">
-        <label className="text-sm font-medium mb-2 block">Current Primary</label>
+        <Label className="mb-2 block">Current Primary</Label>
         <Flex align="center" gap="3">
           <Box
             className="w-12 h-12 rounded-lg border"
@@ -675,7 +675,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
 
       {/* Mode Toggle */}
       <Box className="border-b p-4">
-        <label className="text-sm font-medium mb-2 block">Mode</label>
+        <Label className="mb-2 block">Mode</Label>
         <SegmentedControl.Root
           value={editor.mode}
           onValueChange={(value) => editor.setMode(value as "light" | "dark")}
@@ -720,7 +720,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
           <Tabs.Content value="typography" className="p-4">
             <Flex direction="column" gap="4">
               <Box>
-                <label htmlFor="font-sans" className="text-sm font-medium mb-2 block">Font Sans</label>
+                <Label htmlFor="font-sans" className="mb-2 block">Font Sans</Label>
                 <TextField
                   id="font-sans"
                   value={editor.config.typography.fontSans}
@@ -728,7 +728,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 />
               </Box>
               <Box>
-                <label htmlFor="font-serif" className="text-sm font-medium mb-2 block">Font Serif</label>
+                <Label htmlFor="font-serif" className="mb-2 block">Font Serif</Label>
                 <TextField
                   id="font-serif"
                   value={editor.config.typography.fontSerif}
@@ -736,7 +736,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 />
               </Box>
               <Box>
-                <label htmlFor="font-mono" className="text-sm font-medium mb-2 block">Font Mono</label>
+                <Label htmlFor="font-mono" className="mb-2 block">Font Mono</Label>
                 <TextField
                   id="font-mono"
                   value={editor.config.typography.fontMono}
@@ -744,7 +744,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 />
               </Box>
               <Box>
-                <label htmlFor="letter-spacing" className="text-sm font-medium mb-2 block">Letter Spacing</label>
+                <Label htmlFor="letter-spacing" className="mb-2 block">Letter Spacing</Label>
                 <TextField
                   id="letter-spacing"
                   value={editor.config.typography.letterSpacing}
@@ -758,7 +758,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
           <Tabs.Content value="layout" className="p-4">
             <Flex direction="column" gap="4">
               <Box>
-                <label htmlFor="border-radius" className="text-sm font-medium mb-2 block">Border Radius</label>
+                <Label htmlFor="border-radius" className="mb-2 block">Border Radius</Label>
                 <TextField
                   id="border-radius"
                   value={editor.config.layout.radius}
@@ -779,7 +779,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 </Flex>
               </Box>
               <Box>
-                <label htmlFor="base-spacing" className="text-sm font-medium mb-2 block">Base Spacing</label>
+                <Label htmlFor="base-spacing" className="mb-2 block">Base Spacing</Label>
                 <TextField
                   id="base-spacing"
                   value={editor.config.layout.spacing}
@@ -801,7 +801,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 </Button>
               </Flex>
               <Box>
-                <label className="text-sm font-medium mb-2 block">CSS Output</label>
+                <Label className="mb-2 block">CSS Output</Label>
                 <Card.Root className="p-0">
                   <ScrollArea className="max-h-96">
                     <pre className="p-4 text-xs font-mono whitespace-pre-wrap">
@@ -861,7 +861,7 @@ export const ThemePreview: React.FC<{ className?: string }> = ({ className }) =>
               id="preview-checkbox"
               className="h-4 w-4 rounded border-input accent-primary"
             />
-            <label htmlFor="preview-checkbox" className="text-sm">Checkbox label</label>
+            <Label htmlFor="preview-checkbox">Checkbox label</Label>
           </Flex>
         </Flex>
       </Box>
