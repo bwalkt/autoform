@@ -305,8 +305,17 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
 
     const handleFilesAdded = React.useCallback(
       async (acceptedFiles: File[]) => {
-        // Create UploadedFile objects
-        const newFiles: UploadedFile[] = acceptedFiles.map((file) => ({
+        // Calculate available slots to prevent uploading files that won't be tracked
+        const availableSlots = multiple
+          ? Math.max(0, maxFiles - files.length)
+          : files.length >= 1
+            ? 0
+            : 1;
+        const accepted = availableSlots > 0 ? acceptedFiles.slice(0, availableSlots) : [];
+        if (accepted.length === 0) return;
+
+        // Create UploadedFile objects only for files that fit within maxFiles
+        const newFiles: UploadedFile[] = accepted.map((file) => ({
           id: generateId(),
           file,
           preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : undefined,
@@ -314,10 +323,10 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
           status: "pending" as const,
         }));
 
-        const updatedFiles = [...files, ...newFiles].slice(0, maxFiles);
+        const updatedFiles = [...files, ...newFiles];
         setFiles(updatedFiles);
         onChange?.(updatedFiles);
-        onFilesAdded?.(acceptedFiles);
+        onFilesAdded?.(accepted);
 
         // If onUpload is provided, handle upload automatically
         if (onUpload) {
@@ -367,7 +376,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
           }
         }
       },
-      [files, maxFiles, onChange, onFilesAdded, onUpload],
+      [files, maxFiles, multiple, onChange, onFilesAdded, onUpload],
     );
 
     const handleRemove = React.useCallback(

@@ -14,6 +14,9 @@ export { REGEXP_ONLY_DIGITS, REGEXP_ONLY_CHARS, REGEXP_ONLY_DIGITS_AND_CHARS };
 
 export type InputOTPVariant = "outline" | "filled" | "minimal";
 
+/** Derive pattern type from OTPInput for maintainability */
+type OTPInputPattern = React.ComponentProps<typeof OTPInput>["pattern"];
+
 export interface InputOTPProps {
   /** Number of OTP digits/characters */
   maxLength?: number;
@@ -26,7 +29,7 @@ export interface InputOTPProps {
   /** Visual variant */
   variant?: InputOTPVariant;
   /** Validation pattern (use REGEXP_ONLY_DIGITS, REGEXP_ONLY_CHARS, or REGEXP_ONLY_DIGITS_AND_CHARS) */
-  pattern?: string;
+  pattern?: OTPInputPattern;
   /** Input mode for mobile keyboards */
   inputMode?: "numeric" | "text" | "decimal" | "tel";
   /** Whether the input is disabled */
@@ -147,21 +150,30 @@ export const InputOTP = React.forwardRef<HTMLInputElement, InputOTPProps>(
     // Render slots with optional grouping
     const renderSlots = React.useCallback(
       (slots: Array<{ char: string | null; isActive: boolean; hasFakeCaret: boolean }>) => {
+        // Helper to render ungrouped slots
+        const renderUngrouped = () => (
+          <div className="flex gap-2">
+            {slots.map((slot, idx) => (
+              <Slot
+                key={idx}
+                {...slot}
+                variant={variant}
+                error={error}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+        );
+
         if (!groups || groups.length === 0) {
           // No grouping - render all slots inline
-          return (
-            <div className="flex gap-2">
-              {slots.map((slot, idx) => (
-                <Slot
-                  key={idx}
-                  {...slot}
-                  variant={variant}
-                  error={error}
-                  disabled={disabled}
-                />
-              ))}
-            </div>
-          );
+          return renderUngrouped();
+        }
+
+        // Guard: if groups don't match slot count, fall back to ungrouped
+        const totalGroupSlots = groups.reduce((sum, size) => sum + size, 0);
+        if (totalGroupSlots !== slots.length) {
+          return renderUngrouped();
         }
 
         // With grouping - split slots into groups with separators

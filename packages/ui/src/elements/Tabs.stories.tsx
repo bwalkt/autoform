@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Tabs, TextField, Button, Switch } from "@/elements";
-import { Label } from "@/form";
+import { Tabs, Button } from "@/elements";
+import { Label, TextField, Switch } from "@/form";
 
 const meta: Meta = {
   title: "Elements/Tabs",

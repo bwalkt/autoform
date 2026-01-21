@@ -185,8 +185,13 @@ export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>(
     // Get the mask pattern
     const maskPattern = getMaskPattern(mask);
 
+    // Memoize the mask ref to avoid recreating on every render
+    const maskRef = React.useMemo(
+      () => withMask(maskPattern, maskOptions),
+      [maskPattern, maskOptions],
+    );
+
     // Combine refs - withMask returns a ref callback
-    const maskRef = withMask(maskPattern, maskOptions);
     const combinedRef = React.useCallback(
       (node: HTMLInputElement | null) => {
         // Handle the forwarded ref

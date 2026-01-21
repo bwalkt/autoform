@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Text, Heading, Em, Strong, Code, Quote, Blockquote } from "@bwalkt/ui/elements";
 
 const meta: Meta = {

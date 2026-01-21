@@ -344,6 +344,25 @@ export const PaymentForm: Story = {
   ),
 };
 
+// Human-readable placeholder examples for complex mask patterns
+const presetPlaceholders: Record<string, string> = {
+  phone: "(555) 555-5555",
+  phoneInternational: "+1 (555) 555-5555",
+  date: "12/31/2024",
+  dateISO: "2024-12-31",
+  time: "14:30",
+  time12h: "02:30 PM",
+  ssn: "123-45-6789",
+  zip: "12345",
+  zipPlus4: "12345-6789",
+  creditCard: "4111 1111 1111 1111",
+  cvv: "123",
+  expiry: "12/25",
+  currency: "$ 1,234",
+  percentage: "50%",
+  ipAddress: "192.168.1.1",
+};
+
 // All presets showcase
 export const AllPresets: Story = {
   render: () => (
@@ -357,7 +376,7 @@ export const AllPresets: Story = {
           <InputMask
             id={name}
             mask={name as keyof typeof maskPresets}
-            placeholder={pattern.replace(/9/g, "0").replace(/a/g, "X")}
+            placeholder={presetPlaceholders[name] ?? pattern.replace(/9/g, "0").replace(/a/g, "X")}
             size="1"
           />
         </div>
