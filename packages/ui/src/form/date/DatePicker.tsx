@@ -216,7 +216,9 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                   disabled={disabled}
                   onClick={() => setOpen(true)}
                   className="pointer-events-auto cursor-pointer hover:text-foreground disabled:cursor-not-allowed"
-                  aria-label="Pick a date"
+                  aria-label="Open date picker"
+                  aria-haspopup="dialog"
+                  aria-expanded={open}
                 >
                   <CalendarIcon className="h-4 w-4" />
                 </button>

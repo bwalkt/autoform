@@ -19,14 +19,14 @@ export type CalendarProps = DayPickerProps & {
 };
 
 // Direct color values for calendar selections
-const colorMap: Record<Color, { accent: string; soft: string }> = {
-  default: { accent: "#0d9488", soft: "rgba(13, 148, 136, 0.1)" },
-  primary: { accent: "#0d9488", soft: "rgba(13, 148, 136, 0.1)" },
-  neutral: { accent: "#6b7280", soft: "rgba(107, 114, 128, 0.1)" },
-  info: { accent: "#3b82f6", soft: "rgba(59, 130, 246, 0.1)" },
-  success: { accent: "#22c55e", soft: "rgba(34, 197, 94, 0.1)" },
-  warning: { accent: "#f59e0b", soft: "rgba(245, 158, 11, 0.1)" },
-  error: { accent: "#ef4444", soft: "rgba(239, 68, 68, 0.1)" },
+const colorMap: Record<Color, { accent: string; soft: string; foreground: string }> = {
+  default: { accent: "#0d9488", soft: "rgba(13, 148, 136, 0.1)", foreground: "white" },
+  primary: { accent: "#0d9488", soft: "rgba(13, 148, 136, 0.1)", foreground: "white" },
+  neutral: { accent: "#6b7280", soft: "rgba(107, 114, 128, 0.1)", foreground: "white" },
+  info: { accent: "#3b82f6", soft: "rgba(59, 130, 246, 0.1)", foreground: "white" },
+  success: { accent: "#22c55e", soft: "rgba(34, 197, 94, 0.1)", foreground: "white" },
+  warning: { accent: "#f59e0b", soft: "rgba(245, 158, 11, 0.1)", foreground: "white" },
+  error: { accent: "#ef4444", soft: "rgba(239, 68, 68, 0.1)", foreground: "white" },
 };
 
 /**
@@ -66,6 +66,7 @@ export function Calendar({
       style={{
         "--cal-accent": colors.accent,
         "--cal-accent-soft": colors.soft,
+        "--cal-accent-foreground": colors.foreground,
       } as React.CSSProperties}
       classNames={{
         months: "flex flex-col sm:flex-row gap-4 sm:gap-6",

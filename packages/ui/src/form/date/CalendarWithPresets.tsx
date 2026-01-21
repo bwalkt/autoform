@@ -142,6 +142,8 @@ export interface CalendarWithPresetsProps {
   minDate?: Date;
   /** Maximum selectable date */
   maxDate?: Date;
+  /** Specific dates to disable */
+  disabledDates?: Date[];
   /** First day of week (0 = Sunday, 1 = Monday) */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }
@@ -178,6 +180,7 @@ export const CalendarWithPresets = React.forwardRef<
       disabled = false,
       minDate,
       maxDate,
+      disabledDates,
       weekStartsOn = 0,
     },
     ref,
@@ -193,7 +196,7 @@ export const CalendarWithPresets = React.forwardRef<
 
     // Build disabled matcher for react-day-picker
     const disabledMatcher = React.useMemo(() => {
-      const matchers: Array<{ before: Date } | { after: Date }> = [];
+      const matchers: Array<Date | { before: Date } | { after: Date }> = [];
 
       if (minDate) {
         matchers.push({ before: minDate });
@@ -201,9 +204,12 @@ export const CalendarWithPresets = React.forwardRef<
       if (maxDate) {
         matchers.push({ after: maxDate });
       }
+      if (disabledDates) {
+        matchers.push(...disabledDates);
+      }
 
       return matchers.length > 0 ? matchers : undefined;
-    }, [minDate, maxDate]);
+    }, [minDate, maxDate, disabledDates]);
 
     const handlePresetClick = (preset: DateRangePreset) => {
       if (disabled) return;

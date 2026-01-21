@@ -194,6 +194,9 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
                 type="button"
                 onClick={() => handleDateSelect(day)}
                 disabled={disabled || isDisabled}
+                aria-pressed={isSelected}
+                aria-current={isTodayDate ? "date" : undefined}
+                aria-label={format(day, "EEEE, MMMM d, yyyy")}
                 className={cn(
                   "inline-flex items-center justify-center rounded-md font-medium transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",

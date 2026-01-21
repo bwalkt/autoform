@@ -298,7 +298,7 @@ export const WeekStartsMonday: Story = {
 // Disabled state
 export const Disabled: Story = {
   render: () => {
-    const prices = generatePrices(100);
+    const prices = React.useMemo(() => generatePrices(100), []);
     const today = new Date();
 
     return (

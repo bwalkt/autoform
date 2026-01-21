@@ -170,16 +170,18 @@ export const InForm: Story = {
     return (
       <FieldGroup size="2" layout="stacked" gap="4" className="w-[360px]">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Appointment Date & Time</label>
+          <label htmlFor="appointment-datetime" className="text-sm font-medium">Appointment Date & Time</label>
           <DateTimePicker
+            id="appointment-datetime"
             value={appointmentDate}
             onChange={setAppointmentDate}
             placeholder="Select appointment"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Reminder</label>
+          <label htmlFor="reminder-datetime" className="text-sm font-medium">Reminder</label>
           <DateTimePicker
+            id="reminder-datetime"
             value={reminderDate}
             onChange={setReminderDate}
             placeholder="Set reminder"
