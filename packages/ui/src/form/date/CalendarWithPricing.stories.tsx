@@ -84,7 +84,7 @@ export const FlightPricing: Story = {
       const monthEnd = endOfMonth(today);
       const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
-      return days.map((d) => {
+      return days.map((d, index) => {
         const dayOfWeek = getDay(d);
         let basePrice = 250;
 
@@ -97,7 +97,8 @@ export const FlightPricing: Story = {
           basePrice = 350;
         }
 
-        const variation = Math.floor(Math.random() * 50);
+        // Deterministic variation for visual test stability
+        const variation = Math.floor(seededRandom(43 + index) * 50);
         const price = basePrice + variation;
 
         return {
@@ -136,11 +137,12 @@ export const HotelPricing: Story = {
       const monthEnd = endOfMonth(today);
       const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
-      return days.map((d) => {
+      return days.map((d, index) => {
         const dayOfWeek = getDay(d);
         const isWeekend = dayOfWeek === 5 || dayOfWeek === 6; // Fri, Sat
         const basePrice = isWeekend ? 189 : 129;
-        const variation = Math.floor(Math.random() * 30);
+        // Deterministic variation for visual test stability
+        const variation = Math.floor(seededRandom(44 + index) * 30);
 
         return {
           date: d,
@@ -181,8 +183,9 @@ export const WithUnavailableDates: Story = {
 
       return days.map((d, index) => ({
         date: d,
-        price: 100 + Math.floor(Math.random() * 80),
-        isHighlighted: Math.random() > 0.8,
+        // Deterministic values for visual test stability
+        price: 100 + Math.floor(seededRandom(45 + index) * 80),
+        isHighlighted: seededRandom(145 + index) > 0.8,
         // Some dates are sold out
         available: index % 5 !== 0,
       }));

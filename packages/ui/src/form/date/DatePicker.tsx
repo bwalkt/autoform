@@ -233,7 +233,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
               disabled={disabledMatcher}
               selectionVariant={getCalendarVariant(variant)}
               color={color}
-              initialFocus
+              autoFocus
             />
           </Popover.Content>
         </Popover.Root>
@@ -276,7 +276,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
             disabled={disabledMatcher}
             selectionVariant={getCalendarVariant(variant)}
             color={color}
-            initialFocus
+            autoFocus
           />
         </Popover.Content>
       </Popover.Root>

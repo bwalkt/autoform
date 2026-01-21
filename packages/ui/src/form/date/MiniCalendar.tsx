@@ -6,6 +6,7 @@ import {
   addDays,
   startOfWeek,
   endOfWeek,
+  startOfDay,
   isSameDay,
   isToday,
   addWeeks,
@@ -89,10 +90,17 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
       setCurrentDate(addWeeks(currentDate, 1));
     };
 
+    // Normalize comparisons to day granularity to avoid time-of-day issues
+    const isDateDisabled = (date: Date): boolean => {
+      const d = startOfDay(date);
+      if (minDate && d < startOfDay(minDate)) return true;
+      if (maxDate && d > startOfDay(maxDate)) return true;
+      return false;
+    };
+
     const handleDateSelect = (date: Date) => {
       if (disabled) return;
-      if (minDate && date < minDate) return;
-      if (maxDate && date > maxDate) return;
+      if (isDateDisabled(date)) return;
       onChange?.(date);
     };
 
@@ -102,12 +110,6 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
       if (!isDateDisabled(today)) {
         onChange?.(today);
       }
-    };
-
-    const isDateDisabled = (date: Date): boolean => {
-      if (minDate && date < minDate) return true;
-      if (maxDate && date > maxDate) return true;
-      return false;
     };
 
     const buttonSize = compact ? "h-8 w-8 text-xs" : "h-10 w-10 text-sm";

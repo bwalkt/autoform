@@ -147,6 +147,14 @@ export const DateTimePicker = React.forwardRef<HTMLButtonElement, DateTimePicker
     ).filter((m) => m < 60);
     const secondOptions = Array.from({ length: 60 }, (_, i) => i);
 
+    // Snap minutes to nearest valid step when displaying
+    const displayMinutes = React.useMemo(() => {
+      if (minuteStep === 1) return minutes;
+      return minuteOptions.reduce((prev, curr) =>
+        Math.abs(curr - minutes) < Math.abs(prev - minutes) ? curr : prev
+      );
+    }, [minutes, minuteStep, minuteOptions]);
+
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
         {name && (
@@ -181,7 +189,7 @@ export const DateTimePicker = React.forwardRef<HTMLButtonElement, DateTimePicker
               selected={value}
               onSelect={handleDateSelect}
               disabled={disabledMatcher}
-              initialFocus
+              autoFocus
             />
             <div className="border-t border-border p-3">
               <div className="flex items-center gap-2">
@@ -204,7 +212,7 @@ export const DateTimePicker = React.forwardRef<HTMLButtonElement, DateTimePicker
                   </select>
                   <span className="text-muted-foreground">:</span>
                   <select
-                    value={minutes}
+                    value={displayMinutes}
                     onChange={(e) => handleTimeChange("minutes", parseInt(e.target.value, 10))}
                     className={cn(
                       "h-8 w-14 rounded-md border border-input bg-background px-2 text-sm",

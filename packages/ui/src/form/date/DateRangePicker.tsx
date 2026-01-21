@@ -208,7 +208,7 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
               disabled={disabledMatcher}
               selectionVariant={getCalendarVariant(variant)}
               color={color}
-              initialFocus
+              autoFocus
             />
             {showRangeSummary && (
               <div className="border-t border-border p-3">

@@ -104,7 +104,7 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
       let newHours = hours;
       let newMinutes = minutes;
       let newSeconds = seconds;
-      let newPeriod = period;
+      let newPeriod: "AM" | "PM";
 
       if (type === "hours") {
         // In 12-hour mode, convert display hour to 24-hour for internal storage
@@ -183,6 +183,14 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
 
     const secondOptions = Array.from({ length: 60 }, (_, i) => i);
 
+    // Snap minutes to nearest valid step when displaying
+    const displayMinutes = React.useMemo(() => {
+      if (minuteStep === 1) return minutes;
+      return minuteOptions.reduce((prev, curr) =>
+        Math.abs(curr - minutes) < Math.abs(prev - minutes) ? curr : prev
+      );
+    }, [minutes, minuteStep, minuteOptions]);
+
     // Get display hour for 12-hour format
     const getDisplayHour = (): number => {
       if (!use12HourFormat) return hours;
@@ -249,7 +257,7 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
               </select>
               <span className="text-muted-foreground">:</span>
               <select
-                value={minutes}
+                value={displayMinutes}
                 onChange={(e) => handleTimeChange("minutes", parseInt(e.target.value, 10))}
                 className={cn(
                   "h-8 w-14 rounded-md border border-input bg-background px-2 text-sm",
