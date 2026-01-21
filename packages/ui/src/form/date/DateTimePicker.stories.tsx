@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DateTimePicker } from "./DateTimePicker";
-import { FieldGroup } from "../FieldGroup";
+import { FieldGroup, Label } from "@/form";
 
 const meta: Meta<typeof DateTimePicker> = {
   title: "Form/Date/DateTimePicker",
@@ -170,7 +170,7 @@ export const InForm: Story = {
     return (
       <FieldGroup size="2" layout="stacked" gap="4" className="w-[360px]">
         <div className="space-y-2">
-          <label htmlFor="appointment-datetime" className="text-sm font-medium">Appointment Date & Time</label>
+          <Label htmlFor="appointment-datetime">Appointment Date & Time</Label>
           <DateTimePicker
             id="appointment-datetime"
             value={appointmentDate}
@@ -179,7 +179,7 @@ export const InForm: Story = {
           />
         </div>
         <div className="space-y-2">
-          <label htmlFor="reminder-datetime" className="text-sm font-medium">Reminder</label>
+          <Label htmlFor="reminder-datetime">Reminder</Label>
           <DateTimePicker
             id="reminder-datetime"
             value={reminderDate}

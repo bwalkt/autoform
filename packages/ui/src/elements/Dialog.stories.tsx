@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Dialog, Button, TextField } from "@/elements";
+import { Label } from "@/form";
 
 const meta: Meta = {
   title: "Elements/Dialog",
@@ -27,11 +28,11 @@ export const Default: StoryObj = {
         <Dialog.Body>
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Name</label>
+              <Label>Name</Label>
               <TextField placeholder="Enter your name" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
+              <Label>Email</Label>
               <TextField type="email" placeholder="Enter your email" />
             </div>
           </div>
@@ -98,20 +99,20 @@ export const WithForm: StoryObj = {
           <form className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">First Name</label>
+                <Label>First Name</Label>
                 <TextField placeholder="John" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Last Name</label>
+                <Label>Last Name</Label>
                 <TextField placeholder="Doe" />
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
+              <Label>Email</Label>
               <TextField type="email" placeholder="john@example.com" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Password</label>
+              <Label>Password</Label>
               <TextField type="password" placeholder="Create a password" />
             </div>
           </form>

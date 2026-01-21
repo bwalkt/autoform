@@ -1,9 +1,7 @@
-"use client";
-
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DateRangePicker, type DateRange } from "./DateRangePicker";
-import { FieldGroup } from "../FieldGroup";
+import { FieldGroup, Label } from "@/form";
 
 const meta: Meta<typeof DateRangePicker> = {
   title: "Form/Date/DateRangePicker",
@@ -220,27 +218,27 @@ export const Variants: Story = {
     return (
       <div className="flex flex-col gap-4 w-[320px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Outline (default)</label>
+          <Label className="mb-1 block">Outline (default)</Label>
           <DateRangePicker value={range1} onChange={setRange1} variant="outline" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Solid</label>
+          <Label className="mb-1 block">Solid</Label>
           <DateRangePicker value={range2} onChange={setRange2} variant="solid" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Soft</label>
+          <Label className="mb-1 block">Soft</Label>
           <DateRangePicker value={range3} onChange={setRange3} variant="soft" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Surface</label>
+          <Label className="mb-1 block">Surface</Label>
           <DateRangePicker value={range4} onChange={setRange4} variant="surface" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Ghost</label>
+          <Label className="mb-1 block">Ghost</Label>
           <DateRangePicker value={range5} onChange={setRange5} variant="ghost" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Classic</label>
+          <Label className="mb-1 block">Classic</Label>
           <DateRangePicker value={range6} onChange={setRange6} variant="classic" />
         </div>
       </div>
@@ -265,23 +263,23 @@ export const Colors: Story = {
     return (
       <div className="flex flex-col gap-4 w-[320px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Primary</label>
+          <Label className="mb-1 block">Primary</Label>
           <DateRangePicker value={range1} onChange={setRange1} variant="solid" color="primary" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Success</label>
+          <Label className="mb-1 block">Success</Label>
           <DateRangePicker value={range2} onChange={setRange2} variant="solid" color="success" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Warning</label>
+          <Label className="mb-1 block">Warning</Label>
           <DateRangePicker value={range3} onChange={setRange3} variant="solid" color="warning" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Error</label>
+          <Label className="mb-1 block">Error</Label>
           <DateRangePicker value={range4} onChange={setRange4} variant="solid" color="error" />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Info</label>
+          <Label className="mb-1 block">Info</Label>
           <DateRangePicker value={range5} onChange={setRange5} variant="solid" color="info" />
         </div>
       </div>

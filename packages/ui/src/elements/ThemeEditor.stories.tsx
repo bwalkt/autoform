@@ -21,7 +21,13 @@ const meta: Meta<typeof ThemeEditor> = {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
-  // ThemeEditorProvider is now provided globally in preview.tsx
+  decorators: [
+    (Story) => (
+      <ThemeEditorProvider>
+        <Story />
+      </ThemeEditorProvider>
+    ),
+  ],
 };
 
 export default meta;
@@ -183,20 +189,12 @@ const PresetApplier: React.FC<{ preset: string }> = ({ preset }) => {
     <div className="border rounded-lg p-4 space-y-3">
       <h4 className="font-medium capitalize">{preset}</h4>
       <div className="flex gap-2">
-        <button className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
-          Primary
-        </button>
-        <button className="rounded-md bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">
-          Secondary
-        </button>
+        <Button size="1">Primary</Button>
+        <Button size="1" variant="soft">Secondary</Button>
       </div>
       <div className="flex gap-2">
-        <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] text-primary-foreground">
-          Badge
-        </span>
-        <span className="rounded border px-2 py-0.5 text-[10px]">
-          Outline
-        </span>
+        <Badge size="1">Badge</Badge>
+        <Badge size="1" variant="outline">Outline</Badge>
       </div>
     </div>
   );
@@ -236,24 +234,27 @@ const ExportDemo: React.FC = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Export Configuration</h2>
         <div className="flex gap-2">
-          <button
+          <Button
+            size="2"
+            variant={!showJSON ? "solid" : "outline"}
             onClick={() => setShowJSON(false)}
-            className={`px-3 py-1.5 rounded-md text-sm ${!showJSON ? "bg-primary text-primary-foreground" : "border"}`}
           >
             CSS
-          </button>
-          <button
+          </Button>
+          <Button
+            size="2"
+            variant={showJSON ? "solid" : "outline"}
             onClick={() => setShowJSON(true)}
-            className={`px-3 py-1.5 rounded-md text-sm ${showJSON ? "bg-primary text-primary-foreground" : "border"}`}
           >
             JSON
-          </button>
-          <button
+          </Button>
+          <Button
+            size="2"
+            variant="outline"
             onClick={handleCopy}
-            className="px-3 py-1.5 rounded-md text-sm border hover:bg-accent"
           >
             {copied ? "Copied!" : "Copy"}
-          </button>
+          </Button>
         </div>
       </div>
       <pre className="rounded-lg border bg-muted p-4 text-sm overflow-auto max-h-[500px]">
@@ -290,18 +291,20 @@ const DarkModeDemo: React.FC = () => {
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold">Dark Mode Demo</h1>
             <div className="flex gap-2">
-              <button
+              <Button
+                size="2"
+                variant={editor.mode === "light" ? "solid" : "outline"}
                 onClick={() => editor.setMode("light")}
-                className={`px-4 py-2 rounded-md text-sm ${editor.mode === "light" ? "bg-primary text-primary-foreground" : "border"}`}
               >
                 Light
-              </button>
-              <button
+              </Button>
+              <Button
+                size="2"
+                variant={editor.mode === "dark" ? "solid" : "outline"}
                 onClick={() => editor.setMode("dark")}
-                className={`px-4 py-2 rounded-md text-sm ${editor.mode === "dark" ? "bg-primary text-primary-foreground" : "border"}`}
               >
                 Dark
-              </button>
+              </Button>
             </div>
           </div>
 

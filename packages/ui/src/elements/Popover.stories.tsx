@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Popover, Button, TextField } from "@/elements";
+import { Label } from "@/form";
 import { Settings, Calendar, Bell } from "lucide-react";
 
 const meta: Meta = {
@@ -96,11 +97,11 @@ export const WithForm: StoryObj = {
           <h4 className="font-medium">Dimensions</h4>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label htmlFor="width-input" className="text-sm font-medium">Width</label>
+              <Label htmlFor="width-input">Width</Label>
               <TextField id="width-input" placeholder="100%" />
             </div>
             <div className="space-y-2">
-              <label htmlFor="height-input" className="text-sm font-medium">Height</label>
+              <Label htmlFor="height-input">Height</Label>
               <TextField id="height-input" placeholder="auto" />
             </div>
           </div>
@@ -133,7 +134,7 @@ export const NotificationSettings: StoryObj = {
             <h4 className="font-medium text-sm">Notifications</h4>
             {Object.entries(settings).map(([key, value]) => (
               <div key={key} className="flex items-center justify-between">
-                <label htmlFor={`notification-${key}`} className="text-sm capitalize">{key}</label>
+                <Label htmlFor={`notification-${key}`} className="capitalize">{key}</Label>
                 <input
                   id={`notification-${key}`}
                   type="checkbox"

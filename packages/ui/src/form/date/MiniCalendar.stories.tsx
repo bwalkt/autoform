@@ -1,8 +1,7 @@
-"use client";
-
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { MiniCalendar } from "./MiniCalendar";
+import { Label } from "@/form";
 
 const meta: Meta<typeof MiniCalendar> = {
   title: "Form/Date/MiniCalendar",
@@ -119,11 +118,11 @@ export const MultipleCalendars: Story = {
     return (
       <div className="flex flex-col gap-4 w-[360px]">
         <div>
-          <label className="text-sm font-medium mb-1 block">Start Date</label>
+          <Label className="mb-1 block">Start Date</Label>
           <MiniCalendar value={startDate} onChange={setStartDate} compact />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">End Date</label>
+          <Label className="mb-1 block">End Date</Label>
           <MiniCalendar value={endDate} onChange={setEndDate} minDate={startDate} compact />
         </div>
         <p className="text-xs text-muted-foreground text-center">

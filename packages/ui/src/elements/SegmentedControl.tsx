@@ -7,20 +7,20 @@ import type { Size, Radius } from "./tokens";
 // Size configurations
 const segmentSizes = {
   "1": {
-    root: "h-7 p-0.5 text-xs",
-    item: "px-2",
+    root: "h-7 p-0.5 text-xs gap-0.5",
+    item: "px-2 h-6",
   },
   "2": {
-    root: "h-8 p-0.5 text-sm",
-    item: "px-3",
+    root: "h-9 p-1 text-sm gap-1",
+    item: "px-3 h-7",
   },
   "3": {
-    root: "h-10 p-1 text-sm",
-    item: "px-4",
+    root: "h-11 p-1 text-sm gap-1",
+    item: "px-4 h-9",
   },
   "4": {
-    root: "h-12 p-1 text-base",
-    item: "px-5",
+    root: "h-13 p-1.5 text-base gap-1",
+    item: "px-5 h-10",
   },
 };
 
@@ -101,7 +101,7 @@ const SegmentedControlRoot = React.forwardRef<HTMLDivElement, SegmentedControlRo
           ref={ref}
           role="radiogroup"
           className={cn(
-            "inline-flex items-center bg-muted",
+            "inline-flex items-center bg-muted/50 border border-input",
             sizeConfig.root,
             radiusStyles[radius],
             className,
@@ -164,16 +164,17 @@ const SegmentedControlItem = React.forwardRef<
       disabled={disabled}
       onClick={() => onValueChange(value)}
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap font-medium transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "inline-flex items-center justify-center whitespace-nowrap font-medium",
+        "transition-all duration-200 ease-in-out",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
         "disabled:pointer-events-none disabled:opacity-50",
         sizeConfig.item,
         innerRadiusMap[radius],
 
         // Selected state
         isSelected
-          ? "bg-background text-foreground shadow-sm"
-          : "text-muted-foreground hover:text-foreground",
+          ? "bg-background text-foreground shadow-sm border border-border/50"
+          : "text-muted-foreground hover:text-foreground hover:bg-background/50",
 
         className,
       )}

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type * as React from "react";
-import { Theme, ThemePanel, useThemeContext } from "./Theme";
+import { Theme, useThemeContext } from "./Theme";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Badge } from "./Badge";
@@ -99,40 +99,6 @@ export const Default: Story = {
           </Card.Content>
         </Card.Root>
       </div>
-    </Theme>
-  ),
-};
-
-// ============================================================================
-// With Theme Panel
-// ============================================================================
-
-export const WithThemePanel: Story = {
-  render: () => (
-    <Theme className="min-h-screen p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold">Theme with Panel</h1>
-        <p className="text-muted-foreground">
-          Click the settings button in the bottom right to customize the theme.
-        </p>
-
-        <div className="flex gap-4 flex-wrap">
-          <Button>Primary</Button>
-          <Button variant="soft">Soft</Button>
-          <Button variant="outline">Outline</Button>
-        </div>
-
-        <Card.Root>
-          <Card.Header>
-            <Card.Title>Interactive Card</Card.Title>
-          </Card.Header>
-          <Card.Content>
-            <p>Change the accent color using the theme panel to see this card update.</p>
-          </Card.Content>
-        </Card.Root>
-      </div>
-
-      <ThemePanel defaultOpen />
     </Theme>
   ),
 };

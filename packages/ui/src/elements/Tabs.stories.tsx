@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Tabs, TextField, Button, Switch } from "@/elements";
+import { Label } from "@/form";
 
 const meta: Meta = {
   title: "Elements/Tabs",
@@ -169,15 +170,15 @@ export const AccountSettings: StoryObj = {
         <Tabs.Content value="profile">
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Display Name</label>
+              <Label>Display Name</Label>
               <TextField placeholder="Enter your name" defaultValue="John Doe" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
+              <Label>Email</Label>
               <TextField type="email" placeholder="Enter your email" defaultValue="john@example.com" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Bio</label>
+              <Label>Bio</Label>
               <TextField placeholder="Tell us about yourself" />
             </div>
             <Button>Save Changes</Button>
@@ -186,15 +187,15 @@ export const AccountSettings: StoryObj = {
         <Tabs.Content value="security">
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Current Password</label>
+              <Label>Current Password</Label>
               <TextField type="password" placeholder="Enter current password" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">New Password</label>
+              <Label>New Password</Label>
               <TextField type="password" placeholder="Enter new password" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Confirm Password</label>
+              <Label>Confirm Password</Label>
               <TextField type="password" placeholder="Confirm new password" />
             </div>
             <Button>Update Password</Button>

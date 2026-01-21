@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Lock, Mail, User } from 'lucide-react'
 import * as React from 'react'
 import { Select, SelectItem, Textarea, TextField } from '@bwalkt/ui/elements'
+import { Label } from '@/form'
 
 const meta: Meta = {
   title: 'Design System/Form Examples',
@@ -96,7 +97,7 @@ export const UserRegistrationForm: Story = {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">First Name</label>
+            <Label className="block mb-2">First Name</Label>
             <TextField
               size="2"
               variant="outline"
@@ -110,7 +111,7 @@ export const UserRegistrationForm: Story = {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Last Name</label>
+            <Label className="block mb-2">Last Name</Label>
             <TextField
               size="2"
               variant="outline"
@@ -124,7 +125,7 @@ export const UserRegistrationForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Email Address</label>
+          <Label className="block mb-2">Email Address</Label>
           <TextField
             size="2"
             variant="outline"
@@ -139,7 +140,7 @@ export const UserRegistrationForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Password</label>
+          <Label className="block mb-2">Password</Label>
           <TextField
             size="2"
             variant="outline"
@@ -154,7 +155,7 @@ export const UserRegistrationForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Confirm Password</label>
+          <Label className="block mb-2">Confirm Password</Label>
           <TextField
             size="2"
             variant="outline"
@@ -169,7 +170,7 @@ export const UserRegistrationForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Role (Optional)</label>
+          <Label className="block mb-2">Role (Optional)</Label>
           <Select
             size="2"
             variant="outline"
@@ -187,7 +188,7 @@ export const UserRegistrationForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Bio (Optional)</label>
+          <Label className="block mb-2">Bio (Optional)</Label>
           <Textarea
             size="2"
             variant="outline"
@@ -258,7 +259,7 @@ export const ContactForm: Story = {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Your Name</label>
+            <Label className="block mb-2">Your Name</Label>
             <TextField
               size="2"
               variant="outline"
@@ -272,7 +273,7 @@ export const ContactForm: Story = {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Email</label>
+            <Label className="block mb-2">Email</Label>
             <TextField
               size="2"
               variant="outline"
@@ -288,7 +289,7 @@ export const ContactForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Subject</label>
+          <Label className="block mb-2">Subject</Label>
           <TextField
             size="2"
             variant="outline"
@@ -301,7 +302,7 @@ export const ContactForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Priority</label>
+          <Label className="block mb-2">Priority</Label>
           <Select
             size="2"
             variant="outline"
@@ -318,7 +319,7 @@ export const ContactForm: Story = {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Message</label>
+          <Label className="block mb-2">Message</Label>
           <Textarea
             size="2"
             variant="outline"

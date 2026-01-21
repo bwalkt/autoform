@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Textarea } from "./Textarea";
+import { Label } from "@/form";
 
 const meta: Meta<typeof Textarea> = {
   title: "Form/Textarea",
@@ -103,7 +104,7 @@ export const Disabled: Story = {
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
-      <label className="text-sm font-medium">Description</label>
+      <Label>Description</Label>
       <Textarea placeholder="Enter a detailed description..." rows={4} />
       <p className="text-xs text-muted-foreground">
         Provide a detailed description of your issue.
@@ -117,7 +118,7 @@ export const CharacterCount: Story = {
     const maxLength = 200;
     return (
       <div className="w-80 space-y-2">
-        <label className="text-sm font-medium">Bio</label>
+        <Label>Bio</Label>
         <Textarea
           placeholder="Tell us about yourself..."
           maxLength={maxLength}
@@ -136,7 +137,7 @@ export const ContactForm: Story = {
     <div className="w-96 space-y-4 p-4 border rounded-lg">
       <h3 className="font-semibold">Contact Us</h3>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Subject</label>
+        <Label>Subject</Label>
         <input
           type="text"
           placeholder="What's this about?"
@@ -144,7 +145,7 @@ export const ContactForm: Story = {
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Message</label>
+        <Label>Message</Label>
         <Textarea
           placeholder="How can we help you?"
           rows={5}
@@ -161,7 +162,7 @@ export const ContactForm: Story = {
 export const CodeInput: Story = {
   render: () => (
     <div className="w-96 space-y-2">
-      <label className="text-sm font-medium">JSON Configuration</label>
+      <Label>JSON Configuration</Label>
       <Textarea
         className="font-mono"
         placeholder='{"key": "value"}'
