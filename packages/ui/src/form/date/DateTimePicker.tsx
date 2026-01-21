@@ -141,7 +141,10 @@ export const DateTimePicker = React.forwardRef<HTMLButtonElement, DateTimePicker
 
     // Generate options for selects
     const hourOptions = Array.from({ length: 24 }, (_, i) => i);
-    const minuteOptions = Array.from({ length: 60 / minuteStep }, (_, i) => i * minuteStep);
+    const minuteOptions = Array.from(
+      { length: Math.ceil(60 / minuteStep) },
+      (_, i) => i * minuteStep
+    ).filter((m) => m < 60);
     const secondOptions = Array.from({ length: 60 }, (_, i) => i);
 
     return (

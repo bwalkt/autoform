@@ -1,5 +1,3 @@
-"use client";
-
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { CalendarWithPricing, type DayPrice } from "./CalendarWithPricing";
@@ -16,21 +14,27 @@ const meta: Meta<typeof CalendarWithPricing> = {
 export default meta;
 type Story = StoryObj<typeof CalendarWithPricing>;
 
+// Simple seeded pseudo-random for deterministic results in visual tests
+const seededRandom = (seed: number) => {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+};
+
 // Generate sample prices for the current month
-const generatePrices = (basePrice: number = 100): DayPrice[] => {
+const generatePrices = (basePrice: number = 100, seed: number = 42): DayPrice[] => {
   const today = new Date();
   const monthStart = startOfMonth(today);
   const monthEnd = endOfMonth(today);
   const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
-  return days.map((date) => {
+  return days.map((date, index) => {
     // Weekend prices are higher
     const dayOfWeek = getDay(date);
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     const weekendMultiplier = isWeekend ? 1.3 : 1;
 
-    // Random variation
-    const variation = Math.floor(Math.random() * 40) - 20;
+    // Deterministic variation based on seed
+    const variation = Math.floor(seededRandom(seed + index) * 40) - 20;
     const price = Math.round((basePrice + variation) * weekendMultiplier);
 
     // Some dates have highlighted (deal) prices

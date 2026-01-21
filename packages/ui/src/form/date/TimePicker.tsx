@@ -33,10 +33,6 @@ export interface TimePickerProps {
   showSeconds?: boolean;
   /** Use 12-hour format */
   use12HourFormat?: boolean;
-  /** Minimum time (HH:MM format) */
-  minTime?: string;
-  /** Maximum time (HH:MM format) */
-  maxTime?: string;
   /** Step in minutes for the picker */
   minuteStep?: number;
   /** Additional class names */
@@ -75,8 +71,6 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
       color,
       showSeconds = false,
       use12HourFormat = false,
-      minTime: _minTime,
-      maxTime: _maxTime,
       minuteStep = 1,
       className,
       id,
@@ -106,9 +100,6 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
       }
     }, [value]);
 
-    // Note: minTime/maxTime constraints can be implemented for option filtering in future
-    // Currently accepted but not enforced in the UI
-
     const handleTimeChange = (type: "hours" | "minutes" | "seconds" | "period", val: number | string) => {
       let newHours = hours;
       let newMinutes = minutes;
@@ -116,8 +107,17 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
       let newPeriod = period;
 
       if (type === "hours") {
-        newHours = val as number;
-        setHours(newHours);
+        // In 12-hour mode, convert display hour to 24-hour for internal storage
+        let internalHours = val as number;
+        if (use12HourFormat) {
+          if (period === "PM" && internalHours !== 12) {
+            internalHours = internalHours + 12;
+          } else if (period === "AM" && internalHours === 12) {
+            internalHours = 0;
+          }
+        }
+        newHours = internalHours;
+        setHours(internalHours);
       } else if (type === "minutes") {
         newMinutes = val as number;
         setMinutes(newMinutes);
@@ -138,18 +138,9 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
         }
       }
 
-      // For 12-hour format, convert display hours to 24-hour
-      let finalHours = newHours;
-      if (use12HourFormat && type !== "period") {
-        if (newPeriod === "PM" && newHours < 12) {
-          finalHours = newHours + 12;
-        } else if (newPeriod === "AM" && newHours === 12) {
-          finalHours = 0;
-        }
-      }
-
+      // Internal state is always 24-hour, so no conversion needed
       const newValue: TimeValue = {
-        hours: finalHours,
+        hours: newHours,
         minutes: newMinutes,
         ...(showSeconds && { seconds: newSeconds }),
       };
@@ -188,7 +179,7 @@ export const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
     const minuteOptions = Array.from(
       { length: Math.ceil(60 / minuteStep) },
       (_, i) => i * minuteStep
-    );
+    ).filter((m) => m < 60);
 
     const secondOptions = Array.from({ length: 60 }, (_, i) => i);
 

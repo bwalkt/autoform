@@ -99,7 +99,9 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
     const handleToday = () => {
       const today = new Date();
       setCurrentDate(today);
-      onChange?.(today);
+      if (!isDateDisabled(today)) {
+        onChange?.(today);
+      }
     };
 
     const isDateDisabled = (date: Date): boolean => {

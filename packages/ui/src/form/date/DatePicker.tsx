@@ -139,13 +139,24 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       setOpen(false);
     };
 
+    // Check if a date is allowed based on constraints
+    const isDateAllowed = React.useCallback(
+      (date: Date) => {
+        if (minDate && date < minDate) return false;
+        if (maxDate && date > maxDate) return false;
+        if (disabledDates?.some((d) => d.toDateString() === date.toDateString())) return false;
+        return true;
+      },
+      [minDate, maxDate, disabledDates],
+    );
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInputValue(newValue);
 
       // Try to parse natural language
       const parsed = parseDate(newValue);
-      if (parsed) {
+      if (parsed && isDateAllowed(parsed)) {
         onChange?.(parsed);
         setMonth(parsed);
       }

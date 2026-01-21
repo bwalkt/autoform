@@ -151,9 +151,13 @@ export const AppointmentPicker = React.forwardRef<
       if (value?.date) {
         setSelectedDate(value.date);
         setMonth(value.date);
+      } else {
+        setSelectedDate(undefined);
       }
       if (value?.time) {
         setSelectedTime(value.time);
+      } else {
+        setSelectedTime(undefined);
       }
     }, [value?.date, value?.time]);
 

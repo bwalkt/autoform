@@ -57,7 +57,12 @@ export function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("rdp-calendar p-3", className)}
+      className={cn(
+        "rdp-calendar p-3",
+        selectionVariant === "soft" && "rdp-variant-soft",
+        selectionVariant === "outline" && "rdp-variant-outline",
+        className,
+      )}
       style={{
         "--cal-accent": colors.accent,
         "--cal-accent-soft": colors.soft,

@@ -11,6 +11,7 @@ import {
   subMonths,
   addMonths,
   startOfYear,
+  endOfYear,
   subYears,
 } from "date-fns";
 import type { DateRange } from "react-day-picker";
@@ -114,7 +115,7 @@ export const defaultPresets: DateRangePreset[] = [
       const lastYear = subYears(new Date(), 1);
       return {
         from: startOfYear(lastYear),
-        to: endOfMonth(subMonths(startOfYear(new Date()), 1)),
+        to: endOfYear(lastYear),
       };
     },
   },
@@ -207,9 +208,27 @@ export const CalendarWithPresets = React.forwardRef<
     const handlePresetClick = (preset: DateRangePreset) => {
       if (disabled) return;
       const range = preset.getValue();
-      onChange?.(range);
-      if (range.from) {
-        setMonth(range.from);
+
+      // Clamp range to min/max bounds
+      let clampedFrom = range.from;
+      let clampedTo = range.to;
+
+      if (minDate && clampedFrom && clampedFrom < minDate) {
+        clampedFrom = minDate;
+      }
+      if (maxDate && clampedTo && clampedTo > maxDate) {
+        clampedTo = maxDate;
+      }
+
+      // Skip if range becomes invalid (from > to)
+      if (clampedFrom && clampedTo && clampedFrom > clampedTo) {
+        return;
+      }
+
+      const clampedRange = { from: clampedFrom, to: clampedTo };
+      onChange?.(clampedRange);
+      if (clampedRange.from) {
+        setMonth(clampedRange.from);
       }
     };
 
@@ -254,9 +273,9 @@ export const CalendarWithPresets = React.forwardRef<
           )}
         >
           <div className="flex flex-wrap gap-2">
-            {presets.map((preset) => (
+            {presets.map((preset, index) => (
               <Button
-                key={preset.label}
+                key={`${preset.label}-${index}`}
                 variant="outline"
                 size="1"
                 onClick={() => handlePresetClick(preset)}

@@ -99,3 +99,47 @@
 .rdp-calendar .rdp-disabled > .rdp-day_button {
   pointer-events: none;
 }
+
+/* ============================================================================
+   Soft variant - uses soft background with dark text for selections
+   ============================================================================ */
+
+.rdp-calendar.rdp-variant-soft .rdp-selected > .rdp-day_button,
+.rdp-calendar.rdp-variant-soft .rdp-range_start > .rdp-day_button,
+.rdp-calendar.rdp-variant-soft .rdp-range_end > .rdp-day_button {
+  background-color: var(--cal-accent-soft);
+  color: var(--cal-accent);
+  font-weight: 600;
+}
+
+.rdp-calendar.rdp-variant-soft .rdp-selected > .rdp-day_button:hover,
+.rdp-calendar.rdp-variant-soft .rdp-range_start > .rdp-day_button:hover,
+.rdp-calendar.rdp-variant-soft .rdp-range_end > .rdp-day_button:hover {
+  background-color: var(--cal-accent-soft);
+  color: var(--cal-accent);
+}
+
+/* ============================================================================
+   Outline variant - uses border only, no fill for selections
+   ============================================================================ */
+
+.rdp-calendar.rdp-variant-outline .rdp-selected > .rdp-day_button,
+.rdp-calendar.rdp-variant-outline .rdp-range_start > .rdp-day_button,
+.rdp-calendar.rdp-variant-outline .rdp-range_end > .rdp-day_button {
+  background-color: transparent;
+  color: var(--cal-accent);
+  box-shadow: inset 0 0 0 1px var(--cal-accent);
+  font-weight: 600;
+}
+
+.rdp-calendar.rdp-variant-outline .rdp-selected > .rdp-day_button:hover,
+.rdp-calendar.rdp-variant-outline .rdp-range_start > .rdp-day_button:hover,
+.rdp-calendar.rdp-variant-outline .rdp-range_end > .rdp-day_button:hover {
+  background-color: var(--cal-accent-soft);
+  color: var(--cal-accent);
+}
+
+.rdp-calendar.rdp-variant-outline .rdp-range_middle > .rdp-day_button {
+  background-color: transparent;
+  box-shadow: inset 0 -1px 0 0 var(--cal-accent), inset 0 1px 0 0 var(--cal-accent);
+}
