@@ -72,8 +72,8 @@ function generateId(): string {
 function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 B";
   const k = 1024;
-  const sizes = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const sizes = ["B", "KB", "MB", "GB", "TB"];
+  const i = Math.min(sizes.length - 1, Math.floor(Math.log(bytes) / Math.log(k)));
   return `${parseFloat((bytes / k ** i).toFixed(1))} ${sizes[i]}`;
 }
 
@@ -268,7 +268,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
       maxFiles = 10,
       multiple = true,
       disabled = false,
-      value = [],
+      value,
       onChange,
       onFilesAdded,
       onFileRemove,
@@ -281,7 +281,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
     },
     ref,
   ) => {
-    const [files, setFiles] = React.useState<UploadedFile[]>(value);
+    const [files, setFiles] = React.useState<UploadedFile[]>(() => value ?? []);
     const filesRef = React.useRef<UploadedFile[]>(files);
 
     // Keep ref in sync with state for cleanup
@@ -289,9 +289,9 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
       filesRef.current = files;
     }, [files]);
 
-    // Sync with controlled value
+    // Sync with controlled value (only when explicitly provided)
     React.useEffect(() => {
-      setFiles(value);
+      if (value !== undefined) setFiles(value);
     }, [value]);
 
     // Cleanup previews on unmount
