@@ -171,7 +171,7 @@ const FileItem: React.FC<FileItemProps> = ({ file, onRemove, disabled }) => {
             disabled={disabled}
             className={cn(
               "p-1 rounded-md hover:bg-muted transition-colors",
-              "opacity-0 group-hover:opacity-100",
+              "opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring",
               disabled && "pointer-events-none",
             )}
             aria-label={`Remove ${file.file.name}`}
@@ -406,7 +406,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
       onDrop,
       accept,
       maxSize,
-      maxFiles: multiple ? maxFiles - files.length : 1,
+      maxFiles: multiple ? Math.max(0, maxFiles - files.length) : 1,
       multiple,
       disabled: disabled || (!multiple && files.length >= 1) || files.length >= maxFiles,
     });
