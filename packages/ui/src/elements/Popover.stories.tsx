@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Popover, Button, TextField } from "@/elements";
-import { Label } from "@/form";
+import { Popover, Button } from "@/elements";
+import { Label, TextField } from "@/form";
 import { Settings, Calendar, Bell } from "lucide-react";
 
 const meta: Meta = {

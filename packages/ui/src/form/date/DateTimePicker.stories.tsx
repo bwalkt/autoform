@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as React from "react";
 import { DateTimePicker } from "./DateTimePicker";
 import { FieldGroup, Label } from "@/form";

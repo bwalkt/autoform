@@ -14,7 +14,7 @@ export const Default: StoryObj = {
   render: () => (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button variant="destructive">Delete Account</Button>
+        <Button variant="solid" color="error">Delete Account</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
@@ -59,7 +59,7 @@ export const DeleteConfirmation: StoryObj = {
   render: () => (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button variant="destructive">Delete Item</Button>
+        <Button variant="solid" color="error">Delete Item</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content maxWidth="sm">
         <AlertDialog.Title>Delete this item?</AlertDialog.Title>

@@ -2,6 +2,28 @@
 export { Label, type LabelProps } from "./Label";
 export { TextField, type TextFieldProps } from "./TextField";
 export { Textarea, type TextareaProps } from "./Textarea";
+export {
+  InputMask,
+  maskPresets,
+  type InputMaskProps,
+  type MaskPreset,
+} from "./InputMask";
+export {
+  InputOTP,
+  InputOTPPrimitive,
+  REGEXP_ONLY_DIGITS,
+  REGEXP_ONLY_CHARS,
+  REGEXP_ONLY_DIGITS_AND_CHARS,
+  type InputOTPProps,
+  type InputOTPVariant,
+} from "./InputOTP";
+export {
+  FileUpload,
+  acceptPresets,
+  type FileUploadProps,
+  type FileUploadVariant,
+  type UploadedFile,
+} from "./FileUpload";
 export { Select, SelectItem, type SelectProps } from "./Select";
 export {
   Checkbox,
