@@ -3,10 +3,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DateTimePicker } from "./DateTimePicker";
-import { FieldGroup } from "./FieldGroup";
+import { FieldGroup } from "../FieldGroup";
 
 const meta: Meta<typeof DateTimePicker> = {
-  title: "Form/DateTimePicker",
+  title: "Form/Date/DateTimePicker",
   component: DateTimePicker,
   parameters: {
     layout: "centered",

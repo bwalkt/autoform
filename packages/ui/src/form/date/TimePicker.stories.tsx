@@ -3,10 +3,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { TimePicker, type TimeValue } from "./TimePicker";
-import { FieldGroup } from "./FieldGroup";
+import { FieldGroup } from "../FieldGroup";
 
 const meta: Meta<typeof TimePicker> = {
-  title: "Form/TimePicker",
+  title: "Form/Date/TimePicker",
   component: TimePicker,
   parameters: {
     layout: "centered",

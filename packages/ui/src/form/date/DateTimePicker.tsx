@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/elements/Button";
 import { Popover } from "@/elements/Popover";
 import { Calendar } from "./Calendar";
-import { useFieldGroup } from "./FieldGroupContext";
+import { useFieldGroup } from "../FieldGroupContext";
 import type { Size, Variant, Color } from "@/elements/tokens";
 
 export interface DateTimePickerProps {

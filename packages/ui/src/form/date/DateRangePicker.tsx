@@ -2,14 +2,27 @@
 
 import * as React from "react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, ChevronDown } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Button } from "@/elements/Button";
 import { Popover } from "@/elements/Popover";
-import { Calendar } from "./Calendar";
-import { useFieldGroup } from "./FieldGroupContext";
+import { Calendar, type CalendarSelectionVariant } from "./Calendar";
+import { useFieldGroup } from "../FieldGroupContext";
 import type { Size, Variant, Color } from "@/elements/tokens";
+
+/** Map button variant to calendar selection variant */
+const getCalendarVariant = (variant: Variant): CalendarSelectionVariant => {
+  switch (variant) {
+    case "soft":
+      return "soft";
+    case "outline":
+    case "ghost":
+      return "outline";
+    default:
+      return "solid";
+  }
+};
 
 export type { DateRange };
 
@@ -36,8 +49,10 @@ export interface DateRangePickerProps {
   minDate?: Date;
   /** Maximum selectable date */
   maxDate?: Date;
-  /** Number of months to display */
-  numberOfMonths?: number;
+  /** Number of months to display (1 = single calendar, 2 = side by side) */
+  numberOfMonths?: 1 | 2;
+  /** Show range summary inside popover */
+  showRangeSummary?: boolean;
   /** ID for form association */
   id?: string;
   /** Name for form submission */
@@ -46,6 +61,7 @@ export interface DateRangePickerProps {
 
 /**
  * DateRangePicker component for selecting a date range.
+ * Supports single or dual calendar view.
  *
  * @example
  * ```tsx
@@ -53,10 +69,19 @@ export interface DateRangePickerProps {
  *
  * const [range, setRange] = React.useState<DateRange>();
  *
+ * // Standard dual calendar
  * <DateRangePicker
  *   value={range}
  *   onChange={setRange}
  *   placeholder="Select date range"
+ * />
+ *
+ * // Single calendar with range summary
+ * <DateRangePicker
+ *   value={range}
+ *   onChange={setRange}
+ *   numberOfMonths={1}
+ *   showRangeSummary
  * />
  * ```
  */
@@ -75,14 +100,23 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
       minDate,
       maxDate,
       numberOfMonths = 2,
+      showRangeSummary = false,
       id,
       name,
     },
     ref,
   ) => {
     const [open, setOpen] = React.useState(false);
+    const [month, setMonth] = React.useState<Date | undefined>(value?.from);
     const fieldGroup = useFieldGroup();
     const size = sizeProp ?? fieldGroup.size;
+
+    // Update month when value changes
+    React.useEffect(() => {
+      if (value?.from) {
+        setMonth(value.from);
+      }
+    }, [value?.from]);
 
     // Build disabled matcher for react-day-picker
     const disabledMatcher = React.useMemo(() => {
@@ -112,6 +146,19 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
       }
 
       return format(value.from, dateFormat);
+    };
+
+    const formatRangeSummary = () => {
+      if (!value?.from) {
+        return "Select dates";
+      }
+
+      const shortFormat = "M/d/yyyy";
+      if (value.to) {
+        return `${format(value.from, shortFormat)} - ${format(value.to, shortFormat)}`;
+      }
+
+      return format(value.from, shortFormat);
     };
 
     return (
@@ -149,15 +196,37 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
           </Button>
         </Popover.Trigger>
         <Popover.Content align="start" maxWidth="none" className="w-auto p-0">
-          <Calendar
-            mode="range"
-            defaultMonth={value?.from}
-            selected={value}
-            onSelect={onChange}
-            numberOfMonths={numberOfMonths}
-            disabled={disabledMatcher}
-            initialFocus
-          />
+          <div className="flex flex-col">
+            <Calendar
+              mode="range"
+              defaultMonth={value?.from}
+              month={month}
+              onMonthChange={setMonth}
+              selected={value}
+              onSelect={onChange}
+              numberOfMonths={numberOfMonths}
+              disabled={disabledMatcher}
+              selectionVariant={getCalendarVariant(variant)}
+              color={color}
+              initialFocus
+            />
+            {showRangeSummary && (
+              <div className="border-t border-border p-3">
+                <div
+                  className={cn(
+                    "flex items-center justify-between",
+                    "rounded-md border border-input bg-background px-3 py-2",
+                    "text-sm",
+                  )}
+                >
+                  <span className={!value?.from ? "text-muted-foreground" : ""}>
+                    {formatRangeSummary()}
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </div>
+              </div>
+            )}
+          </div>
         </Popover.Content>
       </Popover.Root>
     );

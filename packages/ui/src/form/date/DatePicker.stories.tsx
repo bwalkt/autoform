@@ -3,10 +3,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DatePicker } from "./DatePicker";
-import { FieldGroup } from "./FieldGroup";
+import { FieldGroup } from "../FieldGroup";
 
 const meta: Meta<typeof DatePicker> = {
-  title: "Form/DatePicker",
+  title: "Form/Date/DatePicker",
   component: DatePicker,
   parameters: {
     layout: "centered",
@@ -186,6 +186,71 @@ export const Variants: Story = {
           <label className="text-sm font-medium mb-1 block">Classic</label>
           <DatePicker value={date6} onChange={setDate6} variant="classic" />
         </div>
+      </div>
+    );
+  },
+};
+
+// Natural language input
+export const NaturalLanguage: Story = {
+  render: () => {
+    const [date, setDate] = React.useState<Date | undefined>();
+    return (
+      <div className="w-[280px] space-y-2">
+        <DatePicker
+          value={date}
+          onChange={setDate}
+          enableNaturalLanguage
+          placeholder="Tomorrow or next week"
+        />
+        {date && (
+          <p className="text-sm text-muted-foreground px-1">
+            Selected: <span className="font-medium">{date.toLocaleDateString()}</span>
+          </p>
+        )}
+      </div>
+    );
+  },
+};
+
+// Natural language with preselected value
+export const NaturalLanguageWithValue: Story = {
+  render: () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const [date, setDate] = React.useState<Date | undefined>(tomorrow);
+    return (
+      <div className="w-[280px] space-y-2">
+        <DatePicker
+          value={date}
+          onChange={setDate}
+          enableNaturalLanguage
+          placeholder="Type a date..."
+        />
+        {date && (
+          <p className="text-sm text-muted-foreground px-1">
+            Selected: <span className="font-medium">{date.toLocaleDateString()}</span>
+          </p>
+        )}
+      </div>
+    );
+  },
+};
+
+// Natural language different sizes
+export const NaturalLanguageSizes: Story = {
+  render: () => {
+    const [date1, setDate1] = React.useState<Date | undefined>();
+    const [date2, setDate2] = React.useState<Date | undefined>();
+    const [date3, setDate3] = React.useState<Date | undefined>();
+    const [date4, setDate4] = React.useState<Date | undefined>();
+
+    return (
+      <div className="flex flex-col gap-4 w-[280px]">
+        <DatePicker value={date1} onChange={setDate1} enableNaturalLanguage size="1" placeholder="Size 1" />
+        <DatePicker value={date2} onChange={setDate2} enableNaturalLanguage size="2" placeholder="Size 2" />
+        <DatePicker value={date3} onChange={setDate3} enableNaturalLanguage size="3" placeholder="Size 3" />
+        <DatePicker value={date4} onChange={setDate4} enableNaturalLanguage size="4" placeholder="Size 4" />
       </div>
     );
   },

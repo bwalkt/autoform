@@ -3,10 +3,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { DateRangePicker, type DateRange } from "./DateRangePicker";
-import { FieldGroup } from "./FieldGroup";
+import { FieldGroup } from "../FieldGroup";
 
 const meta: Meta<typeof DateRangePicker> = {
-  title: "Form/DateRangePicker",
+  title: "Form/Date/DateRangePicker",
   component: DateRangePicker,
   parameters: {
     layout: "centered",
@@ -156,6 +156,48 @@ export const WithFieldGroup: Story = {
           placeholder="Inherits size from FieldGroup"
         />
       </FieldGroup>
+    );
+  },
+};
+
+// Single calendar view (mobile-friendly)
+export const SingleCalendar: Story = {
+  render: () => {
+    const [range, setRange] = React.useState<DateRange | undefined>();
+    return (
+      <div className="w-[320px]">
+        <DateRangePicker
+          value={range}
+          onChange={setRange}
+          numberOfMonths={1}
+          placeholder="Select date range"
+        />
+      </div>
+    );
+  },
+};
+
+// Single calendar with range summary
+export const SingleCalendarWithSummary: Story = {
+  render: () => {
+    const today = new Date();
+    const endDate = new Date(today);
+    endDate.setDate(today.getDate() + 30);
+
+    const [range, setRange] = React.useState<DateRange | undefined>({
+      from: new Date(today.getFullYear(), today.getMonth(), 5),
+      to: new Date(today.getFullYear(), today.getMonth() + 1, 4),
+    });
+    return (
+      <div className="w-[320px]">
+        <DateRangePicker
+          value={range}
+          onChange={setRange}
+          numberOfMonths={1}
+          showRangeSummary
+          placeholder="Select date range"
+        />
+      </div>
     );
   },
 };

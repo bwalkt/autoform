@@ -4,10 +4,29 @@ import type * as React from "react";
 import { DayPicker, type DayPickerProps } from "react-day-picker";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Color } from "@/elements/tokens";
+import "./calendar.css";
+
+export type CalendarSelectionVariant = "solid" | "soft" | "outline";
 
 export type CalendarProps = DayPickerProps & {
   /** Additional class names */
   className?: string;
+  /** Visual variant for selected dates */
+  selectionVariant?: CalendarSelectionVariant;
+  /** Accent color for selections */
+  color?: Color;
+};
+
+// Direct color values for calendar selections
+const colorMap: Record<Color, { accent: string; soft: string }> = {
+  default: { accent: "#0d9488", soft: "rgba(13, 148, 136, 0.1)" },
+  primary: { accent: "#0d9488", soft: "rgba(13, 148, 136, 0.1)" },
+  neutral: { accent: "#6b7280", soft: "rgba(107, 114, 128, 0.1)" },
+  info: { accent: "#3b82f6", soft: "rgba(59, 130, 246, 0.1)" },
+  success: { accent: "#22c55e", soft: "rgba(34, 197, 94, 0.1)" },
+  warning: { accent: "#f59e0b", soft: "rgba(245, 158, 11, 0.1)" },
+  error: { accent: "#ef4444", soft: "rgba(239, 68, 68, 0.1)" },
 };
 
 /**
@@ -29,22 +48,19 @@ export function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  selectionVariant = "solid",
+  color = "primary",
   ...props
 }: CalendarProps) {
+  const colors = colorMap[color];
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("rdp-calendar p-3", className)}
       style={{
-        // Override react-day-picker's default CSS custom properties with our theme colors
-        "--rdp-accent-color": "hsl(var(--primary))",
-        "--rdp-accent-background-color": "hsl(var(--accent))",
-        "--rdp-today-color": "hsl(var(--primary))",
-        "--rdp-range_start-date-background-color": "hsl(var(--primary))",
-        "--rdp-range_end-date-background-color": "hsl(var(--primary))",
-        "--rdp-range_start-color": "hsl(var(--primary-foreground))",
-        "--rdp-range_end-color": "hsl(var(--primary-foreground))",
-        "--rdp-months-gap": "1rem",
+        "--cal-accent": colors.accent,
+        "--cal-accent-soft": colors.soft,
       } as React.CSSProperties}
       classNames={{
         months: "flex flex-col sm:flex-row gap-4 sm:gap-6",
@@ -73,40 +89,15 @@ export function Calendar({
           "text-center",
         ),
         week: "flex w-full mt-2",
-        day: cn(
-          "relative p-0 text-center text-sm",
-          "focus-within:relative focus-within:z-20",
-          "[&:has([aria-selected])]:bg-accent",
-          "[&:has([aria-selected].day-outside)]:bg-accent/50",
-          "[&:has([aria-selected].day-range-end)]:rounded-r-md",
-          "first:[&:has([aria-selected])]:rounded-l-md",
-          "last:[&:has([aria-selected])]:rounded-r-md",
-        ),
-        day_button: cn(
-          "h-9 w-9 p-0 font-normal",
-          "inline-flex items-center justify-center rounded-md",
-          "hover:bg-accent hover:text-accent-foreground",
-          "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "aria-selected:opacity-100",
-        ),
-        range_start: "day-range-start rounded-l-md",
-        range_end: "day-range-end rounded-r-md",
-        range_middle: cn(
-          "aria-selected:bg-accent aria-selected:text-accent-foreground",
-          "rounded-none",
-        ),
-        selected: cn(
-          "bg-primary text-primary-foreground",
-          "hover:bg-primary hover:text-primary-foreground",
-          "focus:bg-primary focus:text-primary-foreground",
-        ),
-        today: "bg-accent text-accent-foreground",
-        outside: cn(
-          "day-outside text-muted-foreground opacity-50",
-          "aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
-          "aria-selected:opacity-30",
-        ),
-        disabled: "text-muted-foreground opacity-50",
+        day: "rdp-day relative p-0 text-center text-sm focus-within:relative focus-within:z-20",
+        day_button: "rdp-day_button",
+        range_start: "rdp-range_start",
+        range_end: "rdp-range_end",
+        range_middle: "rdp-range_middle",
+        selected: "rdp-selected",
+        today: "rdp-today",
+        outside: "rdp-outside",
+        disabled: "rdp-disabled",
         hidden: "invisible",
         ...classNames,
       }}
