@@ -14,11 +14,11 @@ import type { BaseTextFieldVariant, TextFieldVariant, Color, Radius, Size } from
 // ============================================================================
 
 /** Convert TextFieldVariant to BaseTextFieldVariant (strip floating variants) */
-function getBaseVariant(variant: TextFieldVariant): BaseTextFieldVariant {
-  if (variant.startsWith("floating-")) {
+function getBaseVariant(variant?: TextFieldVariant): BaseTextFieldVariant {
+  if (variant?.startsWith("floating-")) {
     return "outline";
   }
-  return variant as BaseTextFieldVariant;
+  return (variant ?? "outline") as BaseTextFieldVariant;
 }
 
 export interface LocationValue {
@@ -288,6 +288,9 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
     // Get all countries
     const countries = React.useMemo(() => Country.getAllCountries(), []);
 
+    // Determine if component is controlled
+    const isControlled = value !== undefined;
+
     // Initialize with default country if no value provided
     const [internalCountryCode, setInternalCountryCode] = React.useState<string | undefined>(() => {
       if (value?.countryCode) return value.countryCode;
@@ -302,7 +305,11 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
       value?.stateCode,
     );
 
-    // Sync with controlled value
+    // Derive selected codes from controlled value or internal state
+    const selectedCountryCode = isControlled ? value?.countryCode : internalCountryCode;
+    const selectedStateCode = isControlled ? value?.stateCode : internalStateCode;
+
+    // Sync with controlled value (only for uncontrolled -> controlled transitions)
     React.useEffect(() => {
       if (value !== undefined) {
         setInternalCountryCode(value.countryCode);
@@ -312,14 +319,14 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
 
     // Get states for selected country
     const states = React.useMemo(() => {
-      if (!internalCountryCode) return [];
-      return State.getStatesOfCountry(internalCountryCode);
-    }, [internalCountryCode]);
+      if (!selectedCountryCode) return [];
+      return State.getStatesOfCountry(selectedCountryCode);
+    }, [selectedCountryCode]);
 
     // Get selected country and state objects
     const selectedCountry = React.useMemo(
-      () => countries.find((c) => c.isoCode === internalCountryCode),
-      [countries, internalCountryCode],
+      () => countries.find((c) => c.isoCode === selectedCountryCode),
+      [countries, selectedCountryCode],
     );
 
     // Track if initial value has been emitted
@@ -346,8 +353,11 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
         const country = countries.find((c) => c.isoCode === countryCode);
         if (!country) return;
 
-        setInternalCountryCode(countryCode);
-        setInternalStateCode(undefined);
+        // Only update internal state when uncontrolled
+        if (!isControlled) {
+          setInternalCountryCode(countryCode);
+          setInternalStateCode(undefined);
+        }
 
         const newValue: LocationValue = {
           country: country.name,
@@ -360,7 +370,7 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
         onCountryChange?.(country);
         onStateChange?.(null);
       },
-      [countries, onChange, onCountryChange, onStateChange],
+      [countries, onChange, onCountryChange, onStateChange, isControlled],
     );
 
     const handleStateChange = React.useCallback(
@@ -370,7 +380,10 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
         const state = states.find((s) => s.isoCode === stateCode);
         if (!state) return;
 
-        setInternalStateCode(stateCode);
+        // Only update internal state when uncontrolled
+        if (!isControlled) {
+          setInternalStateCode(stateCode);
+        }
 
         const newValue: LocationValue = {
           country: selectedCountry.name,
@@ -382,7 +395,7 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
         onChange?.(newValue);
         onStateChange?.(state);
       },
-      [selectedCountry, states, onChange, onStateChange],
+      [selectedCountry, states, onChange, onStateChange, isControlled],
     );
 
     // Render country item with flag
@@ -402,7 +415,7 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
         <div className="flex-1">
           <SearchableSelect
             items={countries}
-            value={internalCountryCode}
+            value={selectedCountryCode}
             onValueChange={handleCountryChange}
             getItemValue={(c) => c.isoCode}
             getItemLabel={(c) => c.name}
@@ -421,7 +434,7 @@ export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps
           <div className="flex-1">
             <SearchableSelect
               items={states}
-              value={internalStateCode}
+              value={selectedStateCode}
               onValueChange={handleStateChange}
               getItemValue={(s) => s.isoCode}
               getItemLabel={(s) => s.name}

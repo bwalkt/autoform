@@ -221,7 +221,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
     );
 
     const effectiveColor = error ? "error" : color;
-    const baseVariant = variant.startsWith("floating-") ? "outline" : variant;
+    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
 
     return (
       <div

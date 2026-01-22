@@ -128,7 +128,7 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState("");
-    const triggerRef = React.useRef<HTMLButtonElement>(null);
+    const triggerRef = React.useRef<HTMLDivElement>(null);
     const dropdownRef = React.useRef<HTMLDivElement>(null);
 
     // Filter options based on search
@@ -204,12 +204,20 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
     return (
       <div ref={ref} className={cn("relative w-full", className)}>
-        {/* Trigger Button */}
-        <button
+        {/* Trigger - using div with button semantics to avoid nested button issue with Badge remove buttons */}
+        <div
           ref={triggerRef}
-          type="button"
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          aria-disabled={disabled}
           onClick={() => !disabled && setOpen(!open)}
-          disabled={disabled}
+          onKeyDown={(e) => {
+            if (disabled) return;
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setOpen((prev) => !prev);
+            }
+          }}
           className={cn(
             "inline-flex items-center justify-between w-full outline-none transition-all duration-150 ease-in-out",
             "min-h-[var(--element-height)]",
@@ -281,7 +289,7 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
               open && "rotate-180",
             )}
           />
-        </button>
+        </div>
 
         {/* Dropdown */}
         {open && (

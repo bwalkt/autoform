@@ -270,7 +270,7 @@ export const SignatureInput = React.forwardRef<HTMLCanvasElement, SignatureInput
       return () => canvas.removeEventListener("touchmove", preventScroll);
     }, [isDrawing]);
 
-    const baseVariant = variant.startsWith("floating-") ? "outline" : variant;
+    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
 
     return (
       <div
