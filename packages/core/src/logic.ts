@@ -23,7 +23,7 @@ const isEmptyValue = (value: unknown): boolean =>
   value === undefined ||
   value === '' ||
   (Array.isArray(value) && value.length === 0) ||
-  (typeof value === 'object' && value !== null && Object.keys(value as object).length === 0)
+  (value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value as object).length === 0)
 
 // Recursively remove empty values from an object (null, undefined, "", [], {})
 export function removeEmptyValues<T extends Record<string, unknown>>(values: T): Partial<T> {
