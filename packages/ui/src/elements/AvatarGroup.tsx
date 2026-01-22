@@ -60,17 +60,20 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
 
     return (
       <div ref={ref} className={cn('flex items-center', spacing, className)} {...props}>
-        {visibleChildren.map((child, index) => (
-          <span
-            key={index}
-            className={cn('relative', isStack && 'ring-2 ring-background rounded-full')}
-            style={isStack ? { zIndex: visibleChildren.length - index } : undefined}
-          >
-            {React.isValidElement(child)
-              ? React.cloneElement(child as React.ReactElement<AvatarProps>, { size })
-              : child}
-          </span>
-        ))}
+        {visibleChildren.map((child, index) => {
+          const key = React.isValidElement(child) && child.key != null ? child.key : index
+          return (
+            <span
+              key={key}
+              className={cn('relative', isStack && 'ring-2 ring-background rounded-full')}
+              style={isStack ? { zIndex: visibleChildren.length - index } : undefined}
+            >
+              {React.isValidElement(child)
+                ? React.cloneElement(child as React.ReactElement<AvatarProps>, { size })
+                : child}
+            </span>
+          )
+        })}
         {remainingCount > 0 &&
           (renderOverflow ? (
             renderOverflow(remainingCount)
