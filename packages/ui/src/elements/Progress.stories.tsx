@@ -1,54 +1,54 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState, useEffect } from "react";
-import { Progress } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useEffect, useState } from 'react'
+import { Progress } from '@/elements'
 
 const meta: Meta<typeof Progress> = {
-  title: "Elements/Progress",
+  title: 'Elements/Progress',
   component: Progress,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
+      control: 'select',
+      options: ['1', '2', '3', '4'],
     },
     variant: {
-      control: "select",
-      options: ["surface", "classic", "soft"],
+      control: 'select',
+      options: ['surface', 'classic', 'soft'],
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
     },
     radius: {
-      control: "select",
-      options: ["none", "sm", "md", "lg", "full"],
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
     },
     value: {
-      control: { type: "range", min: 0, max: 100 },
+      control: { type: 'range', min: 0, max: 100 },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Progress>;
+export default meta
+type Story = StoryObj<typeof Progress>
 
 export const Default: Story = {
   args: {
     value: 60,
   },
-  render: (args) => (
+  render: args => (
     <div className="w-64">
       <Progress {...args} />
     </div>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
     <div className="w-64 space-y-4">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size}>
           <p className="text-sm text-muted-foreground mb-2">Size {size}</p>
           <Progress size={size} value={60} />
@@ -56,27 +56,25 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
     <div className="w-64 space-y-4">
-      {(["default", "primary", "neutral", "info", "success", "warning", "error"] as const).map(
-        (color) => (
-          <div key={color}>
-            <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
-            <Progress color={color} value={70} />
-          </div>
-        )
-      )}
+      {(['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const).map(color => (
+        <div key={color}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
+          <Progress color={color} value={70} />
+        </div>
+      ))}
     </div>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <div className="w-64 space-y-4">
-      {(["surface", "classic", "soft"] as const).map((variant) => (
+      {(['surface', 'classic', 'soft'] as const).map(variant => (
         <div key={variant}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">{variant}</p>
           <Progress variant={variant} value={50} />
@@ -84,7 +82,7 @@ export const Variants: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Indeterminate: Story = {
   render: () => (
@@ -93,50 +91,50 @@ export const Indeterminate: Story = {
       <Progress />
     </div>
   ),
-};
+}
 
 export const Animated: Story = {
   render: () => {
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState(0)
 
     useEffect(() => {
       const timer = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) return 0;
-          return prev + 10;
-        });
-      }, 500);
-      return () => clearInterval(timer);
-    }, []);
+        setProgress(prev => {
+          if (prev >= 100) return 0
+          return prev + 10
+        })
+      }, 500)
+      return () => clearInterval(timer)
+    }, [])
 
     return (
       <div className="w-64">
         <Progress value={progress} />
         <p className="mt-2 text-sm text-muted-foreground text-center">{progress}%</p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const FileUpload: Story = {
   render: () => {
-    const [progress, setProgress] = useState(0);
-    const [uploading, setUploading] = useState(false);
+    const [progress, setProgress] = useState(0)
+    const [uploading, setUploading] = useState(false)
 
     const startUpload = () => {
-      setUploading(true);
-      setProgress(0);
+      setUploading(true)
+      setProgress(0)
       const interval = setInterval(() => {
-        setProgress((prev) => {
+        setProgress(prev => {
           if (prev >= 100) {
-            clearInterval(interval);
-            setUploading(false);
-            return 100;
+            clearInterval(interval)
+            setUploading(false)
+            return 100
           }
-          return prev + Math.random() * 15;
-        });
-      }, 200);
-    };
+          return prev + Math.random() * 15
+        })
+      }, 200)
+    }
 
     return (
       <div className="w-80 p-4 border rounded-lg space-y-4">
@@ -146,32 +144,22 @@ export const FileUpload: Story = {
             <p className="text-xs text-muted-foreground">2.4 MB</p>
           </div>
           {!uploading && progress === 0 && (
-            <button
-              onClick={startUpload}
-              className="text-sm text-primary hover:underline"
-            >
+            <button onClick={startUpload} className="text-sm text-primary hover:underline">
               Upload
             </button>
           )}
-          {progress >= 100 && (
-            <span className="text-sm text-green-600">Complete</span>
-          )}
+          {progress >= 100 && <span className="text-sm text-green-600">Complete</span>}
         </div>
         {(uploading || progress > 0) && (
           <div>
-            <Progress
-              value={Math.min(progress, 100)}
-              color={progress >= 100 ? "success" : "primary"}
-            />
-            <p className="mt-1 text-xs text-muted-foreground text-right">
-              {Math.min(Math.round(progress), 100)}%
-            </p>
+            <Progress value={Math.min(progress, 100)} color={progress >= 100 ? 'success' : 'primary'} />
+            <p className="mt-1 text-xs text-muted-foreground text-right">{Math.min(Math.round(progress), 100)}%</p>
           </div>
         )}
       </div>
-    );
+    )
   },
-};
+}
 
 export const MultipleProgress: Story = {
   render: () => (
@@ -215,30 +203,26 @@ export const MultipleProgress: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const SkillLevels: Story = {
   render: () => (
     <div className="w-72 space-y-3">
       {[
-        { skill: "React", level: 90 },
-        { skill: "TypeScript", level: 85 },
-        { skill: "Node.js", level: 75 },
-        { skill: "Python", level: 60 },
-        { skill: "Rust", level: 30 },
+        { skill: 'React', level: 90 },
+        { skill: 'TypeScript', level: 85 },
+        { skill: 'Node.js', level: 75 },
+        { skill: 'Python', level: 60 },
+        { skill: 'Rust', level: 30 },
       ].map(({ skill, level }) => (
         <div key={skill}>
           <div className="flex justify-between text-sm mb-1">
             <span>{skill}</span>
             <span className="text-muted-foreground">{level}%</span>
           </div>
-          <Progress
-            value={level}
-            size="1"
-            color={level >= 80 ? "success" : level >= 50 ? "primary" : "warning"}
-          />
+          <Progress value={level} size="1" color={level >= 80 ? 'success' : level >= 50 ? 'primary' : 'warning'} />
         </div>
       ))}
     </div>
   ),
-};
+}

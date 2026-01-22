@@ -1,29 +1,24 @@
-import { Select, SelectItem } from "@/elements";
-import type { AutoFormFieldProps } from "@bwalkt/react";
-import type React from "react";
+import type { AutoFormFieldProps } from '@bwalkt/react'
+import type React from 'react'
+import { Select, SelectItem } from '@/elements'
 
-export const SelectField: React.FC<AutoFormFieldProps> = ({
-  field,
-  inputProps,
-  error,
-  id: _id,
-}) => {
-  const { key, ...props } = inputProps;
+export const SelectField: React.FC<AutoFormFieldProps> = ({ field, inputProps, error, id: _id }) => {
+  const { key, ...props } = inputProps
 
   return (
     <Select
       id={_id}
-      onValueChange={(value) => {
+      onValueChange={value => {
         const syntheticEvent = {
           target: {
             value,
             name: field.key,
           },
-        } as React.ChangeEvent<HTMLInputElement>;
-        props.onChange(syntheticEvent);
+        } as React.ChangeEvent<HTMLInputElement>
+        props.onChange(syntheticEvent)
       }}
       value={props.value || field.default}
-      color={error ? "error" : "default"}
+      color={error ? 'error' : 'default'}
       variant="outline"
       size="2"
       placeholder="Select an option"
@@ -34,5 +29,5 @@ export const SelectField: React.FC<AutoFormFieldProps> = ({
         </SelectItem>
       ))}
     </Select>
-  );
-};
+  )
+}

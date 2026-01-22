@@ -1,37 +1,37 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { Spinner, Button } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { Button, Spinner } from '@/elements'
 
 const meta: Meta<typeof Spinner> = {
-  title: "Elements/Spinner",
+  title: 'Elements/Spinner',
   component: Spinner,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
+      control: 'select',
+      options: ['1', '2', '3', '4'],
     },
     loading: {
-      control: "boolean",
+      control: 'boolean',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
     loading: true,
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size} className="flex flex-col items-center gap-2">
           <Spinner size={size} />
           <span className="text-xs text-muted-foreground">Size {size}</span>
@@ -39,7 +39,7 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
@@ -52,7 +52,7 @@ export const Colors: Story = {
       <Spinner className="text-muted-foreground" />
     </div>
   ),
-};
+}
 
 export const WithText: Story = {
   render: () => (
@@ -67,47 +67,45 @@ export const WithText: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const ButtonLoading: Story = {
   render: () => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const handleClick = () => {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 2000);
-    };
+      setLoading(true)
+      setTimeout(() => setLoading(false), 2000)
+    }
 
     return (
       <div className="flex gap-4">
         <Button onClick={handleClick} disabled={loading}>
           {loading && <Spinner size="1" className="mr-2" />}
-          {loading ? "Loading..." : "Click me"}
+          {loading ? 'Loading...' : 'Click me'}
         </Button>
         <Button variant="outline" onClick={handleClick} disabled={loading}>
           {loading && <Spinner size="1" className="mr-2" />}
           Submit
         </Button>
       </div>
-    );
+    )
   },
-};
+}
 
 export const LoadingOverlay: Story = {
   render: () => (
     <div className="relative w-64 h-32 border rounded-lg">
       <div className="p-4">
         <h4 className="font-medium">Card Content</h4>
-        <p className="text-sm text-muted-foreground">
-          This content is loading...
-        </p>
+        <p className="text-sm text-muted-foreground">This content is loading...</p>
       </div>
       <div className="absolute inset-0 flex items-center justify-center bg-background/80 rounded-lg">
         <Spinner size="3" />
       </div>
     </div>
   ),
-};
+}
 
 export const FullPageLoading: Story = {
   render: () => (
@@ -119,7 +117,7 @@ export const FullPageLoading: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const InlineLoading: Story = {
   render: () => (
@@ -130,12 +128,12 @@ export const InlineLoading: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const LoadingList: Story = {
   render: () => (
     <div className="w-72 border rounded-lg divide-y">
-      {[1, 2, 3].map((i) => (
+      {[1, 2, 3].map(i => (
         <div key={i} className="p-3 flex items-center gap-3">
           <Spinner size="2" className="text-muted-foreground" />
           <div className="flex-1">
@@ -146,29 +144,24 @@ export const LoadingList: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const ConditionalLoading: Story = {
   render: () => {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
 
     return (
       <div className="space-y-4">
-        <Button
-          variant="outline"
-          onClick={() => setLoading(!loading)}
-        >
+        <Button variant="outline" onClick={() => setLoading(!loading)}>
           Toggle Loading
         </Button>
         <Spinner loading={loading}>
           <div className="p-4 border rounded-lg">
             <h4 className="font-medium">Content Loaded</h4>
-            <p className="text-sm text-muted-foreground">
-              This content is now visible.
-            </p>
+            <p className="text-sm text-muted-foreground">This content is now visible.</p>
           </div>
         </Spinner>
       </div>
-    );
+    )
   },
-};
+}

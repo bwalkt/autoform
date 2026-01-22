@@ -1,98 +1,89 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { MiniCalendar } from "./MiniCalendar";
-import { Label } from "@/form";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
+import { Label } from '@/form'
+import { MiniCalendar } from './MiniCalendar'
 
 const meta: Meta<typeof MiniCalendar> = {
-  title: "Form/Date/MiniCalendar",
+  title: 'Form/Date/MiniCalendar',
   component: MiniCalendar,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof MiniCalendar>;
+export default meta
+type Story = StoryObj<typeof MiniCalendar>
 
 // Default MiniCalendar
 export const Default: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date>(new Date());
+    const [date, setDate] = React.useState<Date>(new Date())
     return (
       <div className="w-[360px]">
         <MiniCalendar value={date} onChange={setDate} />
-        <p className="text-sm text-muted-foreground mt-2 text-center">
-          Selected: {date.toLocaleDateString()}
-        </p>
+        <p className="text-sm text-muted-foreground mt-2 text-center">Selected: {date.toLocaleDateString()}</p>
       </div>
-    );
+    )
   },
-};
+}
 
 // Compact mode
 export const Compact: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date>(new Date());
+    const [date, setDate] = React.useState<Date>(new Date())
     return (
       <div className="w-[300px]">
         <MiniCalendar value={date} onChange={setDate} compact />
-        <p className="text-xs text-muted-foreground mt-2 text-center">
-          Selected: {date.toLocaleDateString()}
-        </p>
+        <p className="text-xs text-muted-foreground mt-2 text-center">Selected: {date.toLocaleDateString()}</p>
       </div>
-    );
+    )
   },
-};
+}
 
 // Without header
 export const WithoutHeader: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date>(new Date());
+    const [date, setDate] = React.useState<Date>(new Date())
     return (
       <div className="w-[320px]">
         <MiniCalendar value={date} onChange={setDate} showHeader={false} />
       </div>
-    );
+    )
   },
-};
+}
 
 // Week starts on Monday
 export const WeekStartsMonday: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date>(new Date());
+    const [date, setDate] = React.useState<Date>(new Date())
     return (
       <div className="w-[360px]">
         <MiniCalendar value={date} onChange={setDate} weekStartsOn={1} />
       </div>
-    );
+    )
   },
-};
+}
 
 // With min/max date
 export const WithMinMaxDate: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date>(new Date());
-    const today = new Date();
-    const minDate = new Date(today);
-    minDate.setDate(today.getDate() - 3);
-    const maxDate = new Date(today);
-    maxDate.setDate(today.getDate() + 7);
+    const [date, setDate] = React.useState<Date>(new Date())
+    const today = new Date()
+    const minDate = new Date(today)
+    minDate.setDate(today.getDate() - 3)
+    const maxDate = new Date(today)
+    maxDate.setDate(today.getDate() + 7)
 
     return (
       <div className="w-[360px]">
-        <MiniCalendar
-          value={date}
-          onChange={setDate}
-          minDate={minDate}
-          maxDate={maxDate}
-        />
+        <MiniCalendar value={date} onChange={setDate} minDate={minDate} maxDate={maxDate} />
         <p className="text-xs text-muted-foreground mt-2 text-center">
           Only dates from {minDate.toLocaleDateString()} to {maxDate.toLocaleDateString()} are selectable
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 // Disabled state
 export const Disabled: Story = {
@@ -101,19 +92,19 @@ export const Disabled: Story = {
       <div className="w-[360px]">
         <MiniCalendar value={new Date()} disabled />
       </div>
-    );
+    )
   },
-};
+}
 
 // Multiple calendars
 export const MultipleCalendars: Story = {
   render: () => {
-    const [startDate, setStartDate] = React.useState<Date>(new Date());
+    const [startDate, setStartDate] = React.useState<Date>(new Date())
     const [endDate, setEndDate] = React.useState<Date>(() => {
-      const d = new Date();
-      d.setDate(d.getDate() + 7);
-      return d;
-    });
+      const d = new Date()
+      d.setDate(d.getDate() + 7)
+      return d
+    })
 
     return (
       <div className="flex flex-col gap-4 w-[360px]">
@@ -129,30 +120,32 @@ export const MultipleCalendars: Story = {
           Range: {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 // In a card layout
 export const InCard: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date>(new Date());
+    const [date, setDate] = React.useState<Date>(new Date())
     return (
       <div className="w-[400px] p-4 rounded-lg border bg-card shadow-sm">
         <h3 className="text-lg font-semibold mb-3">Schedule</h3>
         <MiniCalendar value={date} onChange={setDate} className="border-0 p-0" />
         <div className="mt-4 pt-4 border-t">
           <p className="text-sm">
-            <span className="text-muted-foreground">Selected:</span>{" "}
-            <span className="font-medium">{date.toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}</span>
+            <span className="text-muted-foreground">Selected:</span>{' '}
+            <span className="font-medium">
+              {date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}

@@ -1,19 +1,19 @@
 // Import typography CSS tokens
-import "./design-tokens.css";
+import './design-tokens.css'
 
+export { Blockquote, type BlockquoteProps } from './Blockquote'
+export { Code, type CodeProps } from './Code'
+export { Em, type EmProps } from './Em'
+export { Heading, type HeadingProps } from './Heading'
+export { Quote, type QuoteProps } from './Quote'
+export { Strong, type StrongProps } from './Strong'
 // Typography components
-export { Text, type TextProps } from "./Text";
-export { Heading, type HeadingProps } from "./Heading";
-export { Em, type EmProps } from "./Em";
-export { Strong, type StrongProps } from "./Strong";
-export { Code, type CodeProps } from "./Code";
-export { Quote, type QuoteProps } from "./Quote";
-export { Blockquote, type BlockquoteProps } from "./Blockquote";
+export { Text, type TextProps } from './Text'
 
 // Typography tokens
 export {
-  typographyTokens,
-  type TypographySize,
-  type Weight,
   type TypographyColor,
-} from "./tokens";
+  type TypographySize,
+  typographyTokens,
+  type Weight,
+} from './tokens'

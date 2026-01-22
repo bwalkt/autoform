@@ -1,23 +1,23 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Tooltip, SimpleTooltip, Button, IconButton } from "@/elements";
-import { Label } from "@/form";
-import { Info, HelpCircle, Settings, Copy, Trash2 } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Copy, HelpCircle, Info, Settings, Trash2 } from 'lucide-react'
+import { Button, IconButton, SimpleTooltip, Tooltip } from '@/elements'
+import { Label } from '@/form'
 
 const meta: Meta = {
-  title: "Elements/Tooltip",
+  title: 'Elements/Tooltip',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
-    (Story) => (
+    Story => (
       <Tooltip.Provider>
         <Story />
       </Tooltip.Provider>
     ),
   ],
-};
+}
 
-export default meta;
+export default meta
 
 export const Default: StoryObj = {
   render: () => (
@@ -25,12 +25,10 @@ export const Default: StoryObj = {
       <Tooltip.Trigger>
         <Button variant="outline">Hover me</Button>
       </Tooltip.Trigger>
-      <Tooltip.Content>
-        This is a tooltip
-      </Tooltip.Content>
+      <Tooltip.Content>This is a tooltip</Tooltip.Content>
     </Tooltip.Root>
   ),
-};
+}
 
 export const Simple: StoryObj = {
   render: () => (
@@ -38,29 +36,29 @@ export const Simple: StoryObj = {
       <Button variant="outline">Hover me</Button>
     </SimpleTooltip>
   ),
-};
+}
 
 export const Positions: StoryObj = {
   render: () => (
     <div className="flex gap-4">
-      {(["top", "right", "bottom", "left"] as const).map((side) => (
+      {(['top', 'right', 'bottom', 'left'] as const).map(side => (
         <Tooltip.Root key={side}>
           <Tooltip.Trigger>
-            <Button variant="outline" className="capitalize">{side}</Button>
+            <Button variant="outline" className="capitalize">
+              {side}
+            </Button>
           </Tooltip.Trigger>
-          <Tooltip.Content side={side}>
-            Tooltip on {side}
-          </Tooltip.Content>
+          <Tooltip.Content side={side}>Tooltip on {side}</Tooltip.Content>
         </Tooltip.Root>
       ))}
     </div>
   ),
-};
+}
 
 export const MaxWidths: StoryObj = {
   render: () => (
     <div className="flex gap-4">
-      {(["xs", "sm", "md"] as const).map((maxWidth) => (
+      {(['xs', 'sm', 'md'] as const).map(maxWidth => (
         <Tooltip.Root key={maxWidth}>
           <Tooltip.Trigger>
             <Button variant="outline">{maxWidth.toUpperCase()}</Button>
@@ -72,7 +70,7 @@ export const MaxWidths: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const WithIcons: StoryObj = {
   render: () => (
@@ -103,7 +101,7 @@ export const WithIcons: StoryObj = {
       </Tooltip.Root>
     </div>
   ),
-};
+}
 
 export const IconButtonsToolbar: StoryObj = {
   render: () => (
@@ -125,7 +123,7 @@ export const IconButtonsToolbar: StoryObj = {
       </SimpleTooltip>
     </div>
   ),
-};
+}
 
 export const RichContent: StoryObj = {
   render: () => (
@@ -137,13 +135,14 @@ export const RichContent: StoryObj = {
         <div className="space-y-1">
           <p className="font-medium">Keyboard Shortcut</p>
           <p className="text-primary-foreground/70">
-            Press <kbd className="px-1 py-0.5 bg-primary-foreground/20 rounded text-[10px]">Ctrl</kbd> + <kbd className="px-1 py-0.5 bg-primary-foreground/20 rounded text-[10px]">S</kbd> to save
+            Press <kbd className="px-1 py-0.5 bg-primary-foreground/20 rounded text-[10px]">Ctrl</kbd> +{' '}
+            <kbd className="px-1 py-0.5 bg-primary-foreground/20 rounded text-[10px]">S</kbd> to save
           </p>
         </div>
       </Tooltip.Content>
     </Tooltip.Root>
   ),
-};
+}
 
 export const FormFieldHelp: StoryObj = {
   render: () => (
@@ -165,11 +164,7 @@ export const FormFieldHelp: StoryObj = {
           </Tooltip.Content>
         </Tooltip.Root>
       </div>
-      <input
-        type="text"
-        placeholder="Enter your API key"
-        className="w-full px-3 py-2 text-sm border rounded-md"
-      />
+      <input type="text" placeholder="Enter your API key" className="w-full px-3 py-2 text-sm border rounded-md" />
     </div>
   ),
-};
+}

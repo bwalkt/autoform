@@ -1,28 +1,28 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Container } from "./Container";
-import { Box } from "./Box";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Box } from './Box'
+import { Container } from './Container'
 
 const meta: Meta<typeof Container> = {
-  title: "Layouts/Container",
+  title: 'Layouts/Container',
   component: Container,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
+      control: 'select',
+      options: ['1', '2', '3', '4'],
     },
     align: {
-      control: "select",
-      options: ["left", "center", "right"],
+      control: 'select',
+      options: ['left', 'center', 'right'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ============================================================================
 // Basic Examples
@@ -39,7 +39,7 @@ export const Default: Story = {
       </Container>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Size Variants
@@ -48,20 +48,20 @@ export const Default: Story = {
 export const SizeVariants: Story = {
   render: () => (
     <div className="bg-muted/30 py-8 space-y-8">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <Container key={size} size={size} p="4" className="bg-background border rounded-lg">
           <p className="font-medium">size="{size}"</p>
           <p className="text-sm text-muted-foreground">
-            {size === "1" && "Max-width: 448px"}
-            {size === "2" && "Max-width: 688px"}
-            {size === "3" && "Max-width: 880px"}
-            {size === "4" && "Max-width: 1136px"}
+            {size === '1' && 'Max-width: 448px'}
+            {size === '2' && 'Max-width: 688px'}
+            {size === '3' && 'Max-width: 880px'}
+            {size === '4' && 'Max-width: 1136px'}
           </p>
         </Container>
       ))}
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Alignment
@@ -70,17 +70,15 @@ export const SizeVariants: Story = {
 export const Alignment: Story = {
   render: () => (
     <div className="bg-muted/30 py-8 space-y-8">
-      {(["left", "center", "right"] as const).map((alignment) => (
+      {(['left', 'center', 'right'] as const).map(alignment => (
         <Container key={alignment} size="2" align={alignment} p="4" className="bg-background border rounded-lg">
           <p className="font-medium">align="{alignment}"</p>
-          <p className="text-sm text-muted-foreground">
-            Container aligned to the {alignment}
-          </p>
+          <p className="text-sm text-muted-foreground">Container aligned to the {alignment}</p>
         </Container>
       ))}
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Responsive Size
@@ -89,11 +87,7 @@ export const Alignment: Story = {
 export const ResponsiveSize: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">
-      <Container
-        size={{ initial: "1", sm: "2", md: "3", lg: "4" }}
-        p="4"
-        className="bg-background border rounded-lg"
-      >
+      <Container size={{ initial: '1', sm: '2', md: '3', lg: '4' }} p="4" className="bg-background border rounded-lg">
         <p className="font-medium">Responsive Container</p>
         <p className="text-sm text-muted-foreground mt-2">
           Size changes based on viewport:
@@ -105,7 +99,7 @@ export const ResponsiveSize: Story = {
       </Container>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // With Content
@@ -117,32 +111,29 @@ export const ArticleLayout: Story = {
       <Container size="2" p="6" className="bg-background">
         <article className="prose prose-sm max-w-none">
           <h1 className="text-2xl font-bold mb-4">Article Title</h1>
-          <p className="text-muted-foreground mb-4">
-            Published on January 1, 2024 • 5 min read
-          </p>
+          <p className="text-muted-foreground mb-4">Published on January 1, 2024 • 5 min read</p>
           <p className="mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
           </p>
           <h2 className="text-xl font-semibold mt-6 mb-3">Section Heading</h2>
           <p className="mb-4">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-            dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+            laborum.
           </p>
           <Box p="4" className="bg-muted rounded-lg my-6">
             <p className="text-sm font-mono">Code example or callout box</p>
           </Box>
           <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-            doloremque laudantium, totam rem aperiam.
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam.
           </p>
         </article>
       </Container>
     </div>
   ),
-};
+}
 
 export const PageLayout: Story = {
   render: () => (
@@ -153,9 +144,15 @@ export const PageLayout: Story = {
           <div className="flex justify-between items-center">
             <span className="font-bold">Logo</span>
             <nav className="flex gap-4 text-sm">
-              <a href="#" className="hover:underline">Home</a>
-              <a href="#" className="hover:underline">About</a>
-              <a href="#" className="hover:underline">Contact</a>
+              <a href="#" className="hover:underline">
+                Home
+              </a>
+              <a href="#" className="hover:underline">
+                About
+              </a>
+              <a href="#" className="hover:underline">
+                Contact
+              </a>
             </nav>
           </div>
         </Container>
@@ -180,14 +177,12 @@ export const PageLayout: Story = {
       {/* Footer */}
       <footer className="bg-background border-t py-6">
         <Container size="4" px="4">
-          <p className="text-sm text-muted-foreground text-center">
-            © 2024 Your Company. All rights reserved.
-          </p>
+          <p className="text-sm text-muted-foreground text-center">© 2024 Your Company. All rights reserved.</p>
         </Container>
       </footer>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Nested Containers
@@ -198,9 +193,7 @@ export const NestedContainers: Story = {
     <div className="bg-muted/30 py-8">
       <Container size="4" p="4" className="bg-background border rounded-lg">
         <h2 className="text-xl font-semibold mb-4">Outer Container (size="4")</h2>
-        <p className="text-muted-foreground mb-6">
-          This container provides the maximum width for the page content.
-        </p>
+        <p className="text-muted-foreground mb-6">This container provides the maximum width for the page content.</p>
 
         <Container size="2" p="4" className="bg-muted/50 border rounded-lg">
           <h3 className="text-lg font-medium mb-2">Inner Container (size="2")</h3>
@@ -211,4 +204,4 @@ export const NestedContainers: Story = {
       </Container>
     </div>
   ),
-};
+}

@@ -1,52 +1,52 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Avatar, AvatarGroup } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Avatar, AvatarGroup } from '@/elements'
 
 const meta: Meta<typeof Avatar> = {
-  title: "Elements/Avatar",
+  title: 'Elements/Avatar',
   component: Avatar,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4", "5", "6"],
+      control: 'select',
+      options: ['1', '2', '3', '4', '5', '6'],
     },
     variant: {
-      control: "select",
-      options: ["solid", "soft"],
+      control: 'select',
+      options: ['solid', 'soft'],
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
     },
     radius: {
-      control: "select",
-      options: ["none", "sm", "md", "lg", "full"],
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Avatar>;
+export default meta
+type Story = StoryObj<typeof Avatar>
 
 export const Default: Story = {
   args: {
-    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    alt: "User avatar",
+    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+    alt: 'User avatar',
   },
-};
+}
 
 export const WithFallback: Story = {
   args: {
-    fallback: "John Doe",
+    fallback: 'John Doe',
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
-      {(["1", "2", "3", "4", "5", "6"] as const).map((size) => (
+      {(['1', '2', '3', '4', '5', '6'] as const).map(size => (
         <Avatar
           key={size}
           size={size}
@@ -55,45 +55,41 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const FallbackSizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
-      {(["1", "2", "3", "4", "5", "6"] as const).map((size) => (
+      {(['1', '2', '3', '4', '5', '6'] as const).map(size => (
         <Avatar key={size} size={size} fallback="JD" />
       ))}
     </div>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <span className="w-12 text-sm">Soft:</span>
-        {(["default", "primary", "neutral", "info", "success", "warning", "error"] as const).map(
-          (color) => (
-            <Avatar key={color} color={color} variant="soft" fallback="AB" />
-          )
-        )}
+        {(['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const).map(color => (
+          <Avatar key={color} color={color} variant="soft" fallback="AB" />
+        ))}
       </div>
       <div className="flex items-center gap-4">
         <span className="w-12 text-sm">Solid:</span>
-        {(["default", "primary", "neutral", "info", "success", "warning", "error"] as const).map(
-          (color) => (
-            <Avatar key={color} color={color} variant="solid" fallback="AB" />
-          )
-        )}
+        {(['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const).map(color => (
+          <Avatar key={color} color={color} variant="solid" fallback="AB" />
+        ))}
       </div>
     </div>
   ),
-};
+}
 
 export const Radius: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      {(["none", "sm", "md", "lg", "full"] as const).map((radius) => (
+      {(['none', 'sm', 'md', 'lg', 'full'] as const).map(radius => (
         <Avatar
           key={radius}
           radius={radius}
@@ -103,7 +99,7 @@ export const Radius: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const BrokenImage: Story = {
   render: () => (
@@ -113,7 +109,7 @@ export const BrokenImage: Story = {
       <Avatar src="https://broken-link.com/image.jpg" />
     </div>
   ),
-};
+}
 
 export const Group: Story = {
   render: () => (
@@ -125,7 +121,7 @@ export const Group: Story = {
       <Avatar fallback="AS" color="primary" />
     </AvatarGroup>
   ),
-};
+}
 
 export const GroupWithMax: Story = {
   render: () => (
@@ -156,12 +152,12 @@ export const GroupWithMax: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const GroupSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(["1", "2", "3", "4", "5", "6"] as const).map((size) => (
+      {(['1', '2', '3', '4', '5', '6'] as const).map(size => (
         <div key={size}>
           <p className="text-sm text-muted-foreground mb-2">Size {size}:</p>
           <AvatarGroup size={size}>
@@ -174,7 +170,7 @@ export const GroupSizes: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const UserCard: Story = {
   render: () => (
@@ -189,7 +185,7 @@ export const UserCard: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const CommentThread: Story = {
   render: () => (
@@ -204,9 +200,7 @@ export const CommentThread: Story = {
             <span className="font-medium text-sm">John Doe</span>
             <span className="text-xs text-muted-foreground">2 hours ago</span>
           </div>
-          <p className="text-sm mt-1">
-            This looks great! I love the new design direction.
-          </p>
+          <p className="text-sm mt-1">This looks great! I love the new design direction.</p>
         </div>
       </div>
       <div className="flex gap-3 ml-8">
@@ -219,11 +213,9 @@ export const CommentThread: Story = {
             <span className="font-medium text-sm">Jane Smith</span>
             <span className="text-xs text-muted-foreground">1 hour ago</span>
           </div>
-          <p className="text-sm mt-1">
-            Thanks! Let me know if you have any suggestions.
-          </p>
+          <p className="text-sm mt-1">Thanks! Let me know if you have any suggestions.</p>
         </div>
       </div>
     </div>
   ),
-};
+}

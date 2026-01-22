@@ -1,62 +1,60 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
-  Slot,
-  getDisplayClasses,
-  getFlexDirectionClasses,
-  getFlexWrapClasses,
-  getAlignItemsClasses,
-  getJustifyContentClasses,
-  getSpacingClasses,
-  getSharedLayoutClasses,
-  getSharedLayoutStyles,
-  type Responsive,
+  type AlignItems,
   type Display,
   type FlexDirection,
   type FlexWrap,
-  type AlignItems,
+  getAlignItemsClasses,
+  getDisplayClasses,
+  getFlexDirectionClasses,
+  getFlexWrapClasses,
+  getJustifyContentClasses,
+  getSharedLayoutClasses,
+  getSharedLayoutStyles,
+  getSpacingClasses,
   type JustifyContent,
-  type Spacing,
+  type Responsive,
   type SharedLayoutProps,
-} from "./layout-utils";
+  Slot,
+  type Spacing,
+} from './layout-utils'
 
 // ============================================================================
 // Flex Props
 // ============================================================================
 
-type FlexDisplay = "none" | "flex" | "inline-flex";
+type FlexDisplay = 'none' | 'flex' | 'inline-flex'
 
 export interface FlexOwnProps extends SharedLayoutProps {
   /** Render as a different element */
-  as?: "div" | "span";
+  as?: 'div' | 'span'
   /** Merge props onto child element */
-  asChild?: boolean;
+  asChild?: boolean
   /** CSS display property */
-  display?: Responsive<FlexDisplay>;
+  display?: Responsive<FlexDisplay>
   /** Flex direction */
-  direction?: Responsive<FlexDirection>;
+  direction?: Responsive<FlexDirection>
   /** Align items along the cross axis */
-  align?: Responsive<AlignItems>;
+  align?: Responsive<AlignItems>
   /** Justify content along the main axis */
-  justify?: Responsive<JustifyContent>;
+  justify?: Responsive<JustifyContent>
   /** Flex wrap behavior */
-  wrap?: Responsive<FlexWrap>;
+  wrap?: Responsive<FlexWrap>
   /** Gap between items */
-  gap?: Responsive<Spacing>;
+  gap?: Responsive<Spacing>
   /** Horizontal gap between items */
-  gapX?: Responsive<Spacing>;
+  gapX?: Responsive<Spacing>
   /** Vertical gap between items */
-  gapY?: Responsive<Spacing>;
+  gapY?: Responsive<Spacing>
 }
 
-type FlexDivProps = FlexOwnProps &
-  Omit<React.ComponentPropsWithoutRef<"div">, keyof FlexOwnProps>;
-type FlexSpanProps = FlexOwnProps & { as: "span" } &
-  Omit<React.ComponentPropsWithoutRef<"span">, keyof FlexOwnProps>;
+type FlexDivProps = FlexOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof FlexOwnProps>
+type FlexSpanProps = FlexOwnProps & { as: 'span' } & Omit<React.ComponentPropsWithoutRef<'span'>, keyof FlexOwnProps>
 
-export type FlexProps = FlexDivProps | FlexSpanProps;
+export type FlexProps = FlexDivProps | FlexSpanProps
 
 // ============================================================================
 // Flex Component
@@ -65,7 +63,7 @@ export type FlexProps = FlexDivProps | FlexSpanProps;
 export const Flex = React.forwardRef<HTMLElement, FlexProps>(
   (
     {
-      as: Tag = "div",
+      as: Tag = 'div',
       asChild = false,
       className,
       style,
@@ -79,58 +77,116 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       gapX,
       gapY,
       // Shared layout props
-      p, px, py, pt, pr, pb, pl,
-      m, mx, my, mt, mr, mb, ml,
-      width, minWidth, maxWidth,
-      height, minHeight, maxHeight,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
+      width,
+      minWidth,
+      maxWidth,
+      height,
+      minHeight,
+      maxHeight,
       position,
-      inset, top, right, bottom, left,
-      overflow, overflowX, overflowY,
-      flexGrow, flexShrink, flexBasis,
-      gridArea, gridColumn, gridColumnStart, gridColumnEnd,
-      gridRow, gridRowStart, gridRowEnd,
+      inset,
+      top,
+      right,
+      bottom,
+      left,
+      overflow,
+      overflowX,
+      overflowY,
+      flexGrow,
+      flexShrink,
+      flexBasis,
+      gridArea,
+      gridColumn,
+      gridColumnStart,
+      gridColumnEnd,
+      gridRow,
+      gridRowStart,
+      gridRowEnd,
       children,
       ...restProps
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : Tag;
+    const Comp = asChild ? Slot : Tag
 
     const sharedLayoutProps: SharedLayoutProps = {
-      p, px, py, pt, pr, pb, pl,
-      m, mx, my, mt, mr, mb, ml,
-      width, minWidth, maxWidth,
-      height, minHeight, maxHeight,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
+      width,
+      minWidth,
+      maxWidth,
+      height,
+      minHeight,
+      maxHeight,
       position,
-      inset, top, right, bottom, left,
-      overflow, overflowX, overflowY,
-      flexGrow, flexShrink, flexBasis,
-      gridArea, gridColumn, gridColumnStart, gridColumnEnd,
-      gridRow, gridRowStart, gridRowEnd,
-    };
+      inset,
+      top,
+      right,
+      bottom,
+      left,
+      overflow,
+      overflowX,
+      overflowY,
+      flexGrow,
+      flexShrink,
+      flexBasis,
+      gridArea,
+      gridColumn,
+      gridColumnStart,
+      gridColumnEnd,
+      gridRow,
+      gridRowStart,
+      gridRowEnd,
+    }
 
     // Default to flex display if not specified
-    const resolvedDisplay = display || "flex";
+    const resolvedDisplay = display || 'flex'
 
     const classes = cn(
-      "rt-Flex",
-      "box-border",
+      'rt-Flex',
+      'box-border',
       getDisplayClasses(resolvedDisplay as Responsive<Display>),
       getFlexDirectionClasses(direction),
       getFlexWrapClasses(wrap),
       getAlignItemsClasses(align),
       getJustifyContentClasses(justify),
-      getSpacingClasses(gap, "gap"),
-      getSpacingClasses(gapX, "gap-x"),
-      getSpacingClasses(gapY, "gap-y"),
+      getSpacingClasses(gap, 'gap'),
+      getSpacingClasses(gapX, 'gap-x'),
+      getSpacingClasses(gapY, 'gap-y'),
       getSharedLayoutClasses(sharedLayoutProps),
       className,
-    );
+    )
 
     const styles: React.CSSProperties = {
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
-    };
+    }
 
     return (
       <Comp
@@ -141,8 +197,8 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       >
         {children}
       </Comp>
-    );
+    )
   },
-);
+)
 
-Flex.displayName = "Flex";
+Flex.displayName = 'Flex'

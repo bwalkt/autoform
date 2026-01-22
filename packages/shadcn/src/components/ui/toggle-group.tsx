@@ -1,19 +1,16 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group";
-import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
-import type { VariantProps } from "class-variance-authority";
+import { Toggle as TogglePrimitive } from '@base-ui/react/toggle'
+import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group'
+import { toggleVariants } from '@bwalkt/shadcn/components/ui/toggle'
+import { cn } from '@bwalkt/shadcn/lib/utils'
+import type { VariantProps } from 'class-variance-authority'
+import * as React from 'react'
 
-import { cn } from "@bwalkt/shadcn/lib/utils";
-import { toggleVariants } from "@bwalkt/shadcn/components/ui/toggle";
-
-const ToggleGroupContext = React.createContext<
-  VariantProps<typeof toggleVariants>
->({
-  size: "default",
-  variant: "default",
-});
+const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({
+  size: 'default',
+  variant: 'default',
+})
 
 function ToggleGroup({
   className,
@@ -25,14 +22,12 @@ function ToggleGroup({
   return (
     <ToggleGroupPrimitive
       data-slot="toggle-group"
-      className={cn("flex items-center justify-center gap-1", className)}
+      className={cn('flex items-center justify-center gap-1', className)}
       {...props}
     >
-      <ToggleGroupContext.Provider value={{ variant, size }}>
-        {children}
-      </ToggleGroupContext.Provider>
+      <ToggleGroupContext.Provider value={{ variant, size }}>{children}</ToggleGroupContext.Provider>
     </ToggleGroupPrimitive>
-  );
+  )
 }
 
 function ToggleGroupItem({
@@ -42,7 +37,7 @@ function ToggleGroupItem({
   size,
   ...props
 }: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
-  const context = React.useContext(ToggleGroupContext);
+  const context = React.useContext(ToggleGroupContext)
 
   return (
     <TogglePrimitive
@@ -58,7 +53,7 @@ function ToggleGroupItem({
     >
       {children}
     </TogglePrimitive>
-  );
+  )
 }
 
-export { ToggleGroup, ToggleGroupItem };
+export { ToggleGroup, ToggleGroupItem }

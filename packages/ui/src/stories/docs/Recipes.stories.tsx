@@ -1,34 +1,34 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
 import {
-  Card,
-  TextField,
-  Button,
-  CheckboxWithLabel,
-  Select,
-  SelectItem,
-  SwitchWithLabel,
+  AlertDialog,
   Avatar,
   Badge,
-  Progress,
-  AlertDialog,
-  Tabs,
-  Skeleton,
-  SkeletonText,
-  SkeletonAvatar,
-  Spinner,
-  Callout,
   Box,
-} from "@bwalkt/ui";
+  Button,
+  Callout,
+  Card,
+  CheckboxWithLabel,
+  Progress,
+  Select,
+  SelectItem,
+  Skeleton,
+  SkeletonAvatar,
+  SkeletonText,
+  Spinner,
+  SwitchWithLabel,
+  Tabs,
+  TextField,
+} from '@bwalkt/ui'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
 
 const meta: Meta = {
-  title: "Recipes",
+  title: 'Recipes',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
+export default meta
 
 // ============================================================================
 // Login Form
@@ -42,19 +42,9 @@ export const LoginForm: StoryObj = {
         <Card.Description>Enter your credentials to continue</Card.Description>
       </Card.Header>
       <Card.Content>
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <TextField
-            label="Email"
-            type="email"
-            placeholder="you@example.com"
-            required
-          />
-          <TextField
-            label="Password"
-            type="password"
-            placeholder="Enter password"
-            required
-          />
+        <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+          <TextField label="Email" type="email" placeholder="you@example.com" required />
+          <TextField label="Password" type="password" placeholder="Enter password" required />
           <div className="flex items-center justify-between">
             <CheckboxWithLabel id="remember" label="Remember me" />
             <a href="#" className="text-sm text-primary hover:underline">
@@ -68,7 +58,7 @@ export const LoginForm: StoryObj = {
       </Card.Content>
       <Card.Footer className="justify-center">
         <p className="text-sm text-muted-foreground">
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <a href="#" className="text-primary hover:underline">
             Sign up
           </a>
@@ -76,7 +66,7 @@ export const LoginForm: StoryObj = {
       </Card.Footer>
     </Card.Root>
   ),
-};
+}
 
 // ============================================================================
 // Settings Form
@@ -125,7 +115,7 @@ export const SettingsForm: StoryObj = {
       </Card.Footer>
     </Card.Root>
   ),
-};
+}
 
 // ============================================================================
 // Profile Card
@@ -140,7 +130,9 @@ export const ProfileCard: StoryObj = {
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <h3 className="font-semibold">John Doe</h3>
-              <Badge color="success" size="2">Verified</Badge>
+              <Badge color="success" size="2">
+                Verified
+              </Badge>
             </div>
             <p className="text-sm text-muted-foreground">john@example.com</p>
             <p className="text-sm text-muted-foreground">Software Engineer</p>
@@ -148,44 +140,43 @@ export const ProfileCard: StoryObj = {
         </div>
       </Card.Content>
       <Card.Footer>
-        <Button variant="outline" size="2">Message</Button>
+        <Button variant="outline" size="2">
+          Message
+        </Button>
         <Button size="2">View Profile</Button>
       </Card.Footer>
     </Card.Root>
   ),
-};
+}
 
 // ============================================================================
 // Stats Dashboard
 // ============================================================================
 
 const StatCard: React.FC<{
-  title: string;
-  value: string;
-  change: number;
-  progress: number;
+  title: string
+  value: string
+  change: number
+  progress: number
 }> = ({ title, value, change, progress }) => {
-  const isPositive = change > 0;
+  const isPositive = change > 0
 
   return (
     <Card.Root>
       <Card.Content className="pt-6">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <Badge
-            color={isPositive ? "success" : "error"}
-            variant="soft"
-            size="2"
-          >
-            {isPositive ? "+" : ""}{change}%
+          <Badge color={isPositive ? 'success' : 'error'} variant="soft" size="2">
+            {isPositive ? '+' : ''}
+            {change}%
           </Badge>
         </div>
         <p className="text-2xl font-bold mt-2">{value}</p>
         <Progress value={progress} className="mt-4" size="2" />
       </Card.Content>
     </Card.Root>
-  );
-};
+  )
+}
 
 export const StatsDashboard: StoryObj = {
   render: () => (
@@ -196,7 +187,7 @@ export const StatsDashboard: StoryObj = {
       <StatCard title="Conversion" value="3.2%" change={5} progress={32} />
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Delete Confirmation
@@ -206,13 +197,15 @@ export const DeleteConfirmation: StoryObj = {
   render: () => (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <Button variant="outline" color="error">Delete Account</Button>
+        <Button variant="outline" color="error">
+          Delete Account
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete Account</AlertDialog.Title>
         <AlertDialog.Description>
-          Are you sure you want to delete your account? This action cannot be
-          undone and all your data will be permanently removed.
+          Are you sure you want to delete your account? This action cannot be undone and all your data will be
+          permanently removed.
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel asChild>
@@ -225,7 +218,7 @@ export const DeleteConfirmation: StoryObj = {
       </AlertDialog.Content>
     </AlertDialog.Root>
   ),
-};
+}
 
 // ============================================================================
 // Tab Navigation
@@ -238,7 +231,10 @@ export const TabNavigation: StoryObj = {
         <Tabs.List>
           <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
           <Tabs.Trigger value="tasks">
-            Tasks <Badge size="2" className="ml-2">12</Badge>
+            Tasks{' '}
+            <Badge size="2" className="ml-2">
+              12
+            </Badge>
           </Tabs.Trigger>
           <Tabs.Trigger value="files">Files</Tabs.Trigger>
           <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
@@ -246,39 +242,31 @@ export const TabNavigation: StoryObj = {
 
         <Tabs.Content value="overview" className="mt-4">
           <Card.Root>
-            <Card.Content className="pt-6">
-              Project overview content goes here...
-            </Card.Content>
+            <Card.Content className="pt-6">Project overview content goes here...</Card.Content>
           </Card.Root>
         </Tabs.Content>
 
         <Tabs.Content value="tasks" className="mt-4">
           <Card.Root>
-            <Card.Content className="pt-6">
-              Task list content goes here...
-            </Card.Content>
+            <Card.Content className="pt-6">Task list content goes here...</Card.Content>
           </Card.Root>
         </Tabs.Content>
 
         <Tabs.Content value="files" className="mt-4">
           <Card.Root>
-            <Card.Content className="pt-6">
-              File browser content goes here...
-            </Card.Content>
+            <Card.Content className="pt-6">File browser content goes here...</Card.Content>
           </Card.Root>
         </Tabs.Content>
 
         <Tabs.Content value="settings" className="mt-4">
           <Card.Root>
-            <Card.Content className="pt-6">
-              Settings content goes here...
-            </Card.Content>
+            <Card.Content className="pt-6">Settings content goes here...</Card.Content>
           </Card.Root>
         </Tabs.Content>
       </Tabs.Root>
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Skeleton Loading
@@ -302,7 +290,7 @@ export const SkeletonLoading: StoryObj = {
       </Card.Footer>
     </Card.Root>
   ),
-};
+}
 
 // ============================================================================
 // Button Loading
@@ -310,26 +298,26 @@ export const SkeletonLoading: StoryObj = {
 
 export const ButtonLoading: StoryObj = {
   render: () => {
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(false)
 
     const handleClick = () => {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 2000);
-    };
+      setLoading(true)
+      setTimeout(() => setLoading(false), 2000)
+    }
 
     return (
       <div className="space-x-4">
         <Button disabled={loading} onClick={handleClick}>
           {loading && <Spinner size="2" className="mr-2" />}
-          {loading ? "Submitting..." : "Submit"}
+          {loading ? 'Submitting...' : 'Submit'}
         </Button>
         <Button variant="outline" disabled={loading}>
           Cancel
         </Button>
       </div>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Status Callouts
@@ -356,4 +344,4 @@ export const StatusCallouts: StoryObj = {
       </Callout>
     </div>
   ),
-};
+}

@@ -1,7 +1,7 @@
 import { AjvProvider } from '@bwalkt/ajv'
+import { AutoForm } from '@bwalkt/shadcn/components/ui/autoform/AutoForm'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
-import { AutoForm } from '@bwalkt/shadcn/components/ui/autoform/AutoForm'
 
 const meta: Meta = {
   title: 'AutoForm/With Design Token Elements',
@@ -134,7 +134,7 @@ export const ValidationForm: Story = {
           <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
             <h4 className="font-medium text-red-800 mb-2">Validation Errors:</h4>
             <ul className="list-disc list-inside text-sm text-red-700">
-              {errors.map((error) => (
+              {errors.map(error => (
                 <li key={error.message}>{error.message}</li>
               ))}
             </ul>

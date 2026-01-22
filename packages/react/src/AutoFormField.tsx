@@ -1,56 +1,50 @@
-import type React from "react";
-import { useFormContext } from "react-hook-form";
-import { useAutoForm } from "./context";
-import { getLabel, type ParsedField } from "@bwalkt/core";
-import { ObjectField } from "./ObjectField";
-import { ArrayField } from "./ArrayField";
-import type { AutoFormFieldProps } from "./types";
-import { getPathInObject } from "./utils";
+import { getLabel, type ParsedField } from '@bwalkt/core'
+import type React from 'react'
+import { useFormContext } from 'react-hook-form'
+import { ArrayField } from './ArrayField'
+import { useAutoForm } from './context'
+import { ObjectField } from './ObjectField'
+import type { AutoFormFieldProps } from './types'
+import { getPathInObject } from './utils'
 
 export const AutoFormField: React.FC<{
-  field: ParsedField;
-  path: string[];
+  field: ParsedField
+  path: string[]
 }> = ({ field, path }) => {
-  const { formComponents, uiComponents } = useAutoForm();
+  const { formComponents, uiComponents } = useAutoForm()
   const {
     register,
     formState: { errors },
     getValues,
-  } = useFormContext();
+  } = useFormContext()
 
-  const fullPath = path.join(".");
-  const error = getPathInObject(errors, path)?.message as string | undefined;
-  const value = getValues(fullPath);
+  const fullPath = path.join('.')
+  const error = getPathInObject(errors, path)?.message as string | undefined
+  const value = getValues(fullPath)
 
-  const FieldWrapper =
-    field.fieldConfig?.fieldWrapper || uiComponents.FieldWrapper;
+  const FieldWrapper = field.fieldConfig?.fieldWrapper || uiComponents.FieldWrapper
 
   let FieldComponent: React.ComponentType<AutoFormFieldProps> = () => (
     <uiComponents.ErrorMessage
       error={`[AutoForm Configuration Error] No component found for type "${field.type}" nor a fallback`}
     />
-  );
+  )
 
-  if (field.type === "array") {
-    FieldComponent = ArrayField;
-  } else if (field.type === "object") {
-    FieldComponent = ObjectField;
+  if (field.type === 'array') {
+    FieldComponent = ArrayField
+  } else if (field.type === 'object') {
+    FieldComponent = ObjectField
   } else if (field.type in formComponents) {
-    const component = formComponents[field.type as keyof typeof formComponents];
+    const component = formComponents[field.type as keyof typeof formComponents]
     if (component) {
-      FieldComponent = component;
+      FieldComponent = component
     }
-  } else if ("fallback" in formComponents) {
-    FieldComponent = formComponents.fallback;
+  } else if ('fallback' in formComponents) {
+    FieldComponent = formComponents.fallback
   }
 
   return (
-    <FieldWrapper
-      label={getLabel(field)}
-      error={error}
-      id={fullPath}
-      field={field}
-    >
+    <FieldWrapper label={getLabel(field)} error={error} id={fullPath} field={field}>
       <FieldComponent
         label={getLabel(field)}
         field={field}
@@ -68,5 +62,5 @@ export const AutoFormField: React.FC<{
         }}
       />
     </FieldWrapper>
-  );
-};
+  )
+}

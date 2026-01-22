@@ -1,52 +1,39 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import type { Size } from "./tokens";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import type { Size } from './tokens'
 
 // Size configurations
 const spinnerSizes = {
-  "1": "h-3 w-3",
-  "2": "h-4 w-4",
-  "3": "h-6 w-6",
-  "4": "h-8 w-8",
-};
+  '1': 'h-3 w-3',
+  '2': 'h-4 w-4',
+  '3': 'h-6 w-6',
+  '4': 'h-8 w-8',
+}
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Size of the spinner */
-  size?: Size;
+  size?: Size
   /** Whether to show loading state */
-  loading?: boolean;
+  loading?: boolean
 }
 
 const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
-  ({ size = "2", loading = true, className, children, ...props }, ref) => {
+  ({ size = '2', loading = true, className, children, ...props }, ref) => {
     if (!loading) {
-      return <>{children}</>;
+      return <>{children}</>
     }
 
     return (
-      <div
-        ref={ref}
-        role="status"
-        aria-label="Loading"
-        className={cn("inline-flex", className)}
-        {...props}
-      >
+      <div ref={ref} role="status" aria-label="Loading" className={cn('inline-flex', className)} {...props}>
         <svg
-          className={cn("animate-spin text-current", spinnerSizes[size])}
+          className={cn('animate-spin text-current', spinnerSizes[size])}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
         >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path
             className="opacity-75"
             fill="currentColor"
@@ -55,10 +42,10 @@ const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
         </svg>
         <span className="sr-only">Loading...</span>
       </div>
-    );
+    )
   },
-);
+)
 
-Spinner.displayName = "Spinner";
+Spinner.displayName = 'Spinner'
 
-export { Spinner };
+export { Spinner }

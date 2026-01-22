@@ -1,47 +1,47 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import type { Size, Radius } from "./tokens";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import type { Radius, Size } from './tokens'
 
 // Size configurations
 const segmentSizes = {
-  "1": {
-    root: "h-7 p-0.5 text-xs gap-0.5",
-    item: "px-2 h-6",
+  '1': {
+    root: 'h-7 p-0.5 text-xs gap-0.5',
+    item: 'px-2 h-6',
   },
-  "2": {
-    root: "h-9 p-1 text-sm gap-1",
-    item: "px-3 h-7",
+  '2': {
+    root: 'h-9 p-1 text-sm gap-1',
+    item: 'px-3 h-7',
   },
-  "3": {
-    root: "h-11 p-1 text-sm gap-1",
-    item: "px-4 h-9",
+  '3': {
+    root: 'h-11 p-1 text-sm gap-1',
+    item: 'px-4 h-9',
   },
-  "4": {
-    root: "h-14 p-1.5 text-base gap-1",
-    item: "px-5 h-10",
+  '4': {
+    root: 'h-14 p-1.5 text-base gap-1',
+    item: 'px-5 h-10',
   },
-};
+}
 
 // Radius styles
 const radiusStyles: Record<Radius, string> = {
-  none: "rounded-none",
-  sm: "rounded-sm",
-  md: "rounded-md",
-  lg: "rounded-lg",
-  full: "rounded-full",
-};
+  none: 'rounded-none',
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  full: 'rounded-full',
+}
 
 // Context for sharing props
 interface SegmentedControlContextValue {
-  size: Size;
-  radius: Radius;
-  value: string;
-  onValueChange: (value: string) => void;
+  size: Size
+  radius: Radius
+  value: string
+  onValueChange: (value: string) => void
 }
 
-const SegmentedControlContext = React.createContext<SegmentedControlContextValue | null>(null);
+const SegmentedControlContext = React.createContext<SegmentedControlContextValue | null>(null)
 
 // ============================================================================
 // Root
@@ -49,59 +49,48 @@ const SegmentedControlContext = React.createContext<SegmentedControlContextValue
 
 export interface SegmentedControlRootProps {
   /** Size of the control */
-  size?: Size;
+  size?: Size
   /** Border radius */
-  radius?: Radius;
+  radius?: Radius
   /** Current value */
-  value?: string;
+  value?: string
   /** Default value */
-  defaultValue?: string;
+  defaultValue?: string
   /** Callback when value changes */
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: string) => void
   /** Additional class names */
-  className?: string;
+  className?: string
   /** Children */
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const SegmentedControlRoot = React.forwardRef<HTMLDivElement, SegmentedControlRootProps>(
   (
-    {
-      size = "2",
-      radius = "md",
-      value: controlledValue,
-      defaultValue,
-      onValueChange,
-      className,
-      children,
-      ...props
-    },
+    { size = '2', radius = 'md', value: controlledValue, defaultValue, onValueChange, className, children, ...props },
     ref,
   ) => {
-    const [internalValue, setInternalValue] = React.useState(defaultValue || "");
-    const value = controlledValue ?? internalValue;
+    const [internalValue, setInternalValue] = React.useState(defaultValue || '')
+    const value = controlledValue ?? internalValue
 
     const handleValueChange = React.useCallback(
       (newValue: string) => {
         if (controlledValue === undefined) {
-          setInternalValue(newValue);
+          setInternalValue(newValue)
         }
-        onValueChange?.(newValue);
+        onValueChange?.(newValue)
       },
       [controlledValue, onValueChange],
-    );
+    )
 
-    const sizeConfig = segmentSizes[size];
+    const sizeConfig = segmentSizes[size]
 
     return (
-      <SegmentedControlContext.Provider
-        value={{ size, radius, value, onValueChange: handleValueChange }}
-      >
+      <SegmentedControlContext.Provider value={{ size, radius, value, onValueChange: handleValueChange }}>
         <div
           ref={ref}
           role="radiogroup"
           className={cn(
-            "inline-flex items-center bg-muted/50 border border-input",
+            'inline-flex items-center bg-muted/50 border border-input',
             sizeConfig.root,
             radiusStyles[radius],
             className,
@@ -111,11 +100,11 @@ const SegmentedControlRoot = React.forwardRef<HTMLDivElement, SegmentedControlRo
           {children}
         </div>
       </SegmentedControlContext.Provider>
-    );
+    )
   },
-);
+)
 
-SegmentedControlRoot.displayName = "SegmentedControl.Root";
+SegmentedControlRoot.displayName = 'SegmentedControl.Root'
 
 // ============================================================================
 // Item
@@ -123,69 +112,68 @@ SegmentedControlRoot.displayName = "SegmentedControl.Root";
 
 export interface SegmentedControlItemProps {
   /** Value of this item */
-  value: string;
+  value: string
   /** Whether this item is disabled */
-  disabled?: boolean;
+  disabled?: boolean
   /** Additional class names */
-  className?: string;
+  className?: string
   /** Item content */
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
-const SegmentedControlItem = React.forwardRef<
-  HTMLButtonElement,
-  SegmentedControlItemProps
->(({ value, disabled, className, children, ...props }, ref) => {
-  const context = React.useContext(SegmentedControlContext);
+const SegmentedControlItem = React.forwardRef<HTMLButtonElement, SegmentedControlItemProps>(
+  ({ value, disabled, className, children, ...props }, ref) => {
+    const context = React.useContext(SegmentedControlContext)
 
-  if (!context) {
-    throw new Error("SegmentedControl.Item must be used within SegmentedControl.Root");
-  }
+    if (!context) {
+      throw new Error('SegmentedControl.Item must be used within SegmentedControl.Root')
+    }
 
-  const { size, radius, value: selectedValue, onValueChange } = context;
-  const isSelected = value === selectedValue;
-  const sizeConfig = segmentSizes[size];
+    const { size, radius, value: selectedValue, onValueChange } = context
+    const isSelected = value === selectedValue
+    const sizeConfig = segmentSizes[size]
 
-  // Calculate inner radius (slightly smaller than outer)
-  const innerRadiusMap: Record<Radius, string> = {
-    none: "rounded-none",
-    sm: "rounded-[2px]",
-    md: "rounded-[4px]",
-    lg: "rounded-[6px]",
-    full: "rounded-full",
-  };
+    // Calculate inner radius (slightly smaller than outer)
+    const innerRadiusMap: Record<Radius, string> = {
+      none: 'rounded-none',
+      sm: 'rounded-[2px]',
+      md: 'rounded-[4px]',
+      lg: 'rounded-[6px]',
+      full: 'rounded-full',
+    }
 
-  return (
-    <button
-      ref={ref}
-      type="button"
-      role="radio"
-      aria-checked={isSelected}
-      disabled={disabled}
-      onClick={() => onValueChange(value)}
-      className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap font-medium",
-        "transition-all duration-200 ease-in-out",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
-        "disabled:pointer-events-none disabled:opacity-50",
-        sizeConfig.item,
-        innerRadiusMap[radius],
+    return (
+      <button
+        ref={ref}
+        type="button"
+        role="radio"
+        aria-checked={isSelected}
+        disabled={disabled}
+        onClick={() => onValueChange(value)}
+        className={cn(
+          'inline-flex items-center justify-center whitespace-nowrap font-medium',
+          'transition-all duration-200 ease-in-out',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+          'disabled:pointer-events-none disabled:opacity-50',
+          sizeConfig.item,
+          innerRadiusMap[radius],
 
-        // Selected state
-        isSelected
-          ? "bg-background text-foreground shadow-sm border border-border/50"
-          : "text-muted-foreground hover:text-foreground hover:bg-background/50",
+          // Selected state
+          isSelected
+            ? 'bg-background text-foreground shadow-sm border border-border/50'
+            : 'text-muted-foreground hover:text-foreground hover:bg-background/50',
 
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-});
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </button>
+    )
+  },
+)
 
-SegmentedControlItem.displayName = "SegmentedControl.Item";
+SegmentedControlItem.displayName = 'SegmentedControl.Item'
 
 // ============================================================================
 // Export compound component
@@ -194,4 +182,4 @@ SegmentedControlItem.displayName = "SegmentedControl.Item";
 export const SegmentedControl = {
   Root: SegmentedControlRoot,
   Item: SegmentedControlItem,
-};
+}

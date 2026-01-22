@@ -1,85 +1,85 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
 
 // ============================================================================
 // Theme Types
 // ============================================================================
 
-export type Appearance = "light" | "dark" | "inherit";
+export type Appearance = 'light' | 'dark' | 'inherit'
 
 export type AccentColor =
-  | "gray"
-  | "gold"
-  | "bronze"
-  | "brown"
-  | "yellow"
-  | "amber"
-  | "orange"
-  | "tomato"
-  | "red"
-  | "ruby"
-  | "crimson"
-  | "pink"
-  | "plum"
-  | "purple"
-  | "violet"
-  | "iris"
-  | "indigo"
-  | "blue"
-  | "cyan"
-  | "teal"
-  | "jade"
-  | "green"
-  | "grass"
-  | "lime"
-  | "mint"
-  | "sky";
+  | 'gray'
+  | 'gold'
+  | 'bronze'
+  | 'brown'
+  | 'yellow'
+  | 'amber'
+  | 'orange'
+  | 'tomato'
+  | 'red'
+  | 'ruby'
+  | 'crimson'
+  | 'pink'
+  | 'plum'
+  | 'purple'
+  | 'violet'
+  | 'iris'
+  | 'indigo'
+  | 'blue'
+  | 'cyan'
+  | 'teal'
+  | 'jade'
+  | 'green'
+  | 'grass'
+  | 'lime'
+  | 'mint'
+  | 'sky'
 
-export type GrayColor = "auto" | "gray" | "mauve" | "slate" | "sage" | "olive" | "sand";
+export type GrayColor = 'auto' | 'gray' | 'mauve' | 'slate' | 'sage' | 'olive' | 'sand'
 
-export type Radius = "none" | "small" | "medium" | "large" | "full";
+export type Radius = 'none' | 'small' | 'medium' | 'large' | 'full'
 
-export type Scaling = "90%" | "95%" | "100%" | "105%" | "110%";
+export type Scaling = '90%' | '95%' | '100%' | '105%' | '110%'
 
-export type PanelBackground = "solid" | "translucent";
+export type PanelBackground = 'solid' | 'translucent'
 
 // ============================================================================
 // Gray Color Matching
 // ============================================================================
 
 const accentToGrayMap: Record<AccentColor, GrayColor> = {
-  gray: "gray",
-  gold: "sand",
-  bronze: "sand",
-  brown: "sand",
-  yellow: "sand",
-  amber: "sand",
-  orange: "sand",
-  tomato: "mauve",
-  red: "mauve",
-  ruby: "mauve",
-  crimson: "mauve",
-  pink: "mauve",
-  plum: "mauve",
-  purple: "mauve",
-  violet: "mauve",
-  iris: "slate",
-  indigo: "slate",
-  blue: "slate",
-  cyan: "slate",
-  teal: "sage",
-  jade: "sage",
-  green: "sage",
-  grass: "sage",
-  lime: "olive",
-  mint: "sage",
-  sky: "slate",
-};
+  gray: 'gray',
+  gold: 'sand',
+  bronze: 'sand',
+  brown: 'sand',
+  yellow: 'sand',
+  amber: 'sand',
+  orange: 'sand',
+  tomato: 'mauve',
+  red: 'mauve',
+  ruby: 'mauve',
+  crimson: 'mauve',
+  pink: 'mauve',
+  plum: 'mauve',
+  purple: 'mauve',
+  violet: 'mauve',
+  iris: 'slate',
+  indigo: 'slate',
+  blue: 'slate',
+  cyan: 'slate',
+  teal: 'sage',
+  jade: 'sage',
+  green: 'sage',
+  grass: 'sage',
+  lime: 'olive',
+  mint: 'sage',
+  sky: 'slate',
+}
 
 function getMatchingGrayColor(accentColor: AccentColor): GrayColor {
-  return accentToGrayMap[accentColor] || "gray";
+  return accentToGrayMap[accentColor] || 'gray'
 }
 
 // ============================================================================
@@ -87,31 +87,31 @@ function getMatchingGrayColor(accentColor: AccentColor): GrayColor {
 // ============================================================================
 
 export interface ThemeContextValue {
-  appearance: Appearance;
-  accentColor: AccentColor;
-  grayColor: GrayColor;
-  resolvedGrayColor: GrayColor;
-  radius: Radius;
-  scaling: Scaling;
-  panelBackground: PanelBackground;
-  hasBackground: boolean;
+  appearance: Appearance
+  accentColor: AccentColor
+  grayColor: GrayColor
+  resolvedGrayColor: GrayColor
+  radius: Radius
+  scaling: Scaling
+  panelBackground: PanelBackground
+  hasBackground: boolean
   // Change handlers
-  onAppearanceChange: (appearance: Appearance) => void;
-  onAccentColorChange: (accentColor: AccentColor) => void;
-  onGrayColorChange: (grayColor: GrayColor) => void;
-  onRadiusChange: (radius: Radius) => void;
-  onScalingChange: (scaling: Scaling) => void;
-  onPanelBackgroundChange: (panelBackground: PanelBackground) => void;
+  onAppearanceChange: (appearance: Appearance) => void
+  onAccentColorChange: (accentColor: AccentColor) => void
+  onGrayColorChange: (grayColor: GrayColor) => void
+  onRadiusChange: (radius: Radius) => void
+  onScalingChange: (scaling: Scaling) => void
+  onPanelBackgroundChange: (panelBackground: PanelBackground) => void
 }
 
-const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
+const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined)
 
 export function useThemeContext() {
-  const context = React.useContext(ThemeContext);
+  const context = React.useContext(ThemeContext)
   if (!context) {
-    throw new Error("useThemeContext must be used within a Theme component");
+    throw new Error('useThemeContext must be used within a Theme component')
   }
-  return context;
+  return context
 }
 
 // ============================================================================
@@ -120,37 +120,37 @@ export function useThemeContext() {
 
 export interface ThemeProps {
   /** Visual appearance mode */
-  appearance?: Appearance;
+  appearance?: Appearance
   /** Accent color for interactive elements */
-  accentColor?: AccentColor;
+  accentColor?: AccentColor
   /** Gray color palette */
-  grayColor?: GrayColor;
+  grayColor?: GrayColor
   /** Border radius scale */
-  radius?: Radius;
+  radius?: Radius
   /** UI scaling factor */
-  scaling?: Scaling;
+  scaling?: Scaling
   /** Panel background style */
-  panelBackground?: PanelBackground;
+  panelBackground?: PanelBackground
   /** Whether to render a background */
-  hasBackground?: boolean;
+  hasBackground?: boolean
   /** Callback when appearance changes */
-  onAppearanceChange?: (appearance: Appearance) => void;
+  onAppearanceChange?: (appearance: Appearance) => void
   /** Callback when accent color changes */
-  onAccentColorChange?: (accentColor: AccentColor) => void;
+  onAccentColorChange?: (accentColor: AccentColor) => void
   /** Callback when gray color changes */
-  onGrayColorChange?: (grayColor: GrayColor) => void;
+  onGrayColorChange?: (grayColor: GrayColor) => void
   /** Callback when radius changes */
-  onRadiusChange?: (radius: Radius) => void;
+  onRadiusChange?: (radius: Radius) => void
   /** Callback when scaling changes */
-  onScalingChange?: (scaling: Scaling) => void;
+  onScalingChange?: (scaling: Scaling) => void
   /** Callback when panel background changes */
-  onPanelBackgroundChange?: (panelBackground: PanelBackground) => void;
+  onPanelBackgroundChange?: (panelBackground: PanelBackground) => void
   /** Render as child element */
-  asChild?: boolean;
+  asChild?: boolean
   /** Additional class names */
-  className?: string;
+  className?: string
   /** Children elements */
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 // ============================================================================
@@ -160,12 +160,12 @@ export interface ThemeProps {
 export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
   (
     {
-      appearance: appearanceProp = "inherit",
-      accentColor: accentColorProp = "indigo",
-      grayColor: grayColorProp = "auto",
-      radius: radiusProp = "medium",
-      scaling: scalingProp = "100%",
-      panelBackground: panelBackgroundProp = "translucent",
+      appearance: appearanceProp = 'inherit',
+      accentColor: accentColorProp = 'indigo',
+      grayColor: grayColorProp = 'auto',
+      radius: radiusProp = 'medium',
+      scaling: scalingProp = '100%',
+      panelBackground: panelBackgroundProp = 'translucent',
       hasBackground: hasBackgroundProp = true,
       onAppearanceChange: onAppearanceChangeProp,
       onAccentColorChange: onAccentColorChangeProp,
@@ -181,72 +181,72 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
     ref,
   ) => {
     // State for controlled/uncontrolled mode
-    const [appearance, setAppearance] = React.useState<Appearance>(appearanceProp);
-    const [accentColor, setAccentColor] = React.useState<AccentColor>(accentColorProp);
-    const [grayColor, setGrayColor] = React.useState<GrayColor>(grayColorProp);
-    const [radius, setRadius] = React.useState<Radius>(radiusProp);
-    const [scaling, setScaling] = React.useState<Scaling>(scalingProp);
-    const [panelBackground, setPanelBackground] = React.useState<PanelBackground>(panelBackgroundProp);
+    const [appearance, setAppearance] = React.useState<Appearance>(appearanceProp)
+    const [accentColor, setAccentColor] = React.useState<AccentColor>(accentColorProp)
+    const [grayColor, setGrayColor] = React.useState<GrayColor>(grayColorProp)
+    const [radius, setRadius] = React.useState<Radius>(radiusProp)
+    const [scaling, setScaling] = React.useState<Scaling>(scalingProp)
+    const [panelBackground, setPanelBackground] = React.useState<PanelBackground>(panelBackgroundProp)
 
     // Sync with props
-    React.useEffect(() => setAppearance(appearanceProp), [appearanceProp]);
-    React.useEffect(() => setAccentColor(accentColorProp), [accentColorProp]);
-    React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
-    React.useEffect(() => setRadius(radiusProp), [radiusProp]);
-    React.useEffect(() => setScaling(scalingProp), [scalingProp]);
-    React.useEffect(() => setPanelBackground(panelBackgroundProp), [panelBackgroundProp]);
+    React.useEffect(() => setAppearance(appearanceProp), [appearanceProp])
+    React.useEffect(() => setAccentColor(accentColorProp), [accentColorProp])
+    React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp])
+    React.useEffect(() => setRadius(radiusProp), [radiusProp])
+    React.useEffect(() => setScaling(scalingProp), [scalingProp])
+    React.useEffect(() => setPanelBackground(panelBackgroundProp), [panelBackgroundProp])
 
     // Resolve gray color
-    const resolvedGrayColor = grayColor === "auto" ? getMatchingGrayColor(accentColor) : grayColor;
+    const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor
 
     // Change handlers
     const handleAppearanceChange = React.useCallback(
       (value: Appearance) => {
-        setAppearance(value);
-        onAppearanceChangeProp?.(value);
+        setAppearance(value)
+        onAppearanceChangeProp?.(value)
       },
       [onAppearanceChangeProp],
-    );
+    )
 
     const handleAccentColorChange = React.useCallback(
       (value: AccentColor) => {
-        setAccentColor(value);
-        onAccentColorChangeProp?.(value);
+        setAccentColor(value)
+        onAccentColorChangeProp?.(value)
       },
       [onAccentColorChangeProp],
-    );
+    )
 
     const handleGrayColorChange = React.useCallback(
       (value: GrayColor) => {
-        setGrayColor(value);
-        onGrayColorChangeProp?.(value);
+        setGrayColor(value)
+        onGrayColorChangeProp?.(value)
       },
       [onGrayColorChangeProp],
-    );
+    )
 
     const handleRadiusChange = React.useCallback(
       (value: Radius) => {
-        setRadius(value);
-        onRadiusChangeProp?.(value);
+        setRadius(value)
+        onRadiusChangeProp?.(value)
       },
       [onRadiusChangeProp],
-    );
+    )
 
     const handleScalingChange = React.useCallback(
       (value: Scaling) => {
-        setScaling(value);
-        onScalingChangeProp?.(value);
+        setScaling(value)
+        onScalingChangeProp?.(value)
       },
       [onScalingChangeProp],
-    );
+    )
 
     const handlePanelBackgroundChange = React.useCallback(
       (value: PanelBackground) => {
-        setPanelBackground(value);
-        onPanelBackgroundChangeProp?.(value);
+        setPanelBackground(value)
+        onPanelBackgroundChangeProp?.(value)
       },
       [onPanelBackgroundChangeProp],
-    );
+    )
 
     // Context value
     const contextValue: ThemeContextValue = {
@@ -264,39 +264,39 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
       onRadiusChange: handleRadiusChange,
       onScalingChange: handleScalingChange,
       onPanelBackgroundChange: handlePanelBackgroundChange,
-    };
+    }
 
     // CSS custom properties for theming
     const themeStyles: React.CSSProperties = {
-      "--theme-accent-color": accentColor,
-      "--theme-gray-color": resolvedGrayColor,
-      "--theme-radius": getRadiusValue(radius),
-      "--theme-scaling": scaling,
-    } as React.CSSProperties;
+      '--theme-accent-color': accentColor,
+      '--theme-gray-color': resolvedGrayColor,
+      '--theme-radius': getRadiusValue(radius),
+      '--theme-scaling': scaling,
+    } as React.CSSProperties
 
     const themeClassName = cn(
-      "radix-themes",
-      appearance === "light" && "light",
-      appearance === "dark" && "dark",
-      hasBackgroundProp && "bg-background text-foreground",
+      'radix-themes',
+      appearance === 'light' && 'light',
+      appearance === 'dark' && 'dark',
+      hasBackgroundProp && 'bg-background text-foreground',
       className,
-    );
+    )
 
     const themeDataAttributes = {
-      "data-accent-color": accentColor,
-      "data-gray-color": resolvedGrayColor,
-      "data-radius": radius,
-      "data-scaling": scaling,
-      "data-panel-background": panelBackground,
-      "data-has-background": hasBackgroundProp,
-    };
+      'data-accent-color': accentColor,
+      'data-gray-color': resolvedGrayColor,
+      'data-radius': radius,
+      'data-scaling': scaling,
+      'data-panel-background': panelBackground,
+      'data-has-background': hasBackgroundProp,
+    }
 
     if (asChild) {
       const child = React.Children.only(children) as React.ReactElement<{
-        className?: string;
-        style?: React.CSSProperties;
-        ref?: React.Ref<HTMLElement>;
-      }>;
+        className?: string
+        style?: React.CSSProperties
+        ref?: React.Ref<HTMLElement>
+      }>
 
       return (
         <ThemeContext.Provider value={contextValue}>
@@ -308,26 +308,20 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
             ...props,
           })}
         </ThemeContext.Provider>
-      );
+      )
     }
 
     return (
       <ThemeContext.Provider value={contextValue}>
-        <div
-          ref={ref}
-          className={themeClassName}
-          style={themeStyles}
-          {...themeDataAttributes}
-          {...props}
-        >
+        <div ref={ref} className={themeClassName} style={themeStyles} {...themeDataAttributes} {...props}>
           {children}
         </div>
       </ThemeContext.Provider>
-    );
+    )
   },
-);
+)
 
-Theme.displayName = "Theme";
+Theme.displayName = 'Theme'
 
 // ============================================================================
 // Helper Functions
@@ -335,18 +329,17 @@ Theme.displayName = "Theme";
 
 function getRadiusValue(radius: Radius): string {
   switch (radius) {
-    case "none":
-      return "0";
-    case "small":
-      return "0.25rem";
-    case "medium":
-      return "0.5rem";
-    case "large":
-      return "0.75rem";
-    case "full":
-      return "9999px";
+    case 'none':
+      return '0'
+    case 'small':
+      return '0.25rem'
+    case 'medium':
+      return '0.5rem'
+    case 'large':
+      return '0.75rem'
+    case 'full':
+      return '9999px'
     default:
-      return "0.5rem";
+      return '0.5rem'
   }
 }
-

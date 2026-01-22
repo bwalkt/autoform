@@ -1,55 +1,56 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Blockquote, Box } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Blockquote, Box } from '@/elements'
 
 const meta: Meta<typeof Blockquote> = {
-  title: "Typography/Blockquote",
+  title: 'Typography/Blockquote',
   component: Blockquote,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-      description: "The size of the blockquote text",
+      control: 'select',
+      options: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      description: 'The size of the blockquote text',
     },
     weight: {
-      control: "select",
-      options: ["light", "regular", "medium", "bold"],
-      description: "The font weight",
+      control: 'select',
+      options: ['light', 'regular', 'medium', 'bold'],
+      description: 'The font weight',
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
-      description: "The accent color",
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'The accent color',
     },
     highContrast: {
-      control: "boolean",
-      description: "High contrast mode for better accessibility",
+      control: 'boolean',
+      description: 'High contrast mode for better accessibility',
     },
     wrap: {
-      control: "select",
-      options: ["wrap", "nowrap", "pretty", "balance"],
-      description: "Text wrapping behavior",
+      control: 'select',
+      options: ['wrap', 'nowrap', 'pretty', 'balance'],
+      description: 'Text wrapping behavior',
     },
     truncate: {
-      control: "boolean",
-      description: "Whether to truncate text with ellipsis",
+      control: 'boolean',
+      description: 'Whether to truncate text with ellipsis',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Default
 export const Default: Story = {
   args: {
-    children: "Typography is the craft of endowing human language with a durable visual form, and thus with an independent existence.",
-    size: "3",
+    children:
+      'Typography is the craft of endowing human language with a durable visual form, and thus with an independent existence.',
+    size: '3',
   },
-};
+}
 
 // All Sizes
 export const AllSizes: Story = {
@@ -62,7 +63,7 @@ export const AllSizes: Story = {
       <Blockquote size="5">Size 5 blockquote - The quick brown fox jumps over the lazy dog.</Blockquote>
     </Box>
   ),
-};
+}
 
 // All Colors
 export const AllColors: Story = {
@@ -77,7 +78,7 @@ export const AllColors: Story = {
       <Blockquote color="error">Error color - Good design is as little design as possible.</Blockquote>
     </Box>
   ),
-};
+}
 
 // All Weights
 export const AllWeights: Story = {
@@ -89,15 +90,13 @@ export const AllWeights: Story = {
       <Blockquote weight="bold">Bold weight - The quick brown fox jumps over the lazy dog.</Blockquote>
     </Box>
   ),
-};
+}
 
 // Real World Examples
 export const RealWorldExamples: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-xl">
-      <Blockquote size="4">
-        "Design is not just what it looks like and feels like. Design is how it works."
-      </Blockquote>
+      <Blockquote size="4">"Design is not just what it looks like and feels like. Design is how it works."</Blockquote>
 
       <Blockquote size="3" color="info">
         "Simplicity is the ultimate sophistication."
@@ -114,19 +113,18 @@ export const RealWorldExamples: Story = {
       </Blockquote>
     </Box>
   ),
-};
+}
 
 // Long Blockquote
 export const LongBlockquote: Story = {
   render: () => (
     <Box className="max-w-xl">
       <Blockquote size="3">
-        Typography is the art and technique of arranging type to make written language legible,
-        readable and appealing when displayed. The arrangement of type involves selecting typefaces,
-        point sizes, line lengths, line-spacing, and letter-spacing, and adjusting the space between
-        pairs of letters. The term typography is also applied to the style, arrangement, and appearance
-        of the letters, numbers, and symbols created by the process.
+        Typography is the art and technique of arranging type to make written language legible, readable and appealing
+        when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing,
+        and letter-spacing, and adjusting the space between pairs of letters. The term typography is also applied to the
+        style, arrangement, and appearance of the letters, numbers, and symbols created by the process.
       </Blockquote>
     </Box>
   ),
-};
+}

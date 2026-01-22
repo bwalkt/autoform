@@ -1,44 +1,45 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Quote, Text, Box } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Box, Quote, Text } from '@/elements'
 
 const meta: Meta<typeof Quote> = {
-  title: "Typography/Quote",
+  title: 'Typography/Quote',
   component: Quote,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     truncate: {
-      control: "boolean",
-      description: "Whether to truncate text with ellipsis",
+      control: 'boolean',
+      description: 'Whether to truncate text with ellipsis',
     },
     wrap: {
-      control: "select",
-      options: ["wrap", "nowrap", "pretty", "balance"],
-      description: "Text wrapping behavior",
+      control: 'select',
+      options: ['wrap', 'nowrap', 'pretty', 'balance'],
+      description: 'Text wrapping behavior',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Default
 export const Default: Story = {
   args: {
-    children: "Styles come and go. Good design is a language, not a style.",
+    children: 'Styles come and go. Good design is a language, not a style.',
   },
-};
+}
 
 // Inline Usage
 export const InlineUsage: Story = {
   render: () => (
     <Text size="3">
-      His famous quote, <Quote>Styles come and go. Good design is a language, not a style</Quote>, elegantly sums up Massimo's philosophy of design.
+      His famous quote, <Quote>Styles come and go. Good design is a language, not a style</Quote>, elegantly sums up
+      Massimo's philosophy of design.
     </Text>
   ),
-};
+}
 
 // Multiple Quotes
 export const MultipleQuotes: Story = {
@@ -55,15 +56,20 @@ export const MultipleQuotes: Story = {
       </Text>
     </Box>
   ),
-};
+}
 
 // Truncation
 export const Truncation: Story = {
   render: () => (
     <Box className="max-w-xs">
       <Text size="3">
-        The designer said <Quote truncate>The goal of typography is to relate font size, line height, and line width in a proportional way that maximizes beauty and makes reading easier</Quote> during the interview.
+        The designer said{' '}
+        <Quote truncate>
+          The goal of typography is to relate font size, line height, and line width in a proportional way that
+          maximizes beauty and makes reading easier
+        </Quote>{' '}
+        during the interview.
       </Text>
     </Box>
   ),
-};
+}

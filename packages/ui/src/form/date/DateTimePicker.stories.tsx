@@ -1,68 +1,59 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { DateTimePicker } from "./DateTimePicker";
-import { FieldGroup, Label } from "@/form";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
+import { FieldGroup, Label } from '@/form'
+import { DateTimePicker } from './DateTimePicker'
 
 const meta: Meta<typeof DateTimePicker> = {
-  title: "Form/Date/DateTimePicker",
+  title: 'Form/Date/DateTimePicker',
   component: DateTimePicker,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof DateTimePicker>;
+export default meta
+type Story = StoryObj<typeof DateTimePicker>
 
 // Default DateTimePicker
 export const Default: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>();
+    const [dateTime, setDateTime] = React.useState<Date | undefined>()
     return (
       <div className="w-[320px]">
-        <DateTimePicker
-          value={dateTime}
-          onChange={setDateTime}
-          placeholder="Select date and time"
-        />
+        <DateTimePicker value={dateTime} onChange={setDateTime} placeholder="Select date and time" />
       </div>
-    );
+    )
   },
-};
+}
 
 // With preselected date and time
 export const WithValue: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date());
+    const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date())
     return (
       <div className="w-[320px]">
         <DateTimePicker value={dateTime} onChange={setDateTime} />
       </div>
-    );
+    )
   },
-};
+}
 
 // With seconds
 export const WithSeconds: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date());
+    const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date())
     return (
       <div className="w-[320px]">
-        <DateTimePicker
-          value={dateTime}
-          onChange={setDateTime}
-          showSeconds
-          dateFormat="PPP HH:mm:ss"
-        />
+        <DateTimePicker value={dateTime} onChange={setDateTime} showSeconds dateFormat="PPP HH:mm:ss" />
       </div>
-    );
+    )
   },
-};
+}
 
 // Custom date format
 export const CustomFormat: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date());
+    const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date())
     return (
       <div className="w-[320px]">
         <DateTimePicker
@@ -72,17 +63,17 @@ export const CustomFormat: Story = {
           placeholder="DD/MM/YYYY HH:mm"
         />
       </div>
-    );
+    )
   },
-};
+}
 
 // With min/max dates
 export const WithMinMaxDates: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>();
-    const today = new Date();
-    const maxDate = new Date(today);
-    maxDate.setDate(today.getDate() + 7);
+    const [dateTime, setDateTime] = React.useState<Date | undefined>()
+    const today = new Date()
+    const maxDate = new Date(today)
+    maxDate.setDate(today.getDate() + 7)
 
     return (
       <div className="w-[320px]">
@@ -94,26 +85,21 @@ export const WithMinMaxDates: Story = {
           placeholder="Next 7 days only"
         />
       </div>
-    );
+    )
   },
-};
+}
 
 // With minute step
 export const WithMinuteStep: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>();
+    const [dateTime, setDateTime] = React.useState<Date | undefined>()
     return (
       <div className="w-[320px]">
-        <DateTimePicker
-          value={dateTime}
-          onChange={setDateTime}
-          minuteStep={15}
-          placeholder="15-minute intervals"
-        />
+        <DateTimePicker value={dateTime} onChange={setDateTime} minuteStep={15} placeholder="15-minute intervals" />
       </div>
-    );
+    )
   },
-};
+}
 
 // Disabled state
 export const Disabled: Story = {
@@ -122,17 +108,17 @@ export const Disabled: Story = {
       <div className="w-[320px]">
         <DateTimePicker value={new Date()} disabled />
       </div>
-    );
+    )
   },
-};
+}
 
 // Different sizes
 export const Sizes: Story = {
   render: () => {
-    const [dt1, setDt1] = React.useState<Date | undefined>();
-    const [dt2, setDt2] = React.useState<Date | undefined>();
-    const [dt3, setDt3] = React.useState<Date | undefined>();
-    const [dt4, setDt4] = React.useState<Date | undefined>();
+    const [dt1, setDt1] = React.useState<Date | undefined>()
+    const [dt2, setDt2] = React.useState<Date | undefined>()
+    const [dt3, setDt3] = React.useState<Date | undefined>()
+    const [dt4, setDt4] = React.useState<Date | undefined>()
 
     return (
       <div className="flex flex-col gap-4 w-[320px]">
@@ -141,31 +127,27 @@ export const Sizes: Story = {
         <DateTimePicker value={dt3} onChange={setDt3} size="3" placeholder="Size 3" />
         <DateTimePicker value={dt4} onChange={setDt4} size="4" placeholder="Size 4" />
       </div>
-    );
+    )
   },
-};
+}
 
 // With FieldGroup context
 export const WithFieldGroup: Story = {
   render: () => {
-    const [dateTime, setDateTime] = React.useState<Date | undefined>();
+    const [dateTime, setDateTime] = React.useState<Date | undefined>()
     return (
       <FieldGroup size="3" className="w-[360px]">
-        <DateTimePicker
-          value={dateTime}
-          onChange={setDateTime}
-          placeholder="Inherits size from FieldGroup"
-        />
+        <DateTimePicker value={dateTime} onChange={setDateTime} placeholder="Inherits size from FieldGroup" />
       </FieldGroup>
-    );
+    )
   },
-};
+}
 
 // Complete form example
 export const InForm: Story = {
   render: () => {
-    const [appointmentDate, setAppointmentDate] = React.useState<Date | undefined>();
-    const [reminderDate, setReminderDate] = React.useState<Date | undefined>();
+    const [appointmentDate, setAppointmentDate] = React.useState<Date | undefined>()
+    const [reminderDate, setReminderDate] = React.useState<Date | undefined>()
 
     return (
       <FieldGroup size="2" layout="stacked" gap="4" className="w-[360px]">
@@ -189,6 +171,6 @@ export const InForm: Story = {
           />
         </div>
       </FieldGroup>
-    );
+    )
   },
-};
+}

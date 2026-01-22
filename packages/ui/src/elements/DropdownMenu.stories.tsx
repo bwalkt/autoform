@@ -1,28 +1,17 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { DropdownMenu, Button } from "@/elements";
-import {
-  User,
-  Settings,
-  LogOut,
-  Plus,
-  CreditCard,
-  UserPlus,
-  Cloud,
-  LifeBuoy,
-  Github,
-  Keyboard,
-} from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Cloud, CreditCard, Github, Keyboard, LifeBuoy, LogOut, Plus, Settings, User, UserPlus } from 'lucide-react'
+import { useState } from 'react'
+import { Button, DropdownMenu } from '@/elements'
 
 const meta: Meta = {
-  title: "Elements/DropdownMenu",
+  title: 'Elements/DropdownMenu',
   component: DropdownMenu.Root,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
+export default meta
 
 export const Default: StoryObj = {
   render: () => (
@@ -38,7 +27,7 @@ export const Default: StoryObj = {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   ),
-};
+}
 
 export const WithShortcuts: StoryObj = {
   render: () => (
@@ -55,13 +44,13 @@ export const WithShortcuts: StoryObj = {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   ),
-};
+}
 
 export const WithCheckboxItems: StoryObj = {
   render: () => {
-    const [showStatus, setShowStatus] = useState(true);
-    const [showActivity, setShowActivity] = useState(false);
-    const [showPanel, setShowPanel] = useState(false);
+    const [showStatus, setShowStatus] = useState(true)
+    const [showActivity, setShowActivity] = useState(false)
+    const [showPanel, setShowPanel] = useState(false)
 
     return (
       <DropdownMenu.Root>
@@ -71,33 +60,24 @@ export const WithCheckboxItems: StoryObj = {
         <DropdownMenu.Content>
           <DropdownMenu.Label>Toggle View</DropdownMenu.Label>
           <DropdownMenu.Separator />
-          <DropdownMenu.CheckboxItem
-            checked={showStatus}
-            onCheckedChange={setShowStatus}
-          >
+          <DropdownMenu.CheckboxItem checked={showStatus} onCheckedChange={setShowStatus}>
             Status Bar
           </DropdownMenu.CheckboxItem>
-          <DropdownMenu.CheckboxItem
-            checked={showActivity}
-            onCheckedChange={setShowActivity}
-          >
+          <DropdownMenu.CheckboxItem checked={showActivity} onCheckedChange={setShowActivity}>
             Activity Panel
           </DropdownMenu.CheckboxItem>
-          <DropdownMenu.CheckboxItem
-            checked={showPanel}
-            onCheckedChange={setShowPanel}
-          >
+          <DropdownMenu.CheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
             Side Panel
           </DropdownMenu.CheckboxItem>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-    );
+    )
   },
-};
+}
 
 export const WithRadioItems: StoryObj = {
   render: () => {
-    const [theme, setTheme] = useState("system");
+    const [theme, setTheme] = useState('system')
 
     return (
       <DropdownMenu.Root>
@@ -114,9 +94,9 @@ export const WithRadioItems: StoryObj = {
           </DropdownMenu.RadioGroup>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-    );
+    )
   },
-};
+}
 
 export const WithSubmenu: StoryObj = {
   render: () => (
@@ -142,7 +122,7 @@ export const WithSubmenu: StoryObj = {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   ),
-};
+}
 
 export const UserMenu: StoryObj = {
   render: () => (
@@ -219,12 +199,12 @@ export const UserMenu: StoryObj = {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   ),
-};
+}
 
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
-      {(["1", "2"] as const).map((size) => (
+      {(['1', '2'] as const).map(size => (
         <DropdownMenu.Root key={size}>
           <DropdownMenu.Trigger>
             <Button variant="outline">Size {size}</Button>
@@ -239,15 +219,17 @@ export const Sizes: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const Variants: StoryObj = {
   render: () => (
     <div className="flex gap-4">
-      {(["solid", "soft"] as const).map((variant) => (
+      {(['solid', 'soft'] as const).map(variant => (
         <DropdownMenu.Root key={variant}>
           <DropdownMenu.Trigger>
-            <Button variant="outline" className="capitalize">{variant}</Button>
+            <Button variant="outline" className="capitalize">
+              {variant}
+            </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content variant={variant}>
             <DropdownMenu.Item>Profile</DropdownMenu.Item>
@@ -259,7 +241,7 @@ export const Variants: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const DisabledItems: StoryObj = {
   render: () => (
@@ -276,4 +258,4 @@ export const DisabledItems: StoryObj = {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   ),
-};
+}

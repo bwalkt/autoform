@@ -1,28 +1,28 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { typographyTokens, type TypographySize, type Weight, type TypographyColor } from "./tokens";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import { type TypographyColor, type TypographySize, typographyTokens, type Weight } from './tokens'
 
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
-  as?: React.ElementType;
-  size?: TypographySize;
-  weight?: Weight;
-  color?: TypographyColor;
-  align?: "left" | "center" | "right" | "justify";
-  truncate?: boolean;
-  wrap?: "wrap" | "nowrap" | "pretty" | "balance";
-  highContrast?: boolean;
+  as?: React.ElementType
+  size?: TypographySize
+  weight?: Weight
+  color?: TypographyColor
+  align?: 'left' | 'center' | 'right' | 'justify'
+  truncate?: boolean
+  wrap?: 'wrap' | 'nowrap' | 'pretty' | 'balance'
+  highContrast?: boolean
 }
 
 export const Text = React.forwardRef<HTMLElement, TextProps>(
   (
     {
-      as = "span",
-      size = "3",
-      weight = "regular",
-      color = "default",
+      as = 'span',
+      size = '3',
+      weight = 'regular',
+      color = 'default',
       align,
       truncate = false,
-      wrap = "wrap",
+      wrap = 'wrap',
       highContrast = false,
       className,
       style,
@@ -31,10 +31,10 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
     },
     ref,
   ) => {
-    const Component = as;
-    const sizeTokens = typographyTokens.size[size];
-    const weightToken = typographyTokens.weight[weight];
-    const colorToken = typographyTokens.color[color];
+    const Component = as
+    const sizeTokens = typographyTokens.size[size]
+    const weightToken = typographyTokens.weight[weight]
+    const colorToken = typographyTokens.color[color]
 
     const textStyles: React.CSSProperties = {
       fontSize: sizeTokens.fontSize,
@@ -45,41 +45,41 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
       textAlign: align,
       textWrap: wrap,
       ...style,
-    };
+    }
 
     return (
       <Component
         ref={ref as React.Ref<HTMLElement>}
         className={cn(
           // Base styles
-          "font-sans",
+          'font-sans',
 
           // Text alignment
-          align === "left" && "text-left",
-          align === "center" && "text-center",
-          align === "right" && "text-right",
-          align === "justify" && "text-justify",
+          align === 'left' && 'text-left',
+          align === 'center' && 'text-center',
+          align === 'right' && 'text-right',
+          align === 'justify' && 'text-justify',
 
           // Truncation
-          truncate && "truncate",
+          truncate && 'truncate',
 
           // Text wrapping
-          wrap === "nowrap" && "whitespace-nowrap",
-          wrap === "pretty" && "text-pretty",
-          wrap === "balance" && "text-balance",
+          wrap === 'nowrap' && 'whitespace-nowrap',
+          wrap === 'pretty' && 'text-pretty',
+          wrap === 'balance' && 'text-balance',
 
           // High contrast
-          highContrast && "font-medium",
+          highContrast && 'font-medium',
 
-          className
+          className,
         )}
         style={textStyles}
         {...props}
       >
         {children}
       </Component>
-    );
+    )
   },
-);
+)
 
-Text.displayName = "Text";
+Text.displayName = 'Text'

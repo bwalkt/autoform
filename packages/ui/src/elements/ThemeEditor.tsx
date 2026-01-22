@@ -1,73 +1,73 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "./Button";
-import { TextField, Label } from "@/form";
-import { Tabs } from "./Tabs";
-import { SegmentedControl } from "./SegmentedControl";
-import { Card } from "./Card";
-import { Badge } from "./Badge";
-import { ScrollArea } from "./ScrollArea";
-import { Code } from "@/typography";
-import { Flex, Box } from "@/layouts";
-import { useClipboard } from "@/hooks";
+import * as React from 'react'
+import { Label, TextField } from '@/form'
+import { useClipboard } from '@/hooks'
+import { Box, Flex } from '@/layouts'
+import { cn } from '@/lib/utils'
+import { Code } from '@/typography'
+import { Badge } from './Badge'
+import { Button } from './Button'
+import { Card } from './Card'
+import { ScrollArea } from './ScrollArea'
+import { SegmentedControl } from './SegmentedControl'
+import { Tabs } from './Tabs'
 
 // ============================================================================
 // Theme Configuration Types
 // ============================================================================
 
 export interface ThemeColors {
-  background: string;
-  foreground: string;
-  card: string;
-  cardForeground: string;
-  popover: string;
-  popoverForeground: string;
-  primary: string;
-  primaryForeground: string;
-  secondary: string;
-  secondaryForeground: string;
-  muted: string;
-  mutedForeground: string;
-  accent: string;
-  accentForeground: string;
-  destructive: string;
-  destructiveForeground: string;
-  border: string;
-  input: string;
-  ring: string;
+  background: string
+  foreground: string
+  card: string
+  cardForeground: string
+  popover: string
+  popoverForeground: string
+  primary: string
+  primaryForeground: string
+  secondary: string
+  secondaryForeground: string
+  muted: string
+  mutedForeground: string
+  accent: string
+  accentForeground: string
+  destructive: string
+  destructiveForeground: string
+  border: string
+  input: string
+  ring: string
 }
 
 export interface ThemeTypography {
-  fontSans: string;
-  fontSerif: string;
-  fontMono: string;
-  letterSpacing: string;
+  fontSans: string
+  fontSerif: string
+  fontMono: string
+  letterSpacing: string
 }
 
 export interface ThemeLayout {
-  radius: string;
-  spacing: string;
+  radius: string
+  spacing: string
 }
 
 export interface ThemeShadow {
-  color: string;
-  opacity: string;
-  blur: string;
-  spread: string;
-  offsetX: string;
-  offsetY: string;
+  color: string
+  opacity: string
+  blur: string
+  spread: string
+  offsetX: string
+  offsetY: string
 }
 
 export interface ThemeConfig {
   colors: {
-    light: ThemeColors;
-    dark: ThemeColors;
-  };
-  typography: ThemeTypography;
-  layout: ThemeLayout;
-  shadow: ThemeShadow;
+    light: ThemeColors
+    dark: ThemeColors
+  }
+  typography: ThemeTypography
+  layout: ThemeLayout
+  shadow: ThemeShadow
 }
 
 // ============================================================================
@@ -77,67 +77,67 @@ export interface ThemeConfig {
 export const defaultThemeConfig: ThemeConfig = {
   colors: {
     light: {
-      background: "0 0% 100%",
-      foreground: "240 10% 3.9%",
-      card: "0 0% 100%",
-      cardForeground: "240 10% 3.9%",
-      popover: "0 0% 100%",
-      popoverForeground: "240 10% 3.9%",
-      primary: "240 5.9% 10%",
-      primaryForeground: "0 0% 98%",
-      secondary: "240 4.8% 95.9%",
-      secondaryForeground: "240 5.9% 10%",
-      muted: "240 4.8% 95.9%",
-      mutedForeground: "240 3.8% 46.1%",
-      accent: "240 4.8% 95.9%",
-      accentForeground: "240 5.9% 10%",
-      destructive: "0 84.2% 60.2%",
-      destructiveForeground: "0 0% 98%",
-      border: "240 5.9% 90%",
-      input: "240 5.9% 90%",
-      ring: "240 5.9% 10%",
+      background: '0 0% 100%',
+      foreground: '240 10% 3.9%',
+      card: '0 0% 100%',
+      cardForeground: '240 10% 3.9%',
+      popover: '0 0% 100%',
+      popoverForeground: '240 10% 3.9%',
+      primary: '240 5.9% 10%',
+      primaryForeground: '0 0% 98%',
+      secondary: '240 4.8% 95.9%',
+      secondaryForeground: '240 5.9% 10%',
+      muted: '240 4.8% 95.9%',
+      mutedForeground: '240 3.8% 46.1%',
+      accent: '240 4.8% 95.9%',
+      accentForeground: '240 5.9% 10%',
+      destructive: '0 84.2% 60.2%',
+      destructiveForeground: '0 0% 98%',
+      border: '240 5.9% 90%',
+      input: '240 5.9% 90%',
+      ring: '240 5.9% 10%',
     },
     dark: {
-      background: "240 10% 3.9%",
-      foreground: "0 0% 98%",
-      card: "240 10% 3.9%",
-      cardForeground: "0 0% 98%",
-      popover: "240 10% 3.9%",
-      popoverForeground: "0 0% 98%",
-      primary: "0 0% 98%",
-      primaryForeground: "240 5.9% 10%",
-      secondary: "240 3.7% 15.9%",
-      secondaryForeground: "0 0% 98%",
-      muted: "240 3.7% 15.9%",
-      mutedForeground: "240 5% 64.9%",
-      accent: "240 3.7% 15.9%",
-      accentForeground: "0 0% 98%",
-      destructive: "0 62.8% 30.6%",
-      destructiveForeground: "0 0% 98%",
-      border: "240 3.7% 15.9%",
-      input: "240 3.7% 15.9%",
-      ring: "240 4.9% 83.9%",
+      background: '240 10% 3.9%',
+      foreground: '0 0% 98%',
+      card: '240 10% 3.9%',
+      cardForeground: '0 0% 98%',
+      popover: '240 10% 3.9%',
+      popoverForeground: '0 0% 98%',
+      primary: '0 0% 98%',
+      primaryForeground: '240 5.9% 10%',
+      secondary: '240 3.7% 15.9%',
+      secondaryForeground: '0 0% 98%',
+      muted: '240 3.7% 15.9%',
+      mutedForeground: '240 5% 64.9%',
+      accent: '240 3.7% 15.9%',
+      accentForeground: '0 0% 98%',
+      destructive: '0 62.8% 30.6%',
+      destructiveForeground: '0 0% 98%',
+      border: '240 3.7% 15.9%',
+      input: '240 3.7% 15.9%',
+      ring: '240 4.9% 83.9%',
     },
   },
   typography: {
-    fontSans: "ui-sans-serif, system-ui, sans-serif",
-    fontSerif: "ui-serif, Georgia, serif",
-    fontMono: "ui-monospace, monospace",
-    letterSpacing: "0em",
+    fontSans: 'ui-sans-serif, system-ui, sans-serif',
+    fontSerif: 'ui-serif, Georgia, serif',
+    fontMono: 'ui-monospace, monospace',
+    letterSpacing: '0em',
   },
   layout: {
-    radius: "0.5rem",
-    spacing: "0.25rem",
+    radius: '0.5rem',
+    spacing: '0.25rem',
   },
   shadow: {
-    color: "0 0% 0%",
-    opacity: "0.1",
-    blur: "10px",
-    spread: "0px",
-    offsetX: "0px",
-    offsetY: "4px",
+    color: '0 0% 0%',
+    opacity: '0.1',
+    blur: '10px',
+    spread: '0px',
+    offsetX: '0px',
+    offsetY: '4px',
   },
-};
+}
 
 // ============================================================================
 // Preset Themes
@@ -149,13 +149,13 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "240 5.9% 10%",
-        primaryForeground: "0 0% 98%",
+        primary: '240 5.9% 10%',
+        primaryForeground: '0 0% 98%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "0 0% 98%",
-        primaryForeground: "240 5.9% 10%",
+        primary: '0 0% 98%',
+        primaryForeground: '240 5.9% 10%',
       },
     },
   },
@@ -163,13 +163,13 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "215.4 16.3% 46.9%",
-        primaryForeground: "210 40% 98%",
+        primary: '215.4 16.3% 46.9%',
+        primaryForeground: '210 40% 98%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "210 40% 98%",
-        primaryForeground: "222.2 47.4% 11.2%",
+        primary: '210 40% 98%',
+        primaryForeground: '222.2 47.4% 11.2%',
       },
     },
   },
@@ -177,13 +177,13 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "346.8 77.2% 49.8%",
-        primaryForeground: "355.7 100% 97.3%",
+        primary: '346.8 77.2% 49.8%',
+        primaryForeground: '355.7 100% 97.3%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "346.8 77.2% 49.8%",
-        primaryForeground: "355.7 100% 97.3%",
+        primary: '346.8 77.2% 49.8%',
+        primaryForeground: '355.7 100% 97.3%',
       },
     },
   },
@@ -191,13 +191,13 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "221.2 83.2% 53.3%",
-        primaryForeground: "210 40% 98%",
+        primary: '221.2 83.2% 53.3%',
+        primaryForeground: '210 40% 98%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "217.2 91.2% 59.8%",
-        primaryForeground: "222.2 47.4% 11.2%",
+        primary: '217.2 91.2% 59.8%',
+        primaryForeground: '222.2 47.4% 11.2%',
       },
     },
   },
@@ -205,13 +205,13 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "142.1 76.2% 36.3%",
-        primaryForeground: "355.7 100% 97.3%",
+        primary: '142.1 76.2% 36.3%',
+        primaryForeground: '355.7 100% 97.3%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "142.1 70.6% 45.3%",
-        primaryForeground: "144.9 80.4% 10%",
+        primary: '142.1 70.6% 45.3%',
+        primaryForeground: '144.9 80.4% 10%',
       },
     },
   },
@@ -219,13 +219,13 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "24.6 95% 53.1%",
-        primaryForeground: "60 9.1% 97.8%",
+        primary: '24.6 95% 53.1%',
+        primaryForeground: '60 9.1% 97.8%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "20.5 90.2% 48.2%",
-        primaryForeground: "60 9.1% 97.8%",
+        primary: '20.5 90.2% 48.2%',
+        primaryForeground: '60 9.1% 97.8%',
       },
     },
   },
@@ -233,44 +233,44 @@ export const presetThemes: Record<string, Partial<ThemeConfig>> = {
     colors: {
       light: {
         ...defaultThemeConfig.colors.light,
-        primary: "262.1 83.3% 57.8%",
-        primaryForeground: "210 40% 98%",
+        primary: '262.1 83.3% 57.8%',
+        primaryForeground: '210 40% 98%',
       },
       dark: {
         ...defaultThemeConfig.colors.dark,
-        primary: "263.4 70% 50.4%",
-        primaryForeground: "210 40% 98%",
+        primary: '263.4 70% 50.4%',
+        primaryForeground: '210 40% 98%',
       },
     },
   },
-};
+}
 
 // ============================================================================
 // Theme Editor Context
 // ============================================================================
 
 interface ThemeEditorContextValue {
-  config: ThemeConfig;
-  mode: "light" | "dark";
-  setMode: (mode: "light" | "dark") => void;
-  updateColors: (mode: "light" | "dark", colors: Partial<ThemeColors>) => void;
-  updateTypography: (typography: Partial<ThemeTypography>) => void;
-  updateLayout: (layout: Partial<ThemeLayout>) => void;
-  updateShadow: (shadow: Partial<ThemeShadow>) => void;
-  applyPreset: (presetName: string) => void;
-  resetToDefault: () => void;
-  exportCSS: () => string;
-  exportJSON: () => string;
+  config: ThemeConfig
+  mode: 'light' | 'dark'
+  setMode: (mode: 'light' | 'dark') => void
+  updateColors: (mode: 'light' | 'dark', colors: Partial<ThemeColors>) => void
+  updateTypography: (typography: Partial<ThemeTypography>) => void
+  updateLayout: (layout: Partial<ThemeLayout>) => void
+  updateShadow: (shadow: Partial<ThemeShadow>) => void
+  applyPreset: (presetName: string) => void
+  resetToDefault: () => void
+  exportCSS: () => string
+  exportJSON: () => string
 }
 
-const ThemeEditorContext = React.createContext<ThemeEditorContextValue | null>(null);
+const ThemeEditorContext = React.createContext<ThemeEditorContextValue | null>(null)
 
 export function useThemeEditor() {
-  const context = React.useContext(ThemeEditorContext);
+  const context = React.useContext(ThemeEditorContext)
   if (!context) {
-    throw new Error("useThemeEditor must be used within ThemeEditorProvider");
+    throw new Error('useThemeEditor must be used within ThemeEditorProvider')
   }
-  return context;
+  return context
 }
 
 // ============================================================================
@@ -278,79 +278,73 @@ export function useThemeEditor() {
 // ============================================================================
 
 export interface ThemeEditorProviderProps {
-  children: React.ReactNode;
-  defaultConfig?: ThemeConfig;
+  children: React.ReactNode
+  defaultConfig?: ThemeConfig
 }
 
 export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
   children,
   defaultConfig = defaultThemeConfig,
 }) => {
-  const [config, setConfig] = React.useState<ThemeConfig>(defaultConfig);
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
+  const [config, setConfig] = React.useState<ThemeConfig>(defaultConfig)
+  const [mode, setMode] = React.useState<'light' | 'dark'>('light')
 
-  const updateColors = React.useCallback(
-    (targetMode: "light" | "dark", colors: Partial<ThemeColors>) => {
-      setConfig((prev) => ({
-        ...prev,
-        colors: {
-          ...prev.colors,
-          [targetMode]: { ...prev.colors[targetMode], ...colors },
-        },
-      }));
-    },
-    [],
-  );
+  const updateColors = React.useCallback((targetMode: 'light' | 'dark', colors: Partial<ThemeColors>) => {
+    setConfig(prev => ({
+      ...prev,
+      colors: {
+        ...prev.colors,
+        [targetMode]: { ...prev.colors[targetMode], ...colors },
+      },
+    }))
+  }, [])
 
-  const updateTypography = React.useCallback(
-    (typography: Partial<ThemeTypography>) => {
-      setConfig((prev) => ({
-        ...prev,
-        typography: { ...prev.typography, ...typography },
-      }));
-    },
-    [],
-  );
+  const updateTypography = React.useCallback((typography: Partial<ThemeTypography>) => {
+    setConfig(prev => ({
+      ...prev,
+      typography: { ...prev.typography, ...typography },
+    }))
+  }, [])
 
   const updateLayout = React.useCallback((layout: Partial<ThemeLayout>) => {
-    setConfig((prev) => ({
+    setConfig(prev => ({
       ...prev,
       layout: { ...prev.layout, ...layout },
-    }));
-  }, []);
+    }))
+  }, [])
 
   const updateShadow = React.useCallback((shadow: Partial<ThemeShadow>) => {
-    setConfig((prev) => ({
+    setConfig(prev => ({
       ...prev,
       shadow: { ...prev.shadow, ...shadow },
-    }));
-  }, []);
+    }))
+  }, [])
 
   const applyPreset = React.useCallback((presetName: string) => {
-    const preset = presetThemes[presetName];
+    const preset = presetThemes[presetName]
     if (preset) {
-      setConfig((prev) => ({
+      setConfig(prev => ({
         ...prev,
         ...preset,
         colors: {
           light: { ...prev.colors.light, ...preset.colors?.light },
           dark: { ...prev.colors.dark, ...preset.colors?.dark },
         },
-      }));
+      }))
     }
-  }, []);
+  }, [])
 
   const resetToDefault = React.useCallback(() => {
-    setConfig(defaultThemeConfig);
-  }, []);
+    setConfig(defaultThemeConfig)
+  }, [])
 
   const exportCSS = React.useCallback(() => {
-    return generateCSS(config);
-  }, [config]);
+    return generateCSS(config)
+  }, [config])
 
   const exportJSON = React.useCallback(() => {
-    return JSON.stringify(config, null, 2);
-  }, [config]);
+    return JSON.stringify(config, null, 2)
+  }, [config])
 
   const contextValue = React.useMemo<ThemeEditorContextValue>(
     () => ({
@@ -378,66 +372,62 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
       exportCSS,
       exportJSON,
     ],
-  );
+  )
 
   // Apply CSS variables to document
   React.useEffect(() => {
-    const root = document.documentElement;
-    const colors = config.colors[mode];
-    const setVars: string[] = [];
+    const root = document.documentElement
+    const colors = config.colors[mode]
+    const setVars: string[] = []
 
     // Colors - wrap HSL values in hsl() function
     for (const [key, value] of Object.entries(colors)) {
-      const cssVar = `--${camelToKebab(key)}`;
-      root.style.setProperty(cssVar, `hsl(${value})`);
-      setVars.push(cssVar);
+      const cssVar = `--${camelToKebab(key)}`
+      root.style.setProperty(cssVar, `hsl(${value})`)
+      setVars.push(cssVar)
     }
 
     // Typography
-    root.style.setProperty("--font-sans", config.typography.fontSans);
-    root.style.setProperty("--font-serif", config.typography.fontSerif);
-    root.style.setProperty("--font-mono", config.typography.fontMono);
-    root.style.setProperty("--letter-spacing", config.typography.letterSpacing);
-    setVars.push("--font-sans", "--font-serif", "--font-mono", "--letter-spacing");
+    root.style.setProperty('--font-sans', config.typography.fontSans)
+    root.style.setProperty('--font-serif', config.typography.fontSerif)
+    root.style.setProperty('--font-mono', config.typography.fontMono)
+    root.style.setProperty('--letter-spacing', config.typography.letterSpacing)
+    setVars.push('--font-sans', '--font-serif', '--font-mono', '--letter-spacing')
 
     // Layout
-    root.style.setProperty("--radius", config.layout.radius);
-    root.style.setProperty("--spacing", config.layout.spacing);
-    setVars.push("--radius", "--spacing");
+    root.style.setProperty('--radius', config.layout.radius)
+    root.style.setProperty('--spacing', config.layout.spacing)
+    setVars.push('--radius', '--spacing')
 
     // Shadow
-    root.style.setProperty("--shadow-color", config.shadow.color);
-    root.style.setProperty("--shadow-opacity", config.shadow.opacity);
-    setVars.push("--shadow-color", "--shadow-opacity");
+    root.style.setProperty('--shadow-color', config.shadow.color)
+    root.style.setProperty('--shadow-opacity', config.shadow.opacity)
+    setVars.push('--shadow-color', '--shadow-opacity')
 
     return () => {
       for (const v of setVars) {
-        root.style.removeProperty(v);
+        root.style.removeProperty(v)
       }
-    };
-  }, [config, mode]);
+    }
+  }, [config, mode])
 
-  return (
-    <ThemeEditorContext.Provider value={contextValue}>
-      {children}
-    </ThemeEditorContext.Provider>
-  );
-};
+  return <ThemeEditorContext.Provider value={contextValue}>{children}</ThemeEditorContext.Provider>
+}
 
 // ============================================================================
 // Helper Functions
 // ============================================================================
 
 function camelToKebab(str: string): string {
-  return str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+  return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
 function generateCSS(config: ThemeConfig): string {
   const generateColorVars = (colors: ThemeColors) => {
     return Object.entries(colors)
       .map(([key, value]) => `    --${camelToKebab(key)}: hsl(${value});`)
-      .join("\n");
-  };
+      .join('\n')
+  }
 
   return `@layer base {
   :root {
@@ -455,7 +445,7 @@ ${generateColorVars(config.colors.light)}
   .dark {
 ${generateColorVars(config.colors.dark)}
   }
-}`;
+}`
 }
 
 // ============================================================================
@@ -463,73 +453,76 @@ ${generateColorVars(config.colors.dark)}
 // ============================================================================
 
 interface ColorInputProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
+  label: string
+  value: string
+  onChange: (value: string) => void
 }
 
 const ColorInput: React.FC<ColorInputProps> = ({ label, value, onChange }) => {
-  const [hsl, setHsl] = React.useState(() => parseHSL(value));
-  const inputId = label.toLowerCase().replace(/\s+/g, "-");
+  const [hsl, setHsl] = React.useState(() => parseHSL(value))
+  const inputId = label.toLowerCase().replace(/\s+/g, '-')
 
   React.useEffect(() => {
-    setHsl(parseHSL(value));
-  }, [value]);
+    setHsl(parseHSL(value))
+  }, [value])
 
-  const handleChange = (component: "h" | "s" | "l", newValue: number) => {
-    const updated = { ...hsl, [component]: newValue };
-    setHsl(updated);
-    onChange(`${updated.h} ${updated.s}% ${updated.l}%`);
-  };
+  const handleChange = (component: 'h' | 's' | 'l', newValue: number) => {
+    const updated = { ...hsl, [component]: newValue }
+    setHsl(updated)
+    onChange(`${updated.h} ${updated.s}% ${updated.l}%`)
+  }
 
   return (
     <Flex direction="column" gap="2">
       <Flex justify="between" align="center">
         <span className="text-xs font-medium text-muted-foreground">{label}</span>
-        <Box
-          className="h-5 w-10 rounded border"
-          style={{ backgroundColor: `hsl(${value})` }}
-        />
+        <Box className="h-5 w-10 rounded border" style={{ backgroundColor: `hsl(${value})` }} />
       </Flex>
       <Flex gap="2">
         <Box className="flex-1">
-          <Label htmlFor={`${inputId}-h`} size="1" className="block mb-1">H</Label>
+          <Label htmlFor={`${inputId}-h`} size="1" className="block mb-1">
+            H
+          </Label>
           <TextField
             id={`${inputId}-h`}
             type="number"
             size="1"
             value={String(Math.round(hsl.h))}
-            onChange={(e) => handleChange("h", Number(e.target.value))}
+            onChange={e => handleChange('h', Number(e.target.value))}
           />
         </Box>
         <Box className="flex-1">
-          <Label htmlFor={`${inputId}-s`} size="1" className="block mb-1">S</Label>
+          <Label htmlFor={`${inputId}-s`} size="1" className="block mb-1">
+            S
+          </Label>
           <TextField
             id={`${inputId}-s`}
             type="number"
             size="1"
             value={String(Math.round(hsl.s))}
-            onChange={(e) => handleChange("s", Number(e.target.value))}
+            onChange={e => handleChange('s', Number(e.target.value))}
           />
         </Box>
         <Box className="flex-1">
-          <Label htmlFor={`${inputId}-l`} size="1" className="block mb-1">L</Label>
+          <Label htmlFor={`${inputId}-l`} size="1" className="block mb-1">
+            L
+          </Label>
           <TextField
             id={`${inputId}-l`}
             type="number"
             size="1"
             value={String(Math.round(hsl.l))}
-            onChange={(e) => handleChange("l", Number(e.target.value))}
+            onChange={e => handleChange('l', Number(e.target.value))}
           />
         </Box>
       </Flex>
     </Flex>
-  );
-};
+  )
+}
 
 function parseHSL(value: string): { h: number; s: number; l: number } {
-  const parts = value.split(" ").map((p) => parseFloat(p.replace("%", "")));
-  return { h: parts[0] || 0, s: parts[1] || 0, l: parts[2] || 0 };
+  const parts = value.split(' ').map(p => parseFloat(p.replace('%', '')))
+  return { h: parts[0] || 0, s: parts[1] || 0, l: parts[2] || 0 }
 }
 
 // ============================================================================
@@ -537,95 +530,95 @@ function parseHSL(value: string): { h: number; s: number; l: number } {
 // ============================================================================
 
 export interface ThemeEditorProps {
-  className?: string;
+  className?: string
 }
 
 export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
-  const editor = useThemeEditor();
-  const [activeTab, setActiveTab] = React.useState<"colors" | "typography" | "layout" | "export">("colors");
-  const clipboard = useClipboard();
+  const editor = useThemeEditor()
+  const [activeTab, setActiveTab] = React.useState<'colors' | 'typography' | 'layout' | 'export'>('colors')
+  const clipboard = useClipboard()
 
-  const colors = editor.config.colors[editor.mode];
+  const colors = editor.config.colors[editor.mode]
 
   // Helper to convert HSL string to CSS hsl() format
-  const hsl = (value: string) => `hsl(${value})`;
+  const hsl = (value: string) => `hsl(${value})`
 
   // Current primary color for visual feedback
-  const primaryColor = hsl(colors.primary);
+  const primaryColor = hsl(colors.primary)
 
   const colorGroups = [
     {
-      title: "Base",
+      title: 'Base',
       colors: [
-        { key: "background", label: "Background" },
-        { key: "foreground", label: "Foreground" },
+        { key: 'background', label: 'Background' },
+        { key: 'foreground', label: 'Foreground' },
       ],
     },
     {
-      title: "Primary",
+      title: 'Primary',
       colors: [
-        { key: "primary", label: "Primary" },
-        { key: "primaryForeground", label: "Primary Foreground" },
+        { key: 'primary', label: 'Primary' },
+        { key: 'primaryForeground', label: 'Primary Foreground' },
       ],
     },
     {
-      title: "Secondary",
+      title: 'Secondary',
       colors: [
-        { key: "secondary", label: "Secondary" },
-        { key: "secondaryForeground", label: "Secondary Foreground" },
+        { key: 'secondary', label: 'Secondary' },
+        { key: 'secondaryForeground', label: 'Secondary Foreground' },
       ],
     },
     {
-      title: "Muted",
+      title: 'Muted',
       colors: [
-        { key: "muted", label: "Muted" },
-        { key: "mutedForeground", label: "Muted Foreground" },
+        { key: 'muted', label: 'Muted' },
+        { key: 'mutedForeground', label: 'Muted Foreground' },
       ],
     },
     {
-      title: "Accent",
+      title: 'Accent',
       colors: [
-        { key: "accent", label: "Accent" },
-        { key: "accentForeground", label: "Accent Foreground" },
+        { key: 'accent', label: 'Accent' },
+        { key: 'accentForeground', label: 'Accent Foreground' },
       ],
     },
     {
-      title: "Card",
+      title: 'Card',
       colors: [
-        { key: "card", label: "Card" },
-        { key: "cardForeground", label: "Card Foreground" },
+        { key: 'card', label: 'Card' },
+        { key: 'cardForeground', label: 'Card Foreground' },
       ],
     },
     {
-      title: "Popover",
+      title: 'Popover',
       colors: [
-        { key: "popover", label: "Popover" },
-        { key: "popoverForeground", label: "Popover Foreground" },
+        { key: 'popover', label: 'Popover' },
+        { key: 'popoverForeground', label: 'Popover Foreground' },
       ],
     },
     {
-      title: "Destructive",
+      title: 'Destructive',
       colors: [
-        { key: "destructive", label: "Destructive" },
-        { key: "destructiveForeground", label: "Destructive Foreground" },
+        { key: 'destructive', label: 'Destructive' },
+        { key: 'destructiveForeground', label: 'Destructive Foreground' },
       ],
     },
     {
-      title: "Border & Input",
+      title: 'Border & Input',
       colors: [
-        { key: "border", label: "Border" },
-        { key: "input", label: "Input" },
-        { key: "ring", label: "Ring" },
+        { key: 'border', label: 'Border' },
+        { key: 'input', label: 'Input' },
+        { key: 'ring', label: 'Ring' },
       ],
     },
-  ];
+  ]
 
   const handleCopyCSS = () => {
-    clipboard.copy(editor.exportCSS());
-  };
+    clipboard.copy(editor.exportCSS())
+  }
 
   return (
-    <Flex direction="column" className={cn("h-full", className)}>
+    <Flex direction="column" className={cn('h-full', className)}>
       {/* Header */}
       <Box className="border-b p-4">
         <h2 className="text-lg font-semibold">Theme Editor</h2>
@@ -636,9 +629,9 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
       <Box className="border-b p-4">
         <Label className="mb-2 block">Presets</Label>
         <Flex wrap="wrap" gap="2">
-          {Object.keys(presetThemes).map((preset) => {
-            const presetColors = presetThemes[preset]?.colors?.[editor.mode];
-            const presetPrimary = presetColors?.primary || defaultThemeConfig.colors[editor.mode].primary;
+          {Object.keys(presetThemes).map(preset => {
+            const presetColors = presetThemes[preset]?.colors?.[editor.mode]
+            const presetPrimary = presetColors?.primary || defaultThemeConfig.colors[editor.mode].primary
             return (
               <Button
                 key={preset}
@@ -647,13 +640,10 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 onClick={() => editor.applyPreset(preset)}
                 className="capitalize"
               >
-                <span
-                  className="w-3 h-3 rounded-full border"
-                  style={{ backgroundColor: `hsl(${presetPrimary})` }}
-                />
+                <span className="w-3 h-3 rounded-full border" style={{ backgroundColor: `hsl(${presetPrimary})` }} />
                 {preset}
               </Button>
-            );
+            )
           })}
         </Flex>
       </Box>
@@ -662,10 +652,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
       <Box className="border-b p-4">
         <Label className="mb-2 block">Current Primary</Label>
         <Flex align="center" gap="3">
-          <Box
-            className="w-12 h-12 rounded-lg border"
-            style={{ backgroundColor: primaryColor }}
-          />
+          <Box className="w-12 h-12 rounded-lg border" style={{ backgroundColor: primaryColor }} />
           <Box className="text-sm">
             <Code size="2">{colors.primary}</Code>
             <p className="text-muted-foreground text-xs mt-1">HSL values</p>
@@ -676,17 +663,18 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
       {/* Mode Toggle */}
       <Box className="border-b p-4">
         <Label className="mb-2 block">Mode</Label>
-        <SegmentedControl.Root
-          value={editor.mode}
-          onValueChange={(value) => editor.setMode(value as "light" | "dark")}
-        >
+        <SegmentedControl.Root value={editor.mode} onValueChange={value => editor.setMode(value as 'light' | 'dark')}>
           <SegmentedControl.Item value="light">Light</SegmentedControl.Item>
           <SegmentedControl.Item value="dark">Dark</SegmentedControl.Item>
         </SegmentedControl.Root>
       </Box>
 
       {/* Tabs */}
-      <Tabs.Root value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="flex-1 flex flex-col min-h-0">
+      <Tabs.Root
+        value={activeTab}
+        onValueChange={v => setActiveTab(v as typeof activeTab)}
+        className="flex-1 flex flex-col min-h-0"
+      >
         <Tabs.List>
           <Tabs.Trigger value="colors">Colors</Tabs.Trigger>
           <Tabs.Trigger value="typography">Typography</Tabs.Trigger>
@@ -697,7 +685,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
         <ScrollArea className="flex-1">
           <Tabs.Content value="colors" className="p-4">
             <Flex direction="column" gap="6">
-              {colorGroups.map((group) => (
+              {colorGroups.map(group => (
                 <Box key={group.title}>
                   <h3 className="text-sm font-medium mb-3">{group.title}</h3>
                   <Flex direction="column" gap="4">
@@ -706,9 +694,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                         key={key}
                         label={label}
                         value={colors[key as keyof ThemeColors]}
-                        onChange={(value) =>
-                          editor.updateColors(editor.mode, { [key]: value })
-                        }
+                        onChange={value => editor.updateColors(editor.mode, { [key]: value })}
                       />
                     ))}
                   </Flex>
@@ -720,35 +706,43 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
           <Tabs.Content value="typography" className="p-4">
             <Flex direction="column" gap="4">
               <Box>
-                <Label htmlFor="font-sans" className="mb-2 block">Font Sans</Label>
+                <Label htmlFor="font-sans" className="mb-2 block">
+                  Font Sans
+                </Label>
                 <TextField
                   id="font-sans"
                   value={editor.config.typography.fontSans}
-                  onChange={(e) => editor.updateTypography({ fontSans: e.target.value })}
+                  onChange={e => editor.updateTypography({ fontSans: e.target.value })}
                 />
               </Box>
               <Box>
-                <Label htmlFor="font-serif" className="mb-2 block">Font Serif</Label>
+                <Label htmlFor="font-serif" className="mb-2 block">
+                  Font Serif
+                </Label>
                 <TextField
                   id="font-serif"
                   value={editor.config.typography.fontSerif}
-                  onChange={(e) => editor.updateTypography({ fontSerif: e.target.value })}
+                  onChange={e => editor.updateTypography({ fontSerif: e.target.value })}
                 />
               </Box>
               <Box>
-                <Label htmlFor="font-mono" className="mb-2 block">Font Mono</Label>
+                <Label htmlFor="font-mono" className="mb-2 block">
+                  Font Mono
+                </Label>
                 <TextField
                   id="font-mono"
                   value={editor.config.typography.fontMono}
-                  onChange={(e) => editor.updateTypography({ fontMono: e.target.value })}
+                  onChange={e => editor.updateTypography({ fontMono: e.target.value })}
                 />
               </Box>
               <Box>
-                <Label htmlFor="letter-spacing" className="mb-2 block">Letter Spacing</Label>
+                <Label htmlFor="letter-spacing" className="mb-2 block">
+                  Letter Spacing
+                </Label>
                 <TextField
                   id="letter-spacing"
                   value={editor.config.typography.letterSpacing}
-                  onChange={(e) => editor.updateTypography({ letterSpacing: e.target.value })}
+                  onChange={e => editor.updateTypography({ letterSpacing: e.target.value })}
                   placeholder="e.g., 0em, 0.05em"
                 />
               </Box>
@@ -758,32 +752,36 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
           <Tabs.Content value="layout" className="p-4">
             <Flex direction="column" gap="4">
               <Box>
-                <Label htmlFor="border-radius" className="mb-2 block">Border Radius</Label>
+                <Label htmlFor="border-radius" className="mb-2 block">
+                  Border Radius
+                </Label>
                 <TextField
                   id="border-radius"
                   value={editor.config.layout.radius}
-                  onChange={(e) => editor.updateLayout({ radius: e.target.value })}
+                  onChange={e => editor.updateLayout({ radius: e.target.value })}
                   placeholder="e.g., 0.5rem"
                 />
                 <Flex gap="2" className="mt-2">
-                  {["0", "0.25rem", "0.5rem", "0.75rem", "1rem"].map((r) => (
+                  {['0', '0.25rem', '0.5rem', '0.75rem', '1rem'].map(r => (
                     <Button
                       key={r}
                       size="1"
-                      variant={editor.config.layout.radius === r ? "solid" : "outline"}
+                      variant={editor.config.layout.radius === r ? 'solid' : 'outline'}
                       onClick={() => editor.updateLayout({ radius: r })}
                     >
-                      {r || "0"}
+                      {r || '0'}
                     </Button>
                   ))}
                 </Flex>
               </Box>
               <Box>
-                <Label htmlFor="base-spacing" className="mb-2 block">Base Spacing</Label>
+                <Label htmlFor="base-spacing" className="mb-2 block">
+                  Base Spacing
+                </Label>
                 <TextField
                   id="base-spacing"
                   value={editor.config.layout.spacing}
-                  onChange={(e) => editor.updateLayout({ spacing: e.target.value })}
+                  onChange={e => editor.updateLayout({ spacing: e.target.value })}
                   placeholder="e.g., 0.25rem"
                 />
               </Box>
@@ -794,7 +792,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
             <Flex direction="column" gap="4">
               <Flex gap="2">
                 <Button onClick={handleCopyCSS} className="flex-1">
-                  {clipboard.copied ? "Copied!" : "Copy CSS"}
+                  {clipboard.copied ? 'Copied!' : 'Copy CSS'}
                 </Button>
                 <Button variant="outline" onClick={editor.resetToDefault}>
                   Reset
@@ -804,9 +802,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 <Label className="mb-2 block">CSS Output</Label>
                 <Card.Root className="p-0">
                   <ScrollArea className="max-h-96">
-                    <pre className="p-4 text-xs font-mono whitespace-pre-wrap">
-                      {editor.exportCSS()}
-                    </pre>
+                    <pre className="p-4 text-xs font-mono whitespace-pre-wrap">{editor.exportCSS()}</pre>
                   </ScrollArea>
                 </Card.Root>
               </Box>
@@ -815,10 +811,10 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
         </ScrollArea>
       </Tabs.Root>
     </Flex>
-  );
-};
+  )
+}
 
-ThemeEditor.displayName = "ThemeEditor";
+ThemeEditor.displayName = 'ThemeEditor'
 
 // ============================================================================
 // Component Preview
@@ -844,9 +840,7 @@ export const ThemePreview: React.FC<{ className?: string }> = ({ className }) =>
         <h3 className="text-sm font-medium mb-3">Card</h3>
         <Card.Root className="p-4">
           <h4 className="font-semibold">Card Title</h4>
-          <p className="text-sm text-muted-foreground mt-1">
-            Card description with muted text.
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Card description with muted text.</p>
         </Card.Root>
       </Box>
 
@@ -856,11 +850,7 @@ export const ThemePreview: React.FC<{ className?: string }> = ({ className }) =>
         <Flex direction="column" gap="3">
           <TextField placeholder="Text input..." />
           <Flex align="center" gap="2">
-            <input
-              type="checkbox"
-              id="preview-checkbox"
-              className="h-4 w-4 rounded border-input accent-primary"
-            />
+            <input type="checkbox" id="preview-checkbox" className="h-4 w-4 rounded border-input accent-primary" />
             <Label htmlFor="preview-checkbox">Checkbox label</Label>
           </Flex>
         </Flex>
@@ -884,9 +874,7 @@ export const ThemePreview: React.FC<{ className?: string }> = ({ className }) =>
         <h3 className="text-sm font-medium mb-3">Callout</h3>
         <Card.Root className="p-4 bg-muted">
           <p className="text-sm font-medium">Heads up!</p>
-          <p className="text-sm text-muted-foreground mt-1">
-            You can customize this theme using the editor panel.
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">You can customize this theme using the editor panel.</p>
         </Card.Root>
       </Box>
 
@@ -900,7 +888,7 @@ export const ThemePreview: React.FC<{ className?: string }> = ({ className }) =>
         </SegmentedControl.Root>
       </Box>
     </Flex>
-  );
-};
+  )
+}
 
-ThemePreview.displayName = "ThemePreview";
+ThemePreview.displayName = 'ThemePreview'

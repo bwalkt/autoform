@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { useForm, FormProvider, type DefaultValues } from "react-hook-form";
-import { parseSchema, getDefaultValues, removeEmptyValues, type ParsedField } from "@bwalkt/core";
-import type { AutoFormProps } from "./types";
-import { AutoFormProvider } from "./context";
-import { AutoFormField } from "./AutoFormField";
+import { getDefaultValues, type ParsedField, parseSchema, removeEmptyValues } from '@bwalkt/core'
+import { useEffect } from 'react'
+import { type DefaultValues, FormProvider, useForm } from 'react-hook-form'
+import { AutoFormField } from './AutoFormField'
+import { AutoFormProvider } from './context'
+import type { AutoFormProps } from './types'
 
 export function AutoForm<T extends Record<string, unknown>>({
   schema,
@@ -17,54 +17,54 @@ export function AutoForm<T extends Record<string, unknown>>({
   onFormInit = () => {},
   formProps = {},
 }: AutoFormProps<T>) {
-  const parsedSchema = parseSchema(schema);
+  const parsedSchema = parseSchema(schema)
   const methods = useForm<T>({
     defaultValues: {
       ...(getDefaultValues(schema) as Partial<T>),
       ...defaultValues,
     } as DefaultValues<T>,
     values: values as T,
-  });
+  })
 
   useEffect(() => {
     if (onFormInit) {
-      onFormInit(methods);
+      onFormInit(methods)
     }
-  }, [onFormInit, methods]);
+  }, [onFormInit, methods])
 
   const handleSubmit = async (dataRaw: T) => {
-    const data = removeEmptyValues(dataRaw);
-    const validationResult = schema.validateSchema(data as T);
-    console.log("validationResult", { validationResult, dataRaw, data });
+    const data = removeEmptyValues(dataRaw)
+    const validationResult = schema.validateSchema(data as T)
+    console.log('validationResult', { validationResult, dataRaw, data })
     if (validationResult.success) {
-      await onSubmit(validationResult.data as T, methods);
+      await onSubmit(validationResult.data as T, methods)
     } else {
-      methods.clearErrors();
-      let isFocused: boolean = false;
+      methods.clearErrors()
+      let isFocused: boolean = false
       for (const error of validationResult.errors || []) {
-        const path = error.path.join(".");
+        const path = error.path.join('.')
         methods.setError(
           path as any,
           {
-            type: "custom",
+            type: 'custom',
             message: error.message,
           },
           { shouldFocus: !isFocused },
-        );
+        )
 
-        isFocused = true;
+        isFocused = true
 
         // For some custom errors, zod adds the final element twice for some reason
-        const correctedPath = error.path?.slice?.(0, -1);
+        const correctedPath = error.path?.slice?.(0, -1)
         if (correctedPath?.length > 0) {
-          methods.setError(correctedPath.join(".") as any, {
-            type: "custom",
+          methods.setError(correctedPath.join('.') as any, {
+            type: 'custom',
             message: error.message,
-          });
+          })
         }
       }
     }
-  };
+  }
 
   return (
     <FormProvider {...methods}>
@@ -75,19 +75,14 @@ export function AutoForm<T extends Record<string, unknown>>({
           formComponents,
         }}
       >
-        <uiComponents.Form
-          onSubmit={methods.handleSubmit(handleSubmit)}
-          {...formProps}
-        >
+        <uiComponents.Form onSubmit={methods.handleSubmit(handleSubmit)} {...formProps}>
           {parsedSchema.fields.map((field: ParsedField) => (
             <AutoFormField key={field.key} field={field} path={[field.key]} />
           ))}
-          {withSubmit && (
-            <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>
-          )}
+          {withSubmit && <uiComponents.SubmitButton>Submit</uiComponents.SubmitButton>}
           {children}
         </uiComponents.Form>
       </AutoFormProvider>
     </FormProvider>
-  );
+  )
 }

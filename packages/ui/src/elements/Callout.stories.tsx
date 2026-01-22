@@ -1,69 +1,57 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Callout, CalloutRoot } from "./Callout";
-import { Box } from "@/layouts/Box";
-import {
-  Info,
-  AlertCircle,
-  CheckCircle,
-  AlertTriangle,
-  XCircle,
-  Lightbulb,
-  Rocket,
-  Bell,
-  Shield,
-} from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { AlertCircle, AlertTriangle, Bell, CheckCircle, Info, Lightbulb, Rocket, Shield, XCircle } from 'lucide-react'
+import { Box } from '@/layouts/Box'
+import { Callout, CalloutRoot } from './Callout'
 
 const meta: Meta<typeof CalloutRoot> = {
-  title: "Elements/Callout",
+  title: 'Elements/Callout',
   component: CalloutRoot,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
-      description: "The size of the callout",
+      control: 'select',
+      options: ['1', '2', '3', '4'],
+      description: 'The size of the callout',
     },
     variant: {
-      control: "select",
-      options: ["soft", "surface", "outline"],
-      description: "The visual variant of the callout",
+      control: 'select',
+      options: ['soft', 'surface', 'outline'],
+      description: 'The visual variant of the callout',
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
-      description: "The accent color of the callout",
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'The accent color of the callout',
     },
     highContrast: {
-      control: "boolean",
-      description: "High contrast mode for better accessibility",
+      control: 'boolean',
+      description: 'High contrast mode for better accessibility',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Default
 export const Default: Story = {
-  render: (args) => (
+  render: args => (
     <Callout.Root {...args}>
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>
-        This is a callout with some important information for you.
-      </Callout.Text>
+      <Callout.Text>This is a callout with some important information for you.</Callout.Text>
     </Callout.Root>
   ),
   args: {
-    size: "2",
-    variant: "soft",
-    color: "default",
+    size: '2',
+    variant: 'soft',
+    color: 'default',
   },
-};
+}
 
 // Variants
 export const Soft: Story = {
@@ -72,12 +60,10 @@ export const Soft: Story = {
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>
-        This is a soft callout with a subtle background.
-      </Callout.Text>
+      <Callout.Text>This is a soft callout with a subtle background.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const Surface: Story = {
   render: () => (
@@ -85,12 +71,10 @@ export const Surface: Story = {
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>
-        This is a surface callout with a border and light background.
-      </Callout.Text>
+      <Callout.Text>This is a surface callout with a border and light background.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const Outline: Story = {
   render: () => (
@@ -98,16 +82,14 @@ export const Outline: Story = {
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>
-        This is an outline callout with just a border.
-      </Callout.Text>
+      <Callout.Text>This is an outline callout with just a border.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 // Sizes
 export const Size1: Story = {
-  name: "Size 1 (Extra Small)",
+  name: 'Size 1 (Extra Small)',
   render: () => (
     <Callout.Root size="1" color="info">
       <Callout.Icon>
@@ -116,10 +98,10 @@ export const Size1: Story = {
       <Callout.Text>Size 1 callout</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const Size2: Story = {
-  name: "Size 2 (Small, default)",
+  name: 'Size 2 (Small, default)',
   render: () => (
     <Callout.Root size="2" color="info">
       <Callout.Icon>
@@ -128,10 +110,10 @@ export const Size2: Story = {
       <Callout.Text>Size 2 callout (default)</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const Size3: Story = {
-  name: "Size 3 (Medium)",
+  name: 'Size 3 (Medium)',
   render: () => (
     <Callout.Root size="3" color="info">
       <Callout.Icon>
@@ -140,10 +122,10 @@ export const Size3: Story = {
       <Callout.Text>Size 3 callout</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const Size4: Story = {
-  name: "Size 4 (Large)",
+  name: 'Size 4 (Large)',
   render: () => (
     <Callout.Root size="4" color="info">
       <Callout.Icon>
@@ -152,7 +134,7 @@ export const Size4: Story = {
       <Callout.Text>Size 4 callout</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 // Colors
 export const ColorDefault: Story = {
@@ -164,7 +146,7 @@ export const ColorDefault: Story = {
       <Callout.Text>Default neutral callout</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const ColorPrimary: Story = {
   render: () => (
@@ -175,7 +157,7 @@ export const ColorPrimary: Story = {
       <Callout.Text>Primary branded callout</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const ColorInfo: Story = {
   render: () => (
@@ -183,12 +165,10 @@ export const ColorInfo: Story = {
       <Callout.Icon>
         <Info />
       </Callout.Icon>
-      <Callout.Text>
-        Informational callout for helpful tips and details.
-      </Callout.Text>
+      <Callout.Text>Informational callout for helpful tips and details.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const ColorSuccess: Story = {
   render: () => (
@@ -196,12 +176,10 @@ export const ColorSuccess: Story = {
       <Callout.Icon>
         <CheckCircle />
       </Callout.Icon>
-      <Callout.Text>
-        Success! Your action was completed successfully.
-      </Callout.Text>
+      <Callout.Text>Success! Your action was completed successfully.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const ColorWarning: Story = {
   render: () => (
@@ -209,12 +187,10 @@ export const ColorWarning: Story = {
       <Callout.Icon>
         <AlertTriangle />
       </Callout.Icon>
-      <Callout.Text>
-        Warning: Please review this before proceeding.
-      </Callout.Text>
+      <Callout.Text>Warning: Please review this before proceeding.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 export const ColorError: Story = {
   render: () => (
@@ -222,12 +198,10 @@ export const ColorError: Story = {
       <Callout.Icon>
         <XCircle />
       </Callout.Icon>
-      <Callout.Text>
-        Error: Something went wrong. Please try again.
-      </Callout.Text>
+      <Callout.Text>Error: Something went wrong. Please try again.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 // All variants showcase
 export const AllVariants: Story = {
@@ -253,7 +227,7 @@ export const AllVariants: Story = {
       </Callout.Root>
     </Box>
   ),
-};
+}
 
 // All sizes showcase
 export const AllSizes: Story = {
@@ -285,7 +259,7 @@ export const AllSizes: Story = {
       </Callout.Root>
     </Box>
   ),
-};
+}
 
 // All colors with soft variant
 export const AllColorsSoft: Story = {
@@ -329,7 +303,7 @@ export const AllColorsSoft: Story = {
       </Callout.Root>
     </Box>
   ),
-};
+}
 
 // All colors with surface variant
 export const AllColorsSurface: Story = {
@@ -373,7 +347,7 @@ export const AllColorsSurface: Story = {
       </Callout.Root>
     </Box>
   ),
-};
+}
 
 // All colors with outline variant
 export const AllColorsOutline: Story = {
@@ -417,7 +391,7 @@ export const AllColorsOutline: Story = {
       </Callout.Root>
     </Box>
   ),
-};
+}
 
 // High contrast mode
 export const HighContrast: Story = {
@@ -443,18 +417,16 @@ export const HighContrast: Story = {
       </Callout.Root>
     </Box>
   ),
-};
+}
 
 // Without icon
 export const WithoutIcon: Story = {
   render: () => (
     <Callout.Root color="info">
-      <Callout.Text className="col-span-2">
-        This callout has no icon and the text spans the full width.
-      </Callout.Text>
+      <Callout.Text className="col-span-2">This callout has no icon and the text spans the full width.</Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 // Long content
 export const LongContent: Story = {
@@ -464,14 +436,13 @@ export const LongContent: Story = {
         <Lightbulb />
       </Callout.Icon>
       <Callout.Text>
-        This is a callout with longer content. It demonstrates how the component
-        handles multi-line text. The icon stays aligned to the top while the text
-        wraps naturally. This is useful for displaying detailed information,
-        tips, or warnings that require more explanation.
+        This is a callout with longer content. It demonstrates how the component handles multi-line text. The icon stays
+        aligned to the top while the text wraps naturally. This is useful for displaying detailed information, tips, or
+        warnings that require more explanation.
       </Callout.Text>
     </Callout.Root>
   ),
-};
+}
 
 // Real-world examples
 export const RealWorldExamples: Story = {
@@ -483,8 +454,8 @@ export const RealWorldExamples: Story = {
           <Lightbulb />
         </Callout.Icon>
         <Callout.Text>
-          <strong>Tip:</strong> You can use keyboard shortcuts to navigate faster.
-          Press <code className="px-1 py-0.5 bg-blue-200/50 rounded text-xs">?</code> to see all available shortcuts.
+          <strong>Tip:</strong> You can use keyboard shortcuts to navigate faster. Press{' '}
+          <code className="px-1 py-0.5 bg-blue-200/50 rounded text-xs">?</code> to see all available shortcuts.
         </Callout.Text>
       </Callout.Root>
 
@@ -494,8 +465,8 @@ export const RealWorldExamples: Story = {
           <Shield />
         </Callout.Icon>
         <Callout.Text>
-          <strong>Security Notice:</strong> Your session will expire in 5 minutes.
-          Please save your work to avoid losing any changes.
+          <strong>Security Notice:</strong> Your session will expire in 5 minutes. Please save your work to avoid losing
+          any changes.
         </Callout.Text>
       </Callout.Root>
 
@@ -505,8 +476,7 @@ export const RealWorldExamples: Story = {
           <CheckCircle />
         </Callout.Icon>
         <Callout.Text>
-          Your changes have been saved successfully. The new settings will take
-          effect immediately.
+          Your changes have been saved successfully. The new settings will take effect immediately.
         </Callout.Text>
       </Callout.Root>
 
@@ -516,10 +486,10 @@ export const RealWorldExamples: Story = {
           <AlertCircle />
         </Callout.Icon>
         <Callout.Text>
-          <strong>Connection Error:</strong> Unable to reach the server. Please
-          check your internet connection and try again.
+          <strong>Connection Error:</strong> Unable to reach the server. Please check your internet connection and try
+          again.
         </Callout.Text>
       </Callout.Root>
     </Box>
   ),
-};
+}

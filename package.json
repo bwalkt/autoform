@@ -4,14 +4,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --concurrency 20",
-    "lint": "biome lint packages/core/src packages/react/src packages/ajv/src packages/ui/src packages/shadcn/src/components packages/shadcn/src/lib packages/shadcn/src/scripts",
-    "lint:fix": "biome lint packages/core/src packages/react/src packages/ajv/src packages/ui/src packages/shadcn/src/components packages/shadcn/src/lib packages/shadcn/src/scripts --write",
-    "lint:all": "biome lint .",
-    "lint:fix:all": "biome lint . --write",
-    "format": "biome format packages/core/src packages/react/src packages/ajv/src packages/ui/src packages/shadcn/src/components packages/shadcn/src/lib packages/shadcn/src/scripts --write",
-    "format:check": "biome format packages/core/src packages/react/src packages/ajv/src packages/ui/src packages/shadcn/src/components packages/shadcn/src/lib packages/shadcn/src/scripts",
-    "check": "biome check packages/core/src packages/react/src packages/ajv/src packages/ui/src packages/shadcn/src/components packages/shadcn/src/lib packages/shadcn/src/scripts",
-    "check:fix": "biome check packages/core/src packages/react/src packages/ajv/src packages/ui/src packages/shadcn/src/components packages/shadcn/src/lib packages/shadcn/src/scripts --write",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
     "test": "echo \"no test specified\" && exit 0",
     "prepare": "husky"
   },

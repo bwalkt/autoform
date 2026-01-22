@@ -1,12 +1,13 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { Country, type ICountry } from "country-state-city";
-import { ChevronDown, Phone } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { getSizeStyles, getRadiusStyles } from "@/elements/utils";
-import { useFieldGroup } from "./FieldGroupContext";
-import type { Color, Radius, Size, TextFieldVariant } from "@/elements/tokens";
+import { Country, type ICountry } from 'country-state-city'
+import { ChevronDown, Phone } from 'lucide-react'
+import * as React from 'react'
+import type { Color, Radius, Size, TextFieldVariant } from '@/elements/tokens'
+import { getRadiusStyles, getSizeStyles } from '@/elements/utils'
+import { cn } from '@/lib/utils'
+import { useFieldGroup } from './FieldGroupContext'
+import { containerColorStyles, containerVariantStyles, getBaseVariant } from './textFieldStyles'
 
 // ============================================================================
 // Types
@@ -14,93 +15,38 @@ import type { Color, Radius, Size, TextFieldVariant } from "@/elements/tokens";
 
 export interface PhoneValue {
   /** Country code (e.g., "US") */
-  countryCode: string;
+  countryCode: string
   /** Phone code (e.g., "+1") */
-  phoneCode: string;
+  phoneCode: string
   /** Phone number without country code */
-  number: string;
+  number: string
   /** Full formatted number */
-  fullNumber: string;
+  fullNumber: string
 }
 
 export interface PhoneInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "value" | "onChange"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'value' | 'onChange'> {
   /** The size of the input */
-  size?: Size;
+  size?: Size
   /** The visual variant */
-  variant?: TextFieldVariant;
+  variant?: TextFieldVariant
   /** The accent color */
-  color?: Color;
+  color?: Color
   /** The border radius */
-  radius?: Radius;
+  radius?: Radius
   /** Whether the field has an error */
-  error?: boolean;
+  error?: boolean
   /** Current value */
-  value?: PhoneValue;
+  value?: PhoneValue
   /** Called when phone changes */
-  onChange?: (value: PhoneValue) => void;
+  onChange?: (value: PhoneValue) => void
   /** Default country code */
-  defaultCountry?: string;
+  defaultCountry?: string
   /** Countries to show (if not provided, shows all) */
-  countries?: string[];
+  countries?: string[]
   /** Placeholder for the phone number input */
-  phonePlaceholder?: string;
+  phonePlaceholder?: string
 }
-
-// ============================================================================
-// Variant Styles
-// ============================================================================
-
-const variantStyles: Record<string, string> = {
-  classic: cn(
-    "border border-input",
-    "bg-gradient-to-b from-background to-muted/30 text-foreground shadow-sm",
-    "focus-within:border-ring",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  solid: cn(
-    "border-0",
-    "bg-primary/10 text-foreground",
-    "focus-within:bg-primary/15",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  soft: cn(
-    "border-0",
-    "bg-secondary text-foreground",
-    "hover:bg-secondary/80",
-    "focus-within:bg-secondary/80",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  surface: cn(
-    "border border-input",
-    "bg-background text-foreground shadow-sm",
-    "focus-within:border-ring",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  outline: cn(
-    "border border-input",
-    "bg-background text-foreground",
-    "focus-within:border-ring",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  ghost: cn(
-    "border-0",
-    "bg-transparent text-foreground",
-    "hover:bg-accent",
-    "focus-within:bg-accent",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-};
-
-const colorStyles: Record<Color, string> = {
-  default: "",
-  primary: "border-primary focus-within:border-primary focus-within:ring-primary/30",
-  neutral: "border-gray-500 focus-within:border-gray-500 focus-within:ring-gray-500/30",
-  info: "border-blue-500 focus-within:border-blue-500 focus-within:ring-blue-500/30",
-  success: "border-green-500 focus-within:border-green-500 focus-within:ring-green-500/30",
-  warning: "border-amber-500 focus-within:border-amber-500 focus-within:ring-amber-500/30",
-  error: "border-red-500 focus-within:border-red-500 focus-within:ring-red-500/30",
-};
 
 // ============================================================================
 // Main Component
@@ -112,58 +58,58 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       size: sizeProp,
       variant: variantProp,
       color,
-      radius = "md",
+      radius = 'md',
       error = false,
       disabled = false,
       value,
       onChange,
-      defaultCountry = "US",
+      defaultCountry = 'US',
       countries: allowedCountries,
-      phonePlaceholder = "Phone number",
+      phonePlaceholder = 'Phone number',
       className,
       style,
       ...props
     },
     ref,
   ) => {
-    const fieldGroup = useFieldGroup();
-    const size = sizeProp ?? fieldGroup.size;
-    const variant = variantProp ?? fieldGroup.variant;
+    const fieldGroup = useFieldGroup()
+    const size = sizeProp ?? fieldGroup.size
+    const variant = variantProp ?? fieldGroup.variant
 
-    const sizeStyles = getSizeStyles(size);
-    const radiusStyles = getRadiusStyles(radius);
-    const combinedStyles = { ...sizeStyles, ...radiusStyles, ...style };
+    const sizeStyles = getSizeStyles(size)
+    const radiusStyles = getRadiusStyles(radius)
+    const combinedStyles = { ...sizeStyles, ...radiusStyles, ...style }
 
-    const [dropdownOpen, setDropdownOpen] = React.useState(false);
-    const dropdownRef = React.useRef<HTMLDivElement>(null);
-    const triggerRef = React.useRef<HTMLButtonElement>(null);
+    const [dropdownOpen, setDropdownOpen] = React.useState(false)
+    const dropdownRef = React.useRef<HTMLDivElement>(null)
+    const triggerRef = React.useRef<HTMLButtonElement>(null)
 
     // Get available countries
     const availableCountries = React.useMemo(() => {
-      const allCountries = Country.getAllCountries();
+      const allCountries = Country.getAllCountries()
       if (allowedCountries && allowedCountries.length > 0) {
-        return allCountries.filter((c) => allowedCountries.includes(c.isoCode));
+        return allCountries.filter(c => allowedCountries.includes(c.isoCode))
       }
-      return allCountries;
-    }, [allowedCountries]);
+      return allCountries
+    }, [allowedCountries])
 
     // Initialize state
     const [selectedCountry, setSelectedCountry] = React.useState<ICountry | undefined>(() => {
       if (value?.countryCode) {
-        return availableCountries.find((c) => c.isoCode === value.countryCode);
+        return availableCountries.find(c => c.isoCode === value.countryCode)
       }
-      return availableCountries.find((c) => c.isoCode === defaultCountry);
-    });
+      return availableCountries.find(c => c.isoCode === defaultCountry)
+    })
 
-    const [phoneNumber, setPhoneNumber] = React.useState(value?.number ?? "");
+    const [phoneNumber, setPhoneNumber] = React.useState(value?.number ?? '')
 
     // Sync with controlled value
     React.useEffect(() => {
       if (value) {
-        setSelectedCountry(availableCountries.find((c) => c.isoCode === value.countryCode));
-        setPhoneNumber(value.number);
+        setSelectedCountry(availableCountries.find(c => c.isoCode === value.countryCode))
+        setPhoneNumber(value.number)
       }
-    }, [value, availableCountries]);
+    }, [value, availableCountries])
 
     // Handle click outside
     React.useEffect(() => {
@@ -174,64 +120,64 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           triggerRef.current &&
           !triggerRef.current.contains(event.target as Node)
         ) {
-          setDropdownOpen(false);
+          setDropdownOpen(false)
         }
-      };
+      }
 
       if (dropdownOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
       }
-    }, [dropdownOpen]);
+    }, [dropdownOpen])
 
     // Emit change
     const emitChange = React.useCallback(
       (country: ICountry | undefined, number: string) => {
-        if (!country) return;
+        if (!country) return
 
-        const phoneCode = `+${country.phonecode}`;
+        const phoneCode = `+${country.phonecode}`
         const newValue: PhoneValue = {
           countryCode: country.isoCode,
           phoneCode,
           number,
-          fullNumber: number ? `${phoneCode}${number}` : "",
-        };
-        onChange?.(newValue);
+          fullNumber: number ? `${phoneCode}${number}` : '',
+        }
+        onChange?.(newValue)
       },
       [onChange],
-    );
+    )
 
     const handleCountrySelect = React.useCallback(
       (country: ICountry) => {
-        setSelectedCountry(country);
-        setDropdownOpen(false);
-        emitChange(country, phoneNumber);
+        setSelectedCountry(country)
+        setDropdownOpen(false)
+        emitChange(country, phoneNumber)
       },
       [phoneNumber, emitChange],
-    );
+    )
 
     const handlePhoneChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         // Only allow digits, spaces, dashes, and parentheses
-        const cleaned = e.target.value.replace(/[^\d\s\-()]/g, "");
-        setPhoneNumber(cleaned);
-        emitChange(selectedCountry, cleaned);
+        const cleaned = e.target.value.replace(/[^\d\s\-()]/g, '')
+        setPhoneNumber(cleaned)
+        emitChange(selectedCountry, cleaned)
       },
       [selectedCountry, emitChange],
-    );
+    )
 
-    const effectiveColor = error ? "error" : color;
-    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
+    const effectiveColor = error ? 'error' : color
+    const baseVariant = getBaseVariant(variant)
 
     return (
       <div
         className={cn(
-          "relative flex items-center",
-          "h-[var(--element-height)]",
-          "rounded-[var(--element-border-radius)]",
-          variantStyles[baseVariant],
-          effectiveColor && colorStyles[effectiveColor],
-          disabled && "opacity-50 cursor-not-allowed",
+          'relative flex items-center',
+          'h-[var(--element-height)]',
+          'rounded-[var(--element-border-radius)]',
+          containerVariantStyles[baseVariant],
+          effectiveColor && containerColorStyles[effectiveColor],
+          disabled && 'opacity-50 cursor-not-allowed',
           className,
         )}
         style={combinedStyles}
@@ -243,19 +189,17 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           onClick={() => !disabled && setDropdownOpen(!dropdownOpen)}
           disabled={disabled}
           className={cn(
-            "flex items-center gap-1 px-2 h-full border-r border-input/50",
-            "hover:bg-accent/50 transition-colors",
-            "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
-            "rounded-l-[var(--element-border-radius)]",
+            'flex items-center gap-1 px-2 h-full border-r border-input/50',
+            'hover:bg-accent/50 transition-colors',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
+            'rounded-l-[var(--element-border-radius)]',
           )}
           aria-expanded={dropdownOpen}
           aria-haspopup="listbox"
         >
           <span className="text-base">{selectedCountry?.flag}</span>
-          <span className="text-sm text-muted-foreground">
-            +{selectedCountry?.phonecode}
-          </span>
-          <ChevronDown className={cn("h-3 w-3 opacity-50", dropdownOpen && "rotate-180")} />
+          <span className="text-sm text-muted-foreground">+{selectedCountry?.phonecode}</span>
+          <ChevronDown className={cn('h-3 w-3 opacity-50', dropdownOpen && 'rotate-180')} />
         </button>
 
         {/* Phone Icon */}
@@ -272,10 +216,10 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           disabled={disabled}
           placeholder={phonePlaceholder}
           className={cn(
-            "flex-1 h-full bg-transparent outline-none",
-            "text-[var(--element-font-size)]",
-            "pr-[var(--element-padding-x)]",
-            "placeholder:text-muted-foreground",
+            'flex-1 h-full bg-transparent outline-none',
+            'text-[var(--element-font-size)]',
+            'pr-[var(--element-padding-x)]',
+            'placeholder:text-muted-foreground',
           )}
           {...props}
         />
@@ -285,28 +229,28 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           <div
             ref={dropdownRef}
             className={cn(
-              "absolute left-0 top-full mt-1 z-50",
-              "w-64 max-h-[200px] overflow-y-auto",
-              "rounded-md border bg-popover text-popover-foreground shadow-md",
-              "animate-in fade-in-0 zoom-in-95",
+              'absolute left-0 top-full mt-1 z-50',
+              'w-64 max-h-[200px] overflow-y-auto',
+              'rounded-md border bg-popover text-popover-foreground shadow-md',
+              'animate-in fade-in-0 zoom-in-95',
             )}
             role="listbox"
           >
-            {availableCountries.map((country) => (
+            {availableCountries.map(country => (
               <div
                 key={country.isoCode}
                 onClick={() => handleCountrySelect(country)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleCountrySelect(country);
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleCountrySelect(country)
                   }
                 }}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-2 text-sm cursor-pointer",
-                  "hover:bg-accent hover:text-accent-foreground",
-                  "focus:bg-accent focus:text-accent-foreground focus:outline-none",
-                  selectedCountry?.isoCode === country.isoCode && "bg-accent/50",
+                  'flex items-center gap-2 px-3 py-2 text-sm cursor-pointer',
+                  'hover:bg-accent hover:text-accent-foreground',
+                  'focus:bg-accent focus:text-accent-foreground focus:outline-none',
+                  selectedCountry?.isoCode === country.isoCode && 'bg-accent/50',
                 )}
                 role="option"
                 aria-selected={selectedCountry?.isoCode === country.isoCode}
@@ -320,8 +264,8 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           </div>
         )}
       </div>
-    );
+    )
   },
-);
+)
 
-PhoneInput.displayName = "PhoneInput";
+PhoneInput.displayName = 'PhoneInput'

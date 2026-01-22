@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Em, Strong, Text, Box } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Box, Em, Strong, Text } from '@/elements'
 
 const meta: Meta = {
-  title: "Typography/Inline Elements",
+  title: 'Typography/Inline Elements',
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
-};
+  tags: ['autodocs'],
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 // Em (Emphasis/Italic)
 export const Emphasis: Story = {
-  name: "Em (Emphasis)",
+  name: 'Em (Emphasis)',
   render: () => (
     <Box display="flex" className="flex-col gap-4">
       <Text size="3">
@@ -28,11 +28,11 @@ export const Emphasis: Story = {
       </Text>
     </Box>
   ),
-};
+}
 
 // Strong (Bold)
 export const Bold: Story = {
-  name: "Strong (Bold)",
+  name: 'Strong (Bold)',
   render: () => (
     <Box display="flex" className="flex-col gap-4">
       <Text size="3">
@@ -46,7 +46,7 @@ export const Bold: Story = {
       </Text>
     </Box>
   ),
-};
+}
 
 // Combined Usage
 export const CombinedUsage: Story = {
@@ -54,34 +54,45 @@ export const CombinedUsage: Story = {
     <Box display="flex" className="flex-col gap-4 max-w-lg">
       <Text size="3">
         The <Em>most</Em> <Strong>important</Strong> thing to remember is that
-        <Strong> good typography</Strong> makes content <Em>readable</Em> and{" "}
-        <Em>accessible</Em>.
+        <Strong> good typography</Strong> makes content <Em>readable</Em> and <Em>accessible</Em>.
       </Text>
 
       <Text size="3">
-        <Strong>Note:</Strong> You can combine <Em>emphasis</Em> and{" "}
-        <Strong>strong</Strong> elements, and even nest them:{" "}
-        <Strong><Em>important and emphasized</Em></Strong>.
+        <Strong>Note:</Strong> You can combine <Em>emphasis</Em> and <Strong>strong</Strong> elements, and even nest
+        them:{' '}
+        <Strong>
+          <Em>important and emphasized</Em>
+        </Strong>
+        .
       </Text>
 
       <Text size="3">
-        When writing documentation, use <Strong>bold</Strong> for{" "}
-        <Strong>warnings</Strong> and <Strong>key terms</Strong>, and use{" "}
-        <Em>italics</Em> for <Em>emphasis</Em> and <Em>technical terms</Em>.
+        When writing documentation, use <Strong>bold</Strong> for <Strong>warnings</Strong> and{' '}
+        <Strong>key terms</Strong>, and use <Em>italics</Em> for <Em>emphasis</Em> and <Em>technical terms</Em>.
       </Text>
     </Box>
   ),
-};
+}
 
 // In Different Text Sizes
 export const InDifferentSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-3">
-      <Text size="1">Small text with <Strong>bold</Strong> and <Em>italic</Em></Text>
-      <Text size="2">Text size 2 with <Strong>bold</Strong> and <Em>italic</Em></Text>
-      <Text size="3">Text size 3 with <Strong>bold</Strong> and <Em>italic</Em></Text>
-      <Text size="4">Text size 4 with <Strong>bold</Strong> and <Em>italic</Em></Text>
-      <Text size="5">Text size 5 with <Strong>bold</Strong> and <Em>italic</Em></Text>
+      <Text size="1">
+        Small text with <Strong>bold</Strong> and <Em>italic</Em>
+      </Text>
+      <Text size="2">
+        Text size 2 with <Strong>bold</Strong> and <Em>italic</Em>
+      </Text>
+      <Text size="3">
+        Text size 3 with <Strong>bold</Strong> and <Em>italic</Em>
+      </Text>
+      <Text size="4">
+        Text size 4 with <Strong>bold</Strong> and <Em>italic</Em>
+      </Text>
+      <Text size="5">
+        Text size 5 with <Strong>bold</Strong> and <Em>italic</Em>
+      </Text>
     </Box>
   ),
-};
+}

@@ -4,7 +4,7 @@ export type Renderable<AdditionalRenderable = null> =
   | boolean
   | null
   | undefined
-  | AdditionalRenderable;
+  | AdditionalRenderable
 
 export interface FieldConfig<
   AdditionalRenderable = null,
@@ -12,47 +12,42 @@ export interface FieldConfig<
   FieldWrapper = unknown,
   CustomData = Record<string, unknown>,
 > {
-  description?: Renderable<AdditionalRenderable>;
-  inputProps?: Record<string, unknown>;
-  label?: Renderable<AdditionalRenderable>;
-  fieldType?: FieldTypes;
-  order?: number;
-  fieldWrapper?: FieldWrapper;
-  customData?: CustomData;
+  description?: Renderable<AdditionalRenderable>
+  inputProps?: Record<string, unknown>
+  label?: Renderable<AdditionalRenderable>
+  fieldType?: FieldTypes
+  order?: number
+  fieldWrapper?: FieldWrapper
+  customData?: CustomData
 }
 
 export interface ParsedField<AdditionalRenderable = null, FieldTypes = string> {
-  key: string;
-  type: string;
-  required: boolean;
-  default?: unknown;
-  description?: Renderable;
-  fieldConfig?: FieldConfig<AdditionalRenderable, FieldTypes>;
+  key: string
+  type: string
+  required: boolean
+  default?: unknown
+  description?: Renderable
+  fieldConfig?: FieldConfig<AdditionalRenderable, FieldTypes>
 
   // Field-specific
-  options?: [string, string][]; // [value, label] for enums
-  schema?: ParsedField<AdditionalRenderable, FieldTypes>[]; // For objects and arrays
+  options?: [string, string][] // [value, label] for enums
+  schema?: ParsedField<AdditionalRenderable, FieldTypes>[] // For objects and arrays
 }
 
-export interface ParsedSchema<
-  AdditionalRenderable = null,
-  FieldTypes = string,
-> {
-  fields: ParsedField<AdditionalRenderable, FieldTypes>[];
+export interface ParsedSchema<AdditionalRenderable = null, FieldTypes = string> {
+  fields: ParsedField<AdditionalRenderable, FieldTypes>[]
 }
 
 export type SuccessfulSchemaValidation = {
-  success: true;
-  data: unknown;
-};
+  success: true
+  data: unknown
+}
 export type SchemaValidationError = {
-  path: (string | number)[];
-  message: string;
-};
+  path: (string | number)[]
+  message: string
+}
 export type ErrorSchemaValidation = {
-  success: false;
-  errors: SchemaValidationError[];
-};
-export type SchemaValidation =
-  | SuccessfulSchemaValidation
-  | ErrorSchemaValidation;
+  success: false
+  errors: SchemaValidationError[]
+}
+export type SchemaValidation = SuccessfulSchemaValidation | ErrorSchemaValidation
