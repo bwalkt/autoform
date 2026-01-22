@@ -4,8 +4,8 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import type { Color, Radius, Size } from './tokens'
 
-// Size configurations
-const avatarSizes = {
+// Size configurations (exported for AvatarGroup)
+export const avatarSizes = {
   '1': 'h-6 w-6 text-xs',
   '2': 'h-8 w-8 text-sm',
   '3': 'h-10 w-10 text-base',
@@ -14,7 +14,7 @@ const avatarSizes = {
   '6': 'h-20 w-20 text-2xl',
 }
 
-type AvatarSize = Size | '5' | '6'
+export type AvatarSize = Size | '5' | '6'
 
 // Variant styles
 type AvatarVariant = 'solid' | 'soft'
@@ -138,52 +138,4 @@ const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
 
 Avatar.displayName = 'Avatar'
 
-// ============================================================================
-// Avatar Group
-// ============================================================================
-
-export interface AvatarGroupProps {
-  /** Maximum avatars to show before +N indicator */
-  max?: number
-  /** Size of avatars */
-  size?: AvatarSize
-  /** Additional class names */
-  className?: string
-  /** Avatar children */
-  children: React.ReactNode
-}
-
-const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
-  ({ max, size = '2', className, children, ...props }, ref) => {
-    const childrenArray = React.Children.toArray(children)
-    const visibleChildren = max ? childrenArray.slice(0, max) : childrenArray
-    const remainingCount = max ? Math.max(0, childrenArray.length - max) : 0
-
-    return (
-      <div ref={ref} className={cn('flex -space-x-2', className)} {...props}>
-        {visibleChildren.map((child, index) => (
-          <span key={index} className="relative ring-2 ring-background rounded-full">
-            {React.isValidElement(child)
-              ? React.cloneElement(child as React.ReactElement<AvatarProps>, { size })
-              : child}
-          </span>
-        ))}
-        {remainingCount > 0 && (
-          <span
-            className={cn(
-              'relative inline-flex items-center justify-center ring-2 ring-background rounded-full',
-              'bg-muted text-muted-foreground font-medium',
-              avatarSizes[size],
-            )}
-          >
-            +{remainingCount}
-          </span>
-        )}
-      </div>
-    )
-  },
-)
-
-AvatarGroup.displayName = 'AvatarGroup'
-
-export { Avatar, AvatarGroup }
+export { Avatar }

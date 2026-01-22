@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Avatar, AvatarGroup } from '@/elements'
+import { Avatar } from '@/elements'
 
 const meta: Meta<typeof Avatar> = {
   title: 'Elements/Avatar',
@@ -107,67 +107,6 @@ export const BrokenImage: Story = {
       <Avatar src="https://broken-link.com/image.jpg" fallback="JD" />
       <Avatar src="https://broken-link.com/image.jpg" fallback="Alice Smith" />
       <Avatar src="https://broken-link.com/image.jpg" />
-    </div>
-  ),
-}
-
-export const Group: Story = {
-  render: () => (
-    <AvatarGroup>
-      <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
-      <Avatar src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" />
-      <Avatar src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop&crop=face" />
-      <Avatar fallback="JD" />
-      <Avatar fallback="AS" color="primary" />
-    </AvatarGroup>
-  ),
-}
-
-export const GroupWithMax: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <div>
-        <p className="text-sm text-muted-foreground mb-2">Max 3:</p>
-        <AvatarGroup max={3}>
-          <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
-          <Avatar src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" />
-          <Avatar src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop&crop=face" />
-          <Avatar fallback="JD" />
-          <Avatar fallback="AS" />
-          <Avatar fallback="MK" />
-        </AvatarGroup>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground mb-2">Max 5:</p>
-        <AvatarGroup max={5}>
-          <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
-          <Avatar src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" />
-          <Avatar src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop&crop=face" />
-          <Avatar fallback="JD" />
-          <Avatar fallback="AS" />
-          <Avatar fallback="MK" />
-          <Avatar fallback="RB" />
-          <Avatar fallback="LC" />
-        </AvatarGroup>
-      </div>
-    </div>
-  ),
-}
-
-export const GroupSizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      {(['1', '2', '3', '4', '5', '6'] as const).map(size => (
-        <div key={size}>
-          <p className="text-sm text-muted-foreground mb-2">Size {size}:</p>
-          <AvatarGroup size={size}>
-            <Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" />
-            <Avatar src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" />
-            <Avatar src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop&crop=face" />
-            <Avatar fallback="JD" />
-          </AvatarGroup>
-        </div>
-      ))}
     </div>
   ),
 }
