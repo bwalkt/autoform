@@ -74,21 +74,32 @@ export const Sizes: StoryObj = {
 export const Variants: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
-      {(["surface", "classic"] as const).map((variant) => (
-        <div key={variant}>
-          <p className="text-sm text-muted-foreground mb-2 capitalize">{variant}</p>
-          <Tabs.Root variant={variant} defaultValue="tab1" className="w-[400px]">
-            <Tabs.List>
-              <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
-              <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
-              <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
-            </Tabs.List>
-            <Tabs.Content value="tab1">Overview content</Tabs.Content>
-            <Tabs.Content value="tab2">Analytics content</Tabs.Content>
-            <Tabs.Content value="tab3">Reports content</Tabs.Content>
-          </Tabs.Root>
-        </div>
-      ))}
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Line (underline style - default)</p>
+        <Tabs.Root variant="line" defaultValue="tab1" className="w-[400px]">
+          <Tabs.List>
+            <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="tab1">Overview content</Tabs.Content>
+          <Tabs.Content value="tab2">Analytics content</Tabs.Content>
+          <Tabs.Content value="tab3">Reports content</Tabs.Content>
+        </Tabs.Root>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Surface (segmented control style)</p>
+        <Tabs.Root variant="surface" defaultValue="tab1" className="w-[400px]">
+          <Tabs.List>
+            <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="tab1">Overview content</Tabs.Content>
+          <Tabs.Content value="tab2">Analytics content</Tabs.Content>
+          <Tabs.Content value="tab3">Reports content</Tabs.Content>
+        </Tabs.Root>
+      </div>
     </div>
   ),
 };
@@ -96,14 +107,80 @@ export const Variants: StoryObj = {
 export const Colors: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
+      <p className="text-sm font-medium">Line variant with colors:</p>
       {(["default", "primary", "info", "success", "warning", "error"] as const).map((color) => (
         <div key={color}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
-          <Tabs.Root color={color} defaultValue="tab1" className="w-[400px]">
+          <Tabs.Root variant="line" color={color} defaultValue="tab1" className="w-[400px]">
             <Tabs.List>
               <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
               <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
               <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const ColorsWithSurface: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      <p className="text-sm font-medium">Surface variant with colors:</p>
+      {(["default", "primary", "info", "success", "warning", "error"] as const).map((color) => (
+        <div key={color}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
+          <Tabs.Root variant="surface" color={color} defaultValue="tab1" className="w-[400px]">
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const HighContrast: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Normal contrast</p>
+        <Tabs.Root variant="line" color="primary" defaultValue="tab1" className="w-[400px]">
+          <Tabs.List>
+            <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+          </Tabs.List>
+        </Tabs.Root>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">High contrast</p>
+        <Tabs.Root variant="line" color="primary" highContrast defaultValue="tab1" className="w-[400px]">
+          <Tabs.List>
+            <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+          </Tabs.List>
+        </Tabs.Root>
+      </div>
+    </div>
+  ),
+};
+
+export const Justify: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      {(["start", "center", "end"] as const).map((justify) => (
+        <div key={justify}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">justify="{justify}"</p>
+          <Tabs.Root variant="line" defaultValue="tab1" className="w-[400px]">
+            <Tabs.List justify={justify}>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
             </Tabs.List>
           </Tabs.Root>
         </div>

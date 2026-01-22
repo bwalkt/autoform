@@ -300,20 +300,27 @@ export type GridColumns = (typeof fieldGroupTokens.gridColumns)[number];
 
 // TextField variant tokens
 export const textFieldTokens = {
-  variant: [
+  baseVariant: [
     "classic",
     "solid",
     "soft",
     "surface",
     "outline",
     "ghost",
+  ] as const,
+  floatingVariant: [
     "floating-filled",
     "floating-standard",
     "floating-outlined",
   ] as const,
+  get variant() {
+    return [...this.baseVariant, ...this.floatingVariant] as const;
+  },
 } as const;
 
-export type TextFieldVariant = (typeof textFieldTokens.variant)[number];
+export type BaseTextFieldVariant = (typeof textFieldTokens.baseVariant)[number];
+export type FloatingTextFieldVariant = (typeof textFieldTokens.floatingVariant)[number];
+export type TextFieldVariant = BaseTextFieldVariant | FloatingTextFieldVariant;
 
 // Responsive prop type helper
 export type Responsive<T> = T | {

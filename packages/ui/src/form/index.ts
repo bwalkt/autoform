@@ -26,6 +26,35 @@ export {
 } from "./FileUpload";
 export { Select, SelectItem, type SelectProps } from "./Select";
 export {
+  LocationInput,
+  type LocationInputProps,
+  type LocationValue,
+} from "./LocationInput";
+export {
+  MultiSelect,
+  type MultiSelectProps,
+  type MultiSelectOption,
+} from "./MultiSelect";
+export {
+  PasswordInput,
+  type PasswordInputProps,
+} from "./PasswordInput";
+export {
+  PhoneInput,
+  type PhoneInputProps,
+  type PhoneValue,
+} from "./PhoneInput";
+export {
+  SignatureInput,
+  type SignatureInputProps,
+} from "./SignatureInput";
+export {
+  CreditCardInput,
+  type CreditCardInputProps,
+  type CreditCardValue,
+  type CardType,
+} from "./CreditCardInput";
+export {
   Checkbox,
   CheckboxWithLabel,
   CheckboxGroup,
