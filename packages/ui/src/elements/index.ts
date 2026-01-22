@@ -24,7 +24,8 @@ export {
 export { AlertDialog } from './AlertDialog'
 export { AspectRatio, type AspectRatioProps } from './AspectRatio'
 // Data Display
-export { Avatar, AvatarGroup, type AvatarGroupProps, type AvatarProps } from './Avatar'
+export { Avatar, type AvatarProps, type AvatarSize } from './Avatar'
+export { AvatarGroup, type AvatarGroupProps } from './AvatarGroup'
 export { Badge, type BadgeProps } from './Badge'
 export { Button, type ButtonProps } from './Button'
 // Feedback
