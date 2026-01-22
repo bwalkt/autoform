@@ -38,7 +38,7 @@ export interface AvatarGroupProps {
   /** Avatar children */
   children: React.ReactNode
   /** Callback when overflow indicator is clicked */
-  onOverflowClick?: (overflowCount: number, allChildren: React.ReactNode[]) => void
+  onOverflowClick?: (overflowCount: number, overflowChildren: React.ReactNode[]) => void
   /** Custom render for overflow indicator */
   renderOverflow?: (count: number) => React.ReactNode
 }
@@ -46,8 +46,9 @@ export interface AvatarGroupProps {
 const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
   ({ max, size = '2', layout = 'stack', className, children, onOverflowClick, renderOverflow, ...props }, ref) => {
     const childrenArray = React.Children.toArray(children)
-    const visibleChildren = max ? childrenArray.slice(0, max) : childrenArray
-    const remainingCount = max ? Math.max(0, childrenArray.length - max) : 0
+    const hasMax = max !== undefined
+    const visibleChildren = hasMax ? childrenArray.slice(0, max) : childrenArray
+    const remainingCount = hasMax ? Math.max(0, childrenArray.length - max) : 0
 
     const isStack = layout === 'stack'
     const spacing = isStack ? stackSpacing[size] : spreadSpacing[size]
