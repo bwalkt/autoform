@@ -54,7 +54,7 @@ const meta: Meta<typeof Theme> = {
     },
     radius: {
       control: 'select',
-      options: ['none', 'small', 'medium', 'large', 'full'],
+      options: ['none', 'sm', 'md', 'lg', 'full'],
     },
     scaling: {
       control: 'select',
@@ -168,7 +168,7 @@ export const AccentColors: Story = {
 
 export const RadiusOptions: Story = {
   render: () => {
-    const radii = ['none', 'small', 'medium', 'large', 'full'] as const
+    const radii = ['none', 'sm', 'md', 'lg', 'full'] as const
 
     return (
       <Box display="flex" className="flex-wrap gap-4 p-8">
@@ -259,7 +259,7 @@ const ThemeInfo: React.FC = () => {
 
 export const UsingContext: Story = {
   render: () => (
-    <Theme accentColor="violet" radius="large" className="min-h-screen p-8">
+    <Theme accentColor="violet" radius="lg" className="min-h-screen p-8">
       <div className="max-w-md mx-auto space-y-4">
         <h1 className="text-2xl font-bold">Theme Context</h1>
         <p className="text-muted-foreground">Use the useThemeContext hook to access theme settings.</p>

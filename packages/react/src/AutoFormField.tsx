@@ -1,6 +1,6 @@
 import { getLabel, type ParsedField } from '@bwalkt/core'
 import type React from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import { ArrayField } from './ArrayField'
 import { useAutoForm } from './context'
 import { ObjectField } from './ObjectField'
@@ -15,12 +15,12 @@ export const AutoFormField: React.FC<{
   const {
     register,
     formState: { errors },
-    getValues,
+    control,
   } = useFormContext()
 
   const fullPath = path.join('.')
   const error = getPathInObject(errors, path)?.message as string | undefined
-  const value = getValues(fullPath)
+  const value = useWatch({ control, name: fullPath })
 
   const FieldWrapper = field.fieldConfig?.fieldWrapper || uiComponents.FieldWrapper
 

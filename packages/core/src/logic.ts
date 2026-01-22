@@ -17,12 +17,20 @@ export function getDefaultValues(schemaProvider: SchemaProvider): Record<string,
   return schemaProvider.getDefaultValues()
 }
 
+// Check if a value is considered empty (null, undefined, "", [], {})
+const isEmptyValue = (value: unknown): boolean =>
+  value === null ||
+  value === undefined ||
+  value === '' ||
+  (Array.isArray(value) && value.length === 0) ||
+  (typeof value === 'object' && value !== null && Object.keys(value as object).length === 0)
+
 // Recursively remove empty values from an object (null, undefined, "", [], {})
 export function removeEmptyValues<T extends Record<string, unknown>>(values: T): Partial<T> {
   const result: Partial<T> = {}
   for (const key in values) {
     const value = values[key]
-    if ([null, undefined, '', [], {}].includes(value)) {
+    if (isEmptyValue(value)) {
       continue
     }
 
@@ -33,7 +41,7 @@ export function removeEmptyValues<T extends Record<string, unknown>>(values: T):
         }
         return item
       })
-      result[key] = newArray.filter((item: unknown) => item !== null) as any
+      result[key] = newArray.filter((item: unknown) => !isEmptyValue(item)) as any
     } else if (typeof value === 'object' && value !== null) {
       result[key] = removeEmptyValues(value as Record<string, unknown>) as any
     } else {

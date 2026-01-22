@@ -39,7 +39,7 @@ export type AccentColor =
 
 export type GrayColor = 'auto' | 'gray' | 'mauve' | 'slate' | 'sage' | 'olive' | 'sand'
 
-export type Radius = 'none' | 'small' | 'medium' | 'large' | 'full'
+export type Radius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 
 export type Scaling = '90%' | '95%' | '100%' | '105%' | '110%'
 
@@ -163,7 +163,7 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
       appearance: appearanceProp = 'inherit',
       accentColor: accentColorProp = 'indigo',
       grayColor: grayColorProp = 'auto',
-      radius: radiusProp = 'medium',
+      radius: radiusProp = 'md',
       scaling: scalingProp = '100%',
       panelBackground: panelBackgroundProp = 'translucent',
       hasBackground: hasBackgroundProp = true,
@@ -331,15 +331,15 @@ function getRadiusValue(radius: Radius): string {
   switch (radius) {
     case 'none':
       return '0'
-    case 'small':
+    case 'sm':
       return '0.25rem'
-    case 'medium':
+    case 'md':
+      return '0.375rem'
+    case 'lg':
       return '0.5rem'
-    case 'large':
-      return '0.75rem'
     case 'full':
       return '9999px'
     default:
-      return '0.5rem'
+      return '0.375rem'
   }
 }
