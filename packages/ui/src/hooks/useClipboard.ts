@@ -1,19 +1,19 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from 'react'
 
 export interface UseClipboardOptions {
   /** Timeout in milliseconds before resetting copied state */
-  timeout?: number;
+  timeout?: number
 }
 
 export interface UseClipboardReturn {
   /** Copy text to clipboard */
-  copy: (text: string) => Promise<void>;
+  copy: (text: string) => Promise<void>
   /** Whether the text was recently copied */
-  copied: boolean;
+  copied: boolean
   /** Error if copy failed */
-  error: Error | null;
+  error: Error | null
   /** Reset the copied and error state */
-  reset: () => void;
+  reset: () => void
 }
 
 /**
@@ -31,32 +31,32 @@ export interface UseClipboardReturn {
  * ```
  */
 export function useClipboard(options: UseClipboardOptions = {}): UseClipboardReturn {
-  const { timeout = 2000 } = options;
+  const { timeout = 2000 } = options
 
-  const [copied, setCopied] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [copied, setCopied] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
 
   const copy = useCallback(
     async (text: string) => {
       try {
-        await navigator.clipboard.writeText(text);
-        setCopied(true);
-        setError(null);
-        setTimeout(() => setCopied(false), timeout);
+        await navigator.clipboard.writeText(text)
+        setCopied(true)
+        setError(null)
+        setTimeout(() => setCopied(false), timeout)
       } catch (e) {
-        const err = e instanceof Error ? e : new Error("Failed to copy to clipboard");
-        setError(err);
-        setCopied(false);
-        console.error("Clipboard copy failed:", err.message);
+        const err = e instanceof Error ? e : new Error('Failed to copy to clipboard')
+        setError(err)
+        setCopied(false)
+        console.error('Clipboard copy failed:', err.message)
       }
     },
     [timeout],
-  );
+  )
 
   const reset = useCallback(() => {
-    setCopied(false);
-    setError(null);
-  }, []);
+    setCopied(false)
+    setError(null)
+  }, [])
 
-  return { copy, copied, error, reset };
+  return { copy, copied, error, reset }
 }

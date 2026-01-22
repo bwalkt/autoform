@@ -1,37 +1,31 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import {
-  ThemeEditorProvider,
-  ThemeEditor,
-  ThemePreview,
-  useThemeEditor,
-  presetThemes,
-} from "./ThemeEditor";
-import { Button } from "./Button";
-import { Card } from "./Card";
-import { Badge } from "./Badge";
-import { Switch } from "@/form/Switch";
-import { Slider } from "@/form/Slider";
-import { Progress } from "./Progress";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
+import { Slider } from '@/form/Slider'
+import { Switch } from '@/form/Switch'
+import { Badge } from './Badge'
+import { Button } from './Button'
+import { Card } from './Card'
+import { Progress } from './Progress'
+import { presetThemes, ThemeEditor, ThemeEditorProvider, ThemePreview, useThemeEditor } from './ThemeEditor'
 
 const meta: Meta<typeof ThemeEditor> = {
-  title: "Elements/ThemeEditor",
+  title: 'Elements/ThemeEditor',
   component: ThemeEditor,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   decorators: [
-    (Story) => (
+    Story => (
       <ThemeEditorProvider>
         <Story />
       </ThemeEditorProvider>
     ),
   ],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ============================================================================
 // Basic Editor
@@ -48,7 +42,7 @@ export const Default: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Editor Only
@@ -60,7 +54,7 @@ export const EditorOnly: Story = {
       <ThemeEditor />
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Preview Only
@@ -72,14 +66,14 @@ export const PreviewOnly: Story = {
       <ThemePreview className="max-w-2xl mx-auto border rounded-lg" />
     </div>
   ),
-};
+}
 
 // ============================================================================
 // With Custom Components
 // ============================================================================
 
 const ComponentShowcase: React.FC = () => {
-  const editor = useThemeEditor();
+  const editor = useThemeEditor()
 
   return (
     <div className="p-8 space-y-8">
@@ -150,8 +144,8 @@ const ComponentShowcase: React.FC = () => {
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
 export const WithCustomComponents: Story = {
   render: () => (
@@ -164,7 +158,7 @@ export const WithCustomComponents: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Preset Gallery
@@ -175,85 +169,77 @@ const PresetCard: React.FC<{ name: string }> = ({ name }) => {
     <ThemeEditorProvider>
       <PresetApplier preset={name} />
     </ThemeEditorProvider>
-  );
-};
+  )
+}
 
 const PresetApplier: React.FC<{ preset: string }> = ({ preset }) => {
-  const editor = useThemeEditor();
+  const editor = useThemeEditor()
 
   React.useEffect(() => {
-    editor.applyPreset(preset);
-  }, [preset, editor]);
+    editor.applyPreset(preset)
+  }, [preset, editor])
 
   return (
     <div className="border rounded-lg p-4 space-y-3">
       <h4 className="font-medium capitalize">{preset}</h4>
       <div className="flex gap-2">
         <Button size="1">Primary</Button>
-        <Button size="1" variant="soft">Secondary</Button>
+        <Button size="1" variant="soft">
+          Secondary
+        </Button>
       </div>
       <div className="flex gap-2">
         <Badge size="1">Badge</Badge>
-        <Badge size="1" variant="outline">Outline</Badge>
+        <Badge size="1" variant="outline">
+          Outline
+        </Badge>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const PresetGallery: Story = {
   render: () => (
     <div className="p-8">
       <h2 className="text-2xl font-bold mb-6">Preset Themes</h2>
       <div className="grid grid-cols-4 gap-4">
-        {Object.keys(presetThemes).map((preset) => (
+        {Object.keys(presetThemes).map(preset => (
           <PresetCard key={preset} name={preset} />
         ))}
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Export Demo
 // ============================================================================
 
 const ExportDemo: React.FC = () => {
-  const editor = useThemeEditor();
-  const [showJSON, setShowJSON] = React.useState(false);
-  const [copied, setCopied] = React.useState(false);
+  const editor = useThemeEditor()
+  const [showJSON, setShowJSON] = React.useState(false)
+  const [copied, setCopied] = React.useState(false)
 
   const handleCopy = async () => {
-    const content = showJSON ? editor.exportJSON() : editor.exportCSS();
-    await navigator.clipboard.writeText(content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    const content = showJSON ? editor.exportJSON() : editor.exportCSS()
+    await navigator.clipboard.writeText(content)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <div className="p-8 space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Export Configuration</h2>
         <div className="flex gap-2">
-          <Button
-            size="2"
-            variant={!showJSON ? "solid" : "outline"}
-            onClick={() => setShowJSON(false)}
-          >
+          <Button size="2" variant={!showJSON ? 'solid' : 'outline'} onClick={() => setShowJSON(false)}>
             CSS
           </Button>
-          <Button
-            size="2"
-            variant={showJSON ? "solid" : "outline"}
-            onClick={() => setShowJSON(true)}
-          >
+          <Button size="2" variant={showJSON ? 'solid' : 'outline'} onClick={() => setShowJSON(true)}>
             JSON
           </Button>
-          <Button
-            size="2"
-            variant="outline"
-            onClick={handleCopy}
-          >
-            {copied ? "Copied!" : "Copy"}
+          <Button size="2" variant="outline" onClick={handleCopy}>
+            {copied ? 'Copied!' : 'Copy'}
           </Button>
         </div>
       </div>
@@ -261,8 +247,8 @@ const ExportDemo: React.FC = () => {
         {showJSON ? editor.exportJSON() : editor.exportCSS()}
       </pre>
     </div>
-  );
-};
+  )
+}
 
 export const ExportConfiguration: Story = {
   render: () => (
@@ -275,17 +261,17 @@ export const ExportConfiguration: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Dark Mode
 // ============================================================================
 
 const DarkModeDemo: React.FC = () => {
-  const editor = useThemeEditor();
+  const editor = useThemeEditor()
 
   return (
-    <div className={editor.mode === "dark" ? "dark" : ""}>
+    <div className={editor.mode === 'dark' ? 'dark' : ''}>
       <div className="min-h-screen bg-background text-foreground p-8">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="flex items-center justify-between">
@@ -293,15 +279,15 @@ const DarkModeDemo: React.FC = () => {
             <div className="flex gap-2">
               <Button
                 size="2"
-                variant={editor.mode === "light" ? "solid" : "outline"}
-                onClick={() => editor.setMode("light")}
+                variant={editor.mode === 'light' ? 'solid' : 'outline'}
+                onClick={() => editor.setMode('light')}
               >
                 Light
               </Button>
               <Button
                 size="2"
-                variant={editor.mode === "dark" ? "solid" : "outline"}
-                onClick={() => editor.setMode("dark")}
+                variant={editor.mode === 'dark' ? 'solid' : 'outline'}
+                onClick={() => editor.setMode('dark')}
               >
                 Dark
               </Button>
@@ -317,7 +303,9 @@ const DarkModeDemo: React.FC = () => {
               <Card.Content>
                 <div className="space-y-4">
                   <Button className="w-full">Primary Action</Button>
-                  <Button variant="outline" className="w-full">Secondary Action</Button>
+                  <Button variant="outline" className="w-full">
+                    Secondary Action
+                  </Button>
                 </div>
               </Card.Content>
             </Card.Root>
@@ -347,8 +335,8 @@ const DarkModeDemo: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const DarkMode: Story = {
   render: () => (
@@ -361,4 +349,4 @@ export const DarkMode: Story = {
       </div>
     </div>
   ),
-};
+}

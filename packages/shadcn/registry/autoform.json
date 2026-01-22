@@ -16,10 +16,7 @@
     "textarea",
     "toggle"
   ],
-  "dependencies": [
-    "zod",
-    "@bwalkt/react"
-  ],
+  "dependencies": ["zod", "@bwalkt/react"],
   "devDependencies": [],
   "tailwind": {
     "config": {}

@@ -1,12 +1,12 @@
-import type { Schema } from "ajv";
-import type { FieldConfig } from "@bwalkt/core";
+import type { FieldConfig } from '@bwalkt/core'
+import type { Schema } from 'ajv'
 
 // Symbol for storing field configuration in JSON schema
-export const AJV_FIELD_CONFIG_SYMBOL = Symbol("AjvFieldConfig");
+export const AJV_FIELD_CONFIG_SYMBOL = Symbol('AjvFieldConfig')
 
 type JSONSchema = Schema & {
-  [AJV_FIELD_CONFIG_SYMBOL]?: FieldConfig;
-};
+  [AJV_FIELD_CONFIG_SYMBOL]?: FieldConfig
+}
 
 /**
  * Extends a JSON schema field with AutoForm field configuration
@@ -21,7 +21,7 @@ export function withFieldConfig<T extends Schema>(
 ): T & { [AJV_FIELD_CONFIG_SYMBOL]: FieldConfig } {
   return Object.assign({}, schema, {
     [AJV_FIELD_CONFIG_SYMBOL]: config,
-  }) as T & { [AJV_FIELD_CONFIG_SYMBOL]: FieldConfig };
+  }) as T & { [AJV_FIELD_CONFIG_SYMBOL]: FieldConfig }
 }
 
 /**
@@ -31,15 +31,12 @@ export function withFieldConfig<T extends Schema>(
  * @param config - AutoForm field configuration
  * @returns JSON schema with field config
  */
-export function createField(
-  type: string | { type: string; [key: string]: unknown },
-  config?: FieldConfig,
-): JSONSchema {
-  const schema: JSONSchema = typeof type === "string" ? { type } : type;
+export function createField(type: string | { type: string; [key: string]: unknown }, config?: FieldConfig): JSONSchema {
+  const schema: JSONSchema = typeof type === 'string' ? { type } : type
 
   if (config) {
-    schema[AJV_FIELD_CONFIG_SYMBOL] = config;
+    schema[AJV_FIELD_CONFIG_SYMBOL] = config
   }
 
-  return schema;
+  return schema
 }

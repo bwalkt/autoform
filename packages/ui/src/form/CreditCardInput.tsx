@@ -1,64 +1,65 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { CreditCard, Lock } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { getSizeStyles, getRadiusStyles } from "@/elements/utils";
-import { useFieldGroup } from "./FieldGroupContext";
-import type { Color, Radius, Size, TextFieldVariant } from "@/elements/tokens";
+import { CreditCard, Lock } from 'lucide-react'
+import * as React from 'react'
+import type { Color, Radius, Size, TextFieldVariant } from '@/elements/tokens'
+import { getRadiusStyles, getSizeStyles } from '@/elements/utils'
+import { cn } from '@/lib/utils'
+import { useFieldGroup } from './FieldGroupContext'
+import { containerVariantStyles, getBaseVariant } from './textFieldStyles'
 
 // ============================================================================
 // Types
 // ============================================================================
 
-export type CardType = "visa" | "mastercard" | "amex" | "discover" | "unknown";
+export type CardType = 'visa' | 'mastercard' | 'amex' | 'discover' | 'unknown'
 
 export interface CreditCardValue {
   /** Card number (formatted with spaces) */
-  number: string;
+  number: string
   /** Raw card number (digits only) */
-  rawNumber: string;
+  rawNumber: string
   /** Expiry date (MM/YY) */
-  expiry: string;
+  expiry: string
   /** CVV/CVC */
-  cvv: string;
+  cvv: string
   /** Cardholder name */
-  name: string;
+  name: string
   /** Detected card type */
-  cardType: CardType;
+  cardType: CardType
   /** Whether all fields are valid */
-  isValid: boolean;
+  isValid: boolean
 }
 
 export interface CreditCardInputProps {
   /** The size of the input */
-  size?: Size;
+  size?: Size
   /** The visual variant */
-  variant?: TextFieldVariant;
+  variant?: TextFieldVariant
   /** The accent color */
-  color?: Color;
+  color?: Color
   /** The border radius */
-  radius?: Radius;
+  radius?: Radius
   /** Whether the field has an error */
-  error?: boolean;
+  error?: boolean
   /** Whether the input is disabled */
-  disabled?: boolean;
+  disabled?: boolean
   /** Current value */
-  value?: CreditCardValue;
+  value?: CreditCardValue
   /** Called when card info changes */
-  onChange?: (value: CreditCardValue) => void;
+  onChange?: (value: CreditCardValue) => void
   /** Show cardholder name field */
-  showName?: boolean;
+  showName?: boolean
   /** Placeholder for card number */
-  numberPlaceholder?: string;
+  numberPlaceholder?: string
   /** Placeholder for expiry */
-  expiryPlaceholder?: string;
+  expiryPlaceholder?: string
   /** Placeholder for CVV */
-  cvvPlaceholder?: string;
+  cvvPlaceholder?: string
   /** Placeholder for name */
-  namePlaceholder?: string;
+  namePlaceholder?: string
   /** Additional class name */
-  className?: string;
+  className?: string
 }
 
 // ============================================================================
@@ -66,43 +67,40 @@ export interface CreditCardInputProps {
 // ============================================================================
 
 function detectCardType(number: string): CardType {
-  const cleaned = number.replace(/\s/g, "");
+  const cleaned = number.replace(/\s/g, '')
 
   // Visa: starts with 4
-  if (/^4/.test(cleaned)) return "visa";
+  if (/^4/.test(cleaned)) return 'visa'
 
   // Mastercard: starts with 51-55 or 2221-2720
-  if (/^5[1-5]/.test(cleaned) || /^2[2-7]/.test(cleaned)) return "mastercard";
+  if (/^5[1-5]/.test(cleaned) || /^2[2-7]/.test(cleaned)) return 'mastercard'
 
   // Amex: starts with 34 or 37
-  if (/^3[47]/.test(cleaned)) return "amex";
+  if (/^3[47]/.test(cleaned)) return 'amex'
 
   // Discover: starts with 6011, 644-649, or 65
-  if (/^6011|^64[4-9]|^65/.test(cleaned)) return "discover";
+  if (/^6011|^64[4-9]|^65/.test(cleaned)) return 'discover'
 
-  return "unknown";
+  return 'unknown'
 }
 
 function getCardMaxLength(cardType: CardType): number {
-  return cardType === "amex" ? 15 : 16;
+  return cardType === 'amex' ? 15 : 16
 }
 
 function getCvvLength(cardType: CardType): number {
-  return cardType === "amex" ? 4 : 3;
+  return cardType === 'amex' ? 4 : 3
 }
 
 // ============================================================================
 // Card Type Icons
 // ============================================================================
 
-const CardTypeIcon: React.FC<{ type: CardType; className?: string }> = ({
-  type,
-  className,
-}) => {
-  const baseClass = cn("h-6 w-auto", className);
+const CardTypeIcon: React.FC<{ type: CardType; className?: string }> = ({ type, className }) => {
+  const baseClass = cn('h-6 w-auto', className)
 
   switch (type) {
-    case "visa":
+    case 'visa':
       return (
         <svg viewBox="0 0 48 32" className={baseClass}>
           <rect width="48" height="32" rx="4" fill="#1A1F71" />
@@ -111,8 +109,8 @@ const CardTypeIcon: React.FC<{ type: CardType; className?: string }> = ({
             fill="#fff"
           />
         </svg>
-      );
-    case "mastercard":
+      )
+    case 'mastercard':
       return (
         <svg viewBox="0 0 48 32" className={baseClass}>
           <rect width="48" height="32" rx="4" fill="#000" />
@@ -123,8 +121,8 @@ const CardTypeIcon: React.FC<{ type: CardType; className?: string }> = ({
             fill="#FF5F00"
           />
         </svg>
-      );
-    case "amex":
+      )
+    case 'amex':
       return (
         <svg viewBox="0 0 48 32" className={baseClass}>
           <rect width="48" height="32" rx="4" fill="#006FCF" />
@@ -133,8 +131,8 @@ const CardTypeIcon: React.FC<{ type: CardType; className?: string }> = ({
             fill="#fff"
           />
         </svg>
-      );
-    case "discover":
+      )
+    case 'discover':
       return (
         <svg viewBox="0 0 48 32" className={baseClass}>
           <rect width="48" height="32" rx="4" fill="#fff" />
@@ -144,119 +142,72 @@ const CardTypeIcon: React.FC<{ type: CardType; className?: string }> = ({
             DISCOVER
           </text>
         </svg>
-      );
+      )
     default:
-      return <CreditCard className={cn("h-5 w-5 text-muted-foreground", className)} />;
+      return <CreditCard className={cn('h-5 w-5 text-muted-foreground', className)} />
   }
-};
+}
 
 // ============================================================================
 // Format Helpers
 // ============================================================================
 
 function formatCardNumber(value: string, cardType: CardType): string {
-  const digits = value.replace(/\D/g, "");
-  const maxLength = getCardMaxLength(cardType);
-  const truncated = digits.slice(0, maxLength);
+  const digits = value.replace(/\D/g, '')
+  const maxLength = getCardMaxLength(cardType)
+  const truncated = digits.slice(0, maxLength)
 
-  if (cardType === "amex") {
+  if (cardType === 'amex') {
     // Amex: 4-6-5 format
-    return truncated.replace(/(\d{4})(\d{0,6})(\d{0,5})/, (_, a, b, c) =>
-      [a, b, c].filter(Boolean).join(" "),
-    );
+    return truncated.replace(/(\d{4})(\d{0,6})(\d{0,5})/, (_, a, b, c) => [a, b, c].filter(Boolean).join(' '))
   }
 
   // Others: 4-4-4-4 format
-  return truncated.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
+  return truncated.replace(/(\d{4})(?=\d)/g, '$1 ').trim()
 }
 
 function formatExpiry(value: string): string {
-  const digits = value.replace(/\D/g, "");
+  const digits = value.replace(/\D/g, '')
   if (digits.length >= 2) {
-    return `${digits.slice(0, 2)}/${digits.slice(2, 4)}`;
+    return `${digits.slice(0, 2)}/${digits.slice(2, 4)}`
   }
-  return digits;
+  return digits
 }
 
 function validateExpiry(expiry: string): boolean {
-  const match = expiry.match(/^(\d{2})\/(\d{2})$/);
-  if (!match) return false;
+  const match = expiry.match(/^(\d{2})\/(\d{2})$/)
+  if (!match) return false
 
-  const month = Number.parseInt(match[1], 10);
-  const year = Number.parseInt(match[2], 10) + 2000;
+  const month = Number.parseInt(match[1], 10)
+  const year = Number.parseInt(match[2], 10) + 2000
 
-  if (month < 1 || month > 12) return false;
+  if (month < 1 || month > 12) return false
 
-  const now = new Date();
+  const now = new Date()
   // Card is valid through the last day of the expiry month
-  const cardExpiry = new Date(year, month, 0); // Last day of expiry month
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  return cardExpiry >= today;
+  const cardExpiry = new Date(year, month, 0) // Last day of expiry month
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return cardExpiry >= today
 }
 
 function validateCardNumber(number: string): boolean {
-  const digits = number.replace(/\s/g, "");
-  if (digits.length < 13 || digits.length > 16) return false;
+  const digits = number.replace(/\s/g, '')
+  if (digits.length < 13 || digits.length > 16) return false
 
   // Luhn algorithm
-  let sum = 0;
-  let isEven = false;
+  let sum = 0
+  let isEven = false
   for (let i = digits.length - 1; i >= 0; i--) {
-    let digit = Number.parseInt(digits[i], 10);
+    let digit = Number.parseInt(digits[i], 10)
     if (isEven) {
-      digit *= 2;
-      if (digit > 9) digit -= 9;
+      digit *= 2
+      if (digit > 9) digit -= 9
     }
-    sum += digit;
-    isEven = !isEven;
+    sum += digit
+    isEven = !isEven
   }
-  return sum % 10 === 0;
+  return sum % 10 === 0
 }
-
-// ============================================================================
-// Variant Styles
-// ============================================================================
-
-const variantStyles: Record<string, string> = {
-  classic: cn(
-    "border border-input",
-    "bg-gradient-to-b from-background to-muted/30 text-foreground shadow-sm",
-    "focus-within:border-ring",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  solid: cn(
-    "border-0",
-    "bg-primary/10 text-foreground",
-    "focus-within:bg-primary/15",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  soft: cn(
-    "border-0",
-    "bg-secondary text-foreground",
-    "hover:bg-secondary/80",
-    "focus-within:bg-secondary/80",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  surface: cn(
-    "border border-input",
-    "bg-background text-foreground shadow-sm",
-    "focus-within:border-ring",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  outline: cn(
-    "border border-input",
-    "bg-background text-foreground",
-    "focus-within:border-ring",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-  ghost: cn(
-    "border-0",
-    "bg-transparent text-foreground",
-    "hover:bg-accent",
-    "focus-within:bg-accent",
-    "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-  ),
-};
 
 // ============================================================================
 // Main Component
@@ -268,63 +219,63 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
       size: sizeProp,
       variant: variantProp,
       color: _color,
-      radius = "md",
+      radius = 'md',
       error = false,
       disabled = false,
       value,
       onChange,
       showName = false,
-      numberPlaceholder = "Card number",
-      expiryPlaceholder = "MM/YY",
-      cvvPlaceholder = "CVV",
-      namePlaceholder = "Name on card",
+      numberPlaceholder = 'Card number',
+      expiryPlaceholder = 'MM/YY',
+      cvvPlaceholder = 'CVV',
+      namePlaceholder = 'Name on card',
       className,
     },
     ref,
   ) => {
-    const fieldGroup = useFieldGroup();
-    const size = sizeProp ?? fieldGroup.size;
-    const variant = variantProp ?? fieldGroup.variant;
+    const fieldGroup = useFieldGroup()
+    const size = sizeProp ?? fieldGroup.size
+    const variant = variantProp ?? fieldGroup.variant
 
-    const sizeStyles = getSizeStyles(size);
-    const radiusStyles = getRadiusStyles(radius);
-    const combinedStyles = { ...sizeStyles, ...radiusStyles };
+    const sizeStyles = getSizeStyles(size)
+    const radiusStyles = getRadiusStyles(radius)
+    const combinedStyles = { ...sizeStyles, ...radiusStyles }
 
     // Internal state
-    const [cardNumber, setCardNumber] = React.useState(value?.number ?? "");
-    const [expiry, setExpiry] = React.useState(value?.expiry ?? "");
-    const [cvv, setCvv] = React.useState(value?.cvv ?? "");
-    const [name, setName] = React.useState(value?.name ?? "");
-    const [cardType, setCardType] = React.useState<CardType>(value?.cardType ?? "unknown");
+    const [cardNumber, setCardNumber] = React.useState(value?.number ?? '')
+    const [expiry, setExpiry] = React.useState(value?.expiry ?? '')
+    const [cvv, setCvv] = React.useState(value?.cvv ?? '')
+    const [name, setName] = React.useState(value?.name ?? '')
+    const [cardType, setCardType] = React.useState<CardType>(value?.cardType ?? 'unknown')
 
     // Sync with controlled value
     React.useEffect(() => {
       if (value) {
-        setCardNumber(value.number);
-        setExpiry(value.expiry);
-        setCvv(value.cvv);
-        setName(value.name);
-        setCardType(value.cardType);
+        setCardNumber(value.number)
+        setExpiry(value.expiry)
+        setCvv(value.cvv)
+        setName(value.name)
+        setCardType(value.cardType)
       }
-    }, [value]);
+    }, [value])
 
     // Emit changes
     const emitChange = React.useCallback(
       (updates: Partial<{ number: string; expiry: string; cvv: string; name: string }>) => {
-        const newNumber = updates.number ?? cardNumber;
-        const newExpiry = updates.expiry ?? expiry;
-        const newCvv = updates.cvv ?? cvv;
-        const newName = updates.name ?? name;
+        const newNumber = updates.number ?? cardNumber
+        const newExpiry = updates.expiry ?? expiry
+        const newCvv = updates.cvv ?? cvv
+        const newName = updates.name ?? name
 
-        const detectedType = detectCardType(newNumber);
-        const rawNumber = newNumber.replace(/\s/g, "");
-        const cvvLength = getCvvLength(detectedType);
+        const detectedType = detectCardType(newNumber)
+        const rawNumber = newNumber.replace(/\s/g, '')
+        const cvvLength = getCvvLength(detectedType)
 
         const isValid =
           validateCardNumber(newNumber) &&
           validateExpiry(newExpiry) &&
           newCvv.length === cvvLength &&
-          (!showName || newName.trim().length > 0);
+          (!showName || newName.trim().length > 0)
 
         const newValue: CreditCardValue = {
           number: newNumber,
@@ -334,69 +285,69 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
           name: newName,
           cardType: detectedType,
           isValid,
-        };
+        }
 
-        onChange?.(newValue);
+        onChange?.(newValue)
       },
       [cardNumber, expiry, cvv, name, showName, onChange],
-    );
+    )
 
     const handleNumberChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newType = detectCardType(e.target.value);
-        setCardType(newType);
-        const formatted = formatCardNumber(e.target.value, newType);
-        setCardNumber(formatted);
-        emitChange({ number: formatted });
+        const newType = detectCardType(e.target.value)
+        setCardType(newType)
+        const formatted = formatCardNumber(e.target.value, newType)
+        setCardNumber(formatted)
+        emitChange({ number: formatted })
       },
       [emitChange],
-    );
+    )
 
     const handleExpiryChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        const formatted = formatExpiry(e.target.value);
-        setExpiry(formatted);
-        emitChange({ expiry: formatted });
+        const formatted = formatExpiry(e.target.value)
+        setExpiry(formatted)
+        emitChange({ expiry: formatted })
       },
       [emitChange],
-    );
+    )
 
     const handleCvvChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        const digits = e.target.value.replace(/\D/g, "").slice(0, getCvvLength(cardType));
-        setCvv(digits);
-        emitChange({ cvv: digits });
+        const digits = e.target.value.replace(/\D/g, '').slice(0, getCvvLength(cardType))
+        setCvv(digits)
+        emitChange({ cvv: digits })
       },
       [cardType, emitChange],
-    );
+    )
 
     const handleNameChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-        emitChange({ name: e.target.value });
+        setName(e.target.value)
+        emitChange({ name: e.target.value })
       },
       [emitChange],
-    );
+    )
 
-    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
+    const baseVariant = getBaseVariant(variant)
     const inputClass = cn(
-      "flex-1 bg-transparent outline-none",
-      "text-[var(--element-font-size)]",
-      "placeholder:text-muted-foreground",
-    );
+      'flex-1 bg-transparent outline-none',
+      'text-[var(--element-font-size)]',
+      'placeholder:text-muted-foreground',
+    )
 
     return (
-      <div ref={ref} className={cn("space-y-2", className)}>
+      <div ref={ref} className={cn('space-y-2', className)}>
         {/* Card Number Row */}
         <div
           className={cn(
-            "flex items-center",
-            "h-[var(--element-height)]",
-            "px-[var(--element-padding-x)]",
-            "rounded-[var(--element-border-radius)]",
-            variantStyles[baseVariant],
-            error && "border-destructive focus-within:ring-destructive/20",
-            disabled && "opacity-50 cursor-not-allowed",
+            'flex items-center',
+            'h-[var(--element-height)]',
+            'px-[var(--element-padding-x)]',
+            'rounded-[var(--element-border-radius)]',
+            containerVariantStyles[baseVariant],
+            error && 'border-destructive focus-within:ring-destructive/20',
+            disabled && 'opacity-50 cursor-not-allowed',
           )}
           style={combinedStyles}
         >
@@ -418,13 +369,13 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
         <div className="flex gap-2">
           <div
             className={cn(
-              "flex items-center flex-1",
-              "h-[var(--element-height)]",
-              "px-[var(--element-padding-x)]",
-              "rounded-[var(--element-border-radius)]",
-              variantStyles[baseVariant],
-              error && "border-destructive focus-within:ring-destructive/20",
-              disabled && "opacity-50 cursor-not-allowed",
+              'flex items-center flex-1',
+              'h-[var(--element-height)]',
+              'px-[var(--element-padding-x)]',
+              'rounded-[var(--element-border-radius)]',
+              containerVariantStyles[baseVariant],
+              error && 'border-destructive focus-within:ring-destructive/20',
+              disabled && 'opacity-50 cursor-not-allowed',
             )}
             style={combinedStyles}
           >
@@ -443,13 +394,13 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
 
           <div
             className={cn(
-              "flex items-center flex-1",
-              "h-[var(--element-height)]",
-              "px-[var(--element-padding-x)]",
-              "rounded-[var(--element-border-radius)]",
-              variantStyles[baseVariant],
-              error && "border-destructive focus-within:ring-destructive/20",
-              disabled && "opacity-50 cursor-not-allowed",
+              'flex items-center flex-1',
+              'h-[var(--element-height)]',
+              'px-[var(--element-padding-x)]',
+              'rounded-[var(--element-border-radius)]',
+              containerVariantStyles[baseVariant],
+              error && 'border-destructive focus-within:ring-destructive/20',
+              disabled && 'opacity-50 cursor-not-allowed',
             )}
             style={combinedStyles}
           >
@@ -472,13 +423,13 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
         {showName && (
           <div
             className={cn(
-              "flex items-center",
-              "h-[var(--element-height)]",
-              "px-[var(--element-padding-x)]",
-              "rounded-[var(--element-border-radius)]",
-              variantStyles[baseVariant],
-              error && "border-destructive focus-within:ring-destructive/20",
-              disabled && "opacity-50 cursor-not-allowed",
+              'flex items-center',
+              'h-[var(--element-height)]',
+              'px-[var(--element-padding-x)]',
+              'rounded-[var(--element-border-radius)]',
+              containerVariantStyles[baseVariant],
+              error && 'border-destructive focus-within:ring-destructive/20',
+              disabled && 'opacity-50 cursor-not-allowed',
             )}
             style={combinedStyles}
           >
@@ -494,8 +445,8 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
           </div>
         )}
       </div>
-    );
+    )
   },
-);
+)
 
-CreditCardInput.displayName = "CreditCardInput";
+CreditCardInput.displayName = 'CreditCardInput'

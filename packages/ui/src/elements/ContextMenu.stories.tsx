@@ -1,43 +1,37 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { ContextMenu } from "./ContextMenu";
-import { Box } from "@/layouts/Box";
-import {
-  FolderOpen,
-  FileText,
-  Image,
-  Music,
-  Video,
-} from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { FileText, FolderOpen, Image, Music, Video } from 'lucide-react'
+import * as React from 'react'
+import { Box } from '@/layouts/Box'
+import { ContextMenu } from './ContextMenu'
 
 const meta: Meta<typeof ContextMenu.Content> = {
-  title: "Elements/ContextMenu",
+  title: 'Elements/ContextMenu',
   component: ContextMenu.Content,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
-      description: "The size of the menu",
+      control: 'select',
+      options: ['1', '2', '3', '4'],
+      description: 'The size of the menu',
     },
     variant: {
-      control: "select",
-      options: ["solid", "soft"],
-      description: "The visual variant",
+      control: 'select',
+      options: ['solid', 'soft'],
+      description: 'The visual variant',
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "info", "success", "warning", "error"],
-      description: "The accent color",
+      control: 'select',
+      options: ['default', 'primary', 'info', 'success', 'warning', 'error'],
+      description: 'The accent color',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ============================================================================
 // Basic Examples
@@ -45,11 +39,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    size: "2",
-    variant: "solid",
-    color: "default",
+    size: '2',
+    variant: 'solid',
+    color: 'default',
   },
-  render: (args) => (
+  render: args => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <div className="flex h-40 w-80 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
@@ -66,7 +60,7 @@ export const Default: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 export const WithShortcuts: Story = {
   render: () => (
@@ -88,7 +82,7 @@ export const WithShortcuts: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 // ============================================================================
 // Sizes
@@ -97,7 +91,7 @@ export const WithShortcuts: Story = {
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="gap-6 flex-wrap">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size}>
           <h3 className="text-sm font-medium mb-3">size="{size}"</h3>
           <ContextMenu.Root>
@@ -117,7 +111,7 @@ export const AllSizes: Story = {
       ))}
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Variants
@@ -125,11 +119,11 @@ export const AllSizes: Story = {
 
 export const VariantSolid: Story = {
   args: {
-    size: "2",
-    variant: "solid",
-    color: "default",
+    size: '2',
+    variant: 'solid',
+    color: 'default',
   },
-  render: (args) => (
+  render: args => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <div className="flex h-40 w-80 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
@@ -143,15 +137,15 @@ export const VariantSolid: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 export const VariantSoft: Story = {
   args: {
-    size: "2",
-    variant: "soft",
-    color: "default",
+    size: '2',
+    variant: 'soft',
+    color: 'default',
   },
-  render: (args) => (
+  render: args => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
         <div className="flex h-40 w-80 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
@@ -165,7 +159,7 @@ export const VariantSoft: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 // ============================================================================
 // Colors
@@ -190,7 +184,7 @@ export const ItemColors: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 // ============================================================================
 // With Labels and Groups
@@ -220,7 +214,7 @@ export const WithLabelsAndGroups: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 // ============================================================================
 // Checkbox Items
@@ -228,9 +222,9 @@ export const WithLabelsAndGroups: Story = {
 
 export const CheckboxItems: Story = {
   render: () => {
-    const [showToolbar, setShowToolbar] = React.useState(true);
-    const [showSidebar, setShowSidebar] = React.useState(false);
-    const [showStatusbar, setShowStatusbar] = React.useState(true);
+    const [showToolbar, setShowToolbar] = React.useState(true)
+    const [showSidebar, setShowSidebar] = React.useState(false)
+    const [showStatusbar, setShowStatusbar] = React.useState(true)
 
     return (
       <ContextMenu.Root>
@@ -241,31 +235,20 @@ export const CheckboxItems: Story = {
         </ContextMenu.Trigger>
         <ContextMenu.Content>
           <ContextMenu.Label>View</ContextMenu.Label>
-          <ContextMenu.CheckboxItem
-            checked={showToolbar}
-            onCheckedChange={setShowToolbar}
-            shortcut="⌘T"
-          >
+          <ContextMenu.CheckboxItem checked={showToolbar} onCheckedChange={setShowToolbar} shortcut="⌘T">
             Show Toolbar
           </ContextMenu.CheckboxItem>
-          <ContextMenu.CheckboxItem
-            checked={showSidebar}
-            onCheckedChange={setShowSidebar}
-            shortcut="⌘S"
-          >
+          <ContextMenu.CheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar} shortcut="⌘S">
             Show Sidebar
           </ContextMenu.CheckboxItem>
-          <ContextMenu.CheckboxItem
-            checked={showStatusbar}
-            onCheckedChange={setShowStatusbar}
-          >
+          <ContextMenu.CheckboxItem checked={showStatusbar} onCheckedChange={setShowStatusbar}>
             Show Status Bar
           </ContextMenu.CheckboxItem>
         </ContextMenu.Content>
       </ContextMenu.Root>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Radio Items
@@ -273,7 +256,7 @@ export const CheckboxItems: Story = {
 
 export const RadioItems: Story = {
   render: () => {
-    const [sortBy, setSortBy] = React.useState("name");
+    const [sortBy, setSortBy] = React.useState('name')
 
     return (
       <ContextMenu.Root>
@@ -292,9 +275,9 @@ export const RadioItems: Story = {
           </ContextMenu.RadioGroup>
         </ContextMenu.Content>
       </ContextMenu.Root>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Submenus
@@ -336,7 +319,7 @@ export const WithSubmenus: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 // ============================================================================
 // Disabled States
@@ -368,7 +351,7 @@ export const DisabledItems: Story = {
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),
-};
+}
 
 // ============================================================================
 // Real-world Example: File Browser
@@ -376,8 +359,8 @@ export const DisabledItems: Story = {
 
 export const FileBrowserContext: Story = {
   render: () => {
-    const [viewType, setViewType] = React.useState("grid");
-    const [showHidden, setShowHidden] = React.useState(false);
+    const [viewType, setViewType] = React.useState('grid')
+    const [showHidden, setShowHidden] = React.useState(false)
 
     return (
       <ContextMenu.Root>
@@ -385,13 +368,13 @@ export const FileBrowserContext: Story = {
           <div className="p-4 rounded-lg border bg-card">
             <div className="grid grid-cols-4 gap-4">
               {[
-                { name: "Documents", icon: FolderOpen },
-                { name: "report.pdf", icon: FileText },
-                { name: "photo.jpg", icon: Image },
-                { name: "song.mp3", icon: Music },
-                { name: "video.mp4", icon: Video },
-                { name: "Projects", icon: FolderOpen },
-              ].map((item) => (
+                { name: 'Documents', icon: FolderOpen },
+                { name: 'report.pdf', icon: FileText },
+                { name: 'photo.jpg', icon: Image },
+                { name: 'song.mp3', icon: Music },
+                { name: 'video.mp4', icon: Video },
+                { name: 'Projects', icon: FolderOpen },
+              ].map(item => (
                 <div
                   key={item.name}
                   className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-accent cursor-pointer"
@@ -436,9 +419,9 @@ export const FileBrowserContext: Story = {
           <ContextMenu.Item>Get Info</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu.Root>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Real-world Example: Text Editor
@@ -446,9 +429,9 @@ export const FileBrowserContext: Story = {
 
 export const TextEditorContext: Story = {
   render: () => {
-    const [wordWrap, setWordWrap] = React.useState(true);
-    const [lineNumbers, setLineNumbers] = React.useState(true);
-    const [minimap, setMinimap] = React.useState(false);
+    const [wordWrap, setWordWrap] = React.useState(true)
+    const [lineNumbers, setLineNumbers] = React.useState(true)
+    const [minimap, setMinimap] = React.useState(false)
 
     return (
       <ContextMenu.Root>
@@ -501,6 +484,6 @@ greet("World");`}
           </ContextMenu.Sub>
         </ContextMenu.Content>
       </ContextMenu.Root>
-    );
+    )
   },
-};
+}

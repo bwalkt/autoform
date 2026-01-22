@@ -1,173 +1,173 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button } from "./Button";
-import { Box } from "@/layouts/Box";
-import { Mail, ChevronRight, Plus, Trash2, Download, Heart, Send } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { ChevronRight, Download, Heart, Mail, Plus, Send, Trash2 } from 'lucide-react'
+import { Box } from '@/layouts/Box'
+import { Button } from './Button'
 
 const meta: Meta<typeof Button> = {
-  title: "Elements/Button",
+  title: 'Elements/Button',
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
-      description: "The size of the button",
+      control: 'select',
+      options: ['1', '2', '3', '4'],
+      description: 'The size of the button',
     },
     variant: {
-      control: "select",
-      options: ["classic", "solid", "soft", "surface", "outline", "ghost"],
-      description: "The visual variant of the button",
+      control: 'select',
+      options: ['classic', 'solid', 'soft', 'surface', 'outline', 'ghost'],
+      description: 'The visual variant of the button',
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
-      description: "The accent color of the button",
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
+      description: 'The accent color of the button',
     },
     radius: {
-      control: "select",
-      options: ["none", "sm", "md", "lg", "full"],
-      description: "The border radius of the button",
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
+      description: 'The border radius of the button',
     },
     loading: {
-      control: "boolean",
-      description: "Whether the button is in a loading state",
+      control: 'boolean',
+      description: 'Whether the button is in a loading state',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the button is disabled",
+      control: 'boolean',
+      description: 'Whether the button is disabled',
     },
     highContrast: {
-      control: "boolean",
-      description: "High contrast mode for better accessibility",
+      control: 'boolean',
+      description: 'High contrast mode for better accessibility',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Default
 export const Default: Story = {
   args: {
-    children: "Button",
+    children: 'Button',
   },
-};
+}
 
 // Variants
 export const Solid: Story = {
   args: {
-    variant: "solid",
-    children: "Solid Button",
+    variant: 'solid',
+    children: 'Solid Button',
   },
-};
+}
 
 export const Soft: Story = {
   args: {
-    variant: "soft",
-    children: "Soft Button",
+    variant: 'soft',
+    children: 'Soft Button',
   },
-};
+}
 
 export const Outline: Story = {
   args: {
-    variant: "outline",
-    children: "Outline Button",
+    variant: 'outline',
+    children: 'Outline Button',
   },
-};
+}
 
 export const Ghost: Story = {
   args: {
-    variant: "ghost",
-    children: "Ghost Button",
+    variant: 'ghost',
+    children: 'Ghost Button',
   },
-};
+}
 
 // Sizes
 export const Size1: Story = {
-  name: "Size 1 (Extra Small)",
+  name: 'Size 1 (Extra Small)',
   args: {
-    size: "1",
-    children: "Size 1",
+    size: '1',
+    children: 'Size 1',
   },
-};
+}
 
 export const Size2: Story = {
-  name: "Size 2 (Small, default)",
+  name: 'Size 2 (Small, default)',
   args: {
-    size: "2",
-    children: "Size 2",
+    size: '2',
+    children: 'Size 2',
   },
-};
+}
 
 export const Size3: Story = {
-  name: "Size 3 (Medium)",
+  name: 'Size 3 (Medium)',
   args: {
-    size: "3",
-    children: "Size 3",
+    size: '3',
+    children: 'Size 3',
   },
-};
+}
 
 export const Size4: Story = {
-  name: "Size 4 (Large)",
+  name: 'Size 4 (Large)',
   args: {
-    size: "4",
-    children: "Size 4",
+    size: '4',
+    children: 'Size 4',
   },
-};
+}
 
 // Colors
 export const ColorPrimary: Story = {
   args: {
-    color: "primary",
-    children: "Primary",
+    color: 'primary',
+    children: 'Primary',
   },
-};
+}
 
 export const ColorInfo: Story = {
   args: {
-    color: "info",
-    children: "Info",
+    color: 'info',
+    children: 'Info',
   },
-};
+}
 
 export const ColorSuccess: Story = {
   args: {
-    color: "success",
-    children: "Success",
+    color: 'success',
+    children: 'Success',
   },
-};
+}
 
 export const ColorWarning: Story = {
   args: {
-    color: "warning",
-    children: "Warning",
+    color: 'warning',
+    children: 'Warning',
   },
-};
+}
 
 export const ColorError: Story = {
   args: {
-    color: "error",
-    children: "Error",
+    color: 'error',
+    children: 'Error',
   },
-};
+}
 
 // Radius
 export const RadiusNone: Story = {
   args: {
-    radius: "none",
-    children: "No Radius",
+    radius: 'none',
+    children: 'No Radius',
   },
-};
+}
 
 export const RadiusFull: Story = {
   args: {
-    radius: "full",
-    children: "Pill Button",
+    radius: 'full',
+    children: 'Pill Button',
   },
-};
+}
 
 // With icons
 export const WithIconLeft: Story = {
@@ -179,7 +179,7 @@ export const WithIconLeft: Story = {
       </>
     ),
   },
-};
+}
 
 export const WithIconRight: Story = {
   args: {
@@ -190,29 +190,29 @@ export const WithIconRight: Story = {
       </>
     ),
   },
-};
+}
 
 export const IconOnly: Story = {
   args: {
     children: <Plus />,
-    "aria-label": "Add",
+    'aria-label': 'Add',
   },
-};
+}
 
 // States
 export const Loading: Story = {
   args: {
     loading: true,
-    children: "Loading...",
+    children: 'Loading...',
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: "Disabled",
+    children: 'Disabled',
   },
-};
+}
 
 // All variants showcase
 export const AllVariants: Story = {
@@ -224,7 +224,7 @@ export const AllVariants: Story = {
       <Button variant="ghost">Ghost</Button>
     </Box>
   ),
-};
+}
 
 // All sizes showcase
 export const AllSizes: Story = {
@@ -236,7 +236,7 @@ export const AllSizes: Story = {
       <Button size="4">Size 4</Button>
     </Box>
   ),
-};
+}
 
 // All colors with solid variant
 export const AllColorsSolid: Story = {
@@ -250,66 +250,110 @@ export const AllColorsSolid: Story = {
       <Button color="error">Error</Button>
     </Box>
   ),
-};
+}
 
 // All colors with soft variant
 export const AllColorsSoft: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
-      <Button variant="soft" color="default">Default</Button>
-      <Button variant="soft" color="primary">Primary</Button>
-      <Button variant="soft" color="info">Info</Button>
-      <Button variant="soft" color="success">Success</Button>
-      <Button variant="soft" color="warning">Warning</Button>
-      <Button variant="soft" color="error">Error</Button>
+      <Button variant="soft" color="default">
+        Default
+      </Button>
+      <Button variant="soft" color="primary">
+        Primary
+      </Button>
+      <Button variant="soft" color="info">
+        Info
+      </Button>
+      <Button variant="soft" color="success">
+        Success
+      </Button>
+      <Button variant="soft" color="warning">
+        Warning
+      </Button>
+      <Button variant="soft" color="error">
+        Error
+      </Button>
     </Box>
   ),
-};
+}
 
 // All colors with outline variant
 export const AllColorsOutline: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
-      <Button variant="outline" color="default">Default</Button>
-      <Button variant="outline" color="primary">Primary</Button>
-      <Button variant="outline" color="info">Info</Button>
-      <Button variant="outline" color="success">Success</Button>
-      <Button variant="outline" color="warning">Warning</Button>
-      <Button variant="outline" color="error">Error</Button>
+      <Button variant="outline" color="default">
+        Default
+      </Button>
+      <Button variant="outline" color="primary">
+        Primary
+      </Button>
+      <Button variant="outline" color="info">
+        Info
+      </Button>
+      <Button variant="outline" color="success">
+        Success
+      </Button>
+      <Button variant="outline" color="warning">
+        Warning
+      </Button>
+      <Button variant="outline" color="error">
+        Error
+      </Button>
     </Box>
   ),
-};
+}
 
 // All colors with ghost variant
 export const AllColorsGhost: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
-      <Button variant="ghost" color="default">Default</Button>
-      <Button variant="ghost" color="primary">Primary</Button>
-      <Button variant="ghost" color="info">Info</Button>
-      <Button variant="ghost" color="success">Success</Button>
-      <Button variant="ghost" color="warning">Warning</Button>
-      <Button variant="ghost" color="error">Error</Button>
+      <Button variant="ghost" color="default">
+        Default
+      </Button>
+      <Button variant="ghost" color="primary">
+        Primary
+      </Button>
+      <Button variant="ghost" color="info">
+        Info
+      </Button>
+      <Button variant="ghost" color="success">
+        Success
+      </Button>
+      <Button variant="ghost" color="warning">
+        Warning
+      </Button>
+      <Button variant="ghost" color="error">
+        Error
+      </Button>
     </Box>
   ),
-};
+}
 
 // Size and variant matrix
 export const SizeVariantMatrix: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <Box key={size} display="flex" className="gap-4 items-center">
           <span className="w-12 text-sm text-muted-foreground">{size}</span>
-          <Button size={size} variant="solid">Solid</Button>
-          <Button size={size} variant="soft">Soft</Button>
-          <Button size={size} variant="outline">Outline</Button>
-          <Button size={size} variant="ghost">Ghost</Button>
+          <Button size={size} variant="solid">
+            Solid
+          </Button>
+          <Button size={size} variant="soft">
+            Soft
+          </Button>
+          <Button size={size} variant="outline">
+            Outline
+          </Button>
+          <Button size={size} variant="ghost">
+            Ghost
+          </Button>
         </Box>
       ))}
     </Box>
   ),
-};
+}
 
 // Real-world examples
 export const RealWorldExamples: Story = {
@@ -353,19 +397,25 @@ export const RealWorldExamples: Story = {
       </Box>
     </Box>
   ),
-};
+}
 
 // Loading states
 export const LoadingStates: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
       <Button loading>Loading</Button>
-      <Button loading variant="soft">Loading</Button>
-      <Button loading variant="outline">Loading</Button>
-      <Button loading color="success">Saving</Button>
+      <Button loading variant="soft">
+        Loading
+      </Button>
+      <Button loading variant="outline">
+        Loading
+      </Button>
+      <Button loading color="success">
+        Saving
+      </Button>
     </Box>
   ),
-};
+}
 
 // Radius examples
 export const AllRadii: Story = {
@@ -378,4 +428,4 @@ export const AllRadii: Story = {
       <Button radius="full">Full</Button>
     </Box>
   ),
-};
+}

@@ -1,52 +1,74 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import type * as React from "react";
-import { Theme, useThemeContext } from "./Theme";
-import { Button } from "./Button";
-import { Card } from "./Card";
-import { Badge } from "./Badge";
-import { Switch } from "@/form/Switch";
-import { Slider } from "@/form/Slider";
-import { Progress } from "./Progress";
-import { Box } from "@/layouts/Box";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import type * as React from 'react'
+import { Slider } from '@/form/Slider'
+import { Switch } from '@/form/Switch'
+import { Box } from '@/layouts/Box'
+import { Badge } from './Badge'
+import { Button } from './Button'
+import { Card } from './Card'
+import { Progress } from './Progress'
+import { Theme, useThemeContext } from './Theme'
 
 const meta: Meta<typeof Theme> = {
-  title: "Elements/Theme",
+  title: 'Elements/Theme',
   component: Theme,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     appearance: {
-      control: "select",
-      options: ["light", "dark", "inherit"],
+      control: 'select',
+      options: ['light', 'dark', 'inherit'],
     },
     accentColor: {
-      control: "select",
+      control: 'select',
       options: [
-        "gray", "gold", "bronze", "brown", "yellow", "amber", "orange",
-        "tomato", "red", "ruby", "crimson", "pink", "plum", "purple",
-        "violet", "iris", "indigo", "blue", "cyan", "teal", "jade",
-        "green", "grass", "lime", "mint", "sky",
+        'gray',
+        'gold',
+        'bronze',
+        'brown',
+        'yellow',
+        'amber',
+        'orange',
+        'tomato',
+        'red',
+        'ruby',
+        'crimson',
+        'pink',
+        'plum',
+        'purple',
+        'violet',
+        'iris',
+        'indigo',
+        'blue',
+        'cyan',
+        'teal',
+        'jade',
+        'green',
+        'grass',
+        'lime',
+        'mint',
+        'sky',
       ],
     },
     radius: {
-      control: "select",
-      options: ["none", "small", "medium", "large", "full"],
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
     },
     scaling: {
-      control: "select",
-      options: ["90%", "95%", "100%", "105%", "110%"],
+      control: 'select',
+      options: ['90%', '95%', '100%', '105%', '110%'],
     },
     panelBackground: {
-      control: "select",
-      options: ["solid", "translucent"],
+      control: 'select',
+      options: ['solid', 'translucent'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ============================================================================
 // Basic Example
@@ -57,9 +79,7 @@ export const Default: Story = {
     <Theme className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold">Theme Demo</h1>
-        <p className="text-muted-foreground">
-          The Theme component provides context for styling all child components.
-        </p>
+        <p className="text-muted-foreground">The Theme component provides context for styling all child components.</p>
 
         <div className="flex gap-4 flex-wrap">
           <Button>Primary Button</Button>
@@ -101,7 +121,7 @@ export const Default: Story = {
       </div>
     </Theme>
   ),
-};
+}
 
 // ============================================================================
 // Accent Colors
@@ -110,13 +130,26 @@ export const Default: Story = {
 export const AccentColors: Story = {
   render: () => {
     const colors = [
-      "tomato", "red", "crimson", "pink", "plum", "purple", "violet",
-      "indigo", "blue", "cyan", "teal", "green", "grass", "orange", "amber",
-    ] as const;
+      'tomato',
+      'red',
+      'crimson',
+      'pink',
+      'plum',
+      'purple',
+      'violet',
+      'indigo',
+      'blue',
+      'cyan',
+      'teal',
+      'green',
+      'grass',
+      'orange',
+      'amber',
+    ] as const
 
     return (
       <Box display="flex" className="flex-wrap gap-4 p-8">
-        {colors.map((color) => (
+        {colors.map(color => (
           <Theme key={color} accentColor={color} className="p-4 rounded-lg border">
             <div className="space-y-2 text-center">
               <p className="text-sm font-medium capitalize">{color}</p>
@@ -125,9 +158,9 @@ export const AccentColors: Story = {
           </Theme>
         ))}
       </Box>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Radius Options
@@ -135,11 +168,11 @@ export const AccentColors: Story = {
 
 export const RadiusOptions: Story = {
   render: () => {
-    const radii = ["none", "small", "medium", "large", "full"] as const;
+    const radii = ['none', 'sm', 'md', 'lg', 'full'] as const
 
     return (
       <Box display="flex" className="flex-wrap gap-4 p-8">
-        {radii.map((radius) => (
+        {radii.map(radius => (
           <Theme key={radius} radius={radius} className="p-4 rounded-lg border">
             <div className="space-y-2 text-center">
               <p className="text-sm font-medium capitalize">{radius}</p>
@@ -148,9 +181,9 @@ export const RadiusOptions: Story = {
           </Theme>
         ))}
       </Box>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Light and Dark
@@ -190,14 +223,14 @@ export const LightAndDark: Story = {
       </Theme>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Using Theme Context
 // ============================================================================
 
 const ThemeInfo: React.FC = () => {
-  const theme = useThemeContext();
+  const theme = useThemeContext()
 
   return (
     <Card.Root>
@@ -221,22 +254,20 @@ const ThemeInfo: React.FC = () => {
         </dl>
       </Card.Content>
     </Card.Root>
-  );
-};
+  )
+}
 
 export const UsingContext: Story = {
   render: () => (
-    <Theme accentColor="violet" radius="large" className="min-h-screen p-8">
+    <Theme accentColor="violet" radius="lg" className="min-h-screen p-8">
       <div className="max-w-md mx-auto space-y-4">
         <h1 className="text-2xl font-bold">Theme Context</h1>
-        <p className="text-muted-foreground">
-          Use the useThemeContext hook to access theme settings.
-        </p>
+        <p className="text-muted-foreground">Use the useThemeContext hook to access theme settings.</p>
         <ThemeInfo />
       </div>
     </Theme>
   ),
-};
+}
 
 // ============================================================================
 // Nested Themes
@@ -265,4 +296,4 @@ export const NestedThemes: Story = {
       </div>
     </Theme>
   ),
-};
+}

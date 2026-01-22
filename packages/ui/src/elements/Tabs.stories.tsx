@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { Tabs, Button } from "@/elements";
-import { Label, TextField, Switch } from "@/form";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { Button, Tabs } from '@/elements'
+import { Label, Switch, TextField } from '@/form'
 
 const meta: Meta = {
-  title: "Elements/Tabs",
+  title: 'Elements/Tabs',
   component: Tabs.Root,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
+export default meta
 
 export const Default: StoryObj = {
   render: () => (
@@ -24,35 +24,29 @@ export const Default: StoryObj = {
       <Tabs.Content value="account">
         <div className="space-y-4">
           <h3 className="font-medium">Account Settings</h3>
-          <p className="text-sm text-muted-foreground">
-            Manage your account settings and preferences.
-          </p>
+          <p className="text-sm text-muted-foreground">Manage your account settings and preferences.</p>
         </div>
       </Tabs.Content>
       <Tabs.Content value="password">
         <div className="space-y-4">
           <h3 className="font-medium">Password</h3>
-          <p className="text-sm text-muted-foreground">
-            Change your password here.
-          </p>
+          <p className="text-sm text-muted-foreground">Change your password here.</p>
         </div>
       </Tabs.Content>
       <Tabs.Content value="settings">
         <div className="space-y-4">
           <h3 className="font-medium">Settings</h3>
-          <p className="text-sm text-muted-foreground">
-            Configure your application settings.
-          </p>
+          <p className="text-sm text-muted-foreground">Configure your application settings.</p>
         </div>
       </Tabs.Content>
     </Tabs.Root>
   ),
-};
+}
 
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size}>
           <p className="text-sm text-muted-foreground mb-2">Size {size}</p>
           <Tabs.Root size={size} defaultValue="tab1" className="w-[400px]">
@@ -69,7 +63,7 @@ export const Sizes: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const Variants: StoryObj = {
   render: () => (
@@ -102,13 +96,13 @@ export const Variants: StoryObj = {
       </div>
     </div>
   ),
-};
+}
 
 export const Colors: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
       <p className="text-sm font-medium">Line variant with colors:</p>
-      {(["default", "primary", "info", "success", "warning", "error"] as const).map((color) => (
+      {(['default', 'primary', 'info', 'success', 'warning', 'error'] as const).map(color => (
         <div key={color}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
           <Tabs.Root variant="line" color={color} defaultValue="tab1" className="w-[400px]">
@@ -122,13 +116,13 @@ export const Colors: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const ColorsWithSurface: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
       <p className="text-sm font-medium">Surface variant with colors:</p>
-      {(["default", "primary", "info", "success", "warning", "error"] as const).map((color) => (
+      {(['default', 'primary', 'info', 'success', 'warning', 'error'] as const).map(color => (
         <div key={color}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
           <Tabs.Root variant="surface" color={color} defaultValue="tab1" className="w-[400px]">
@@ -142,7 +136,7 @@ export const ColorsWithSurface: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const HighContrast: StoryObj = {
   render: () => (
@@ -169,12 +163,12 @@ export const HighContrast: StoryObj = {
       </div>
     </div>
   ),
-};
+}
 
 export const Justify: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
-      {(["start", "center", "end"] as const).map((justify) => (
+      {(['start', 'center', 'end'] as const).map(justify => (
         <div key={justify}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">justify="{justify}"</p>
           <Tabs.Root variant="line" defaultValue="tab1" className="w-[400px]">
@@ -187,11 +181,11 @@ export const Justify: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const Controlled: StoryObj = {
   render: () => {
-    const [value, setValue] = useState("overview");
+    const [value, setValue] = useState('overview')
 
     return (
       <div className="w-[400px]">
@@ -215,16 +209,18 @@ export const Controlled: StoryObj = {
           Current tab: <span className="font-medium">{value}</span>
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const DisabledTab: StoryObj = {
   render: () => (
     <Tabs.Root defaultValue="tab1" className="w-[400px]">
       <Tabs.List>
         <Tabs.Trigger value="tab1">Active</Tabs.Trigger>
-        <Tabs.Trigger value="tab2" disabled>Disabled</Tabs.Trigger>
+        <Tabs.Trigger value="tab2" disabled>
+          Disabled
+        </Tabs.Trigger>
         <Tabs.Trigger value="tab3">Another</Tabs.Trigger>
       </Tabs.List>
       <Tabs.Content value="tab1">Active tab content</Tabs.Content>
@@ -232,7 +228,7 @@ export const DisabledTab: StoryObj = {
       <Tabs.Content value="tab3">Another tab content</Tabs.Content>
     </Tabs.Root>
   ),
-};
+}
 
 export const AccountSettings: StoryObj = {
   render: () => (
@@ -280,9 +276,7 @@ export const AccountSettings: StoryObj = {
         </Tabs.Content>
         <Tabs.Content value="notifications">
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Configure how you receive notifications.
-            </p>
+            <p className="text-sm text-muted-foreground">Configure how you receive notifications.</p>
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 border rounded-lg">
                 <div>
@@ -311,4 +305,4 @@ export const AccountSettings: StoryObj = {
       </Tabs.Root>
     </div>
   ),
-};
+}

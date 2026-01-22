@@ -1,48 +1,48 @@
-import { readFile, writeFile } from "fs/promises";
-import type { z } from "zod/v3";
-import type { registryEntrySchema } from "./schema";
-import { glob } from "glob";
+import { readFile, writeFile } from 'fs/promises'
+import { glob } from 'glob'
+import type { z } from 'zod/v3'
+import type { registryEntrySchema } from './schema'
 
-console.log("Building registry...");
+console.log('Building registry...')
 
 const registry: z.infer<typeof registryEntrySchema> = {
-  name: "AutoForm",
-  type: "registry:ui",
+  name: 'AutoForm',
+  type: 'registry:ui',
   registryDependencies: [
-    "alert",
-    "button",
-    "calendar",
-    "card",
-    "checkbox",
-    "form",
-    "input",
-    "label",
-    "select",
-    "skeleton",
-    "switch",
-    "textarea",
-    "toggle",
+    'alert',
+    'button',
+    'calendar',
+    'card',
+    'checkbox',
+    'form',
+    'input',
+    'label',
+    'select',
+    'skeleton',
+    'switch',
+    'textarea',
+    'toggle',
   ],
-  dependencies: ["zod", "@bwalkt/react"],
+  dependencies: ['zod', '@bwalkt/react'],
   devDependencies: [],
   tailwind: {
     config: {},
   },
   cssVars: {},
   files: [],
-};
-
-const files = await glob(`./src/components/ui/autoform/**/*`, { nodir: true });
-for (const file of files) {
-  const content = await readFile(file, "utf-8");
-  registry.files?.push({
-    path: file.replace("src/components/ui/", ""),
-    target: file.replace("src/", ""),
-    content,
-    type: "registry:ui",
-  });
 }
 
-await writeFile("./registry/autoform.json", JSON.stringify(registry, null, 2));
+const files = await glob(`./src/components/ui/autoform/**/*`, { nodir: true })
+for (const file of files) {
+  const content = await readFile(file, 'utf-8')
+  registry.files?.push({
+    path: file.replace('src/components/ui/', ''),
+    target: file.replace('src/', ''),
+    content,
+    type: 'registry:ui',
+  })
+}
 
-console.log("Registry built!");
+await writeFile('./registry/autoform.json', JSON.stringify(registry, null, 2))
+
+console.log('Registry built!')

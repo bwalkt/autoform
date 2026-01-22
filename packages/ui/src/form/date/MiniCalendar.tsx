@@ -1,40 +1,30 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import {
-  format,
-  addDays,
-  startOfWeek,
-  endOfWeek,
-  startOfDay,
-  isSameDay,
-  isToday,
-  addWeeks,
-  subWeeks,
-} from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/elements/Button";
+import { addDays, addWeeks, endOfWeek, format, isSameDay, isToday, startOfDay, startOfWeek, subWeeks } from 'date-fns'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import * as React from 'react'
+import { Button } from '@/elements/Button'
+import { cn } from '@/lib/utils'
 
 export interface MiniCalendarProps {
   /** Selected date */
-  value?: Date;
+  value?: Date
   /** Callback when date changes */
-  onChange?: (date: Date) => void;
+  onChange?: (date: Date) => void
   /** Minimum selectable date */
-  minDate?: Date;
+  minDate?: Date
   /** Maximum selectable date */
-  maxDate?: Date;
+  maxDate?: Date
   /** First day of week (0 = Sunday, 1 = Monday) */
-  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   /** Whether the picker is disabled */
-  disabled?: boolean;
+  disabled?: boolean
   /** Additional class names */
-  className?: string;
+  className?: string
   /** Show month/year header */
-  showHeader?: boolean;
+  showHeader?: boolean
   /** Compact mode - smaller buttons */
-  compact?: boolean;
+  compact?: boolean
 }
 
 /**
@@ -68,59 +58,59 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
     },
     ref,
   ) => {
-    const [currentDate, setCurrentDate] = React.useState<Date>(value || new Date());
+    const [currentDate, setCurrentDate] = React.useState<Date>(value || new Date())
 
     // Update current date when value changes
     React.useEffect(() => {
       if (value) {
-        setCurrentDate(value);
+        setCurrentDate(value)
       }
-    }, [value]);
+    }, [value])
 
     // Get week days based on current date
-    const weekStart = startOfWeek(currentDate, { weekStartsOn });
-    const weekEnd = endOfWeek(currentDate, { weekStartsOn });
-    const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+    const weekStart = startOfWeek(currentDate, { weekStartsOn })
+    const weekEnd = endOfWeek(currentDate, { weekStartsOn })
+    const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
     const handlePrevWeek = () => {
-      setCurrentDate(subWeeks(currentDate, 1));
-    };
+      setCurrentDate(subWeeks(currentDate, 1))
+    }
 
     const handleNextWeek = () => {
-      setCurrentDate(addWeeks(currentDate, 1));
-    };
+      setCurrentDate(addWeeks(currentDate, 1))
+    }
 
     // Normalize comparisons to day granularity to avoid time-of-day issues
     const isDateDisabled = (date: Date): boolean => {
-      const d = startOfDay(date);
-      if (minDate && d < startOfDay(minDate)) return true;
-      if (maxDate && d > startOfDay(maxDate)) return true;
-      return false;
-    };
+      const d = startOfDay(date)
+      if (minDate && d < startOfDay(minDate)) return true
+      if (maxDate && d > startOfDay(maxDate)) return true
+      return false
+    }
 
     const handleDateSelect = (date: Date) => {
-      if (disabled) return;
-      if (isDateDisabled(date)) return;
-      onChange?.(date);
-    };
+      if (disabled) return
+      if (isDateDisabled(date)) return
+      onChange?.(date)
+    }
 
     const handleToday = () => {
-      const today = new Date();
-      setCurrentDate(today);
+      const today = new Date()
+      setCurrentDate(today)
       if (!isDateDisabled(today)) {
-        onChange?.(today);
+        onChange?.(today)
       }
-    };
+    }
 
-    const buttonSize = compact ? "h-8 w-8 text-xs" : "h-10 w-10 text-sm";
-    const navButtonSize = compact ? "h-6 w-6" : "h-8 w-8";
+    const buttonSize = compact ? 'h-8 w-8 text-xs' : 'h-10 w-10 text-sm'
+    const navButtonSize = compact ? 'h-6 w-6' : 'h-8 w-8'
 
     return (
       <div
         ref={ref}
         className={cn(
-          "flex flex-col gap-2 p-3 rounded-lg border bg-background",
-          disabled && "opacity-50 pointer-events-none",
+          'flex flex-col gap-2 p-3 rounded-lg border bg-background',
+          disabled && 'opacity-50 pointer-events-none',
           className,
         )}
       >
@@ -132,22 +122,22 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
               size="1"
               onClick={handlePrevWeek}
               disabled={disabled}
-              className={cn("p-0", navButtonSize)}
+              className={cn('p-0', navButtonSize)}
             >
               <ChevronLeft className="h-4 w-4" />
               <span className="sr-only">Previous week</span>
             </Button>
 
             <div className="flex items-center gap-2">
-              <span className={cn("font-medium", compact ? "text-xs" : "text-sm")}>
-                {format(weekStart, "MMM d")} - {format(weekEnd, "MMM d, yyyy")}
+              <span className={cn('font-medium', compact ? 'text-xs' : 'text-sm')}>
+                {format(weekStart, 'MMM d')} - {format(weekEnd, 'MMM d, yyyy')}
               </span>
               <Button
                 variant="outline"
                 size="1"
                 onClick={handleToday}
                 disabled={disabled}
-                className={cn("text-xs px-2", compact ? "h-5" : "h-6")}
+                className={cn('text-xs px-2', compact ? 'h-5' : 'h-6')}
               >
                 Today
               </Button>
@@ -158,7 +148,7 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
               size="1"
               onClick={handleNextWeek}
               disabled={disabled}
-              className={cn("p-0", navButtonSize)}
+              className={cn('p-0', navButtonSize)}
             >
               <ChevronRight className="h-4 w-4" />
               <span className="sr-only">Next week</span>
@@ -168,25 +158,22 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
 
         {/* Day labels */}
         <div className="grid grid-cols-7 gap-1">
-          {weekDays.map((day) => (
+          {weekDays.map(day => (
             <div
               key={`label-${day.toISOString()}`}
-              className={cn(
-                "text-center text-muted-foreground font-medium",
-                compact ? "text-[10px]" : "text-xs",
-              )}
+              className={cn('text-center text-muted-foreground font-medium', compact ? 'text-[10px]' : 'text-xs')}
             >
-              {format(day, "EEE")}
+              {format(day, 'EEE')}
             </div>
           ))}
         </div>
 
         {/* Day buttons */}
         <div className="grid grid-cols-7 gap-1">
-          {weekDays.map((day) => {
-            const isSelected = value && isSameDay(day, value);
-            const isTodayDate = isToday(day);
-            const isDisabled = isDateDisabled(day);
+          {weekDays.map(day => {
+            const isSelected = value && isSameDay(day, value)
+            const isTodayDate = isToday(day)
+            const isDisabled = isDateDisabled(day)
 
             return (
               <button
@@ -195,28 +182,28 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
                 onClick={() => handleDateSelect(day)}
                 disabled={disabled || isDisabled}
                 aria-pressed={isSelected}
-                aria-current={isTodayDate ? "date" : undefined}
-                aria-label={format(day, "EEEE, MMMM d, yyyy")}
+                aria-current={isTodayDate ? 'date' : undefined}
+                aria-label={format(day, 'EEEE, MMMM d, yyyy')}
                 className={cn(
-                  "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  "disabled:pointer-events-none disabled:opacity-50",
+                  'inline-flex items-center justify-center rounded-md font-medium transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                  'disabled:pointer-events-none disabled:opacity-50',
                   buttonSize,
                   isSelected
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    ? 'bg-primary text-primary-foreground hover:bg-primary/90'
                     : isTodayDate
-                      ? "bg-accent text-accent-foreground hover:bg-accent/80"
-                      : "hover:bg-accent hover:text-accent-foreground",
+                      ? 'bg-accent text-accent-foreground hover:bg-accent/80'
+                      : 'hover:bg-accent hover:text-accent-foreground',
                 )}
               >
-                {format(day, "d")}
+                {format(day, 'd')}
               </button>
-            );
+            )
           })}
         </div>
       </div>
-    );
+    )
   },
-);
+)
 
-MiniCalendar.displayName = "MiniCalendar";
+MiniCalendar.displayName = 'MiniCalendar'

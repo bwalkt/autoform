@@ -1,46 +1,46 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Flex } from "./Flex";
-import { Box } from "./Box";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Box } from './Box'
+import { Flex } from './Flex'
 
 const meta: Meta<typeof Flex> = {
-  title: "Layouts/Flex",
+  title: 'Layouts/Flex',
   component: Flex,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     direction: {
-      control: "select",
-      options: ["row", "row-reverse", "column", "column-reverse"],
+      control: 'select',
+      options: ['row', 'row-reverse', 'column', 'column-reverse'],
     },
     align: {
-      control: "select",
-      options: ["start", "center", "end", "baseline", "stretch"],
+      control: 'select',
+      options: ['start', 'center', 'end', 'baseline', 'stretch'],
     },
     justify: {
-      control: "select",
-      options: ["start", "center", "end", "between", "around", "evenly"],
+      control: 'select',
+      options: ['start', 'center', 'end', 'between', 'around', 'evenly'],
     },
     wrap: {
-      control: "select",
-      options: ["nowrap", "wrap", "wrap-reverse"],
+      control: 'select',
+      options: ['nowrap', 'wrap', 'wrap-reverse'],
     },
     gap: {
-      control: "select",
-      options: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+      control: 'select',
+      options: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 const DemoBox = ({ children }: { children: React.ReactNode }) => (
   <Box p="3" className="bg-primary text-primary-foreground rounded-md text-sm">
     {children}
   </Box>
-);
+)
 
 // ============================================================================
 // Basic Examples
@@ -54,7 +54,7 @@ export const Default: Story = {
       <DemoBox>Three</DemoBox>
     </Flex>
   ),
-};
+}
 
 // ============================================================================
 // Direction Examples
@@ -97,7 +97,7 @@ export const Directions: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Alignment Examples
@@ -106,32 +106,34 @@ export const Directions: Story = {
 export const AlignItems: Story = {
   render: () => (
     <div className="space-y-4">
-      {(["start", "center", "end", "baseline", "stretch"] as const).map((align) => (
+      {(['start', 'center', 'end', 'baseline', 'stretch'] as const).map(align => (
         <div key={align}>
           <p className="text-sm text-muted-foreground mb-2">align="{align}"</p>
           <Flex align={align} gap="3" className="bg-muted/50 rounded-md p-2 h-20">
             <Box p="2" className="bg-primary text-primary-foreground rounded text-xs">
               Tall
-              <br />Item
+              <br />
+              Item
             </Box>
             <Box p="2" className="bg-primary text-primary-foreground rounded text-xs">
               Short
             </Box>
             <Box p="2" className="bg-primary text-primary-foreground rounded text-xs">
               Medium
-              <br />Height
+              <br />
+              Height
             </Box>
           </Flex>
         </div>
       ))}
     </div>
   ),
-};
+}
 
 export const JustifyContent: Story = {
   render: () => (
     <div className="space-y-4 w-[400px]">
-      {(["start", "center", "end", "between", "around", "evenly"] as const).map((justify) => (
+      {(['start', 'center', 'end', 'between', 'around', 'evenly'] as const).map(justify => (
         <div key={justify}>
           <p className="text-sm text-muted-foreground mb-2">justify="{justify}"</p>
           <Flex justify={justify} className="bg-muted/50 rounded-md p-2">
@@ -143,7 +145,7 @@ export const JustifyContent: Story = {
       ))}
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Gap Examples
@@ -152,7 +154,7 @@ export const JustifyContent: Story = {
 export const GapScale: Story = {
   render: () => (
     <div className="space-y-4">
-      {(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] as const).map((gap) => (
+      {(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const).map(gap => (
         <div key={gap}>
           <p className="text-sm text-muted-foreground mb-2">gap="{gap}"</p>
           <Flex gap={gap} className="bg-muted/30 rounded p-1">
@@ -164,7 +166,7 @@ export const GapScale: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const DirectionalGap: Story = {
   render: () => (
@@ -181,7 +183,7 @@ export const DirectionalGap: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Wrap Examples
@@ -219,7 +221,7 @@ export const FlexWrap: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Responsive Examples
@@ -227,17 +229,13 @@ export const FlexWrap: Story = {
 
 export const ResponsiveDirection: Story = {
   render: () => (
-    <Flex
-      direction={{ initial: "column", sm: "row" }}
-      gap="4"
-      align="center"
-    >
+    <Flex direction={{ initial: 'column', sm: 'row' }} gap="4" align="center">
       <DemoBox>Column on mobile</DemoBox>
       <DemoBox>Row on desktop</DemoBox>
       <DemoBox>Resize to see</DemoBox>
     </Flex>
   ),
-};
+}
 
 // ============================================================================
 // Common Patterns
@@ -257,7 +255,7 @@ export const SpaceBetween: Story = {
       </Flex>
     </Flex>
   ),
-};
+}
 
 export const CenteredContent: Story = {
   render: () => (
@@ -275,4 +273,4 @@ export const CenteredContent: Story = {
       <span className="text-sm text-muted-foreground">With description</span>
     </Flex>
   ),
-};
+}

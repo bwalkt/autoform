@@ -1,26 +1,27 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { AlertDialog, Button } from "@/elements";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { AlertDialog, Button } from '@/elements'
 
 const meta: Meta = {
-  title: "Elements/AlertDialog",
+  title: 'Elements/AlertDialog',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
+export default meta
 
 export const Default: StoryObj = {
   render: () => (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button variant="solid" color="error">Delete Account</Button>
+        <Button variant="solid" color="error">
+          Delete Account
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
         <AlertDialog.Description>
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
+          This action cannot be undone. This will permanently delete your account and remove your data from our servers.
         </AlertDialog.Description>
         <div className="flex justify-end gap-3 mt-6">
           <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
@@ -29,21 +30,19 @@ export const Default: StoryObj = {
       </AlertDialog.Content>
     </AlertDialog.Root>
   ),
-};
+}
 
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
-      {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
         <AlertDialog.Root key={size}>
           <AlertDialog.Trigger>
             <Button variant="outline">{size.toUpperCase()}</Button>
           </AlertDialog.Trigger>
           <AlertDialog.Content maxWidth={size}>
             <AlertDialog.Title>Dialog Size: {size.toUpperCase()}</AlertDialog.Title>
-            <AlertDialog.Description>
-              This alert dialog has max-width set to {size}.
-            </AlertDialog.Description>
+            <AlertDialog.Description>This alert dialog has max-width set to {size}.</AlertDialog.Description>
             <div className="flex justify-end gap-3 mt-6">
               <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
               <AlertDialog.Action>Continue</AlertDialog.Action>
@@ -53,13 +52,15 @@ export const Sizes: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const DeleteConfirmation: StoryObj = {
   render: () => (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button variant="solid" color="error">Delete Item</Button>
+        <Button variant="solid" color="error">
+          Delete Item
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content maxWidth="sm">
         <AlertDialog.Title>Delete this item?</AlertDialog.Title>
@@ -75,7 +76,7 @@ export const DeleteConfirmation: StoryObj = {
       </AlertDialog.Content>
     </AlertDialog.Root>
   ),
-};
+}
 
 export const UnsavedChanges: StoryObj = {
   render: () => (
@@ -86,8 +87,7 @@ export const UnsavedChanges: StoryObj = {
       <AlertDialog.Content maxWidth="sm">
         <AlertDialog.Title>Unsaved Changes</AlertDialog.Title>
         <AlertDialog.Description>
-          You have unsaved changes. Are you sure you want to leave? Your changes
-          will be lost.
+          You have unsaved changes. Are you sure you want to leave? Your changes will be lost.
         </AlertDialog.Description>
         <div className="flex justify-end gap-3 mt-6">
           <AlertDialog.Cancel>Stay</AlertDialog.Cancel>
@@ -96,7 +96,7 @@ export const UnsavedChanges: StoryObj = {
       </AlertDialog.Content>
     </AlertDialog.Root>
   ),
-};
+}
 
 export const LogoutConfirmation: StoryObj = {
   render: () => (
@@ -106,9 +106,7 @@ export const LogoutConfirmation: StoryObj = {
       </AlertDialog.Trigger>
       <AlertDialog.Content maxWidth="xs">
         <AlertDialog.Title>Logout</AlertDialog.Title>
-        <AlertDialog.Description>
-          Are you sure you want to logout?
-        </AlertDialog.Description>
+        <AlertDialog.Description>Are you sure you want to logout?</AlertDialog.Description>
         <div className="flex justify-end gap-3 mt-6">
           <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
           <AlertDialog.Action>Logout</AlertDialog.Action>
@@ -116,4 +114,4 @@ export const LogoutConfirmation: StoryObj = {
       </AlertDialog.Content>
     </AlertDialog.Root>
   ),
-};
+}

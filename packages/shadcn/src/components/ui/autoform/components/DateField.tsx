@@ -1,22 +1,9 @@
-import { TextField } from "@/elements";
-import type { AutoFormFieldProps } from "@bwalkt/react";
-import type React from "react";
+import type { AutoFormFieldProps } from '@bwalkt/react'
+import type React from 'react'
+import { TextField } from '@/elements'
 
-export const DateField: React.FC<AutoFormFieldProps> = ({
-  inputProps,
-  error,
-  id,
-}) => {
-  const { key, ...props } = inputProps;
+export const DateField: React.FC<AutoFormFieldProps> = ({ inputProps, error, id }) => {
+  const { key, ...props } = inputProps
 
-  return (
-    <TextField
-      id={id}
-      type="date"
-      color={error ? "error" : "default"}
-      variant="outline"
-      size="2"
-      {...props}
-    />
-  );
-};
+  return <TextField id={id} type="date" color={error ? 'error' : 'default'} variant="outline" size="2" {...props} />
+}

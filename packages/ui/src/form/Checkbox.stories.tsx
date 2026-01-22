@@ -1,48 +1,48 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { Checkbox, CheckboxWithLabel, CheckboxGroup } from "./Checkbox";
-import { Box } from "@/layouts/Box";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
+import { Box } from '@/layouts/Box'
+import { Checkbox, CheckboxGroup, CheckboxWithLabel } from './Checkbox'
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Form/Checkbox",
+  title: 'Form/Checkbox',
   component: Checkbox,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
-      description: "The size of the checkbox",
+      control: 'select',
+      options: ['1', '2', '3', '4'],
+      description: 'The size of the checkbox',
     },
     variant: {
-      control: "select",
-      options: ["solid", "soft", "outline"],
-      description: "The visual variant",
+      control: 'select',
+      options: ['solid', 'soft', 'outline'],
+      description: 'The visual variant',
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "info", "success", "warning", "error"],
-      description: "The accent color",
+      control: 'select',
+      options: ['default', 'primary', 'info', 'success', 'warning', 'error'],
+      description: 'The accent color',
     },
     checked: {
-      control: "boolean",
-      description: "Whether the checkbox is checked",
+      control: 'boolean',
+      description: 'Whether the checkbox is checked',
     },
     indeterminate: {
-      control: "boolean",
-      description: "Whether the checkbox is in an indeterminate state",
+      control: 'boolean',
+      description: 'Whether the checkbox is in an indeterminate state',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the checkbox is disabled",
+      control: 'boolean',
+      description: 'Whether the checkbox is disabled',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ============================================================================
 // Basic Examples
@@ -52,32 +52,32 @@ export const Default: Story = {
   args: {
     defaultChecked: true,
   },
-};
+}
 
 export const Checked: Story = {
   args: {
     defaultChecked: true,
   },
-};
+}
 
 export const Indeterminate: Story = {
   args: {
     indeterminate: true,
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
     disabled: true,
   },
-};
+}
 
 export const DisabledChecked: Story = {
   args: {
     disabled: true,
     defaultChecked: true,
   },
-};
+}
 
 // ============================================================================
 // Sizes
@@ -92,7 +92,7 @@ export const AllSizes: Story = {
       <Checkbox size="4" defaultChecked />
     </Box>
   ),
-};
+}
 
 export const SizesWithLabels: Story = {
   render: () => (
@@ -103,7 +103,7 @@ export const SizesWithLabels: Story = {
       <CheckboxWithLabel size="4" label="Size 4 (Large)" defaultChecked />
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Variants
@@ -111,24 +111,24 @@ export const SizesWithLabels: Story = {
 
 export const VariantSolid: Story = {
   args: {
-    variant: "solid",
+    variant: 'solid',
     defaultChecked: true,
   },
-};
+}
 
 export const VariantSoft: Story = {
   args: {
-    variant: "soft",
+    variant: 'soft',
     defaultChecked: true,
   },
-};
+}
 
 export const VariantOutline: Story = {
   args: {
-    variant: "outline",
+    variant: 'outline',
     defaultChecked: true,
   },
-};
+}
 
 export const AllVariants: Story = {
   render: () => (
@@ -169,7 +169,7 @@ export const AllVariants: Story = {
       </div>
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Colors
@@ -269,29 +269,21 @@ export const AllColors: Story = {
       </div>
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // With Labels
 // ============================================================================
 
 export const WithLabel: Story = {
-  render: () => (
-    <CheckboxWithLabel
-      label="Accept terms and conditions"
-      defaultChecked
-    />
-  ),
-};
+  render: () => <CheckboxWithLabel label="Accept terms and conditions" defaultChecked />,
+}
 
 export const WithLabelAndDescription: Story = {
   render: () => (
-    <CheckboxWithLabel
-      label="Marketing emails"
-      description="Receive emails about new products, features, and more."
-    />
+    <CheckboxWithLabel label="Marketing emails" description="Receive emails about new products, features, and more." />
   ),
-};
+}
 
 export const MultipleWithLabels: Story = {
   render: () => (
@@ -301,18 +293,11 @@ export const MultipleWithLabels: Story = {
         description="Get notified by email when someone mentions you."
         defaultChecked
       />
-      <CheckboxWithLabel
-        label="Push notifications"
-        description="Get push notifications on your device."
-      />
-      <CheckboxWithLabel
-        label="SMS notifications"
-        description="Get text messages for important updates."
-        disabled
-      />
+      <CheckboxWithLabel label="Push notifications" description="Get push notifications on your device." />
+      <CheckboxWithLabel label="SMS notifications" description="Get text messages for important updates." disabled />
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Controlled Example
@@ -320,12 +305,12 @@ export const MultipleWithLabels: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = React.useState(false)
 
     return (
       <Box display="flex" className="flex-col gap-4">
         <CheckboxWithLabel
-          label={`Checkbox is ${checked ? "checked" : "unchecked"}`}
+          label={`Checkbox is ${checked ? 'checked' : 'unchecked'}`}
           checked={checked}
           onCheckedChange={setChecked}
         />
@@ -333,9 +318,9 @@ export const Controlled: Story = {
           Current state: <code>{String(checked)}</code>
         </p>
       </Box>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Indeterminate State
@@ -343,10 +328,10 @@ export const Controlled: Story = {
 
 export const IndeterminateExample: Story = {
   render: () => {
-    const [checkedItems, setCheckedItems] = React.useState([true, false, true]);
+    const [checkedItems, setCheckedItems] = React.useState([true, false, true])
 
-    const allChecked = checkedItems.every(Boolean);
-    const someChecked = checkedItems.some(Boolean);
+    const allChecked = checkedItems.every(Boolean)
+    const someChecked = checkedItems.some(Boolean)
 
     return (
       <Box display="flex" className="flex-col gap-2">
@@ -354,37 +339,37 @@ export const IndeterminateExample: Story = {
           label="Select all"
           checked={allChecked}
           indeterminate={someChecked && !allChecked}
-          onCheckedChange={(checked) => {
-            setCheckedItems([checked, checked, checked]);
+          onCheckedChange={checked => {
+            setCheckedItems([checked, checked, checked])
           }}
         />
         <Box display="flex" className="flex-col gap-2 ml-6">
           <CheckboxWithLabel
             label="Option 1"
             checked={checkedItems[0]}
-            onCheckedChange={(checked) => {
-              setCheckedItems([checked, checkedItems[1], checkedItems[2]]);
+            onCheckedChange={checked => {
+              setCheckedItems([checked, checkedItems[1], checkedItems[2]])
             }}
           />
           <CheckboxWithLabel
             label="Option 2"
             checked={checkedItems[1]}
-            onCheckedChange={(checked) => {
-              setCheckedItems([checkedItems[0], checked, checkedItems[2]]);
+            onCheckedChange={checked => {
+              setCheckedItems([checkedItems[0], checked, checkedItems[2]])
             }}
           />
           <CheckboxWithLabel
             label="Option 3"
             checked={checkedItems[2]}
-            onCheckedChange={(checked) => {
-              setCheckedItems([checkedItems[0], checkedItems[1], checked]);
+            onCheckedChange={checked => {
+              setCheckedItems([checkedItems[0], checkedItems[1], checked])
             }}
           />
         </Box>
       </Box>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Form Example
@@ -397,13 +382,13 @@ export const FormExample: Story = {
       marketing: false,
       partners: false,
       terms: false,
-    });
+    })
 
     const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      console.log("Form submitted:", formData);
-      alert(`Form submitted!\n${JSON.stringify(formData, null, 2)}`);
-    };
+      e.preventDefault()
+      console.log('Form submitted:', formData)
+      alert(`Form submitted!\n${JSON.stringify(formData, null, 2)}`)
+    }
 
     return (
       <form onSubmit={handleSubmit} className="max-w-md space-y-6">
@@ -414,25 +399,19 @@ export const FormExample: Story = {
             label="Newsletter"
             description="Weekly digest of the best content."
             checked={formData.newsletter}
-            onCheckedChange={(checked) =>
-              setFormData({ ...formData, newsletter: checked })
-            }
+            onCheckedChange={checked => setFormData({ ...formData, newsletter: checked })}
           />
           <CheckboxWithLabel
             label="Marketing emails"
             description="Updates about products and promotions."
             checked={formData.marketing}
-            onCheckedChange={(checked) =>
-              setFormData({ ...formData, marketing: checked })
-            }
+            onCheckedChange={checked => setFormData({ ...formData, marketing: checked })}
           />
           <CheckboxWithLabel
             label="Partner offers"
             description="Exclusive offers from our partners."
             checked={formData.partners}
-            onCheckedChange={(checked) =>
-              setFormData({ ...formData, partners: checked })
-            }
+            onCheckedChange={checked => setFormData({ ...formData, partners: checked })}
           />
         </Box>
 
@@ -440,11 +419,9 @@ export const FormExample: Story = {
 
         <CheckboxWithLabel
           label="I agree to the terms and conditions"
-          color={formData.terms ? "success" : "default"}
+          color={formData.terms ? 'success' : 'default'}
           checked={formData.terms}
-          onCheckedChange={(checked) =>
-            setFormData({ ...formData, terms: checked })
-          }
+          onCheckedChange={checked => setFormData({ ...formData, terms: checked })}
           required
         />
 
@@ -456,9 +433,9 @@ export const FormExample: Story = {
           Save Preferences
         </button>
       </form>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // All States Grid
@@ -498,161 +475,153 @@ export const AllStatesGrid: Story = {
       <Checkbox variant="outline" disabled defaultChecked />
     </div>
   ),
-};
+}
 
 // ============================================================================
 // CheckboxGroup Examples
 // ============================================================================
 
 export const GroupBasic: Story = {
-  name: "Group - Basic",
+  name: 'Group - Basic',
   render: () => (
-    <CheckboxGroup.Root defaultValue={["option1"]}>
+    <CheckboxGroup.Root defaultValue={['option1']}>
       <CheckboxGroup.Item value="option1" label="Option 1" />
       <CheckboxGroup.Item value="option2" label="Option 2" />
       <CheckboxGroup.Item value="option3" label="Option 3" />
     </CheckboxGroup.Root>
   ),
-};
+}
 
 export const GroupWithDescriptions: Story = {
-  name: "Group - With Descriptions",
+  name: 'Group - With Descriptions',
   render: () => (
-    <CheckboxGroup.Root defaultValue={["email"]}>
-      <CheckboxGroup.Item
-        value="email"
-        label="Email notifications"
-        description="Receive notifications via email."
-      />
+    <CheckboxGroup.Root defaultValue={['email']}>
+      <CheckboxGroup.Item value="email" label="Email notifications" description="Receive notifications via email." />
       <CheckboxGroup.Item
         value="push"
         label="Push notifications"
         description="Receive push notifications on your device."
       />
-      <CheckboxGroup.Item
-        value="sms"
-        label="SMS notifications"
-        description="Receive text message notifications."
-      />
+      <CheckboxGroup.Item value="sms" label="SMS notifications" description="Receive text message notifications." />
     </CheckboxGroup.Root>
   ),
-};
+}
 
 export const GroupSizes: Story = {
-  name: "Group - Sizes",
+  name: 'Group - Sizes',
   render: () => (
     <Box display="flex" className="gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">Size 1</h3>
-        <CheckboxGroup.Root size="1" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="1" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Size 2</h3>
-        <CheckboxGroup.Root size="2" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="2" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Size 3</h3>
-        <CheckboxGroup.Root size="3" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="3" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Size 4</h3>
-        <CheckboxGroup.Root size="4" defaultValue={["a"]}>
+        <CheckboxGroup.Root size="4" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
     </Box>
   ),
-};
+}
 
 export const GroupVariants: Story = {
-  name: "Group - Variants",
+  name: 'Group - Variants',
   render: () => (
     <Box display="flex" className="gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">Solid</h3>
-        <CheckboxGroup.Root variant="solid" defaultValue={["a"]}>
+        <CheckboxGroup.Root variant="solid" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Soft</h3>
-        <CheckboxGroup.Root variant="soft" defaultValue={["a"]}>
+        <CheckboxGroup.Root variant="soft" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Outline</h3>
-        <CheckboxGroup.Root variant="outline" defaultValue={["a"]}>
+        <CheckboxGroup.Root variant="outline" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
     </Box>
   ),
-};
+}
 
 export const GroupColors: Story = {
-  name: "Group - Colors",
+  name: 'Group - Colors',
   render: () => (
     <Box display="flex" className="flex-wrap gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">Primary</h3>
-        <CheckboxGroup.Root color="primary" defaultValue={["a"]}>
+        <CheckboxGroup.Root color="primary" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Info</h3>
-        <CheckboxGroup.Root color="info" defaultValue={["a"]}>
+        <CheckboxGroup.Root color="info" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Success</h3>
-        <CheckboxGroup.Root color="success" defaultValue={["a"]}>
+        <CheckboxGroup.Root color="success" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Warning</h3>
-        <CheckboxGroup.Root color="warning" defaultValue={["a"]}>
+        <CheckboxGroup.Root color="warning" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Error</h3>
-        <CheckboxGroup.Root color="error" defaultValue={["a"]}>
+        <CheckboxGroup.Root color="error" defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
         </CheckboxGroup.Root>
       </div>
     </Box>
   ),
-};
+}
 
 export const GroupDisabled: Story = {
-  name: "Group - Disabled",
+  name: 'Group - Disabled',
   render: () => (
     <Box display="flex" className="gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">All Disabled</h3>
-        <CheckboxGroup.Root disabled defaultValue={["a"]}>
+        <CheckboxGroup.Root disabled defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" />
           <CheckboxGroup.Item value="c" label="Option C" />
@@ -660,7 +629,7 @@ export const GroupDisabled: Story = {
       </div>
       <div>
         <h3 className="text-sm font-medium mb-3">Single Item Disabled</h3>
-        <CheckboxGroup.Root defaultValue={["a"]}>
+        <CheckboxGroup.Root defaultValue={['a']}>
           <CheckboxGroup.Item value="a" label="Option A" />
           <CheckboxGroup.Item value="b" label="Option B" disabled />
           <CheckboxGroup.Item value="c" label="Option C" />
@@ -668,12 +637,12 @@ export const GroupDisabled: Story = {
       </div>
     </Box>
   ),
-};
+}
 
 export const GroupControlled: Story = {
-  name: "Group - Controlled",
+  name: 'Group - Controlled',
   render: () => {
-    const [values, setValues] = React.useState<string[]>(["newsletter"]);
+    const [values, setValues] = React.useState<string[]>(['newsletter'])
 
     return (
       <Box display="flex" className="flex-col gap-4">
@@ -685,58 +654,34 @@ export const GroupControlled: Story = {
 
         <div className="p-4 bg-muted rounded-md">
           <p className="text-sm font-medium">Selected values:</p>
-          <code className="text-sm">
-            {values.length > 0 ? values.join(", ") : "none"}
-          </code>
+          <code className="text-sm">{values.length > 0 ? values.join(', ') : 'none'}</code>
         </div>
       </Box>
-    );
+    )
   },
-};
+}
 
 export const GroupFormExample: Story = {
-  name: "Group - Form Example",
+  name: 'Group - Form Example',
   render: () => {
-    const [interests, setInterests] = React.useState<string[]>([]);
+    const [interests, setInterests] = React.useState<string[]>([])
 
     const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      alert(`Selected interests: ${interests.join(", ") || "none"}`);
-    };
+      e.preventDefault()
+      alert(`Selected interests: ${interests.join(', ') || 'none'}`)
+    }
 
     return (
       <form onSubmit={handleSubmit} className="max-w-md space-y-6">
         <div>
           <h3 className="text-lg font-medium mb-2">Select your interests</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Choose the topics you'd like to receive updates about.
-          </p>
+          <p className="text-sm text-muted-foreground mb-4">Choose the topics you'd like to receive updates about.</p>
 
-          <CheckboxGroup.Root
-            value={interests}
-            onValueChange={setInterests}
-            color="primary"
-          >
-            <CheckboxGroup.Item
-              value="technology"
-              label="Technology"
-              description="Latest tech news and innovations"
-            />
-            <CheckboxGroup.Item
-              value="design"
-              label="Design"
-              description="UI/UX trends and best practices"
-            />
-            <CheckboxGroup.Item
-              value="business"
-              label="Business"
-              description="Industry insights and strategies"
-            />
-            <CheckboxGroup.Item
-              value="marketing"
-              label="Marketing"
-              description="Growth tips and case studies"
-            />
+          <CheckboxGroup.Root value={interests} onValueChange={setInterests} color="primary">
+            <CheckboxGroup.Item value="technology" label="Technology" description="Latest tech news and innovations" />
+            <CheckboxGroup.Item value="design" label="Design" description="UI/UX trends and best practices" />
+            <CheckboxGroup.Item value="business" label="Business" description="Industry insights and strategies" />
+            <CheckboxGroup.Item value="marketing" label="Marketing" description="Growth tips and case studies" />
           </CheckboxGroup.Root>
         </div>
 
@@ -747,6 +692,6 @@ export const GroupFormExample: Story = {
           Save Preferences
         </button>
       </form>
-    );
+    )
   },
-};
+}

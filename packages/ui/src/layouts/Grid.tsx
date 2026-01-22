@@ -1,68 +1,66 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
-  Slot,
-  getDisplayClasses,
-  getGridFlowClasses,
-  getAlignItemsClasses,
-  getJustifyContentClasses,
-  getSpacingClasses,
-  getGridColumnsClasses,
+  type AlignItems,
   canUseGridColumnsClasses,
-  getGridColumnsStyle,
-  getGridRowsStyle,
-  getSharedLayoutClasses,
-  getSharedLayoutStyles,
-  type Responsive,
   type Display,
   type GridFlow,
-  type AlignItems,
+  getAlignItemsClasses,
+  getDisplayClasses,
+  getGridColumnsClasses,
+  getGridColumnsStyle,
+  getGridFlowClasses,
+  getGridRowsStyle,
+  getJustifyContentClasses,
+  getSharedLayoutClasses,
+  getSharedLayoutStyles,
+  getSpacingClasses,
   type JustifyContent,
-  type Spacing,
+  type Responsive,
   type SharedLayoutProps,
-} from "./layout-utils";
+  Slot,
+  type Spacing,
+} from './layout-utils'
 
 // ============================================================================
 // Grid Props
 // ============================================================================
 
-type GridDisplay = "none" | "grid" | "inline-grid";
+type GridDisplay = 'none' | 'grid' | 'inline-grid'
 
 export interface GridOwnProps extends SharedLayoutProps {
   /** Render as a different element */
-  as?: "div" | "span";
+  as?: 'div' | 'span'
   /** Merge props onto child element */
-  asChild?: boolean;
+  asChild?: boolean
   /** CSS display property */
-  display?: Responsive<GridDisplay>;
+  display?: Responsive<GridDisplay>
   /** Grid template areas */
-  areas?: Responsive<string>;
+  areas?: Responsive<string>
   /** Number of columns or explicit column template */
-  columns?: Responsive<string>;
+  columns?: Responsive<string>
   /** Number of rows or explicit row template */
-  rows?: Responsive<string>;
+  rows?: Responsive<string>
   /** Grid auto-flow direction */
-  flow?: Responsive<GridFlow>;
+  flow?: Responsive<GridFlow>
   /** Align items along the cross axis */
-  align?: Responsive<AlignItems>;
+  align?: Responsive<AlignItems>
   /** Justify content along the main axis */
-  justify?: Responsive<JustifyContent>;
+  justify?: Responsive<JustifyContent>
   /** Gap between items */
-  gap?: Responsive<Spacing>;
+  gap?: Responsive<Spacing>
   /** Horizontal gap between items */
-  gapX?: Responsive<Spacing>;
+  gapX?: Responsive<Spacing>
   /** Vertical gap between items */
-  gapY?: Responsive<Spacing>;
+  gapY?: Responsive<Spacing>
 }
 
-type GridDivProps = GridOwnProps &
-  Omit<React.ComponentPropsWithoutRef<"div">, keyof GridOwnProps>;
-type GridSpanProps = GridOwnProps & { as: "span" } &
-  Omit<React.ComponentPropsWithoutRef<"span">, keyof GridOwnProps>;
+type GridDivProps = GridOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof GridOwnProps>
+type GridSpanProps = GridOwnProps & { as: 'span' } & Omit<React.ComponentPropsWithoutRef<'span'>, keyof GridOwnProps>
 
-export type GridProps = GridDivProps | GridSpanProps;
+export type GridProps = GridDivProps | GridSpanProps
 
 // ============================================================================
 // Grid Component
@@ -71,7 +69,7 @@ export type GridProps = GridDivProps | GridSpanProps;
 export const Grid = React.forwardRef<HTMLElement, GridProps>(
   (
     {
-      as: Tag = "div",
+      as: Tag = 'div',
       asChild = false,
       className,
       style,
@@ -87,69 +85,127 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       gapX,
       gapY,
       // Shared layout props
-      p, px, py, pt, pr, pb, pl,
-      m, mx, my, mt, mr, mb, ml,
-      width, minWidth, maxWidth,
-      height, minHeight, maxHeight,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
+      width,
+      minWidth,
+      maxWidth,
+      height,
+      minHeight,
+      maxHeight,
       position,
-      inset, top, right, bottom, left,
-      overflow, overflowX, overflowY,
-      flexGrow, flexShrink, flexBasis,
-      gridArea, gridColumn, gridColumnStart, gridColumnEnd,
-      gridRow, gridRowStart, gridRowEnd,
+      inset,
+      top,
+      right,
+      bottom,
+      left,
+      overflow,
+      overflowX,
+      overflowY,
+      flexGrow,
+      flexShrink,
+      flexBasis,
+      gridArea,
+      gridColumn,
+      gridColumnStart,
+      gridColumnEnd,
+      gridRow,
+      gridRowStart,
+      gridRowEnd,
       children,
       ...restProps
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : Tag;
+    const Comp = asChild ? Slot : Tag
 
     const sharedLayoutProps: SharedLayoutProps = {
-      p, px, py, pt, pr, pb, pl,
-      m, mx, my, mt, mr, mb, ml,
-      width, minWidth, maxWidth,
-      height, minHeight, maxHeight,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
+      width,
+      minWidth,
+      maxWidth,
+      height,
+      minHeight,
+      maxHeight,
       position,
-      inset, top, right, bottom, left,
-      overflow, overflowX, overflowY,
-      flexGrow, flexShrink, flexBasis,
-      gridArea, gridColumn, gridColumnStart, gridColumnEnd,
-      gridRow, gridRowStart, gridRowEnd,
-    };
+      inset,
+      top,
+      right,
+      bottom,
+      left,
+      overflow,
+      overflowX,
+      overflowY,
+      flexGrow,
+      flexShrink,
+      flexBasis,
+      gridArea,
+      gridColumn,
+      gridColumnStart,
+      gridColumnEnd,
+      gridRow,
+      gridRowStart,
+      gridRowEnd,
+    }
 
     // Default to grid display if not specified
-    const resolvedDisplay = display || "grid";
+    const resolvedDisplay = display || 'grid'
 
     // Use classes for standard column counts, fall back to styles for custom values
-    const useColumnsClasses = canUseGridColumnsClasses(columns);
+    const useColumnsClasses = canUseGridColumnsClasses(columns)
 
     const classes = cn(
-      "rt-Grid",
-      "box-border",
+      'rt-Grid',
+      'box-border',
       getDisplayClasses(resolvedDisplay as Responsive<Display>),
       getGridFlowClasses(flow),
       getAlignItemsClasses(align),
       getJustifyContentClasses(justify),
-      getSpacingClasses(gap, "gap"),
-      getSpacingClasses(gapX, "gap-x"),
-      getSpacingClasses(gapY, "gap-y"),
+      getSpacingClasses(gap, 'gap'),
+      getSpacingClasses(gapX, 'gap-x'),
+      getSpacingClasses(gapY, 'gap-y'),
       useColumnsClasses && getGridColumnsClasses(columns),
       getSharedLayoutClasses(sharedLayoutProps),
       className,
-    );
+    )
 
     // Build grid-specific styles (only use style for columns if not using classes)
     const gridStyles: React.CSSProperties = {
       ...(!useColumnsClasses ? getGridColumnsStyle(columns) : {}),
       ...getGridRowsStyle(rows),
-      ...(areas && typeof areas === "string" && { gridTemplateAreas: areas }),
-    };
+      ...(areas && typeof areas === 'string' && { gridTemplateAreas: areas }),
+    }
 
     const styles: React.CSSProperties = {
       ...gridStyles,
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
-    };
+    }
 
     return (
       <Comp
@@ -160,8 +216,8 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       >
         {children}
       </Comp>
-    );
+    )
   },
-);
+)
 
-Grid.displayName = "Grid";
+Grid.displayName = 'Grid'

@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { useFieldGroup } from "./FieldGroupContext";
-import type { Size } from "@/elements/tokens";
-import type { TextFieldVariant } from "./TextField";
+import * as React from 'react'
+import type { Size } from '@/elements/tokens'
+import { useFieldGroup } from './FieldGroupContext'
+import type { TextFieldVariant } from './TextField'
 
 interface FieldGroupAwareProps {
-  size?: Size;
-  variant?: TextFieldVariant;
+  size?: Size
+  variant?: TextFieldVariant
 }
 
 /**
@@ -27,22 +27,20 @@ interface FieldGroupAwareProps {
  * </FieldGroup>
  * ```
  */
-export function withFieldGroup<P extends FieldGroupAwareProps>(
-  WrappedComponent: React.ComponentType<P>,
-) {
+export function withFieldGroup<P extends FieldGroupAwareProps>(WrappedComponent: React.ComponentType<P>) {
   const WithFieldGroup = React.forwardRef<unknown, P>((props, ref) => {
-    const fieldGroup = useFieldGroup();
+    const fieldGroup = useFieldGroup()
 
     const mergedProps = {
       ...props,
       size: props.size ?? fieldGroup.size,
       variant: props.variant ?? fieldGroup.variant,
       ref,
-    } as P & { ref: typeof ref };
+    } as P & { ref: typeof ref }
 
-    return <WrappedComponent {...mergedProps} />;
-  });
+    return <WrappedComponent {...mergedProps} />
+  })
 
-  WithFieldGroup.displayName = `withFieldGroup(${WrappedComponent.displayName || WrappedComponent.name || "Component"})`;
-  return WithFieldGroup;
+  WithFieldGroup.displayName = `withFieldGroup(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`
+  return WithFieldGroup
 }

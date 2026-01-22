@@ -5,18 +5,18 @@
 
 /* Container size CSS custom properties */
 :root {
-  --container-1: 28rem;   /* 448px */
-  --container-2: 43rem;   /* 688px */
-  --container-3: 55rem;   /* 880px */
-  --container-4: 71rem;   /* 1136px */
+  --container-1: 28rem; /* 448px */
+  --container-2: 43rem; /* 688px */
+  --container-3: 55rem; /* 880px */
+  --container-4: 71rem; /* 1136px */
 }
 
 /* Section size CSS custom properties */
 :root {
-  --section-padding-1: 1.5rem;  /* 24px */
-  --section-padding-2: 2.5rem;  /* 40px */
-  --section-padding-3: 4rem;    /* 64px */
-  --section-padding-4: 6rem;    /* 96px */
+  --section-padding-1: 1.5rem; /* 24px */
+  --section-padding-2: 2.5rem; /* 40px */
+  --section-padding-3: 4rem; /* 64px */
+  --section-padding-4: 6rem; /* 96px */
 }
 
 /* Base layout component styles */

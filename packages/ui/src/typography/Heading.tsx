@@ -1,30 +1,30 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { typographyTokens, type TypographySize, type Weight, type TypographyColor } from "./tokens";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import { type TypographyColor, type TypographySize, typographyTokens, type Weight } from './tokens'
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  size?: TypographySize;
-  weight?: Weight;
-  color?: TypographyColor;
-  align?: "left" | "center" | "right" | "justify";
-  truncate?: boolean;
-  wrap?: "wrap" | "nowrap" | "pretty" | "balance";
-  highContrast?: boolean;
-  mb?: string;
-  mt?: string;
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  size?: TypographySize
+  weight?: Weight
+  color?: TypographyColor
+  align?: 'left' | 'center' | 'right' | 'justify'
+  truncate?: boolean
+  wrap?: 'wrap' | 'nowrap' | 'pretty' | 'balance'
+  highContrast?: boolean
+  mb?: string
+  mt?: string
 }
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   (
     {
-      as = "h1",
-      size = "6",
-      weight = "bold",
-      color = "default",
+      as = 'h1',
+      size = '6',
+      weight = 'bold',
+      color = 'default',
       align,
       truncate = false,
-      wrap = "wrap",
+      wrap = 'wrap',
       highContrast = false,
       mb,
       mt,
@@ -35,10 +35,10 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     },
     ref,
   ) => {
-    const Component = as;
-    const sizeTokens = typographyTokens.size[size];
-    const weightToken = typographyTokens.weight[weight];
-    const colorToken = typographyTokens.color[color];
+    const Component = as
+    const sizeTokens = typographyTokens.size[size]
+    const weightToken = typographyTokens.weight[weight]
+    const colorToken = typographyTokens.color[color]
 
     const headingStyles: React.CSSProperties = {
       fontSize: sizeTokens.fontSize,
@@ -51,38 +51,38 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       marginTop: mt,
       marginBottom: mb,
       ...style,
-    };
+    }
 
     return (
       <Component
         ref={ref}
         className={cn(
           // Base styles
-          "font-sans",
+          'font-sans',
 
           // Text alignment
-          align === "left" && "text-left",
-          align === "center" && "text-center",
-          align === "right" && "text-right",
-          align === "justify" && "text-justify",
+          align === 'left' && 'text-left',
+          align === 'center' && 'text-center',
+          align === 'right' && 'text-right',
+          align === 'justify' && 'text-justify',
 
           // Truncation
-          truncate && "truncate",
+          truncate && 'truncate',
 
           // Text wrapping
-          wrap === "nowrap" && "whitespace-nowrap",
-          wrap === "pretty" && "text-pretty",
-          wrap === "balance" && "text-balance",
+          wrap === 'nowrap' && 'whitespace-nowrap',
+          wrap === 'pretty' && 'text-pretty',
+          wrap === 'balance' && 'text-balance',
 
-          className
+          className,
         )}
         style={headingStyles}
         {...props}
       >
         {children}
       </Component>
-    );
+    )
   },
-);
+)
 
-Heading.displayName = "Heading";
+Heading.displayName = 'Heading'

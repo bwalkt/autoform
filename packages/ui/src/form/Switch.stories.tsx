@@ -1,78 +1,76 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { Switch, SwitchWithLabel } from "./Switch";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { Switch, SwitchWithLabel } from './Switch'
 
 const meta: Meta<typeof Switch> = {
-  title: "Form/Switch",
+  title: 'Form/Switch',
   component: Switch,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
+      control: 'select',
+      options: ['1', '2', '3', '4'],
     },
     variant: {
-      control: "select",
-      options: ["surface", "classic", "soft"],
+      control: 'select',
+      options: ['surface', 'classic', 'soft'],
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
     },
     radius: {
-      control: "select",
-      options: ["none", "sm", "md", "lg", "full"],
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
     },
     highContrast: {
-      control: "boolean",
+      control: 'boolean',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Switch>;
+export default meta
+type Story = StoryObj<typeof Switch>
 
 export const Default: Story = {
-  render: (args) => {
-    const [checked, setChecked] = useState(false);
-    return <Switch {...args} checked={checked} onCheckedChange={setChecked} />;
+  render: args => {
+    const [checked, setChecked] = useState(false)
+    return <Switch {...args} checked={checked} onCheckedChange={setChecked} />
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <Switch key={size} size={size} defaultChecked />
       ))}
     </div>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(["default", "primary", "neutral", "info", "success", "warning", "error"] as const).map(
-        (color) => (
-          <div key={color} className="flex items-center gap-2">
-            <Switch color={color} defaultChecked />
-            <span className="text-sm capitalize">{color}</span>
-          </div>
-        )
-      )}
+      {(['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const).map(color => (
+        <div key={color} className="flex items-center gap-2">
+          <Switch color={color} defaultChecked />
+          <span className="text-sm capitalize">{color}</span>
+        </div>
+      ))}
     </div>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(["surface", "classic", "soft"] as const).map((variant) => (
+      {(['surface', 'classic', 'soft'] as const).map(variant => (
         <div key={variant} className="flex items-center gap-4">
           <Switch variant={variant} />
           <Switch variant={variant} defaultChecked />
@@ -81,7 +79,7 @@ export const Variants: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const WithLabel: Story = {
   render: () => (
@@ -92,7 +90,7 @@ export const WithLabel: Story = {
       <SwitchWithLabel label="Public profile" disabled />
     </div>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -101,7 +99,7 @@ export const Disabled: Story = {
       <Switch disabled defaultChecked />
     </div>
   ),
-};
+}
 
 export const HighContrast: Story = {
   render: () => (
@@ -116,7 +114,7 @@ export const HighContrast: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const SettingsExample: Story = {
   render: () => {
@@ -125,7 +123,7 @@ export const SettingsExample: Story = {
       marketing: false,
       darkMode: false,
       autoSave: true,
-    });
+    })
 
     return (
       <div className="w-80 space-y-4 p-4 border rounded-lg">
@@ -134,62 +132,46 @@ export const SettingsExample: Story = {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">Push Notifications</p>
-              <p className="text-xs text-muted-foreground">
-                Receive push notifications
-              </p>
+              <p className="text-xs text-muted-foreground">Receive push notifications</p>
             </div>
             <Switch
               checked={settings.notifications}
-              onCheckedChange={(checked) =>
-                setSettings((s) => ({ ...s, notifications: checked }))
-              }
+              onCheckedChange={checked => setSettings(s => ({ ...s, notifications: checked }))}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">Marketing Emails</p>
-              <p className="text-xs text-muted-foreground">
-                Receive marketing emails
-              </p>
+              <p className="text-xs text-muted-foreground">Receive marketing emails</p>
             </div>
             <Switch
               checked={settings.marketing}
-              onCheckedChange={(checked) =>
-                setSettings((s) => ({ ...s, marketing: checked }))
-              }
+              onCheckedChange={checked => setSettings(s => ({ ...s, marketing: checked }))}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">Dark Mode</p>
-              <p className="text-xs text-muted-foreground">
-                Enable dark theme
-              </p>
+              <p className="text-xs text-muted-foreground">Enable dark theme</p>
             </div>
             <Switch
               checked={settings.darkMode}
-              onCheckedChange={(checked) =>
-                setSettings((s) => ({ ...s, darkMode: checked }))
-              }
+              onCheckedChange={checked => setSettings(s => ({ ...s, darkMode: checked }))}
             />
           </div>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">Auto-save</p>
-              <p className="text-xs text-muted-foreground">
-                Automatically save changes
-              </p>
+              <p className="text-xs text-muted-foreground">Automatically save changes</p>
             </div>
             <Switch
               checked={settings.autoSave}
-              onCheckedChange={(checked) =>
-                setSettings((s) => ({ ...s, autoSave: checked }))
-              }
+              onCheckedChange={checked => setSettings(s => ({ ...s, autoSave: checked }))}
               color="success"
             />
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
-import * as React from 'react'
 import { AutoForm } from '@bwalkt/shadcn/components/ui/autoform'
 import { Button } from '@bwalkt/shadcn/components/ui/button'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from 'react'
 
 const meta: Meta = {
   title: 'Debug/AJV Provider Debug',
@@ -89,7 +89,9 @@ export const AjvProviderTest: Story = {
                     console.log('Testing parseSchema method...')
                     const result = provider.parseSchema()
                     console.log('parseSchema result:', result)
-                    alert(`parseSchema success! Found ${Object.keys(result.fields || {}).length} fields. Check console for details.`)
+                    alert(
+                      `parseSchema success! Found ${Object.keys(result.fields || {}).length} fields. Check console for details.`,
+                    )
                   } catch (error) {
                     console.error('parseSchema error:', error)
                     alert(`parseSchema error: ${error instanceof Error ? error.message : String(error)}`)

@@ -1,55 +1,55 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { Slider } from "./Slider";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { Slider } from './Slider'
 
 const meta: Meta<typeof Slider> = {
-  title: "Form/Slider",
+  title: 'Form/Slider',
   component: Slider,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
+      control: 'select',
+      options: ['1', '2', '3', '4'],
     },
     variant: {
-      control: "select",
-      options: ["surface", "classic", "soft"],
+      control: 'select',
+      options: ['surface', 'classic', 'soft'],
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "neutral", "info", "success", "warning", "error"],
+      control: 'select',
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
     },
     radius: {
-      control: "select",
-      options: ["none", "sm", "md", "lg", "full"],
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Slider>;
+export default meta
+type Story = StoryObj<typeof Slider>
 
 export const Default: Story = {
-  render: (args) => {
-    const [value, setValue] = useState([50]);
+  render: args => {
+    const [value, setValue] = useState([50])
     return (
       <div className="w-64">
         <Slider {...args} value={value} onValueChange={setValue} />
         <p className="mt-2 text-sm text-muted-foreground text-center">Value: {value[0]}</p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
     <div className="w-64 space-y-6">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size}>
           <p className="text-sm text-muted-foreground mb-2">Size {size}</p>
           <Slider size={size} defaultValue={[50]} />
@@ -57,27 +57,25 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Colors: Story = {
   render: () => (
     <div className="w-64 space-y-4">
-      {(["default", "primary", "neutral", "info", "success", "warning", "error"] as const).map(
-        (color) => (
-          <div key={color}>
-            <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
-            <Slider color={color} defaultValue={[60]} />
-          </div>
-        )
-      )}
+      {(['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const).map(color => (
+        <div key={color}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">{color}</p>
+          <Slider color={color} defaultValue={[60]} />
+        </div>
+      ))}
     </div>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <div className="w-64 space-y-6">
-      {(["surface", "classic", "soft"] as const).map((variant) => (
+      {(['surface', 'classic', 'soft'] as const).map(variant => (
         <div key={variant}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">{variant}</p>
           <Slider variant={variant} defaultValue={[50]} />
@@ -85,12 +83,12 @@ export const Variants: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Radius: Story = {
   render: () => (
     <div className="w-64 space-y-6">
-      {(["none", "sm", "md", "lg", "full"] as const).map((radius) => (
+      {(['none', 'sm', 'md', 'lg', 'full'] as const).map(radius => (
         <div key={radius}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">{radius}</p>
           <Slider radius={radius} size="3" defaultValue={[50]} />
@@ -98,7 +96,7 @@ export const Radius: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -106,57 +104,49 @@ export const Disabled: Story = {
       <Slider disabled defaultValue={[40]} />
     </div>
   ),
-};
+}
 
 export const CustomRange: Story = {
-  render: (args) => {
-    const [value, setValue] = useState([25]);
+  render: args => {
+    const [value, setValue] = useState([25])
     return (
       <div className="w-64">
-        <Slider
-          {...args}
-          value={value}
-          onValueChange={setValue}
-          min={0}
-          max={100}
-          step={5}
-        />
+        <Slider {...args} value={value} onValueChange={setValue} min={0} max={100} step={5} />
         <div className="flex justify-between mt-2 text-xs text-muted-foreground">
           <span>0</span>
           <span>{value[0]}</span>
           <span>100</span>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const VolumeControl: Story = {
-  render: (args) => {
-    const [volume, setVolume] = useState([75]);
+  render: args => {
+    const [volume, setVolume] = useState([75])
     return (
       <div className="w-72 p-4 border rounded-lg">
         <div className="flex items-center gap-3">
           <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+            />
           </svg>
-          <Slider
-            {...args}
-            value={volume}
-            onValueChange={setVolume}
-            className="flex-1"
-            aria-label="Volume"
-          />
+          <Slider {...args} value={volume} onValueChange={setVolume} className="flex-1" aria-label="Volume" />
           <span className="text-sm w-8 text-right">{volume[0]}%</span>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Range: Story = {
-  render: (args) => {
-    const [value, setValue] = useState([25, 75]);
+  render: args => {
+    const [value, setValue] = useState([25, 75])
     return (
       <div className="w-64">
         <Slider {...args} value={value} onValueChange={setValue} />
@@ -164,16 +154,16 @@ export const Range: Story = {
           Range: {value[0]} - {value[1]}
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const PriceRange: Story = {
   args: {
-    color: "success",
+    color: 'success',
   },
-  render: (args) => {
-    const [price, setPrice] = useState([200, 800]);
+  render: args => {
+    const [price, setPrice] = useState([200, 800])
     return (
       <div className="w-80 p-4 border rounded-lg">
         <h4 className="font-medium mb-4">Price Range</h4>
@@ -188,20 +178,22 @@ export const PriceRange: Story = {
         />
         <div className="flex justify-between mt-2 text-sm">
           <span className="text-muted-foreground">$0</span>
-          <span className="font-medium">${price[0]} - ${price[1]}</span>
+          <span className="font-medium">
+            ${price[0]} - ${price[1]}
+          </span>
           <span className="text-muted-foreground">$1000</span>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const BrightnessControl: Story = {
   args: {
-    color: "warning",
+    color: 'warning',
   },
-  render: (args) => {
-    const [brightness, setBrightness] = useState([80]);
+  render: args => {
+    const [brightness, setBrightness] = useState([80])
     return (
       <div className="w-72 p-4 border rounded-lg">
         <div className="flex items-center justify-between mb-3">
@@ -224,6 +216,6 @@ export const BrightnessControl: Story = {
           </svg>
         </div>
       </div>
-    );
+    )
   },
-};
+}

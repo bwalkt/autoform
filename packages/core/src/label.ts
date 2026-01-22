@@ -1,4 +1,4 @@
-import type { ParsedField } from "./types";
+import type { ParsedField } from './types'
 
 /**
  * Get the best label to use for a field.
@@ -8,29 +8,27 @@ import type { ParsedField } from "./types";
  * @returns Label for the field
  */
 export function getLabel(field: ParsedField) {
-  return (
-    field.fieldConfig?.label || field.description || beautifyLabel(field.key)
-  );
+  return field.fieldConfig?.label || field.description || beautifyLabel(field.key)
 }
 
 function beautifyLabel(label: string) {
   if (!label) {
-    return "";
+    return ''
   }
 
-  let output = label.replace(/([A-Z])/g, " $1");
-  output = output.charAt(0).toUpperCase() + output.slice(1);
+  let output = label.replace(/([A-Z])/g, ' $1')
+  output = output.charAt(0).toUpperCase() + output.slice(1)
 
   // Never return a number for the label
   // This primarily important for array fields so we don't get "0" as a label
   if (!Number.isNaN(Number(output))) {
-    return "";
+    return ''
   }
 
   // Ignore labels for arrays of non-objects
-  if (output === "*") {
-    return "";
+  if (output === '*') {
+    return ''
   }
 
-  return output;
+  return output
 }

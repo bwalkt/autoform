@@ -1,33 +1,33 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { RadioGroup } from "./RadioGroup";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { RadioGroup } from './RadioGroup'
 
 const meta: Meta = {
-  title: "Form/RadioGroup",
+  title: 'Form/RadioGroup',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
+export default meta
 
 export const Default: StoryObj = {
   render: () => {
-    const [value, setValue] = useState("option1");
+    const [value, setValue] = useState('option1')
     return (
       <RadioGroup.Root value={value} onValueChange={setValue}>
         <RadioGroup.Item value="option1" label="Option 1" />
         <RadioGroup.Item value="option2" label="Option 2" />
         <RadioGroup.Item value="option3" label="Option 3" />
       </RadioGroup.Root>
-    );
+    )
   },
-};
+}
 
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-8">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size}>
           <p className="text-sm font-medium mb-2">Size {size}</p>
           <RadioGroup.Root size={size} defaultValue="a">
@@ -39,12 +39,12 @@ export const Sizes: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const Colors: StoryObj = {
   render: () => (
     <div className="flex gap-8">
-      {(["default", "primary", "info", "success", "warning", "error"] as const).map((color) => (
+      {(['default', 'primary', 'info', 'success', 'warning', 'error'] as const).map(color => (
         <div key={color}>
           <p className="text-sm font-medium mb-2 capitalize">{color}</p>
           <RadioGroup.Root color={color} defaultValue="a">
@@ -55,7 +55,7 @@ export const Colors: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const Horizontal: StoryObj = {
   render: () => (
@@ -65,7 +65,7 @@ export const Horizontal: StoryObj = {
       <RadioGroup.Item value="large" label="Large" />
     </RadioGroup.Root>
   ),
-};
+}
 
 export const Disabled: StoryObj = {
   render: () => (
@@ -75,7 +75,7 @@ export const Disabled: StoryObj = {
       <RadioGroup.Item value="option3" label="Option 3" />
     </RadioGroup.Root>
   ),
-};
+}
 
 export const IndividualDisabled: StoryObj = {
   render: () => (
@@ -85,11 +85,11 @@ export const IndividualDisabled: StoryObj = {
       <RadioGroup.Item value="enterprise" label="Enterprise (Contact Sales)" disabled />
     </RadioGroup.Root>
   ),
-};
+}
 
 export const PlanSelection: StoryObj = {
   render: () => {
-    const [plan, setPlan] = useState("starter");
+    const [plan, setPlan] = useState('starter')
 
     return (
       <div className="w-80 p-4 border rounded-lg">
@@ -118,13 +118,13 @@ export const PlanSelection: StoryObj = {
           Selected: <span className="font-medium capitalize">{plan}</span>
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const ShippingMethod: StoryObj = {
   render: () => {
-    const [method, setMethod] = useState("standard");
+    const [method, setMethod] = useState('standard')
 
     return (
       <div className="w-96">
@@ -158,6 +158,6 @@ export const ShippingMethod: StoryObj = {
           </div>
         </RadioGroup.Root>
       </div>
-    );
+    )
   },
-};
+}

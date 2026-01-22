@@ -1,47 +1,47 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import * as React from "react";
-import { CheckboxCards } from "./CheckboxCards";
-import { Box } from "@/layouts/Box";
-import { Wifi, Bluetooth, Nfc, Monitor, Smartphone, Tablet, Laptop } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Bluetooth, Laptop, Monitor, Nfc, Smartphone, Tablet, Wifi } from 'lucide-react'
+import * as React from 'react'
+import { Box } from '@/layouts/Box'
+import { CheckboxCards } from './CheckboxCards'
 
 const meta: Meta<typeof CheckboxCards.Root> = {
-  title: "Form/CheckboxCards",
+  title: 'Form/CheckboxCards',
   component: CheckboxCards.Root,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
-      description: "The size of all cards",
+      control: 'select',
+      options: ['1', '2', '3', '4'],
+      description: 'The size of all cards',
     },
     variant: {
-      control: "select",
-      options: ["surface", "outline"],
-      description: "The visual variant",
+      control: 'select',
+      options: ['surface', 'outline'],
+      description: 'The visual variant',
     },
     color: {
-      control: "select",
-      options: ["default", "primary", "info", "success", "warning", "error"],
-      description: "The accent color",
+      control: 'select',
+      options: ['default', 'primary', 'info', 'success', 'warning', 'error'],
+      description: 'The accent color',
     },
     columns: {
-      control: "select",
-      options: ["1", "2", "3", "4", "auto"],
-      description: "Number of columns",
+      control: 'select',
+      options: ['1', '2', '3', '4', 'auto'],
+      description: 'Number of columns',
     },
     gap: {
-      control: "select",
-      options: ["1", "2", "3", "4", "5", "6"],
-      description: "Gap between cards",
+      control: 'select',
+      options: ['1', '2', '3', '4', '5', '6'],
+      description: 'Gap between cards',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // ============================================================================
 // Basic Examples
@@ -49,15 +49,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    size: "2",
-    variant: "surface",
-    color: "default",
-    columns: "3",
-    gap: "4",
+    size: '2',
+    variant: 'surface',
+    color: 'default',
+    columns: '3',
+    gap: '4',
   },
-  render: (args) => (
+  render: args => (
     <CheckboxCards.Root
-      defaultValue={["1"]}
+      defaultValue={['1']}
       size={args.size}
       variant={args.variant}
       color={args.color}
@@ -78,19 +78,19 @@ export const Default: Story = {
       </CheckboxCards.Item>
     </CheckboxCards.Root>
   ),
-};
+}
 
 export const WithIcons: Story = {
   args: {
-    size: "2",
-    variant: "surface",
-    color: "default",
-    columns: "3",
-    gap: "4",
+    size: '2',
+    variant: 'surface',
+    color: 'default',
+    columns: '3',
+    gap: '4',
   },
-  render: (args) => (
+  render: args => (
     <CheckboxCards.Root
-      defaultValue={["wifi"]}
+      defaultValue={['wifi']}
       size={args.size}
       variant={args.variant}
       color={args.color}
@@ -120,7 +120,7 @@ export const WithIcons: Story = {
       </CheckboxCards.Item>
     </CheckboxCards.Root>
   ),
-};
+}
 
 // ============================================================================
 // Sizes
@@ -131,7 +131,7 @@ export const AllSizes: Story = {
     <Box display="flex" className="flex-col gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">Size 1 (Extra Small)</h3>
-        <CheckboxCards.Root size="1" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="1" columns="3" defaultValue={['a']}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -146,7 +146,7 @@ export const AllSizes: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Size 2 (Small, default)</h3>
-        <CheckboxCards.Root size="2" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="2" columns="3" defaultValue={['a']}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -161,7 +161,7 @@ export const AllSizes: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Size 3 (Medium)</h3>
-        <CheckboxCards.Root size="3" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="3" columns="3" defaultValue={['a']}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -176,7 +176,7 @@ export const AllSizes: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Size 4 (Large)</h3>
-        <CheckboxCards.Root size="4" columns="3" defaultValue={["a"]}>
+        <CheckboxCards.Root size="4" columns="3" defaultValue={['a']}>
           <CheckboxCards.Item value="a">
             <div className="font-medium">Option A</div>
           </CheckboxCards.Item>
@@ -190,7 +190,7 @@ export const AllSizes: Story = {
       </div>
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Variants
@@ -198,7 +198,7 @@ export const AllSizes: Story = {
 
 export const VariantSurface: Story = {
   render: () => (
-    <CheckboxCards.Root variant="surface" columns="3" defaultValue={["1"]}>
+    <CheckboxCards.Root variant="surface" columns="3" defaultValue={['1']}>
       <CheckboxCards.Item value="1">
         <div className="font-medium">Surface Card</div>
         <div className="text-muted-foreground">With background</div>
@@ -213,11 +213,11 @@ export const VariantSurface: Story = {
       </CheckboxCards.Item>
     </CheckboxCards.Root>
   ),
-};
+}
 
 export const VariantOutline: Story = {
   render: () => (
-    <CheckboxCards.Root variant="outline" columns="3" defaultValue={["1"]}>
+    <CheckboxCards.Root variant="outline" columns="3" defaultValue={['1']}>
       <CheckboxCards.Item value="1">
         <div className="font-medium">Outline Card</div>
         <div className="text-muted-foreground">Transparent background</div>
@@ -232,7 +232,7 @@ export const VariantOutline: Story = {
       </CheckboxCards.Item>
     </CheckboxCards.Root>
   ),
-};
+}
 
 // ============================================================================
 // Colors
@@ -241,27 +241,25 @@ export const VariantOutline: Story = {
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6">
-      {(["default", "primary", "info", "success", "warning", "error"] as const).map(
-        (color) => (
-          <div key={color}>
-            <h3 className="text-sm font-medium mb-3 capitalize">{color}</h3>
-            <CheckboxCards.Root color={color} columns="3" defaultValue={["1"]}>
-              <CheckboxCards.Item value="1">
-                <div className="font-medium">Selected</div>
-              </CheckboxCards.Item>
-              <CheckboxCards.Item value="2">
-                <div className="font-medium">Unselected</div>
-              </CheckboxCards.Item>
-              <CheckboxCards.Item value="3">
-                <div className="font-medium">Unselected</div>
-              </CheckboxCards.Item>
-            </CheckboxCards.Root>
-          </div>
-        ),
-      )}
+      {(['default', 'primary', 'info', 'success', 'warning', 'error'] as const).map(color => (
+        <div key={color}>
+          <h3 className="text-sm font-medium mb-3 capitalize">{color}</h3>
+          <CheckboxCards.Root color={color} columns="3" defaultValue={['1']}>
+            <CheckboxCards.Item value="1">
+              <div className="font-medium">Selected</div>
+            </CheckboxCards.Item>
+            <CheckboxCards.Item value="2">
+              <div className="font-medium">Unselected</div>
+            </CheckboxCards.Item>
+            <CheckboxCards.Item value="3">
+              <div className="font-medium">Unselected</div>
+            </CheckboxCards.Item>
+          </CheckboxCards.Root>
+        </div>
+      ))}
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Columns
@@ -272,7 +270,7 @@ export const ColumnLayouts: Story = {
     <Box display="flex" className="flex-col gap-8">
       <div>
         <h3 className="text-sm font-medium mb-3">1 Column</h3>
-        <CheckboxCards.Root columns="1" defaultValue={["1"]}>
+        <CheckboxCards.Root columns="1" defaultValue={['1']}>
           <CheckboxCards.Item value="1">
             <div className="font-medium">Full Width</div>
           </CheckboxCards.Item>
@@ -284,7 +282,7 @@ export const ColumnLayouts: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">2 Columns</h3>
-        <CheckboxCards.Root columns="2" defaultValue={["1"]}>
+        <CheckboxCards.Root columns="2" defaultValue={['1']}>
           <CheckboxCards.Item value="1">
             <div className="font-medium">Half Width</div>
           </CheckboxCards.Item>
@@ -302,7 +300,7 @@ export const ColumnLayouts: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">4 Columns</h3>
-        <CheckboxCards.Root columns="4" defaultValue={["1"]}>
+        <CheckboxCards.Root columns="4" defaultValue={['1']}>
           <CheckboxCards.Item value="1">
             <div className="font-medium">Quarter</div>
           </CheckboxCards.Item>
@@ -320,7 +318,7 @@ export const ColumnLayouts: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Auto (minmax 200px)</h3>
-        <CheckboxCards.Root columns="auto" defaultValue={["1"]}>
+        <CheckboxCards.Root columns="auto" defaultValue={['1']}>
           <CheckboxCards.Item value="1">
             <div className="font-medium">Auto Width</div>
           </CheckboxCards.Item>
@@ -340,7 +338,7 @@ export const ColumnLayouts: Story = {
       </div>
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Disabled States
@@ -351,7 +349,7 @@ export const Disabled: Story = {
     <Box display="flex" className="flex-col gap-6">
       <div>
         <h3 className="text-sm font-medium mb-3">All Disabled</h3>
-        <CheckboxCards.Root disabled columns="3" defaultValue={["1"]}>
+        <CheckboxCards.Root disabled columns="3" defaultValue={['1']}>
           <CheckboxCards.Item value="1">
             <div className="font-medium">Disabled</div>
           </CheckboxCards.Item>
@@ -366,7 +364,7 @@ export const Disabled: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-3">Single Item Disabled</h3>
-        <CheckboxCards.Root columns="3" defaultValue={["1"]}>
+        <CheckboxCards.Root columns="3" defaultValue={['1']}>
           <CheckboxCards.Item value="1">
             <div className="font-medium">Enabled</div>
           </CheckboxCards.Item>
@@ -380,7 +378,7 @@ export const Disabled: Story = {
       </div>
     </Box>
   ),
-};
+}
 
 // ============================================================================
 // Controlled Example
@@ -388,16 +386,11 @@ export const Disabled: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [values, setValues] = React.useState<string[]>(["monitor"]);
+    const [values, setValues] = React.useState<string[]>(['monitor'])
 
     return (
       <Box display="flex" className="flex-col gap-4">
-        <CheckboxCards.Root
-          value={values}
-          onValueChange={setValues}
-          columns="4"
-          color="primary"
-        >
+        <CheckboxCards.Root value={values} onValueChange={setValues} columns="4" color="primary">
           <CheckboxCards.Item value="monitor">
             <div className="flex items-center gap-2">
               <Monitor className="h-5 w-5" />
@@ -426,14 +419,12 @@ export const Controlled: Story = {
 
         <div className="p-4 bg-muted rounded-md">
           <p className="text-sm font-medium">Selected devices:</p>
-          <code className="text-sm">
-            {values.length > 0 ? values.join(", ") : "none"}
-          </code>
+          <code className="text-sm">{values.length > 0 ? values.join(', ') : 'none'}</code>
         </div>
       </Box>
-    );
+    )
   },
-};
+}
 
 // ============================================================================
 // Real-world Example: Subscription Features
@@ -441,76 +432,66 @@ export const Controlled: Story = {
 
 export const SubscriptionFeatures: Story = {
   render: () => {
-    const [features, setFeatures] = React.useState<string[]>(["analytics"]);
+    const [features, setFeatures] = React.useState<string[]>(['analytics'])
 
     const featureList = [
       {
-        value: "analytics",
-        title: "Advanced Analytics",
-        description: "Get detailed insights and reports",
-        price: "$10/mo",
+        value: 'analytics',
+        title: 'Advanced Analytics',
+        description: 'Get detailed insights and reports',
+        price: '$10/mo',
       },
       {
-        value: "support",
-        title: "Priority Support",
-        description: "24/7 dedicated support team",
-        price: "$15/mo",
+        value: 'support',
+        title: 'Priority Support',
+        description: '24/7 dedicated support team',
+        price: '$15/mo',
       },
       {
-        value: "api",
-        title: "API Access",
-        description: "Full REST API integration",
-        price: "$20/mo",
+        value: 'api',
+        title: 'API Access',
+        description: 'Full REST API integration',
+        price: '$20/mo',
       },
       {
-        value: "storage",
-        title: "Extra Storage",
-        description: "100GB additional cloud storage",
-        price: "$5/mo",
+        value: 'storage',
+        title: 'Extra Storage',
+        description: '100GB additional cloud storage',
+        price: '$5/mo',
       },
       {
-        value: "backup",
-        title: "Daily Backups",
-        description: "Automated daily data backups",
-        price: "$8/mo",
+        value: 'backup',
+        title: 'Daily Backups',
+        description: 'Automated daily data backups',
+        price: '$8/mo',
       },
       {
-        value: "sso",
-        title: "SSO Integration",
-        description: "Single sign-on for your team",
-        price: "$12/mo",
+        value: 'sso',
+        title: 'SSO Integration',
+        description: 'Single sign-on for your team',
+        price: '$12/mo',
       },
-    ];
+    ]
 
     const total = features.reduce((sum, f) => {
-      const feature = featureList.find((fl) => fl.value === f);
-      return sum + (feature ? parseInt(feature.price, 10) : 0);
-    }, 0);
+      const feature = featureList.find(fl => fl.value === f)
+      return sum + (feature ? parseInt(feature.price, 10) : 0)
+    }, 0)
 
     return (
       <div className="max-w-3xl space-y-6">
         <div>
           <h3 className="text-lg font-semibold">Add-on Features</h3>
-          <p className="text-muted-foreground">
-            Select the features you want to add to your plan.
-          </p>
+          <p className="text-muted-foreground">Select the features you want to add to your plan.</p>
         </div>
 
-        <CheckboxCards.Root
-          value={features}
-          onValueChange={setFeatures}
-          columns="2"
-          gap="4"
-          color="success"
-        >
-          {featureList.map((feature) => (
+        <CheckboxCards.Root value={features} onValueChange={setFeatures} columns="2" gap="4" color="success">
+          {featureList.map(feature => (
             <CheckboxCards.Item key={feature.value} value={feature.value}>
               <div className="flex justify-between items-start w-full">
                 <div>
                   <div className="font-medium">{feature.title}</div>
-                  <div className="text-muted-foreground text-sm">
-                    {feature.description}
-                  </div>
+                  <div className="text-muted-foreground text-sm">{feature.description}</div>
                 </div>
                 <div className="font-semibold text-primary">{feature.price}</div>
               </div>
@@ -523,6 +504,6 @@ export const SubscriptionFeatures: Story = {
           <span className="text-xl font-bold">${total}/mo</span>
         </div>
       </div>
-    );
+    )
   },
-};
+}

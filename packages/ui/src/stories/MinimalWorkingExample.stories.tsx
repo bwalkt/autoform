@@ -1,7 +1,7 @@
 import { AjvProvider } from '@bwalkt/ajv'
+import { AutoForm } from '@bwalkt/shadcn/components/ui/autoform'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
-import { AutoForm } from '@bwalkt/shadcn/components/ui/autoform'
 
 const meta: Meta = {
   title: 'AJV/Working Example',

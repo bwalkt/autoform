@@ -1,11 +1,11 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
 
 export interface QuoteProps extends React.HTMLAttributes<HTMLQuoteElement> {
   /** Whether to truncate text with ellipsis */
-  truncate?: boolean;
+  truncate?: boolean
   /** Text wrapping behavior */
-  wrap?: "wrap" | "nowrap" | "pretty" | "balance";
+  wrap?: 'wrap' | 'nowrap' | 'pretty' | 'balance'
 }
 
 /**
@@ -13,33 +13,25 @@ export interface QuoteProps extends React.HTMLAttributes<HTMLQuoteElement> {
  * Renders as a `<q>` element which automatically adds quotation marks.
  */
 export const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
-  (
-    {
-      truncate = false,
-      wrap = "wrap",
-      className,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ truncate = false, wrap = 'wrap', className, ...props }, ref) => {
     return (
       <q
         ref={ref}
         className={cn(
           // Truncation
-          truncate && "truncate",
+          truncate && 'truncate',
 
           // Text wrapping
-          wrap === "nowrap" && "whitespace-nowrap",
-          wrap === "pretty" && "text-pretty",
-          wrap === "balance" && "text-balance",
+          wrap === 'nowrap' && 'whitespace-nowrap',
+          wrap === 'pretty' && 'text-pretty',
+          wrap === 'balance' && 'text-balance',
 
-          className
+          className,
         )}
         {...props}
       />
-    );
+    )
   },
-);
+)
 
-Quote.displayName = "Quote";
+Quote.displayName = 'Quote'

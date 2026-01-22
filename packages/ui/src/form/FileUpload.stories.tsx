@@ -1,71 +1,65 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { FileUpload, acceptPresets, type UploadedFile } from "./FileUpload";
-import { Label } from "./Label";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { acceptPresets, FileUpload, type UploadedFile } from './FileUpload'
+import { Label } from './Label'
 
 const meta: Meta<typeof FileUpload> = {
-  title: "Form/FileUpload",
+  title: 'Form/FileUpload',
   component: FileUpload,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "minimal", "card"],
+      control: 'select',
+      options: ['default', 'minimal', 'card'],
     },
     multiple: {
-      control: "boolean",
+      control: 'boolean',
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
     },
     showFileList: {
-      control: "boolean",
+      control: 'boolean',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof FileUpload>;
+export default meta
+type Story = StoryObj<typeof FileUpload>
 
 // Simulated upload function
-const simulateUpload = async (
-  _file: File,
-  onProgress: (progress: number) => void,
-): Promise<void> => {
-  const totalSteps = 10;
+const simulateUpload = async (_file: File, onProgress: (progress: number) => void): Promise<void> => {
+  const totalSteps = 10
   for (let i = 1; i <= totalSteps; i++) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    onProgress((i / totalSteps) * 100);
+    await new Promise(resolve => setTimeout(resolve, 200))
+    onProgress((i / totalSteps) * 100)
   }
-};
+}
 
 // Simulated upload that sometimes fails
-const simulateUploadWithError = async (
-  file: File,
-  onProgress: (progress: number) => void,
-): Promise<void> => {
-  const totalSteps = 10;
-  const shouldFail = file.size > 1024 * 1024;
+const simulateUploadWithError = async (file: File, onProgress: (progress: number) => void): Promise<void> => {
+  const totalSteps = 10
+  const shouldFail = file.size > 1024 * 1024
   for (let i = 1; i <= totalSteps; i++) {
-    await new Promise((resolve) => setTimeout(resolve, 150));
-    onProgress((i / totalSteps) * 100);
+    await new Promise(resolve => setTimeout(resolve, 150))
+    onProgress((i / totalSteps) * 100)
     // Fail at 60% for files larger than 1MB
     if (i === 6 && shouldFail) {
-      throw new Error("File too large for demo");
+      throw new Error('File too large for demo')
     }
   }
-};
+}
 
 // Default dropzone
 export const Default: Story = {
-  render: (args) => (
+  render: args => (
     <div className="w-[400px]">
       <FileUpload {...args} />
     </div>
   ),
-};
+}
 
 // With label
 export const WithLabel: Story = {
@@ -75,7 +69,7 @@ export const WithLabel: Story = {
       <FileUpload accept={acceptPresets.documents} />
     </div>
   ),
-};
+}
 
 // Single file
 export const SingleFile: Story = {
@@ -91,7 +85,7 @@ export const SingleFile: Story = {
       />
     </div>
   ),
-};
+}
 
 // Images only
 export const ImagesOnly: Story = {
@@ -106,7 +100,7 @@ export const ImagesOnly: Story = {
       />
     </div>
   ),
-};
+}
 
 // Documents only
 export const DocumentsOnly: Story = {
@@ -120,7 +114,7 @@ export const DocumentsOnly: Story = {
       />
     </div>
   ),
-};
+}
 
 // Spreadsheets
 export const Spreadsheets: Story = {
@@ -135,7 +129,7 @@ export const Spreadsheets: Story = {
       />
     </div>
   ),
-};
+}
 
 // Variants
 export const Variants: Story = {
@@ -155,56 +149,42 @@ export const Variants: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // With simulated upload
 export const WithUploadProgress: Story = {
   render: () => {
-    const [files, setFiles] = useState<UploadedFile[]>([]);
+    const [files, setFiles] = useState<UploadedFile[]>([])
 
     return (
       <div className="w-[400px] space-y-2">
         <Label>Upload with progress</Label>
-        <FileUpload
-          value={files}
-          onChange={setFiles}
-          onUpload={simulateUpload}
-          accept={acceptPresets.images}
-        />
-        <p className="text-xs text-muted-foreground">
-          Files will upload automatically with progress indicator
-        </p>
+        <FileUpload value={files} onChange={setFiles} onUpload={simulateUpload} accept={acceptPresets.images} />
+        <p className="text-xs text-muted-foreground">Files will upload automatically with progress indicator</p>
       </div>
-    );
+    )
   },
-};
+}
 
 // With upload errors
 export const WithUploadErrors: Story = {
   render: () => {
-    const [files, setFiles] = useState<UploadedFile[]>([]);
+    const [files, setFiles] = useState<UploadedFile[]>([])
 
     return (
       <div className="w-[400px] space-y-2">
         <Label>Upload with potential errors</Label>
-        <FileUpload
-          value={files}
-          onChange={setFiles}
-          onUpload={simulateUploadWithError}
-          maxSize={50 * 1024 * 1024}
-        />
-        <p className="text-xs text-muted-foreground">
-          Files larger than 1MB will fail at 60% (for demo purposes)
-        </p>
+        <FileUpload value={files} onChange={setFiles} onUpload={simulateUploadWithError} maxSize={50 * 1024 * 1024} />
+        <p className="text-xs text-muted-foreground">Files larger than 1MB will fail at 60% (for demo purposes)</p>
       </div>
-    );
+    )
   },
-};
+}
 
 // Controlled state
 export const Controlled: Story = {
   render: () => {
-    const [files, setFiles] = useState<UploadedFile[]>([]);
+    const [files, setFiles] = useState<UploadedFile[]>([])
 
     return (
       <div className="w-[400px] space-y-4">
@@ -213,11 +193,11 @@ export const Controlled: Story = {
           <FileUpload
             value={files}
             onChange={setFiles}
-            onFilesAdded={(newFiles) => {
-              console.log("Files added:", newFiles);
+            onFilesAdded={newFiles => {
+              console.log('Files added:', newFiles)
             }}
-            onFileRemove={(file) => {
-              console.log("File removed:", file.file.name);
+            onFileRemove={file => {
+              console.log('File removed:', file.file.name)
             }}
           />
         </div>
@@ -227,16 +207,16 @@ export const Controlled: Story = {
             <p className="text-sm text-muted-foreground">No files selected</p>
           ) : (
             <ul className="text-sm text-muted-foreground">
-              {files.map((f) => (
+              {files.map(f => (
                 <li key={f.id}>{f.file.name}</li>
               ))}
             </ul>
           )}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // Disabled
 export const Disabled: Story = {
@@ -246,88 +226,70 @@ export const Disabled: Story = {
       <FileUpload disabled />
     </div>
   ),
-};
+}
 
 // Max files reached
 export const MaxFilesReached: Story = {
   render: () => {
     const initialFiles: UploadedFile[] = [
       {
-        id: "1",
-        file: new File([""], "document1.pdf", { type: "application/pdf" }),
+        id: '1',
+        file: new File([''], 'document1.pdf', { type: 'application/pdf' }),
         progress: 100,
-        status: "success",
+        status: 'success',
       },
       {
-        id: "2",
-        file: new File([""], "document2.pdf", { type: "application/pdf" }),
+        id: '2',
+        file: new File([''], 'document2.pdf', { type: 'application/pdf' }),
         progress: 100,
-        status: "success",
+        status: 'success',
       },
       {
-        id: "3",
-        file: new File([""], "document3.pdf", { type: "application/pdf" }),
+        id: '3',
+        file: new File([''], 'document3.pdf', { type: 'application/pdf' }),
         progress: 100,
-        status: "success",
+        status: 'success',
       },
-    ];
+    ]
 
-    const [files, setFiles] = useState<UploadedFile[]>(initialFiles);
+    const [files, setFiles] = useState<UploadedFile[]>(initialFiles)
 
     return (
       <div className="w-[400px] space-y-2">
         <Label>Max 3 files</Label>
-        <FileUpload
-          value={files}
-          onChange={setFiles}
-          maxFiles={3}
-          accept={acceptPresets.documents}
-        />
-        <p className="text-xs text-muted-foreground">
-          Remove a file to upload more
-        </p>
+        <FileUpload value={files} onChange={setFiles} maxFiles={3} accept={acceptPresets.documents} />
+        <p className="text-xs text-muted-foreground">Remove a file to upload more</p>
       </div>
-    );
+    )
   },
-};
+}
 
 // Without file list
 export const WithoutFileList: Story = {
   render: () => {
-    const [files, setFiles] = useState<UploadedFile[]>([]);
+    const [files, setFiles] = useState<UploadedFile[]>([])
 
     return (
       <div className="w-[400px] space-y-4">
         <div className="space-y-2">
           <Label>Hidden file list</Label>
-          <FileUpload
-            value={files}
-            onChange={setFiles}
-            showFileList={false}
-          />
+          <FileUpload value={files} onChange={setFiles} showFileList={false} />
         </div>
-        {files.length > 0 && (
-          <p className="text-sm text-muted-foreground">
-            {files.length} file(s) selected
-          </p>
-        )}
+        {files.length > 0 && <p className="text-sm text-muted-foreground">{files.length} file(s) selected</p>}
       </div>
-    );
+    )
   },
-};
+}
 
 // Large file size
 export const LargeFileSize: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
       <Label>Large file upload</Label>
-      <FileUpload
-        maxSize={100 * 1024 * 1024}
-        description="Up to 100MB per file"
-      />
+      <FileUpload maxSize={100 * 1024 * 1024} description="Up to 100MB per file" />
     </div>
   ),
-};
+}
 
 // Custom placeholder
 export const CustomPlaceholder: Story = {
@@ -342,20 +304,18 @@ export const CustomPlaceholder: Story = {
       />
     </div>
   ),
-};
+}
 
 // Form example
 export const FormExample: Story = {
   render: () => {
-    const [files, setFiles] = useState<UploadedFile[]>([]);
+    const [files, setFiles] = useState<UploadedFile[]>([])
 
     return (
       <div className="w-[450px] p-6 border rounded-lg space-y-6">
         <div>
           <h3 className="font-semibold text-lg">Submit Application</h3>
-          <p className="text-sm text-muted-foreground">
-            Please upload your required documents
-          </p>
+          <p className="text-sm text-muted-foreground">Please upload your required documents</p>
         </div>
 
         <div className="space-y-4">
@@ -395,83 +355,72 @@ export const FormExample: Story = {
           Submit Application
         </button>
       </div>
-    );
+    )
   },
-};
+}
 
 // With status sections
 export const WithStatusSections: Story = {
   render: () => {
-    const [files, setFiles] = useState<UploadedFile[]>([]);
+    const [files, setFiles] = useState<UploadedFile[]>([])
 
     return (
       <div className="w-[400px] space-y-2">
         <Label>Upload with status sections</Label>
-        <FileUpload
-          value={files}
-          onChange={setFiles}
-          onUpload={simulateUpload}
-          showStatusSections
-        />
-        <p className="text-xs text-muted-foreground">
-          Files are grouped into "Uploading" and "Completed" sections
-        </p>
+        <FileUpload value={files} onChange={setFiles} onUpload={simulateUpload} showStatusSections />
+        <p className="text-xs text-muted-foreground">Files are grouped into "Uploading" and "Completed" sections</p>
       </div>
-    );
+    )
   },
-};
+}
 
 // Status sections with mixed states
 export const StatusSectionsMixed: Story = {
   render: () => {
     const initialFiles: UploadedFile[] = [
       {
-        id: "1",
-        file: new File([""], "uploading-file.pdf", { type: "application/pdf" }),
+        id: '1',
+        file: new File([''], 'uploading-file.pdf', { type: 'application/pdf' }),
         progress: 45,
-        status: "uploading",
+        status: 'uploading',
       },
       {
-        id: "2",
-        file: new File([""], "pending-file.doc", { type: "application/msword" }),
+        id: '2',
+        file: new File([''], 'pending-file.doc', { type: 'application/msword' }),
         progress: 0,
-        status: "pending",
+        status: 'pending',
       },
       {
-        id: "3",
-        file: new File([""], "completed-file.pdf", { type: "application/pdf" }),
+        id: '3',
+        file: new File([''], 'completed-file.pdf', { type: 'application/pdf' }),
         progress: 100,
-        status: "success",
+        status: 'success',
       },
       {
-        id: "4",
-        file: new File([""], "failed-file.pdf", { type: "application/pdf" }),
+        id: '4',
+        file: new File([''], 'failed-file.pdf', { type: 'application/pdf' }),
         progress: 60,
-        status: "error",
-        error: "Network error",
+        status: 'error',
+        error: 'Network error',
       },
       {
-        id: "5",
-        file: new File([""], "another-completed.doc", { type: "application/msword" }),
+        id: '5',
+        file: new File([''], 'another-completed.doc', { type: 'application/msword' }),
         progress: 100,
-        status: "success",
+        status: 'success',
       },
-    ];
+    ]
 
-    const [files, setFiles] = useState<UploadedFile[]>(initialFiles);
+    const [files, setFiles] = useState<UploadedFile[]>(initialFiles)
 
     return (
       <div className="w-[400px] space-y-2">
         <Label>Mixed status files</Label>
-        <FileUpload
-          value={files}
-          onChange={setFiles}
-          showStatusSections
-        />
+        <FileUpload value={files} onChange={setFiles} showStatusSections />
       </div>
-    );
+    )
   },
-};
+}
 
 // All accept presets
 export const AcceptPresetsShowcase: Story = {
@@ -499,4 +448,4 @@ export const AcceptPresetsShowcase: Story = {
       </div>
     </div>
   ),
-};
+}

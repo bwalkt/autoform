@@ -1,6 +1,6 @@
+import { Button } from '@bwalkt/shadcn/components/ui/button'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
-import { Button } from '@bwalkt/shadcn/components/ui/button'
 
 // For now, let's create a simplified version that demonstrates the concept
 // without complex cross-package imports

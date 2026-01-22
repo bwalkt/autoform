@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Dialog, Button } from "@/elements";
-import { Label, TextField } from "@/form";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Button, Dialog } from '@/elements'
+import { Label, TextField } from '@/form'
 
 const meta: Meta = {
-  title: "Elements/Dialog",
+  title: 'Elements/Dialog',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-};
+}
 
-export default meta;
+export default meta
 
 export const Default: StoryObj = {
   render: () => (
@@ -21,9 +21,7 @@ export const Default: StoryObj = {
         <Dialog.Close />
         <Dialog.Header>
           <Dialog.Title>Edit Profile</Dialog.Title>
-          <Dialog.Description>
-            Make changes to your profile here. Click save when you're done.
-          </Dialog.Description>
+          <Dialog.Description>Make changes to your profile here. Click save when you're done.</Dialog.Description>
         </Dialog.Header>
         <Dialog.Body>
           <div className="space-y-4">
@@ -46,12 +44,12 @@ export const Default: StoryObj = {
       </Dialog.Content>
     </Dialog.Root>
   ),
-};
+}
 
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
-      {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
         <Dialog.Root key={size}>
           <Dialog.Trigger>
             <Button variant="outline">{size.toUpperCase()}</Button>
@@ -60,14 +58,10 @@ export const Sizes: StoryObj = {
             <Dialog.Close />
             <Dialog.Header>
               <Dialog.Title>Dialog - {size.toUpperCase()}</Dialog.Title>
-              <Dialog.Description>
-                This dialog has max-width set to {size}.
-              </Dialog.Description>
+              <Dialog.Description>This dialog has max-width set to {size}.</Dialog.Description>
             </Dialog.Header>
             <Dialog.Body>
-              <p className="text-muted-foreground">
-                Content goes here. The dialog will not exceed the {size} width.
-              </p>
+              <p className="text-muted-foreground">Content goes here. The dialog will not exceed the {size} width.</p>
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.Trigger>
@@ -79,7 +73,7 @@ export const Sizes: StoryObj = {
       ))}
     </div>
   ),
-};
+}
 
 export const WithForm: StoryObj = {
   render: () => (
@@ -91,9 +85,7 @@ export const WithForm: StoryObj = {
         <Dialog.Close />
         <Dialog.Header>
           <Dialog.Title>Create Account</Dialog.Title>
-          <Dialog.Description>
-            Fill in the details below to create your account.
-          </Dialog.Description>
+          <Dialog.Description>Fill in the details below to create your account.</Dialog.Description>
         </Dialog.Header>
         <Dialog.Body>
           <form className="space-y-4">
@@ -126,7 +118,7 @@ export const WithForm: StoryObj = {
       </Dialog.Content>
     </Dialog.Root>
   ),
-};
+}
 
 export const ScrollableContent: StoryObj = {
   render: () => (
@@ -138,20 +130,16 @@ export const ScrollableContent: StoryObj = {
         <Dialog.Close />
         <Dialog.Header>
           <Dialog.Title>Terms of Service</Dialog.Title>
-          <Dialog.Description>
-            Please read and accept our terms of service.
-          </Dialog.Description>
+          <Dialog.Description>Please read and accept our terms of service.</Dialog.Description>
         </Dialog.Header>
         <Dialog.Body className="max-h-[60vh] overflow-y-auto">
           <div className="space-y-4 text-sm text-muted-foreground">
             {Array.from({ length: 10 }).map((_, i) => (
               <p key={i}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.
               </p>
             ))}
           </div>
@@ -165,4 +153,4 @@ export const ScrollableContent: StoryObj = {
       </Dialog.Content>
     </Dialog.Root>
   ),
-};
+}

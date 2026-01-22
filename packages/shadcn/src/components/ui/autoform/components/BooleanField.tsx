@@ -1,26 +1,21 @@
-import type React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import type { AutoFormFieldProps } from "@bwalkt/react";
-import { Label } from "../../label";
+import type { AutoFormFieldProps } from '@bwalkt/react'
+import type React from 'react'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '../../label'
 
-export const BooleanField: React.FC<AutoFormFieldProps> = ({
-  field,
-  label,
-  id,
-  inputProps,
-}) => (
+export const BooleanField: React.FC<AutoFormFieldProps> = ({ field, label, id, inputProps }) => (
   <div className="flex items-center space-x-2">
     <Checkbox
       id={id}
-      onCheckedChange={(checked) => {
+      onCheckedChange={checked => {
         // react-hook-form expects an event object
         const event = {
           target: {
             name: field.key,
             value: checked,
           },
-        };
-        inputProps.onChange(event);
+        }
+        inputProps.onChange(event)
       }}
       checked={inputProps.value}
     />
@@ -29,4 +24,4 @@ export const BooleanField: React.FC<AutoFormFieldProps> = ({
       {field.required && <span className="text-destructive"> *</span>}
     </Label>
   </div>
-);
+)

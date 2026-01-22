@@ -1,2 +1,2 @@
 // Clipboard
-export { useClipboard, type UseClipboardOptions, type UseClipboardReturn } from "./useClipboard";
+export { type UseClipboardOptions, type UseClipboardReturn, useClipboard } from './useClipboard'

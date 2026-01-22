@@ -1,37 +1,37 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { PasswordInput } from "./PasswordInput";
-import { Label } from "./Label";
-import { Lock } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Lock } from 'lucide-react'
+import { useState } from 'react'
+import { Label } from './Label'
+import { PasswordInput } from './PasswordInput'
 
 const meta: Meta<typeof PasswordInput> = {
-  title: "Form/PasswordInput",
+  title: 'Form/PasswordInput',
   component: PasswordInput,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["1", "2", "3", "4"],
+      control: 'select',
+      options: ['1', '2', '3', '4'],
     },
     variant: {
-      control: "select",
-      options: ["classic", "solid", "soft", "surface", "outline", "ghost"],
+      control: 'select',
+      options: ['classic', 'solid', 'soft', 'surface', 'outline', 'ghost'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof PasswordInput>;
+export default meta
+type Story = StoryObj<typeof PasswordInput>
 
 export const Default: Story = {
-  render: (args) => (
+  render: args => (
     <div className="w-80">
       <PasswordInput {...args} placeholder="Enter password" />
     </div>
   ),
-};
+}
 
 export const WithLabel: Story = {
   render: () => (
@@ -40,11 +40,11 @@ export const WithLabel: Story = {
       <PasswordInput id="password" placeholder="Enter password" />
     </div>
   ),
-};
+}
 
 export const WithStrengthIndicator: Story = {
   render: () => {
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState('')
 
     return (
       <div className="w-80 space-y-2">
@@ -52,52 +52,48 @@ export const WithStrengthIndicator: Story = {
         <PasswordInput
           id="strong-password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           placeholder="Enter a strong password"
           showStrength
         />
         <ul className="text-xs text-muted-foreground space-y-1 mt-2">
-          <li className={password.length >= 8 ? "text-green-600" : ""}>
-            {password.length >= 8 ? "✓" : "○"} At least 8 characters
+          <li className={password.length >= 8 ? 'text-green-600' : ''}>
+            {password.length >= 8 ? '✓' : '○'} At least 8 characters
           </li>
-          <li className={/[A-Z]/.test(password) && /[a-z]/.test(password) ? "text-green-600" : ""}>
-            {/[A-Z]/.test(password) && /[a-z]/.test(password) ? "✓" : "○"} Upper & lowercase letters
+          <li className={/[A-Z]/.test(password) && /[a-z]/.test(password) ? 'text-green-600' : ''}>
+            {/[A-Z]/.test(password) && /[a-z]/.test(password) ? '✓' : '○'} Upper & lowercase letters
           </li>
-          <li className={/\d/.test(password) ? "text-green-600" : ""}>
-            {/\d/.test(password) ? "✓" : "○"} At least one number
+          <li className={/\d/.test(password) ? 'text-green-600' : ''}>
+            {/\d/.test(password) ? '✓' : '○'} At least one number
           </li>
-          <li className={/[^a-zA-Z0-9]/.test(password) ? "text-green-600" : ""}>
-            {/[^a-zA-Z0-9]/.test(password) ? "✓" : "○"} Special character
+          <li className={/[^a-zA-Z0-9]/.test(password) ? 'text-green-600' : ''}>
+            {/[^a-zA-Z0-9]/.test(password) ? '✓' : '○'} Special character
           </li>
         </ul>
       </div>
-    );
+    )
   },
-};
+}
 
 export const WithLeftIcon: Story = {
   render: () => (
     <div className="w-80 space-y-2">
       <Label htmlFor="icon-password">Password</Label>
-      <PasswordInput
-        id="icon-password"
-        leftIcon={<Lock />}
-        placeholder="Enter password"
-      />
+      <PasswordInput id="icon-password" leftIcon={<Lock />} placeholder="Enter password" />
     </div>
   ),
-};
+}
 
 export const CustomStrengthCalculator: Story = {
   render: () => {
     // Custom calculator that requires specific patterns
     const customCalculator = (password: string): number => {
-      if (!password) return 0;
-      if (password.length < 6) return 1;
-      if (password.length < 10) return 2;
-      if (password.length < 14) return 3;
-      return 4;
-    };
+      if (!password) return 0
+      if (password.length < 6) return 1
+      if (password.length < 10) return 2
+      if (password.length < 14) return 3
+      return 4
+    }
 
     return (
       <div className="w-80 space-y-2">
@@ -108,18 +104,16 @@ export const CustomStrengthCalculator: Story = {
           showStrength
           strengthCalculator={customCalculator}
         />
-        <p className="text-xs text-muted-foreground">
-          Strength is based on password length only
-        </p>
+        <p className="text-xs text-muted-foreground">Strength is based on password length only</p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-6">
-      {(["1", "2", "3", "4"] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map(size => (
         <div key={size} className="space-y-2">
           <Label>Size {size}</Label>
           <PasswordInput size={size} placeholder="Password" />
@@ -127,12 +121,12 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-6">
-      {(["classic", "solid", "soft", "surface", "outline", "ghost"] as const).map((variant) => (
+      {(['classic', 'solid', 'soft', 'surface', 'outline', 'ghost'] as const).map(variant => (
         <div key={variant} className="space-y-2">
           <Label className="capitalize">{variant}</Label>
           <PasswordInput variant={variant} placeholder="Password" />
@@ -140,7 +134,7 @@ export const Variants: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -149,7 +143,7 @@ export const Disabled: Story = {
       <PasswordInput disabled value="secretpassword" />
     </div>
   ),
-};
+}
 
 export const WithError: Story = {
   render: () => (
@@ -159,12 +153,12 @@ export const WithError: Story = {
       <p className="text-xs text-destructive">Password is required</p>
     </div>
   ),
-};
+}
 
 export const LoginForm: Story = {
   render: () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     return (
       <div className="w-96 p-6 border rounded-lg space-y-6">
@@ -180,7 +174,7 @@ export const LoginForm: Story = {
               id="login-email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               className="w-full px-3 py-2 border rounded-md"
               placeholder="you@example.com"
             />
@@ -196,28 +190,25 @@ export const LoginForm: Story = {
             <PasswordInput
               id="login-password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               placeholder="Enter password"
             />
           </div>
         </div>
 
-        <button
-          type="button"
-          className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-md font-medium"
-        >
+        <button type="button" className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-md font-medium">
           Sign In
         </button>
       </div>
-    );
+    )
   },
-};
+}
 
 export const SignupForm: Story = {
   render: () => {
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const passwordsMatch = password === confirmPassword && password.length > 0;
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const passwordsMatch = password === confirmPassword && password.length > 0
 
     return (
       <div className="w-96 p-6 border rounded-lg space-y-6">
@@ -232,7 +223,7 @@ export const SignupForm: Story = {
             <PasswordInput
               id="new-password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               placeholder="Create a password"
               showStrength
             />
@@ -243,7 +234,7 @@ export const SignupForm: Story = {
             <PasswordInput
               id="confirm-password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={e => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
               error={confirmPassword.length > 0 && !passwordsMatch}
             />
@@ -261,6 +252,6 @@ export const SignupForm: Story = {
           Create Account
         </button>
       </div>
-    );
+    )
   },
-};
+}

@@ -1,44 +1,44 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Grid } from "./Grid";
-import { Box } from "./Box";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Box } from './Box'
+import { Grid } from './Grid'
 
 const meta: Meta<typeof Grid> = {
-  title: "Layouts/Grid",
+  title: 'Layouts/Grid',
   component: Grid,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     columns: {
-      control: "text",
+      control: 'text',
     },
     rows: {
-      control: "text",
+      control: 'text',
     },
     gap: {
-      control: "select",
-      options: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+      control: 'select',
+      options: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     },
     align: {
-      control: "select",
-      options: ["start", "center", "end", "baseline", "stretch"],
+      control: 'select',
+      options: ['start', 'center', 'end', 'baseline', 'stretch'],
     },
     justify: {
-      control: "select",
-      options: ["start", "center", "end", "between"],
+      control: 'select',
+      options: ['start', 'center', 'end', 'between'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 const DemoBox = ({ children }: { children: React.ReactNode }) => (
   <Box p="4" className="bg-primary text-primary-foreground rounded-md text-center">
     {children}
   </Box>
-);
+)
 
 // ============================================================================
 // Basic Examples
@@ -55,7 +55,7 @@ export const Default: Story = {
       <DemoBox>6</DemoBox>
     </Grid>
   ),
-};
+}
 
 // ============================================================================
 // Column Examples
@@ -64,7 +64,7 @@ export const Default: Story = {
 export const ColumnVariants: Story = {
   render: () => (
     <div className="space-y-6 w-[500px]">
-      {(["1", "2", "3", "4", "5", "6"] as const).map((cols) => (
+      {(['1', '2', '3', '4', '5', '6'] as const).map(cols => (
         <div key={cols}>
           <p className="text-sm text-muted-foreground mb-2">columns="{cols}"</p>
           <Grid columns={cols} gap="2">
@@ -76,7 +76,7 @@ export const ColumnVariants: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const CustomColumns: Story = {
   render: () => (
@@ -107,7 +107,7 @@ export const CustomColumns: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Row Examples
@@ -129,7 +129,7 @@ export const RowsAndColumns: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Gap Examples
@@ -138,7 +138,7 @@ export const RowsAndColumns: Story = {
 export const GapVariants: Story = {
   render: () => (
     <div className="space-y-6 w-[400px]">
-      {(["1", "3", "5", "7", "9"] as const).map((gap) => (
+      {(['1', '3', '5', '7', '9'] as const).map(gap => (
         <div key={gap}>
           <p className="text-sm text-muted-foreground mb-2">gap="{gap}"</p>
           <Grid columns="3" gap={gap} className="bg-muted/30 rounded p-2">
@@ -150,7 +150,7 @@ export const GapVariants: Story = {
       ))}
     </div>
   ),
-};
+}
 
 export const DirectionalGap: Story = {
   render: () => (
@@ -163,7 +163,7 @@ export const DirectionalGap: Story = {
       <DemoBox>6</DemoBox>
     </Grid>
   ),
-};
+}
 
 // ============================================================================
 // Alignment Examples
@@ -172,19 +172,27 @@ export const DirectionalGap: Story = {
 export const AlignItems: Story = {
   render: () => (
     <div className="space-y-6 w-[400px]">
-      {(["start", "center", "end", "stretch"] as const).map((align) => (
+      {(['start', 'center', 'end', 'stretch'] as const).map(align => (
         <div key={align}>
           <p className="text-sm text-muted-foreground mb-2">align="{align}"</p>
           <Grid columns="3" gap="4" align={align} className="bg-muted/30 rounded p-2 h-32">
-            <Box p="2" className="bg-primary text-primary-foreground rounded">Short</Box>
-            <Box p="4" className="bg-primary text-primary-foreground rounded">Tall<br />Item</Box>
-            <Box p="3" className="bg-primary text-primary-foreground rounded">Med</Box>
+            <Box p="2" className="bg-primary text-primary-foreground rounded">
+              Short
+            </Box>
+            <Box p="4" className="bg-primary text-primary-foreground rounded">
+              Tall
+              <br />
+              Item
+            </Box>
+            <Box p="3" className="bg-primary text-primary-foreground rounded">
+              Med
+            </Box>
           </Grid>
         </div>
       ))}
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Flow Examples
@@ -215,7 +223,11 @@ export const GridFlow: Story = {
         <p className="text-sm text-muted-foreground mb-2">flow="dense"</p>
         <Grid columns="3" gap="2" flow="dense" className="bg-muted/30 rounded p-2">
           <DemoBox>1</DemoBox>
-          <Box p="4" className="bg-primary text-primary-foreground rounded-md text-center" style={{ gridColumn: "span 2" }}>
+          <Box
+            p="4"
+            className="bg-primary text-primary-foreground rounded-md text-center"
+            style={{ gridColumn: 'span 2' }}
+          >
             Span 2
           </Box>
           <DemoBox>3</DemoBox>
@@ -225,7 +237,7 @@ export const GridFlow: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // ============================================================================
 // Responsive Examples
@@ -233,11 +245,7 @@ export const GridFlow: Story = {
 
 export const ResponsiveColumns: Story = {
   render: () => (
-    <Grid
-      columns={{ initial: "1", sm: "2", md: "3", lg: "4" }}
-      gap="4"
-      className="w-full max-w-[600px]"
-    >
+    <Grid columns={{ initial: '1', sm: '2', md: '3', lg: '4' }} gap="4" className="w-full max-w-[600px]">
       <DemoBox>1</DemoBox>
       <DemoBox>2</DemoBox>
       <DemoBox>3</DemoBox>
@@ -248,7 +256,7 @@ export const ResponsiveColumns: Story = {
       <DemoBox>8</DemoBox>
     </Grid>
   ),
-};
+}
 
 // ============================================================================
 // Common Patterns
@@ -266,28 +274,19 @@ export const CardGrid: Story = {
       ))}
     </Grid>
   ),
-};
+}
 
 export const DashboardLayout: Story = {
   render: () => (
-    <Grid
-      columns="250px 1fr"
-      rows="60px 1fr"
-      gap="4"
-      className="w-[800px] h-[400px]"
-    >
+    <Grid columns="250px 1fr" rows="60px 1fr" gap="4" className="w-[800px] h-[400px]">
       <Box
         className="bg-primary text-primary-foreground rounded-lg flex items-center justify-center"
-        style={{ gridColumn: "span 2" }}
+        style={{ gridColumn: 'span 2' }}
       >
         Header
       </Box>
-      <Box className="bg-muted rounded-lg flex items-center justify-center">
-        Sidebar
-      </Box>
-      <Box className="bg-card border rounded-lg flex items-center justify-center">
-        Main Content
-      </Box>
+      <Box className="bg-muted rounded-lg flex items-center justify-center">Sidebar</Box>
+      <Box className="bg-card border rounded-lg flex items-center justify-center">Main Content</Box>
     </Grid>
   ),
-};
+}
