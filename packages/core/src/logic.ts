@@ -17,13 +17,17 @@ export function getDefaultValues(schemaProvider: SchemaProvider): Record<string,
   return schemaProvider.getDefaultValues()
 }
 
+// Check if value is a plain object (not Date, RegExp, File, class instances, etc.)
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  !!value && typeof value === 'object' && !Array.isArray(value) && Object.getPrototypeOf(value) === Object.prototype
+
 // Check if a value is considered empty (null, undefined, "", [], {})
 const isEmptyValue = (value: unknown): boolean =>
   value === null ||
   value === undefined ||
   value === '' ||
   (Array.isArray(value) && value.length === 0) ||
-  (value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value as object).length === 0)
+  (isPlainObject(value) && Object.keys(value).length === 0)
 
 // Recursively remove empty values from an object (null, undefined, "", [], {})
 export function removeEmptyValues<T extends Record<string, unknown>>(values: T): Partial<T> {
@@ -36,14 +40,14 @@ export function removeEmptyValues<T extends Record<string, unknown>>(values: T):
 
     if (Array.isArray(value)) {
       const newArray = value.map((item: unknown) => {
-        if (typeof item === 'object' && item !== null) {
-          return removeEmptyValues(item as Record<string, unknown>)
+        if (isPlainObject(item)) {
+          return removeEmptyValues(item)
         }
         return item
       })
       result[key] = newArray.filter((item: unknown) => !isEmptyValue(item)) as any
-    } else if (typeof value === 'object' && value !== null) {
-      result[key] = removeEmptyValues(value as Record<string, unknown>) as any
+    } else if (isPlainObject(value)) {
+      result[key] = removeEmptyValues(value) as any
     } else {
       result[key] = value as any
     }
