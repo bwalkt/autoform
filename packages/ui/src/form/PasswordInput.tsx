@@ -207,7 +207,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     );
 
     const effectiveColor = error ? "error" : color;
-    const baseVariant = variant.startsWith("floating-") ? "outline" : variant;
+    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
     const strength = showStrength ? strengthCalculator(internalValue) : 0;
 
     return (
@@ -225,8 +225,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
             ref={ref}
             type={showPassword ? "text" : "password"}
             disabled={disabled}
-            value={value}
-            defaultValue={defaultValue}
+            value={internalValue}
             onChange={handleChange}
             className={cn(
               "w-full outline-none transition-all duration-150 ease-in-out",

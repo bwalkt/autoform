@@ -178,7 +178,7 @@ export const Justify: StoryObj = {
         <div key={justify}>
           <p className="text-sm text-muted-foreground mb-2 capitalize">justify="{justify}"</p>
           <Tabs.Root variant="line" defaultValue="tab1" className="w-[400px]">
-            <Tabs.List justify={justify}>
+            <Tabs.List justify={justify} className="w-full">
               <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
               <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
             </Tabs.List>

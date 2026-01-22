@@ -94,8 +94,8 @@ const solidColorStyles: Record<Color, string> = {
 };
 
 // Helper to check if variant is a floating type
-const isFloatingVariant = (variant: TextFieldVariant): boolean =>
-  variant.startsWith("floating-");
+const isFloatingVariant = (variant?: TextFieldVariant): boolean =>
+  variant?.startsWith("floating-") ?? false;
 
 // Get the floating style type from variant
 const getFloatingStyle = (variant: TextFieldVariant): "filled" | "standard" | "outlined" | null => {

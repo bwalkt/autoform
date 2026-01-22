@@ -207,7 +207,7 @@ export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>(
     );
 
     // Handle floating variants - strip them to base variant for simplicity
-    const baseVariant = variant.startsWith("floating-") ? "outline" : variant;
+    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
 
     return (
       <div

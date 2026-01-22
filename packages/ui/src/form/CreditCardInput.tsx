@@ -188,8 +188,10 @@ function validateExpiry(expiry: string): boolean {
   if (month < 1 || month > 12) return false;
 
   const now = new Date();
-  const cardDate = new Date(year, month - 1);
-  return cardDate >= now;
+  // Card is valid through the last day of the expiry month
+  const cardExpiry = new Date(year, month, 0); // Last day of expiry month
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return cardExpiry >= today;
 }
 
 function validateCardNumber(number: string): boolean {
@@ -376,7 +378,7 @@ export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputP
       [emitChange],
     );
 
-    const baseVariant = variant.startsWith("floating-") ? "outline" : variant;
+    const baseVariant = variant?.startsWith("floating-") ? "outline" : (variant ?? "outline");
     const inputClass = cn(
       "flex-1 bg-transparent outline-none",
       "text-[var(--element-font-size)]",
