@@ -73,7 +73,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const generatedId = React.useId()
     const textareaId = id || generatedId
 
-    const combinedStyles = {
+    const combinedStyles: React.CSSProperties = {
       ...sizeStyles,
       ...radiusStyles,
       ...style,
@@ -194,35 +194,48 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       )
     }
 
-    // Regular (non-floating) textarea
+    // Regular (non-floating) textarea - common classes
+    const regularClasses = cn(
+      'w-full outline-none transition-all duration-150 ease-in-out',
+      !autoSize && 'min-h-[calc(var(--element-height)*2)]',
+      'px-[var(--element-padding-x)] py-[var(--element-padding-y)]',
+      'text-[var(--element-font-size)] leading-[var(--element-line-height)]',
+      'rounded-[var(--element-border-radius)]',
+      resizeClass,
+      variantStyles[variant],
+      effectiveColor && colorStyles[effectiveColor],
+      disabled && 'opacity-50 cursor-not-allowed',
+      className,
+    )
+
+    // Render autoSize version with explicit typing
+    if (autoSize) {
+      return (
+        <TextareaAutosize
+          ref={ref}
+          id={textareaId}
+          aria-invalid={error || undefined}
+          className={regularClasses}
+          style={combinedStyles as React.CSSProperties & { height?: number }}
+          disabled={disabled}
+          placeholder={placeholder}
+          minRows={minRows}
+          maxRows={maxRows}
+          {...textareaProps}
+        />
+      )
+    }
+
+    // Regular textarea
     return (
-      <TextareaElement
+      <textarea
         ref={ref}
         id={textareaId}
         aria-invalid={error || undefined}
-        className={cn(
-          'w-full outline-none transition-all duration-150 ease-in-out',
-          !autoSize && 'min-h-[calc(var(--element-height)*2)]',
-          'px-[var(--element-padding-x)] py-[var(--element-padding-y)]',
-          'text-[var(--element-font-size)] leading-[var(--element-line-height)]',
-          'rounded-[var(--element-border-radius)]',
-          resizeClass,
-
-          // Variant styles
-          variantStyles[variant],
-
-          // Color overrides
-          effectiveColor && colorStyles[effectiveColor],
-
-          // Disabled state
-          disabled && 'opacity-50 cursor-not-allowed',
-
-          className,
-        )}
-        style={combinedStyles as React.CSSProperties}
+        className={regularClasses}
+        style={combinedStyles}
         disabled={disabled}
         placeholder={placeholder}
-        {...autoSizeProps}
         {...textareaProps}
       />
     )
