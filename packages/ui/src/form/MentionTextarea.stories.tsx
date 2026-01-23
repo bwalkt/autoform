@@ -319,3 +319,28 @@ export const MultiTrigger: Story = {
     )
   },
 }
+
+export const HighlightColors: Story = {
+  render: () => {
+    const [values, setValues] = React.useState<Record<string, string>>({})
+    const colors = ['default', 'primary', 'info', 'success', 'warning', 'error'] as const
+
+    return (
+      <div className="w-96 space-y-4">
+        {colors.map(color => (
+          <div key={color} className="space-y-1">
+            <Label className="capitalize">{color}</Label>
+            <MentionTextarea
+              mentions={users}
+              highlightColor={color}
+              value={values[color] || ''}
+              onValueChange={v => setValues(prev => ({ ...prev, [color]: v }))}
+              placeholder={`Type @ (${color} highlight)...`}
+              rows={2}
+            />
+          </div>
+        ))}
+      </div>
+    )
+  },
+}

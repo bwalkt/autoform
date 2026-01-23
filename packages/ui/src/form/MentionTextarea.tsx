@@ -1,8 +1,20 @@
 'use client'
 
 import * as React from 'react'
+import type { Color } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
 import { Textarea, type TextareaProps } from './Textarea'
+
+// Highlight color styles for dropdown items
+const highlightColorStyles: Record<Color, string> = {
+  default: 'bg-accent',
+  primary: 'bg-primary/10 text-primary',
+  neutral: 'bg-gray-100 dark:bg-gray-800',
+  info: 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
+  success: 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300',
+  warning: 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300',
+  error: 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300',
+}
 
 /**
  * Represents a mentionable item
@@ -37,6 +49,8 @@ export interface MentionTextareaProps extends Omit<TextareaProps, 'onChange'> {
   maxItems?: number
   /** Placeholder when no matches */
   noMatchesText?: string
+  /** Highlight color for dropdown items */
+  highlightColor?: Color
 }
 
 /**
@@ -54,6 +68,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
       renderItem,
       maxItems = 5,
       noMatchesText = 'No matches found',
+      highlightColor = 'default',
       className,
       ...props
     },
@@ -258,7 +273,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
         className={cn(
           'flex items-center gap-2 px-3 py-2 cursor-pointer',
           'transition-colors duration-150',
-          isHighlighted && 'bg-accent',
+          isHighlighted && highlightColorStyles[highlightColor],
           item.disabled && 'opacity-50 cursor-not-allowed',
         )}
       >
