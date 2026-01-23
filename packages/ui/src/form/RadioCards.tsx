@@ -72,16 +72,16 @@ const colorStyles: Record<Color, string> = {
   error: 'data-[checked]:border-red-500 data-[checked]:ring-red-500/20',
 }
 
-// Indicator color styles
+// Indicator color styles (using group-data-[checked] since the root has group class)
 const indicatorColorStyles: Record<Color, string> = {
-  default: 'data-[checked]:border-primary data-[checked]:bg-primary',
-  primary: 'data-[checked]:border-primary data-[checked]:bg-primary',
+  default: 'group-data-[checked]:border-primary group-data-[checked]:bg-primary',
+  primary: 'group-data-[checked]:border-primary group-data-[checked]:bg-primary',
   neutral:
-    'data-[checked]:border-gray-500 data-[checked]:bg-gray-500 dark:data-[checked]:border-gray-400 dark:data-[checked]:bg-gray-400',
-  info: 'data-[checked]:border-blue-500 data-[checked]:bg-blue-500',
-  success: 'data-[checked]:border-green-500 data-[checked]:bg-green-500',
-  warning: 'data-[checked]:border-amber-500 data-[checked]:bg-amber-500',
-  error: 'data-[checked]:border-red-500 data-[checked]:bg-red-500',
+    'group-data-[checked]:border-gray-500 group-data-[checked]:bg-gray-500 dark:group-data-[checked]:border-gray-400 dark:group-data-[checked]:bg-gray-400',
+  info: 'group-data-[checked]:border-blue-500 group-data-[checked]:bg-blue-500',
+  success: 'group-data-[checked]:border-green-500 group-data-[checked]:bg-green-500',
+  warning: 'group-data-[checked]:border-amber-500 group-data-[checked]:bg-amber-500',
+  error: 'group-data-[checked]:border-red-500 group-data-[checked]:bg-red-500',
 }
 
 // Context for sharing props

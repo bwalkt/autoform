@@ -223,7 +223,7 @@ export interface SwitchGroupItemProps {
  * Must be used within a SwitchGroup.Root component.
  * Displays a switch toggle with optional label and description.
  */
-const SwitchGroupItem = React.forwardRef<HTMLButtonElement, SwitchGroupItemProps>(
+const SwitchGroupItem = React.forwardRef<HTMLSpanElement, SwitchGroupItemProps>(
   ({ name, label, description, disabled, className, children, ...props }, ref) => {
     const context = React.useContext(SwitchGroupContext)
 
@@ -253,7 +253,7 @@ const SwitchGroupItem = React.forwardRef<HTMLButtonElement, SwitchGroupItemProps
     return (
       <div className={cn('flex items-start', sizeConfig.gapClass, className)}>
         <SwitchPrimitive.Root
-          ref={ref as React.Ref<HTMLElement>}
+          ref={ref}
           id={id}
           checked={isChecked}
           onCheckedChange={checked => context.onValueChange(name, checked)}
