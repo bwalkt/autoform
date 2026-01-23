@@ -172,6 +172,15 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
           return
         }
 
+        // Guard against empty list to prevent NaN from modulo
+        if (filteredItems.length === 0) {
+          if (e.key === 'Escape') {
+            e.preventDefault()
+            setIsOpen(false)
+          }
+          return
+        }
+
         switch (e.key) {
           case 'ArrowDown':
             e.preventDefault()
@@ -183,9 +192,7 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
             break
           case 'Enter':
             e.preventDefault()
-            if (filteredItems.length > 0) {
-              handleSelect(filteredItems[highlightedIndex])
-            }
+            handleSelect(filteredItems[highlightedIndex])
             break
           case 'Escape':
             e.preventDefault()

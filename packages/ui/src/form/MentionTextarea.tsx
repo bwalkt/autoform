@@ -69,6 +69,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
       trigger = '@',
       triggers: triggersProp,
       value: controlledValue,
+      defaultValue,
       onValueChange,
       onMentionSelect,
       renderItem,
@@ -80,7 +81,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
     },
     ref,
   ) => {
-    const [internalValue, setInternalValue] = React.useState(() => props.defaultValue?.toString() ?? '')
+    const [internalValue, setInternalValue] = React.useState(() => (defaultValue == null ? '' : String(defaultValue)))
     const [isOpen, setIsOpen] = React.useState(false)
     const [searchTerm, setSearchTerm] = React.useState('')
     const [activeTrigger, setActiveTrigger] = React.useState<string | null>(null)
@@ -167,14 +168,20 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
 
       const spanRect = span.getBoundingClientRect()
 
+      // Adjust for textarea scroll offset
+      const { scrollTop, scrollLeft } = textarea
+      const spanTop = spanRect.top - scrollTop
+      const spanBottom = spanRect.bottom - scrollTop
+      const spanLeft = spanRect.left - scrollLeft
+
       // Calculate position - check if dropdown should appear above or below
-      const spaceBelow = window.innerHeight - spanRect.bottom
+      const spaceBelow = window.innerHeight - spanBottom
       const dropdownHeight = 200 // Approximate max dropdown height
-      const showAbove = spaceBelow < dropdownHeight && spanRect.top > dropdownHeight
+      const showAbove = spaceBelow < dropdownHeight && spanTop > dropdownHeight
 
       return {
-        top: showAbove ? spanRect.top - dropdownHeight : spanRect.bottom + 4,
-        left: Math.max(8, Math.min(spanRect.left, window.innerWidth - 320)), // Keep within viewport
+        top: showAbove ? spanTop - dropdownHeight : spanBottom + 4,
+        left: Math.max(8, Math.min(spanLeft, window.innerWidth - 320)), // Keep within viewport
         showAbove,
       }
     }, [value])
@@ -248,6 +255,14 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
         const cursorPos = textarea.selectionStart
         const textBeforeCursor = value.slice(0, cursorPos)
         const lastTriggerIndex = textBeforeCursor.lastIndexOf(activeTrigger)
+
+        // Guard against missing trigger (cursor moved away)
+        if (lastTriggerIndex === -1) {
+          setIsOpen(false)
+          setSearchTerm('')
+          setActiveTrigger(null)
+          return
+        }
 
         const mentionValue = item.value ?? item.label
         const newValue = `${value.slice(0, lastTriggerIndex)}${activeTrigger}${mentionValue} ${value.slice(cursorPos)}`
