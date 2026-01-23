@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import type { Color } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
 import { Textarea, type TextareaProps } from './Textarea'
@@ -32,24 +33,38 @@ export interface MentionItem {
   disabled?: boolean
 }
 
+/**
+ * Configuration for a single trigger
+ */
+export interface TriggerConfig {
+  /** The trigger character (e.g., "@", "#") */
+  trigger: string
+  /** List of mentionable items for this trigger */
+  items: MentionItem[]
+  /** Highlight color for this trigger's dropdown */
+  highlightColor?: Color
+}
+
 export interface MentionTextareaProps extends Omit<TextareaProps, 'onChange'> {
-  /** List of mentionable items */
-  mentions: MentionItem[]
-  /** Trigger character (default: "@") */
+  /** List of mentionable items (used with single trigger) */
+  mentions?: MentionItem[]
+  /** Trigger character (default: "@") - used with mentions prop */
   trigger?: string
+  /** Multiple triggers configuration - overrides mentions/trigger props */
+  triggers?: TriggerConfig[]
   /** Controlled value */
   value?: string
   /** Callback when value changes */
   onValueChange?: (value: string) => void
   /** Callback when a mention is selected */
-  onMentionSelect?: (item: MentionItem) => void
+  onMentionSelect?: (item: MentionItem, trigger: string) => void
   /** Custom render function for mention items */
-  renderItem?: (item: MentionItem, isHighlighted: boolean) => React.ReactNode
+  renderItem?: (item: MentionItem, isHighlighted: boolean, trigger: string) => React.ReactNode
   /** Maximum items to show in dropdown */
   maxItems?: number
   /** Placeholder when no matches */
   noMatchesText?: string
-  /** Highlight color for dropdown items */
+  /** Highlight color for dropdown items (default trigger) */
   highlightColor?: Color
 }
 
@@ -62,6 +77,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
     {
       mentions,
       trigger = '@',
+      triggers: triggersProp,
       value: controlledValue,
       onValueChange,
       onMentionSelect,
@@ -77,8 +93,24 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
     const [internalValue, setInternalValue] = React.useState('')
     const [isOpen, setIsOpen] = React.useState(false)
     const [searchTerm, setSearchTerm] = React.useState('')
+    const [activeTrigger, setActiveTrigger] = React.useState<string | null>(null)
+
+    // Normalize triggers - either from triggers prop or single trigger/mentions
+    const triggers = React.useMemo<TriggerConfig[]>(() => {
+      if (triggersProp && triggersProp.length > 0) {
+        return triggersProp
+      }
+      if (mentions) {
+        return [{ trigger, items: mentions, highlightColor }]
+      }
+      return []
+    }, [triggersProp, mentions, trigger, highlightColor])
     const [highlightedIndex, setHighlightedIndex] = React.useState(0)
-    const [triggerPosition, setTriggerPosition] = React.useState<{ top: number; left: number } | null>(null)
+    const [triggerPosition, setTriggerPosition] = React.useState<{
+      top: number
+      left: number
+      showAbove?: boolean
+    } | null>(null)
 
     const textareaRef = React.useRef<HTMLTextAreaElement>(null)
     const dropdownRef = React.useRef<HTMLDivElement>(null)
@@ -91,14 +123,24 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
     // Combine refs
     React.useImperativeHandle(ref, () => textareaRef.current as HTMLTextAreaElement)
 
-    // Filter mentions based on search term
-    const filteredMentions = React.useMemo(() => {
-      if (!searchTerm) return mentions.slice(0, maxItems)
-      const lower = searchTerm.toLowerCase()
-      return mentions.filter(m => m.label.toLowerCase().includes(lower)).slice(0, maxItems)
-    }, [mentions, searchTerm, maxItems])
+    // Get active trigger config
+    const activeTriggerConfig = React.useMemo(() => {
+      return triggers.find(t => t.trigger === activeTrigger)
+    }, [triggers, activeTrigger])
 
-    // Calculate cursor position in textarea
+    // Filter mentions based on search term and active trigger
+    const filteredMentions = React.useMemo(() => {
+      if (!activeTriggerConfig) return []
+      const items = activeTriggerConfig.items
+      if (!searchTerm) return items.slice(0, maxItems)
+      const lower = searchTerm.toLowerCase()
+      return items.filter(m => m.label.toLowerCase().includes(lower)).slice(0, maxItems)
+    }, [activeTriggerConfig, searchTerm, maxItems])
+
+    // Get all trigger characters for detection
+    const triggerChars = React.useMemo(() => triggers.map(t => t.trigger), [triggers])
+
+    // Calculate cursor position in textarea (viewport coordinates for portal)
     const calculateCursorPosition = React.useCallback(() => {
       const textarea = textareaRef.current
       const mirror = mirrorRef.current
@@ -134,11 +176,16 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
       mirror.appendChild(span)
 
       const spanRect = span.getBoundingClientRect()
-      const textareaRect = textarea.getBoundingClientRect()
+
+      // Calculate position - check if dropdown should appear above or below
+      const spaceBelow = window.innerHeight - spanRect.bottom
+      const dropdownHeight = 200 // Approximate max dropdown height
+      const showAbove = spaceBelow < dropdownHeight && spanRect.top > dropdownHeight
 
       return {
-        top: spanRect.top - textareaRect.top + textarea.scrollTop + 20,
-        left: spanRect.left - textareaRect.left,
+        top: showAbove ? spanRect.top - dropdownHeight : spanRect.bottom + 4,
+        left: Math.max(8, Math.min(spanRect.left, window.innerWidth - 320)), // Keep within viewport
+        showAbove,
       }
     }, [value])
 
@@ -153,71 +200,86 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
         }
         onValueChange?.(newValue)
 
-        // Check for trigger
+        // Check for any trigger
         const textBeforeCursor = newValue.slice(0, cursorPos)
-        const lastTriggerIndex = textBeforeCursor.lastIndexOf(trigger)
 
-        if (lastTriggerIndex !== -1) {
-          // Check if trigger is at start or preceded by whitespace
-          const charBefore = textBeforeCursor[lastTriggerIndex - 1]
-          const isValidTrigger = lastTriggerIndex === 0 || /\s/.test(charBefore)
+        // Find the most recent valid trigger
+        let foundTrigger: string | null = null
+        let lastTriggerIndex = -1
 
-          if (isValidTrigger) {
-            const textAfterTrigger = textBeforeCursor.slice(lastTriggerIndex + 1)
-            // No spaces in mention search
-            if (!/\s/.test(textAfterTrigger)) {
-              setSearchTerm(textAfterTrigger)
-              setIsOpen(true)
-              setHighlightedIndex(0)
+        for (const triggerChar of triggerChars) {
+          const idx = textBeforeCursor.lastIndexOf(triggerChar)
+          if (idx > lastTriggerIndex) {
+            // Check if trigger is at start or preceded by whitespace
+            const charBefore = textBeforeCursor[idx - 1]
+            const isValidTrigger = idx === 0 || /\s/.test(charBefore)
 
-              // Calculate position after state update
-              requestAnimationFrame(() => {
-                const pos = calculateCursorPosition()
-                if (pos) setTriggerPosition(pos)
-              })
-              return
+            if (isValidTrigger) {
+              const textAfterTrigger = textBeforeCursor.slice(idx + 1)
+              // No spaces in mention search
+              if (!/\s/.test(textAfterTrigger)) {
+                foundTrigger = triggerChar
+                lastTriggerIndex = idx
+              }
             }
           }
         }
 
+        if (foundTrigger && lastTriggerIndex !== -1) {
+          const textAfterTrigger = textBeforeCursor.slice(lastTriggerIndex + 1)
+          setSearchTerm(textAfterTrigger)
+          setActiveTrigger(foundTrigger)
+          setIsOpen(true)
+          setHighlightedIndex(0)
+
+          // Calculate position after state update
+          requestAnimationFrame(() => {
+            const pos = calculateCursorPosition()
+            if (pos) setTriggerPosition(pos)
+          })
+          return
+        }
+
         setIsOpen(false)
         setSearchTerm('')
+        setActiveTrigger(null)
       },
-      [trigger, isControlled, onValueChange, calculateCursorPosition],
+      [triggerChars, isControlled, onValueChange, calculateCursorPosition],
     )
 
     // Select a mention (defined before handleKeyDown to avoid dependency issues)
     const selectMention = React.useCallback(
       (item: MentionItem) => {
-        if (item.disabled) return
+        if (item.disabled || !activeTrigger) return
 
         const textarea = textareaRef.current
         if (!textarea) return
 
         const cursorPos = textarea.selectionStart
         const textBeforeCursor = value.slice(0, cursorPos)
-        const lastTriggerIndex = textBeforeCursor.lastIndexOf(trigger)
+        const lastTriggerIndex = textBeforeCursor.lastIndexOf(activeTrigger)
 
         const mentionValue = item.value ?? item.label
-        const newValue = `${value.slice(0, lastTriggerIndex)}${trigger}${mentionValue} ${value.slice(cursorPos)}`
+        const newValue = `${value.slice(0, lastTriggerIndex)}${activeTrigger}${mentionValue} ${value.slice(cursorPos)}`
 
         if (!isControlled) {
           setInternalValue(newValue)
         }
         onValueChange?.(newValue)
-        onMentionSelect?.(item)
+        onMentionSelect?.(item, activeTrigger)
 
         setIsOpen(false)
         setSearchTerm('')
+        setActiveTrigger(null)
 
         // Move cursor after the mention
-        const newCursorPos = lastTriggerIndex + trigger.length + mentionValue.length + 1
+        const newCursorPos = lastTriggerIndex + activeTrigger.length + mentionValue.length + 1
         requestAnimationFrame(() => {
           textarea.focus()
           textarea.setSelectionRange(newCursorPos, newCursorPos)
         })
       },
-      [value, trigger, isControlled, onValueChange, onMentionSelect],
+      [value, activeTrigger, isControlled, onValueChange, onMentionSelect],
     )
 
     // Handle keyboard navigation
@@ -267,13 +329,16 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
       return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
 
+    // Get the effective highlight color for active trigger
+    const effectiveHighlightColor = activeTriggerConfig?.highlightColor ?? highlightColor
+
     // Default item renderer
     const defaultRenderItem = (item: MentionItem, isHighlighted: boolean) => (
       <div
         className={cn(
           'flex items-center gap-2 px-3 py-2 cursor-pointer',
           'transition-colors duration-150',
-          isHighlighted && highlightColorStyles[highlightColor],
+          isHighlighted && highlightColorStyles[effectiveHighlightColor],
           item.disabled && 'opacity-50 cursor-not-allowed',
         )}
       >
@@ -296,51 +361,56 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
           {...props}
         />
 
-        {/* Mention dropdown */}
-        {isOpen && triggerPosition && (
-          <div
-            ref={dropdownRef}
-            role="listbox"
-            aria-label="Mention suggestions"
-            className={cn(
-              'absolute z-50 min-w-[200px] max-w-[300px]',
-              'rounded-md border bg-popover text-popover-foreground shadow-lg',
-              'animate-in fade-in-0 zoom-in-95',
-            )}
-            style={{
-              top: triggerPosition.top,
-              left: Math.min(triggerPosition.left, 200), // Prevent overflow
-            }}
-          >
-            {filteredMentions.length > 0 ? (
-              <div className="py-1">
-                {filteredMentions.map((item, index) => (
-                  <div
-                    key={item.id}
-                    role="option"
-                    aria-selected={index === highlightedIndex}
-                    aria-disabled={item.disabled}
-                    tabIndex={-1}
-                    onClick={() => selectMention(item)}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault()
-                        selectMention(item)
-                      }
-                    }}
-                    onMouseEnter={() => setHighlightedIndex(index)}
-                  >
-                    {renderItem
-                      ? renderItem(item, index === highlightedIndex)
-                      : defaultRenderItem(item, index === highlightedIndex)}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="px-3 py-2 text-sm text-muted-foreground">{noMatchesText}</div>
-            )}
-          </div>
-        )}
+        {/* Mention dropdown - rendered via portal to avoid clipping */}
+        {isOpen &&
+          triggerPosition &&
+          ReactDOM.createPortal(
+            <div
+              ref={dropdownRef}
+              role="listbox"
+              aria-label="Mention suggestions"
+              className={cn(
+                'fixed z-[9999] min-w-[200px] max-w-[300px]',
+                'rounded-md border bg-popover text-popover-foreground shadow-lg',
+                'animate-in fade-in-0 zoom-in-95',
+                triggerPosition.showAbove && 'animate-in slide-in-from-bottom-2',
+                !triggerPosition.showAbove && 'animate-in slide-in-from-top-2',
+              )}
+              style={{
+                top: triggerPosition.top,
+                left: triggerPosition.left,
+              }}
+            >
+              {filteredMentions.length > 0 ? (
+                <div className="py-1">
+                  {filteredMentions.map((item, index) => (
+                    <div
+                      key={item.id}
+                      role="option"
+                      aria-selected={index === highlightedIndex}
+                      aria-disabled={item.disabled}
+                      tabIndex={-1}
+                      onClick={() => selectMention(item)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          selectMention(item)
+                        }
+                      }}
+                      onMouseEnter={() => setHighlightedIndex(index)}
+                    >
+                      {renderItem
+                        ? renderItem(item, index === highlightedIndex, activeTrigger || '')
+                        : defaultRenderItem(item, index === highlightedIndex)}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="px-3 py-2 text-sm text-muted-foreground">{noMatchesText}</div>
+              )}
+            </div>,
+            document.body,
+          )}
       </div>
     )
   },

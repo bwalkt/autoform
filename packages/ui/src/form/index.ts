@@ -1,5 +1,6 @@
 // Form Input Components
 
+export { type AvatarItem, AvatarPicker, type AvatarPickerProps } from './AvatarPicker'
 export {
   Checkbox,
   CheckboxGroup,
@@ -80,7 +81,7 @@ export {
   type LocationInputProps,
   type LocationValue,
 } from './LocationInput'
-export { type MentionItem, MentionTextarea, type MentionTextareaProps } from './MentionTextarea'
+export { type MentionItem, MentionTextarea, type MentionTextareaProps, type TriggerConfig } from './MentionTextarea'
 export {
   MultiSelect,
   type MultiSelectOption,

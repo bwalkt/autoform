@@ -344,3 +344,71 @@ export const HighlightColors: Story = {
     )
   },
 }
+
+export const MultipleTriggersSameTextarea: Story = {
+  render: () => {
+    const [value, setValue] = React.useState('')
+
+    return (
+      <div className="w-96 space-y-2">
+        <Label>Message with @users and #channels</Label>
+        <MentionTextarea
+          triggers={[
+            { trigger: '@', items: users, highlightColor: 'primary' },
+            { trigger: '#', items: channels, highlightColor: 'info' },
+          ]}
+          value={value}
+          onValueChange={setValue}
+          onMentionSelect={(item, trigger) => console.log(`Selected ${trigger}${item.label}`)}
+          placeholder="Type @ to mention users or # to reference channels..."
+          rows={4}
+        />
+        <p className="text-xs text-muted-foreground">
+          Try typing @jo for users (primary highlight) or #gen for channels (info highlight)
+        </p>
+      </div>
+    )
+  },
+}
+
+export const SlackStyleInput: Story = {
+  render: () => {
+    const [value, setValue] = React.useState('')
+
+    const emojis: typeof users = [
+      { id: 'smile', label: 'smile 😊', value: '😊' },
+      { id: 'laugh', label: 'laugh 😂', value: '😂' },
+      { id: 'heart', label: 'heart ❤️', value: '❤️' },
+      { id: 'thumbsup', label: 'thumbsup 👍', value: '👍' },
+      { id: 'fire', label: 'fire 🔥', value: '🔥' },
+      { id: 'rocket', label: 'rocket 🚀', value: '🚀' },
+    ]
+
+    return (
+      <div className="w-[450px] border rounded-lg">
+        <div className="px-4 py-3 border-b bg-muted/50">
+          <h3 className="font-semibold">#general</h3>
+        </div>
+        <div className="p-4">
+          <MentionTextarea
+            triggers={[
+              { trigger: '@', items: users, highlightColor: 'primary' },
+              { trigger: '#', items: channels, highlightColor: 'info' },
+              { trigger: ':', items: emojis, highlightColor: 'warning' },
+            ]}
+            value={value}
+            onValueChange={setValue}
+            placeholder="Message #general - use @ # or :"
+            autoSize
+            minRows={1}
+            maxRows={6}
+          />
+        </div>
+        <div className="px-4 py-2 border-t text-xs text-muted-foreground">
+          <span className="font-medium">@</span> mention user •<span className="font-medium ml-2">#</span> link channel
+          •<span className="font-medium ml-2">:</span> add emoji
+        </div>
+      </div>
+    )
+  },
+}
