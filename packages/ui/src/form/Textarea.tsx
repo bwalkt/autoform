@@ -115,6 +115,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             id={textareaId}
             placeholder=" "
             disabled={disabled}
+            aria-invalid={error || undefined}
             className={cn(
               'peer w-full outline-none transition-all duration-150 ease-in-out',
               !autoSize && 'min-h-[calc(var(--element-height)*2)]',
@@ -198,6 +199,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <TextareaElement
         ref={ref}
         id={textareaId}
+        aria-invalid={error || undefined}
         className={cn(
           'w-full outline-none transition-all duration-150 ease-in-out',
           !autoSize && 'min-h-[calc(var(--element-height)*2)]',
