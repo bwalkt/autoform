@@ -6,7 +6,8 @@ const preview: Preview = {
     layout: 'centered',
     options: {
       storySort: {
-        order: ['Typography', 'Layouts', 'Elements', '*'],
+        method: 'alphabetical',
+        order: ['Typography', 'Layouts', 'Elements', 'Form', '*'],
       },
     },
   },
