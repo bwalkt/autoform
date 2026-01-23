@@ -1,5 +1,27 @@
 'use client'
 
+/**
+ * RadioCards - A card-based radio selection component following Radix UI Themes patterns.
+ *
+ * Provides a visually rich alternative to standard radio buttons, displaying options
+ * as selectable cards in a grid layout. Only one card can be selected at a time.
+ *
+ * @example
+ * ```tsx
+ * <RadioCards.Root defaultValue="option1" columns={3}>
+ *   <RadioCards.Item value="option1">
+ *     <div className="font-medium">Option 1</div>
+ *     <div className="text-muted-foreground">Description</div>
+ *   </RadioCards.Item>
+ *   <RadioCards.Item value="option2">
+ *     <div className="font-medium">Option 2</div>
+ *   </RadioCards.Item>
+ * </RadioCards.Root>
+ * ```
+ *
+ * @module RadioCards
+ */
+
 import { Radio as RadioPrimitive } from '@base-ui/react/radio'
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group'
 import * as React from 'react'
@@ -80,6 +102,9 @@ const RadioCardsContext = React.createContext<RadioCardsContextValue>({
 // Root
 // ============================================================================
 
+/**
+ * Props for the RadioCards.Root component.
+ */
 export interface RadioCardsRootProps {
   /** Size of the radio cards */
   size?: Size
@@ -114,6 +139,10 @@ const gapSizes = {
   '6': 'gap-6',
 }
 
+/**
+ * Container component for RadioCards that manages selection state and grid layout.
+ * Inherits size from FieldGroupContext if not explicitly provided.
+ */
 const RadioCardsRoot = React.forwardRef<HTMLDivElement, RadioCardsRootProps>(
   (
     {
@@ -173,6 +202,9 @@ RadioCardsRoot.displayName = 'RadioCards.Root'
 // Item
 // ============================================================================
 
+/**
+ * Props for the RadioCards.Item component.
+ */
 export interface RadioCardsItemProps {
   /** Value of this radio card */
   value: string
@@ -184,6 +216,10 @@ export interface RadioCardsItemProps {
   children: React.ReactNode
 }
 
+/**
+ * Individual selectable card within a RadioCards group.
+ * Displays a radio indicator and custom content within a card-styled button.
+ */
 const RadioCardsItem = React.forwardRef<HTMLButtonElement, RadioCardsItemProps>(
   ({ value, disabled, className, children, ...props }, ref) => {
     const context = React.useContext(RadioCardsContext)

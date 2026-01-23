@@ -1,5 +1,23 @@
 'use client'
 
+/**
+ * SwitchGroup - A component for managing multiple switches with shared state.
+ *
+ * Similar to CheckboxGroup but using switch toggles instead of checkboxes.
+ * Manages an array of selected values and provides consistent styling across all switches.
+ *
+ * @example
+ * ```tsx
+ * <SwitchGroup.Root defaultValue={['notifications']} onValueChange={setSettings}>
+ *   <SwitchGroup.Item name="notifications" label="Push notifications" />
+ *   <SwitchGroup.Item name="emails" label="Email updates" description="Weekly digest" />
+ *   <SwitchGroup.Item name="sms" label="SMS alerts" />
+ * </SwitchGroup.Root>
+ * ```
+ *
+ * @module SwitchGroup
+ */
+
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch'
 import * as React from 'react'
 import type { Color, Radius, Size } from '@/elements/tokens'
@@ -84,6 +102,9 @@ const SwitchGroupContext = React.createContext<SwitchGroupContextValue | null>(n
 // Root
 // ============================================================================
 
+/**
+ * Props for the SwitchGroup.Root component.
+ */
 export interface SwitchGroupRootProps {
   /** The size of all switches in the group */
   size?: Size
@@ -109,6 +130,11 @@ export interface SwitchGroupRootProps {
   children: React.ReactNode
 }
 
+/**
+ * Container component for SwitchGroup that manages the array of selected values.
+ * Supports both controlled and uncontrolled usage patterns.
+ * Inherits size from FieldGroupContext if not explicitly provided.
+ */
 const SwitchGroupRoot = React.forwardRef<HTMLDivElement, SwitchGroupRootProps>(
   (
     {
@@ -174,6 +200,9 @@ SwitchGroupRoot.displayName = 'SwitchGroup.Root'
 // Item
 // ============================================================================
 
+/**
+ * Props for the SwitchGroup.Item component.
+ */
 export interface SwitchGroupItemProps {
   /** Unique name/value for this switch */
   name: string
@@ -189,6 +218,11 @@ export interface SwitchGroupItemProps {
   children?: React.ReactNode
 }
 
+/**
+ * Individual switch within a SwitchGroup.
+ * Must be used within a SwitchGroup.Root component.
+ * Displays a switch toggle with optional label and description.
+ */
 const SwitchGroupItem = React.forwardRef<HTMLButtonElement, SwitchGroupItemProps>(
   ({ name, label, description, disabled, className, children, ...props }, ref) => {
     const context = React.useContext(SwitchGroupContext)
