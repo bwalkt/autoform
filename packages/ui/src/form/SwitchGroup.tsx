@@ -232,6 +232,7 @@ const SwitchGroupItem = React.forwardRef<HTMLSpanElement, SwitchGroupItemProps>(
     }
 
     const id = React.useId()
+    const labelId = `${id}-label`
     const sizeConfig = switchSizes[context.size]
     const isDisabled = disabled || context.disabled
     const isChecked = context.values.includes(name)
@@ -255,6 +256,7 @@ const SwitchGroupItem = React.forwardRef<HTMLSpanElement, SwitchGroupItemProps>(
         <SwitchPrimitive.Root
           ref={ref}
           id={id}
+          aria-labelledby={displayLabel ? labelId : undefined}
           checked={isChecked}
           onCheckedChange={checked => context.onValueChange(name, checked)}
           disabled={isDisabled}
@@ -288,7 +290,7 @@ const SwitchGroupItem = React.forwardRef<HTMLSpanElement, SwitchGroupItemProps>(
 
         {displayLabel && (
           <div className="flex flex-col">
-            <Label htmlFor={id} size={context.size} disabled={isDisabled}>
+            <Label id={labelId} size={context.size} disabled={isDisabled}>
               {displayLabel}
             </Label>
             {description && (
