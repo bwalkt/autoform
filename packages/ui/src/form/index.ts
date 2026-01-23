@@ -80,6 +80,7 @@ export {
   type LocationInputProps,
   type LocationValue,
 } from './LocationInput'
+export { type MentionItem, MentionTextarea, type MentionTextareaProps } from './MentionTextarea'
 export {
   MultiSelect,
   type MultiSelectOption,
