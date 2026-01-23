@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import TextareaAutosize from 'react-textarea-autosize'
 import type { Color, Radius, Size, TextFieldVariant } from '@/elements/tokens'
 import { getRadiusStyles, getSizeStyles } from '@/elements/utils'
 import { cn } from '@/lib/utils'
@@ -22,6 +23,12 @@ export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
   resize?: 'none' | 'vertical' | 'horizontal' | 'both'
   /** Label text (required for floating-* variants) */
   label?: string
+  /** Enable auto-sizing based on content */
+  autoSize?: boolean
+  /** Minimum number of rows when autoSize is enabled */
+  minRows?: number
+  /** Maximum number of rows when autoSize is enabled */
+  maxRows?: number
 }
 
 // Helper to check if variant is a floating type
@@ -45,6 +52,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       error = false,
       resize = 'vertical',
       label,
+      autoSize = false,
+      minRows,
+      maxRows,
       className,
       style,
       disabled,
@@ -79,28 +89,35 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const { placeholder, ...textareaProps } = props
     const effectiveLabel = label || (isFloatingVariant(variant) ? placeholder : undefined)
 
-    // Resize classes
+    // Resize classes - disable resize when autoSize is enabled
+    const effectiveResize = autoSize ? 'none' : resize
     const resizeClass =
-      resize === 'none'
+      effectiveResize === 'none'
         ? 'resize-none'
-        : resize === 'vertical'
+        : effectiveResize === 'vertical'
           ? 'resize-y'
-          : resize === 'horizontal'
+          : effectiveResize === 'horizontal'
             ? 'resize-x'
             : 'resize'
+
+    // Common textarea element to use (native or autosize)
+    const TextareaElement = autoSize ? TextareaAutosize : 'textarea'
+
+    // AutoSize specific props
+    const autoSizeProps = autoSize ? { minRows, maxRows } : {}
 
     // If floating variant, render the floating version
     if (isFloatingVariant(variant)) {
       return (
         <div className={cn('relative w-full', className)} style={combinedStyles}>
-          <textarea
+          <TextareaElement
             ref={ref}
             id={textareaId}
             placeholder=" "
             disabled={disabled}
             className={cn(
               'peer w-full outline-none transition-all duration-150 ease-in-out',
-              'min-h-[calc(var(--element-height)*2)]',
+              !autoSize && 'min-h-[calc(var(--element-height)*2)]',
               'text-[var(--element-font-size)] leading-[var(--element-line-height)]',
               'text-foreground placeholder-transparent',
               'disabled:opacity-50 disabled:cursor-not-allowed',
@@ -131,6 +148,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 effectiveColor && colorStyles[effectiveColor],
               ],
             )}
+            {...autoSizeProps}
             {...textareaProps}
           />
 
@@ -177,12 +195,12 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     // Regular (non-floating) textarea
     return (
-      <textarea
+      <TextareaElement
         ref={ref}
         id={textareaId}
         className={cn(
           'w-full outline-none transition-all duration-150 ease-in-out',
-          'min-h-[calc(var(--element-height)*2)]',
+          !autoSize && 'min-h-[calc(var(--element-height)*2)]',
           'px-[var(--element-padding-x)] py-[var(--element-padding-y)]',
           'text-[var(--element-font-size)] leading-[var(--element-line-height)]',
           'rounded-[var(--element-border-radius)]',
@@ -199,9 +217,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
           className,
         )}
-        style={combinedStyles}
+        style={combinedStyles as React.CSSProperties}
         disabled={disabled}
         placeholder={placeholder}
+        {...autoSizeProps}
         {...textareaProps}
       />
     )

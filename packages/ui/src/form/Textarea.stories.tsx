@@ -41,6 +41,15 @@ const meta: Meta<typeof Textarea> = {
     disabled: {
       control: 'boolean',
     },
+    autoSize: {
+      control: 'boolean',
+    },
+    minRows: {
+      control: 'number',
+    },
+    maxRows: {
+      control: 'number',
+    },
   },
 }
 
@@ -269,6 +278,111 @@ export const FloatingFeedbackForm: Story = {
       <button className="w-full py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md">
         Submit Feedback
       </button>
+    </div>
+  ),
+}
+
+// ============================================================================
+// AutoSize Variants
+// ============================================================================
+
+export const AutoSize: Story = {
+  render: () => (
+    <div className="w-80 space-y-2">
+      <Label htmlFor="auto-message">Auto-sizing textarea</Label>
+      <Textarea id="auto-message" autoSize placeholder="Type here and watch the textarea grow..." />
+      <p className="text-xs text-muted-foreground">The textarea will automatically expand as you type more content.</p>
+    </div>
+  ),
+}
+
+export const AutoSizeWithMinMax: Story = {
+  render: () => (
+    <div className="w-80 space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="min-max">Min 2 rows, Max 6 rows</Label>
+        <Textarea
+          id="min-max"
+          autoSize
+          minRows={2}
+          maxRows={6}
+          placeholder="This textarea has min/max row constraints..."
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="min-only">Min 3 rows (no max)</Label>
+        <Textarea id="min-only" autoSize minRows={3} placeholder="Starts with 3 rows, grows indefinitely..." />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="max-only">Max 4 rows</Label>
+        <Textarea id="max-only" autoSize maxRows={4} placeholder="Grows up to 4 rows, then scrolls..." />
+      </div>
+    </div>
+  ),
+}
+
+export const AutoSizeVariants: Story = {
+  render: () => (
+    <div className="w-80 space-y-4">
+      {(['classic', 'surface', 'outline', 'soft'] as const).map(variant => (
+        <div key={variant}>
+          <p className="text-sm text-muted-foreground mb-2 capitalize">{variant} (autoSize)</p>
+          <Textarea variant={variant} autoSize minRows={1} placeholder={`Auto-sizing ${variant} variant`} />
+        </div>
+      ))}
+    </div>
+  ),
+}
+
+export const AutoSizeFloating: Story = {
+  render: () => (
+    <div className="w-80 space-y-6">
+      <div>
+        <p className="text-sm font-medium mb-2">Floating Filled (autoSize)</p>
+        <Textarea variant="floating-filled" autoSize minRows={1} maxRows={5} label="Your message" />
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">Floating Standard (autoSize)</p>
+        <Textarea variant="floating-standard" autoSize minRows={1} maxRows={5} label="Your message" />
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">Floating Outlined (autoSize)</p>
+        <Textarea variant="floating-outlined" autoSize minRows={1} maxRows={5} label="Your message" />
+      </div>
+    </div>
+  ),
+}
+
+export const AutoSizeChatInput: Story = {
+  render: () => (
+    <div className="w-96 border rounded-lg p-4 space-y-4">
+      <h3 className="font-semibold">Chat</h3>
+      <div className="space-y-2 p-2 bg-muted/50 rounded">
+        <p className="text-sm">Hello! How can I help you today?</p>
+      </div>
+      <div className="flex gap-2 items-end">
+        <Textarea autoSize minRows={1} maxRows={4} placeholder="Type a message..." className="flex-1" />
+        <button className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md shrink-0">
+          Send
+        </button>
+      </div>
+    </div>
+  ),
+}
+
+export const AutoSizeCodeEditor: Story = {
+  render: () => (
+    <div className="w-[500px] space-y-2">
+      <Label htmlFor="code-editor">Code snippet</Label>
+      <Textarea
+        id="code-editor"
+        autoSize
+        minRows={3}
+        maxRows={20}
+        className="font-mono text-sm"
+        placeholder={'// Paste your code here\nfunction example() {\n  return "hello"\n}'}
+      />
+      <p className="text-xs text-muted-foreground">Supports syntax highlighting in the real implementation.</p>
     </div>
   ),
 }
