@@ -90,7 +90,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
     },
     ref,
   ) => {
-    const [internalValue, setInternalValue] = React.useState('')
+    const [internalValue, setInternalValue] = React.useState(() => props.defaultValue?.toString() ?? '')
     const [isOpen, setIsOpen] = React.useState(false)
     const [searchTerm, setSearchTerm] = React.useState('')
     const [activeTrigger, setActiveTrigger] = React.useState<string | null>(null)
@@ -215,7 +215,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
             const isValidTrigger = idx === 0 || /\s/.test(charBefore)
 
             if (isValidTrigger) {
-              const textAfterTrigger = textBeforeCursor.slice(idx + 1)
+              const textAfterTrigger = textBeforeCursor.slice(idx + triggerChar.length)
               // No spaces in mention search
               if (!/\s/.test(textAfterTrigger)) {
                 foundTrigger = triggerChar
@@ -226,7 +226,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
         }
 
         if (foundTrigger && lastTriggerIndex !== -1) {
-          const textAfterTrigger = textBeforeCursor.slice(lastTriggerIndex + 1)
+          const textAfterTrigger = textBeforeCursor.slice(lastTriggerIndex + foundTrigger.length)
           setSearchTerm(textAfterTrigger)
           setActiveTrigger(foundTrigger)
           setIsOpen(true)
@@ -289,10 +289,12 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
 
         switch (e.key) {
           case 'ArrowDown':
+            if (filteredMentions.length === 0) return
             e.preventDefault()
             setHighlightedIndex(i => (i + 1) % filteredMentions.length)
             break
           case 'ArrowUp':
+            if (filteredMentions.length === 0) return
             e.preventDefault()
             setHighlightedIndex(i => (i - 1 + filteredMentions.length) % filteredMentions.length)
             break
