@@ -122,6 +122,7 @@ export {
   containerColorStyles,
   containerVariantStyles,
   getBaseVariant,
+  highlightColorStyles,
   solidColorStyles,
   variantStyles,
 } from './textFieldStyles'
