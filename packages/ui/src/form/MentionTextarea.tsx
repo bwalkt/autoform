@@ -180,11 +180,11 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
 
       const spanRect = span.getBoundingClientRect()
 
-      // Adjust for textarea scroll offset
-      const { scrollTop, scrollLeft } = textarea
-      const spanTop = spanRect.top - scrollTop
-      const spanBottom = spanRect.bottom - scrollTop
-      const spanLeft = spanRect.left - scrollLeft
+      // getBoundingClientRect() already returns viewport coordinates
+      // No scroll offset adjustment needed for fixed positioning
+      const spanTop = spanRect.top
+      const spanBottom = spanRect.bottom
+      const spanLeft = spanRect.left
 
       // Calculate position - check if dropdown should appear above or below
       const spaceBelow = window.innerHeight - spanBottom
