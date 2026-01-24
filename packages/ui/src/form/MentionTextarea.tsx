@@ -132,6 +132,13 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
       return items.filter(m => m.label.toLowerCase().includes(lower)).slice(0, maxItems)
     }, [activeTriggerConfig, searchTerm, maxItems])
 
+    // Clamp highlightedIndex when filtered list shrinks
+    React.useEffect(() => {
+      if (highlightedIndex >= filteredMentions.length && filteredMentions.length > 0) {
+        setHighlightedIndex(0)
+      }
+    }, [filteredMentions.length, highlightedIndex])
+
     // Get all trigger characters for detection
     const triggerChars = React.useMemo(() => triggers.map(t => t.trigger), [triggers])
 

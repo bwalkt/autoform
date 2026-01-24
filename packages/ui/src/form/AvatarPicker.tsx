@@ -138,6 +138,13 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
       )
     }, [items, searchTerm])
 
+    // Clamp highlightedIndex when filtered list shrinks
+    React.useEffect(() => {
+      if (highlightedIndex >= filteredItems.length && filteredItems.length > 0) {
+        setHighlightedIndex(0)
+      }
+    }, [filteredItems.length, highlightedIndex])
+
     // Get selected items for display
     const selectedItems = React.useMemo(() => {
       return items.filter(item => selectedIds.includes(item.id))
