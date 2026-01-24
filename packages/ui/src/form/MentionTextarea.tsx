@@ -416,6 +416,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
                       aria-disabled={item.disabled}
                       tabIndex={-1}
                       onClick={() => selectMention(item)}
+                      // onKeyDown kept for a11y linter rule, though keyboard nav is handled by textarea
                       onKeyDown={e => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault()
