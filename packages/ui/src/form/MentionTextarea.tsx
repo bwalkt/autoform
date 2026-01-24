@@ -107,6 +107,10 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
     const dropdownRef = React.useRef<HTMLDivElement>(null)
     const mirrorRef = React.useRef<HTMLDivElement>(null)
 
+    // Generate stable IDs for ARIA
+    const listboxId = React.useId()
+    const getOptionId = (index: number) => `${listboxId}-option-${index}`
+
     // Controlled/uncontrolled value handling
     const isControlled = controlledValue !== undefined
     const value = isControlled ? controlledValue : internalValue
@@ -365,6 +369,10 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           className={className}
+          aria-expanded={isOpen}
+          aria-controls={isOpen ? listboxId : undefined}
+          aria-activedescendant={isOpen && filteredMentions.length > 0 ? getOptionId(highlightedIndex) : undefined}
+          aria-autocomplete="list"
           {...props}
         />
 
@@ -374,6 +382,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
           ReactDOM.createPortal(
             <div
               ref={dropdownRef}
+              id={listboxId}
               role="listbox"
               aria-label="Mention suggestions"
               className={cn(
@@ -393,6 +402,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
                   {filteredMentions.map((item, index) => (
                     <div
                       key={item.id}
+                      id={getOptionId(index)}
                       role="option"
                       aria-selected={index === highlightedIndex}
                       aria-disabled={item.disabled}
