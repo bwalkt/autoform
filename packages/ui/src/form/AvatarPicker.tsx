@@ -312,14 +312,21 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
           <span className={cn('truncate', selectedItems.length === 0 && 'text-muted-foreground')}>{displayText}</span>
           <div className="flex items-center gap-1">
             {selectedItems.length > 0 && (
-              <button
-                type="button"
+              <span
+                role="button"
+                tabIndex={disabled ? -1 : 0}
                 onClick={handleClear}
-                className="p-0.5 rounded hover:bg-muted"
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleClear(e as unknown as React.MouseEvent)
+                  }
+                }}
+                className={cn('p-0.5 rounded hover:bg-muted', disabled && 'pointer-events-none opacity-50')}
                 aria-label="Clear selection"
               >
                 <X className="w-3.5 h-3.5 text-muted-foreground" />
-              </button>
+              </span>
             )}
             <ChevronDown className={cn('w-4 h-4 text-muted-foreground transition-transform', isOpen && 'rotate-180')} />
           </div>
