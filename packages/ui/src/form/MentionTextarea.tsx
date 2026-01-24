@@ -149,7 +149,8 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
       if (!textarea || !mirror) return null
 
       const cursorPos = textarea.selectionStart
-      const textBeforeCursor = value.slice(0, cursorPos)
+      // Use textarea.value directly to avoid stale state during rapid typing
+      const textBeforeCursor = textarea.value.slice(0, cursorPos)
 
       // Copy textarea styles to mirror
       const styles = window.getComputedStyle(textarea)
@@ -195,7 +196,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
         left: Math.max(8, Math.min(spanLeft, window.innerWidth - 320)), // Keep within viewport
         showAbove,
       }
-    }, [value])
+    }, [])
 
     // Handle input change
     const handleChange = React.useCallback(
