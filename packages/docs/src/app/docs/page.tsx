@@ -1,4 +1,4 @@
-import { Heading, Text } from '@bwalkt/ui'
+import { Grid, Heading, Text } from '@bwalkt/ui'
 import Link from 'next/link'
 import { docSections } from '../../lib/docs'
 
@@ -12,13 +12,13 @@ export default function DocsIndexPage() {
         Start with the design principles, then dive into tokens and components.
       </Text>
 
-      <div className="mt-10 grid gap-8">
+      <Grid gap="8" className="mt-10">
         {docSections.map(section => (
           <section key={section.title}>
             <Heading as="h2" size="4">
               {section.title}
             </Heading>
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <Grid columns={{ initial: '1', md: '2' }} gap="4" className="mt-4">
               {section.items.map(item => (
                 <Link
                   key={item.href}
@@ -35,10 +35,10 @@ export default function DocsIndexPage() {
                   ) : null}
                 </Link>
               ))}
-            </div>
+            </Grid>
           </section>
         ))}
-      </div>
+      </Grid>
     </div>
   )
 }

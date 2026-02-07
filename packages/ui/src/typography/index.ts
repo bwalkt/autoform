@@ -1,3 +1,5 @@
+'use client'
+
 // Import typography CSS tokens
 import './design-tokens.css'
 

@@ -1,4 +1,7 @@
 import { Badge, Callout, Code, Heading, Text } from '@bwalkt/ui'
+
+;('use client')
+
 import type { MDXComponents } from 'mdx/types'
 import Link from 'next/link'
 

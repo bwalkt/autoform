@@ -1,3 +1,5 @@
+'use client'
+
 // Re-export all from elements
 export * from './elements'
 

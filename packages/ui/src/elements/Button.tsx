@@ -16,6 +16,8 @@ export interface ButtonProps extends Omit<React.ComponentPropsWithoutRef<'button
   color?: Color
   /** The border radius of the button */
   radius?: Radius
+  /** Render as the child element (e.g., Link) */
+  asChild?: boolean
   /** Whether the button is in a loading state */
   loading?: boolean
   /** High contrast mode for better accessibility */
@@ -122,6 +124,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'solid',
       color = 'default',
       radius = 'md',
+      asChild = false,
       loading = false,
       highContrast = false,
       disabled,
@@ -174,6 +177,31 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
     )
 
+    const loadingOverlay = loading ? (
+      <span className="absolute inset-0 flex items-center justify-center">
+        <Loader2
+          className="animate-spin text-current"
+          style={{ width: 'var(--element-icon-size)', height: 'var(--element-icon-size)' }}
+        />
+      </span>
+    ) : null
+
+    if (asChild && React.isValidElement(children)) {
+      return React.cloneElement(children, {
+        ...props,
+        className: cn(buttonClasses, children.props.className),
+        style: { ...combinedStyles, ...children.props.style },
+        'aria-busy': loading || undefined,
+        'aria-disabled': disabled || loading || undefined,
+        children: (
+          <>
+            {loadingOverlay}
+            {children.props.children}
+          </>
+        ),
+      })
+    }
+
     return (
       <ButtonPrimitive
         ref={ref}
@@ -183,14 +211,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         {...props}
       >
-        {loading && (
-          <span className="absolute inset-0 flex items-center justify-center">
-            <Loader2
-              className="animate-spin text-current"
-              style={{ width: 'var(--element-icon-size)', height: 'var(--element-icon-size)' }}
-            />
-          </span>
-        )}
+        {loadingOverlay}
         {children}
       </ButtonPrimitive>
     )

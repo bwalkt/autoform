@@ -1,3 +1,5 @@
+'use client'
+
 // Layout Components
 export { Box, type BoxOwnProps, type BoxProps } from './Box'
 export { Container, type ContainerOwnProps, type ContainerProps } from './Container'
