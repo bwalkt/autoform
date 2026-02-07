@@ -1,0 +1,43 @@
+@import "@bwalkt/ui/globals.css";
+
+@source "../app/**/*.{ts,tsx,mdx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../lib/**/*.{ts,tsx}";
+@source "../../ui/src/**/*.{ts,tsx}";
+
+:root {
+  --docs-hero-glow: oklch(0.92 0.06 210 / 40%);
+  --docs-hero-edge: oklch(0.62 0.12 205 / 80%);
+  --docs-grid: oklch(0.9 0 0 / 45%);
+  --docs-surface: oklch(0.99 0 0 / 88%);
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, var(--docs-hero-glow), transparent 70%),
+    radial-gradient(800px 500px at 90% 0%, var(--docs-hero-edge), transparent 60%),
+    linear-gradient(180deg, oklch(0.99 0 0) 0%, oklch(0.98 0 0) 50%, oklch(0.97 0 0) 100%);
+}
+
+.docs-grid {
+  background-image:
+    linear-gradient(to right, var(--docs-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--docs-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.docs-surface {
+  background-color: var(--docs-surface);
+  border: 1px solid oklch(0.92 0 0);
+  box-shadow: 0 20px 60px oklch(0 0 0 / 8%);
+}
+
+.docs-hero-title {
+  text-wrap: balance;
+}
+
+.docs-prose h2,
+.docs-prose h3,
+.docs-prose h4 {
+  scroll-margin-top: 96px;
+}

@@ -1,0 +1,27 @@
+import { Callout, CalloutText } from '@bwalkt/ui'
+import { TokenGrid } from '../../../components/TokenGrid'
+
+# Tokens
+
+Tokens are semantic values that describe the intent of a surface or control rather
+than the raw color or spacing value. The system exposes a compact set of tokens
+so theme changes are easy to reason about.
+
+<Callout variant="info">
+  <CalloutText>
+    Tokens are mapped to CSS variables. You can override them per page or per
+    component tree.
+  </CalloutText>
+</Callout>
+
+## Core color tokens
+
+<TokenGrid />
+
+## Usage
+
+```tsx
+import { designTokens } from '@bwalkt/ui'
+
+const accent = designTokens.color.accent
+```

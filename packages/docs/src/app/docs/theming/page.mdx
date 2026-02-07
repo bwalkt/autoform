@@ -1,0 +1,33 @@
+import { Callout, CalloutText } from '@bwalkt/ui'
+
+# Theming
+
+Themes are configured through a small set of controls: `accentColor`, `grayColor`,
+`radius`, `scaling`, and `panelBackground`.
+
+<Callout variant="warning">
+  <CalloutText>
+    Use themes sparingly. Favor tokens for semantic control, then provide
+    component-level overrides only when absolutely necessary.
+  </CalloutText>
+</Callout>
+
+## Theme wrapper
+
+```tsx
+import { Theme } from '@bwalkt/ui'
+
+export default function Themed() {
+  return (
+    <Theme accentColor="teal" grayColor="sage" radius="lg" scaling="105%">
+      {/* UI */}
+    </Theme>
+  )
+}
+```
+
+## Strategy
+
+- Define one primary theme and one dense theme.
+- Keep radius and scaling aligned with product density targets.
+- Store overrides in CSS variables for auditability.

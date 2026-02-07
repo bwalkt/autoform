@@ -1,0 +1,53 @@
+import { Badge, Button, Callout, CalloutText, Card, Heading, Text } from '@bwalkt/ui'
+
+# Introduction
+
+Autoform UI is a composable, token-first component library built on Base UI.
+It is optimized for product teams building dense workflows where clarity matters
+more than decoration.
+
+<Callout variant="info">
+  <CalloutText>
+    Start with tokens and layout primitives. The rest of the system builds on the
+    same semantic vocabulary.
+  </CalloutText>
+</Callout>
+
+## What you get
+
+<Card className="mt-4 p-6">
+  <Heading as="h3" size="3">Token-aware components</Heading>
+  <Text size="2" className="mt-2 text-muted-foreground">
+    Every component consumes the design tokens so theming is additive, not a rewrite.
+  </Text>
+</Card>
+
+<Card className="mt-4 p-6">
+  <Heading as="h3" size="3">Composable building blocks</Heading>
+  <Text size="2" className="mt-2 text-muted-foreground">
+    Mix layout primitives, typography, and form elements without losing consistency.
+  </Text>
+</Card>
+
+## Quick start
+
+```bash
+pnpm add @bwalkt/ui
+```
+
+```tsx
+import { Theme, Button } from '@bwalkt/ui'
+
+export default function Example() {
+  return (
+    <Theme accentColor="sky">
+      <Button size="3">Create</Button>
+    </Theme>
+  )
+}
+```
+
+<Badge size="1" variant="soft">Next step</Badge>
+<Button asChild size="2" className="ml-3">
+  <a href="/docs/tokens">Review design tokens</a>
+</Button>
