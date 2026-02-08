@@ -1,13 +1,14 @@
 'use client'
 
 import { Badge, Callout, Code, Heading, Text } from '@bwalkt/ui'
-
-import type { MDXComponents } from '@mdx-js/react'
 import Link from 'next/link'
+import type * as React from 'react'
 
 function mergeClassName(base: string, extra?: string) {
   return extra ? `${base} ${extra}` : base
 }
+
+type MDXComponents = Record<string, React.ComponentType<any>>
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
