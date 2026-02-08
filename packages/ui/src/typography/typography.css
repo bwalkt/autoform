@@ -1,0 +1,201 @@
+/* Adapted from Radix UI Themes (MIT License, Copyright (c) 2024 WorkOS) */
+.radix-themes {
+  --scaling: 1;
+  --font-size-1: calc(12px * var(--scaling));
+  --font-size-2: calc(14px * var(--scaling));
+  --font-size-3: calc(16px * var(--scaling));
+  --font-size-4: calc(18px * var(--scaling));
+  --font-size-5: calc(20px * var(--scaling));
+  --font-size-6: calc(24px * var(--scaling));
+  --font-size-7: calc(28px * var(--scaling));
+  --font-size-8: calc(35px * var(--scaling));
+  --font-size-9: calc(60px * var(--scaling));
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --line-height-1: calc(16px * var(--scaling));
+  --line-height-2: calc(20px * var(--scaling));
+  --line-height-3: calc(24px * var(--scaling));
+  --line-height-4: calc(26px * var(--scaling));
+  --line-height-5: calc(28px * var(--scaling));
+  --line-height-6: calc(30px * var(--scaling));
+  --line-height-7: calc(36px * var(--scaling));
+  --line-height-8: calc(40px * var(--scaling));
+  --line-height-9: calc(60px * var(--scaling));
+
+  --letter-spacing-1: 0.0025em;
+  --letter-spacing-2: 0em;
+  --letter-spacing-3: 0em;
+  --letter-spacing-4: -0.0025em;
+  --letter-spacing-5: -0.005em;
+  --letter-spacing-6: -0.00625em;
+  --letter-spacing-7: -0.0075em;
+  --letter-spacing-8: -0.01em;
+  --letter-spacing-9: -0.025em;
+
+  --default-font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI (Custom)", Roboto, "Helvetica Neue", "Open Sans (Custom)", system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --default-font-size: var(--font-size-3);
+  --default-font-style: normal;
+  --default-font-weight: var(--font-weight-regular);
+  --default-line-height: 1.5;
+  --default-letter-spacing: 0em;
+  --default-leading-trim-start: 0.42em;
+  --default-leading-trim-end: 0.36em;
+
+  --heading-font-family: var(--default-font-family);
+  --heading-font-size-adjust: 1;
+  --heading-font-style: normal;
+  --heading-leading-trim-start: var(--default-leading-trim-start);
+  --heading-leading-trim-end: var(--default-leading-trim-end);
+  --heading-letter-spacing: 0em;
+
+  --heading-line-height-1: calc(16px * var(--scaling));
+  --heading-line-height-2: calc(18px * var(--scaling));
+  --heading-line-height-3: calc(22px * var(--scaling));
+  --heading-line-height-4: calc(24px * var(--scaling));
+  --heading-line-height-5: calc(26px * var(--scaling));
+  --heading-line-height-6: calc(30px * var(--scaling));
+  --heading-line-height-7: calc(36px * var(--scaling));
+  --heading-line-height-8: calc(40px * var(--scaling));
+  --heading-line-height-9: calc(60px * var(--scaling));
+}
+
+.radix-themes {
+  overflow-wrap: break-word;
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
+  font-weight: var(--default-font-weight);
+  font-style: var(--default-font-style);
+  line-height: var(--default-line-height);
+  letter-spacing: var(--default-letter-spacing);
+  text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.rt-Text {
+  line-height: var(--line-height, var(--default-line-height));
+  letter-spacing: var(--letter-spacing, inherit);
+  margin: 0;
+}
+
+.rt-Heading {
+  font-family: var(--heading-font-family);
+  font-style: var(--heading-font-style);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height);
+  margin: 0;
+}
+
+.rt-Text.rt-r-size-1 {
+  font-size: var(--font-size-1);
+  --line-height: var(--line-height-1);
+  --letter-spacing: var(--letter-spacing-1);
+}
+
+.rt-Text.rt-r-size-2 {
+  font-size: var(--font-size-2);
+  --line-height: var(--line-height-2);
+  --letter-spacing: var(--letter-spacing-2);
+}
+
+.rt-Text.rt-r-size-3 {
+  font-size: var(--font-size-3);
+  --line-height: var(--line-height-3);
+  --letter-spacing: var(--letter-spacing-3);
+}
+
+.rt-Text.rt-r-size-4 {
+  font-size: var(--font-size-4);
+  --line-height: var(--line-height-4);
+  --letter-spacing: var(--letter-spacing-4);
+}
+
+.rt-Text.rt-r-size-5 {
+  font-size: var(--font-size-5);
+  --line-height: var(--line-height-5);
+  --letter-spacing: var(--letter-spacing-5);
+}
+
+.rt-Text.rt-r-size-6 {
+  font-size: var(--font-size-6);
+  --line-height: var(--line-height-6);
+  --letter-spacing: var(--letter-spacing-6);
+}
+
+.rt-Text.rt-r-size-7 {
+  font-size: var(--font-size-7);
+  --line-height: var(--line-height-7);
+  --letter-spacing: var(--letter-spacing-7);
+}
+
+.rt-Text.rt-r-size-8 {
+  font-size: var(--font-size-8);
+  --line-height: var(--line-height-8);
+  --letter-spacing: var(--letter-spacing-8);
+}
+
+.rt-Text.rt-r-size-9 {
+  font-size: var(--font-size-9);
+  --line-height: var(--line-height-9);
+  --letter-spacing: var(--letter-spacing-9);
+}
+
+.rt-Heading.rt-r-size-1 {
+  font-size: calc(var(--font-size-1) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-1);
+  letter-spacing: calc(var(--letter-spacing-1) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-2 {
+  font-size: calc(var(--font-size-2) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-2);
+  letter-spacing: calc(var(--letter-spacing-2) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-3 {
+  font-size: calc(var(--font-size-3) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-3);
+  letter-spacing: calc(var(--letter-spacing-3) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-4 {
+  font-size: calc(var(--font-size-4) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-4);
+  letter-spacing: calc(var(--letter-spacing-4) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-5 {
+  font-size: calc(var(--font-size-5) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-5);
+  letter-spacing: calc(var(--letter-spacing-5) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-6 {
+  font-size: calc(var(--font-size-6) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-6);
+  letter-spacing: calc(var(--letter-spacing-6) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-7 {
+  font-size: calc(var(--font-size-7) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-7);
+  letter-spacing: calc(var(--letter-spacing-7) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-8 {
+  font-size: calc(var(--font-size-8) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-8);
+  letter-spacing: calc(var(--letter-spacing-8) + var(--heading-letter-spacing));
+}
+
+.rt-Heading.rt-r-size-9 {
+  font-size: calc(var(--font-size-9) * var(--heading-font-size-adjust));
+  --line-height: var(--heading-line-height-9);
+  letter-spacing: calc(var(--letter-spacing-9) + var(--heading-letter-spacing));
+}

@@ -95,25 +95,25 @@ export const RealWorldExamples: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
       <Box>
-        <Text size="2" color="neutral" className="mb-1">
+        <Text size="2" color="gray" className="mb-1">
           Installation
         </Text>
         <Code variant="soft">npm install @bwalkt/ui</Code>
       </Box>
       <Box>
-        <Text size="2" color="neutral" className="mb-1">
+        <Text size="2" color="gray" className="mb-1">
           Git command
         </Text>
         <Code variant="outline">git commit -m "feat: add new feature"</Code>
       </Box>
       <Box>
-        <Text size="2" color="neutral" className="mb-1">
+        <Text size="2" color="gray" className="mb-1">
           Variable declaration
         </Text>
         <Code variant="solid">const theme = "dark";</Code>
       </Box>
       <Box>
-        <Text size="2" color="neutral" className="mb-1">
+        <Text size="2" color="gray" className="mb-1">
           Success message
         </Text>
         <Code variant="soft" color="success">
@@ -121,7 +121,7 @@ export const RealWorldExamples: Story = {
         </Code>
       </Box>
       <Box>
-        <Text size="2" color="neutral" className="mb-1">
+        <Text size="2" color="gray" className="mb-1">
           Error message
         </Text>
         <Code variant="soft" color="error">

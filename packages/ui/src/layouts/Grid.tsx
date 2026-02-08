@@ -3,21 +3,23 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import {
+  type AlignContent,
   type AlignItems,
-  canUseGridColumnsClasses,
   type Display,
+  type GridColumns,
   type GridFlow,
+  getAlignContentClasses,
   getAlignItemsClasses,
   getDisplayClasses,
   getGridColumnsClasses,
-  getGridColumnsStyle,
   getGridFlowClasses,
-  getGridRowsStyle,
+  getGridRowsClasses,
   getJustifyContentClasses,
+  getJustifyItemsClasses,
   getSharedLayoutClasses,
   getSharedLayoutStyles,
   getSpacingClasses,
-  type JustifyContent,
+  type JustifyItems,
   type Responsive,
   type SharedLayoutProps,
   Slot,
@@ -29,6 +31,7 @@ import {
 // ============================================================================
 
 type GridDisplay = 'none' | 'grid' | 'inline-grid'
+type GridJustify = 'start' | 'center' | 'end' | 'between'
 
 export interface GridOwnProps extends SharedLayoutProps {
   /** Render as a different element */
@@ -40,15 +43,19 @@ export interface GridOwnProps extends SharedLayoutProps {
   /** Grid template areas */
   areas?: Responsive<string>
   /** Number of columns or explicit column template */
-  columns?: Responsive<string>
+  columns?: Responsive<GridColumns | string>
   /** Number of rows or explicit row template */
-  rows?: Responsive<string>
+  rows?: Responsive<GridColumns | string>
   /** Grid auto-flow direction */
   flow?: Responsive<GridFlow>
   /** Align items along the cross axis */
   align?: Responsive<AlignItems>
+  /** Align content along the cross axis */
+  alignContent?: Responsive<AlignContent>
   /** Justify content along the main axis */
-  justify?: Responsive<JustifyContent>
+  justify?: Responsive<GridJustify>
+  /** Justify items along the inline axis */
+  justifyItems?: Responsive<JustifyItems>
   /** Gap between items */
   gap?: Responsive<Spacing>
   /** Horizontal gap between items */
@@ -81,7 +88,9 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       rows,
       flow,
       align,
+      alignContent,
       justify,
+      justifyItems,
       gap,
       gapX,
       gapY,
@@ -118,6 +127,8 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -165,6 +176,8 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -177,28 +190,26 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
     // Default to grid display if not specified
     const resolvedDisplay = display || 'grid'
 
-    // Use classes for standard column counts, fall back to styles for custom values
-    const useColumnsClasses = canUseGridColumnsClasses(columns)
-
     const classes = cn(
       'rt-Grid',
       'box-border',
       getDisplayClasses(resolvedDisplay as Responsive<Display>),
       getGridFlowClasses(flow),
       getAlignItemsClasses(align),
+      getAlignContentClasses(alignContent),
       getJustifyContentClasses(justify),
+      getJustifyItemsClasses(justifyItems),
       getSpacingClasses(gap, 'gap'),
       getSpacingClasses(gapX, 'gap-x'),
       getSpacingClasses(gapY, 'gap-y'),
-      useColumnsClasses && getGridColumnsClasses(columns),
+      columns ? getGridColumnsClasses(columns) : 'rt-grid-cols-1',
+      rows ? getGridRowsClasses(rows) : '',
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     )
 
-    // Build grid-specific styles (only use style for columns if not using classes)
+    // Build grid-specific styles - for areas and custom grid values
     const gridStyles: React.CSSProperties = {
-      ...(!useColumnsClasses ? getGridColumnsStyle(columns) : {}),
-      ...getGridRowsStyle(rows),
       ...(areas && typeof areas === 'string' && { gridTemplateAreas: areas }),
     }
 

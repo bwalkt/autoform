@@ -278,6 +278,8 @@ export const layoutTokens = {
 
   justifyContent: ['start', 'center', 'end', 'between', 'around', 'evenly'] as const,
 
+  justifyItems: ['start', 'center', 'end', 'baseline', 'stretch'] as const,
+
   alignSelf: ['auto', 'start', 'center', 'end', 'baseline', 'stretch'] as const,
 
   justifySelf: ['auto', 'start', 'center', 'end', 'stretch'] as const,
@@ -294,6 +296,7 @@ export type FlexWrap = (typeof layoutTokens.flexWrap)[number]
 export type AlignItems = (typeof layoutTokens.alignItems)[number]
 export type AlignContent = (typeof layoutTokens.alignContent)[number]
 export type JustifyContent = (typeof layoutTokens.justifyContent)[number]
+export type JustifyItems = (typeof layoutTokens.justifyItems)[number]
 export type AlignSelf = (typeof layoutTokens.alignSelf)[number]
 export type JustifySelf = (typeof layoutTokens.justifySelf)[number]
 export type Spacing = (typeof layoutTokens.spacing)[number]

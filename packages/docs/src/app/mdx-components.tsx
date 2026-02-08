@@ -3,6 +3,10 @@
 import { Badge, Callout, Code, Heading, Text } from '@bwalkt/ui'
 import Link from 'next/link'
 import type * as React from 'react'
+import { CodeBlock } from '../components/CodeBlock'
+import { DecorativeBox } from '../components/DecorativeBox'
+import { ThemesPropsTable } from '../components/ThemesPropsTable'
+import { ViewportPreview } from '../components/ViewportPreview'
 
 function mergeClassName(base: string, extra?: string) {
   return extra ? `${base} ${extra}` : base
@@ -29,6 +33,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     Callout: Callout.Root,
     Badge,
+    CodeBlockRoot: CodeBlock.Root,
+    CodeBlockLivePreview: CodeBlock.LivePreview,
+    CodeBlockHeader: CodeBlock.Header,
+    CodeBlockContent: CodeBlock.Content,
+    CodeBlockPre: CodeBlock.Pre,
+    CodeBlockCode: CodeBlock.Code,
+    DecorativeBox,
+    ThemesPropsTable,
+    ViewportPreview,
     ...components,
   }
 }

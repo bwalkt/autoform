@@ -1,34 +1,50 @@
 import * as React from 'react'
+import { getSpacingClasses, type Responsive, Slot, type Spacing } from '@/layouts/layout-utils'
 import { cn } from '@/lib/utils'
-import { type TypographyColor, type TypographySize, typographyTokens, type Weight } from './tokens'
+import type { TypographyColor } from './tokens'
+import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  size?: TypographySize
+  asChild?: boolean
+  size?: Responsive<TypographySize>
   weight?: Weight
   color?: TypographyColor
-  align?: 'left' | 'center' | 'right' | 'justify'
+  align?: 'left' | 'center' | 'right'
+  trim?: 'normal' | 'start' | 'end' | 'both'
   truncate?: boolean
   wrap?: 'wrap' | 'nowrap' | 'pretty' | 'balance'
   highContrast?: boolean
-  mb?: string
-  mt?: string
+  m?: Responsive<Spacing>
+  mx?: Responsive<Spacing>
+  my?: Responsive<Spacing>
+  mt?: Responsive<Spacing>
+  mr?: Responsive<Spacing>
+  mb?: Responsive<Spacing>
+  ml?: Responsive<Spacing>
 }
 
 /** Heading export. */
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   (
     {
-      as = 'h1',
+      as: Tag = 'h1',
+      asChild = false,
       size = '6',
       weight = 'bold',
-      color = 'default',
+      color,
       align,
+      trim,
       truncate = false,
       wrap = 'wrap',
       highContrast = false,
-      mb,
+      m,
+      mx,
+      my,
       mt,
+      mr,
+      mb,
+      ml,
       className,
       style,
       children,
@@ -36,36 +52,30 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     },
     ref,
   ) => {
-    const Component = as
-    const sizeTokens = typographyTokens.size[size]
+    const resolvedSize = typeof size === 'string' ? size : (size?.initial ?? '6')
     const weightToken = typographyTokens.weight[weight]
-    const colorToken = typographyTokens.color[color]
 
     const headingStyles: React.CSSProperties = {
-      fontSize: sizeTokens.fontSize,
-      lineHeight: sizeTokens.lineHeight,
-      letterSpacing: sizeTokens.letterSpacing,
       fontWeight: weightToken,
-      color: colorToken.text,
       textAlign: align,
       textWrap: wrap,
-      marginTop: mt,
-      marginBottom: mb,
+      ...(color && { color: typographyTokens.color[color].text }),
       ...style,
     }
+
+    const Component = asChild ? Slot : Tag
 
     return (
       <Component
         ref={ref}
         className={cn(
-          // Base styles
-          'font-sans',
+          'rt-Heading',
+          `rt-r-size-${resolvedSize}`,
 
           // Text alignment
           align === 'left' && 'text-left',
           align === 'center' && 'text-center',
           align === 'right' && 'text-right',
-          align === 'justify' && 'text-justify',
 
           // Truncation
           truncate && 'truncate',
@@ -75,8 +85,18 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
           wrap === 'pretty' && 'text-pretty',
           wrap === 'balance' && 'text-balance',
 
+          // Margin
+          getSpacingClasses(m, 'm'),
+          getSpacingClasses(mx, 'mx'),
+          getSpacingClasses(my, 'my'),
+          getSpacingClasses(mt, 'mt'),
+          getSpacingClasses(mr, 'mr'),
+          getSpacingClasses(mb, 'mb'),
+          getSpacingClasses(ml, 'ml'),
+
           className,
         )}
+        data-trim={trim}
         style={headingStyles}
         {...props}
       >

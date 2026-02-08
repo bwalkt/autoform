@@ -1,0 +1,101 @@
+/* Copied from Radix UI website (MIT License, Copyright (c) 2024 WorkOS) */
+.CodeBlockRoot {
+  --code-block-radius: var(--radius-4);
+  position: relative;
+  box-sizing: border-box;
+  background-color: var(--code-block-background);
+  border-radius: var(--code-block-radius);
+}
+
+.CodeBlockRoot::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+  box-shadow: 0 0 0 1px var(--code-block-border);
+  border-radius: var(--code-block-radius);
+  pointer-events: none;
+}
+
+.CodeBlockHeader {
+  background-color: var(--code-block-header-background);
+  border-radius: var(--code-block-radius) var(--code-block-radius) 0 0;
+}
+
+.CodeBlockLivePreview {
+  text-wrap: pretty;
+  background-color: var(--color-background, #fff);
+  border-radius: var(--code-block-radius) var(--code-block-radius) 0 0;
+  box-shadow: inset 0 1px var(--code-block-border);
+}
+
+.CodeBlockLivePreviewInner {
+  padding: var(--space-4);
+  line-height: 1;
+}
+
+.CodeBlockLivePreviewInner[data-scroll="true"] {
+  width: max-content;
+}
+
+.CodeBlockContent {
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+  border-radius: 0 0 var(--code-block-radius) var(--code-block-radius);
+  background-color: var(--code-block-background);
+}
+
+.CodeBlockPre {
+  --letter-spacing: var(--letter-spacing-2);
+  box-sizing: border-box;
+  overflow: auto;
+  height: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(
+    --code-font-family,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    "Courier New",
+    monospace
+  );
+  font-size: calc(var(--font-size-2, 14px) * var(--code-font-size-adjust, 1));
+  line-height: 22px;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.CodeBlockPre code {
+  display: block;
+  white-space: pre;
+  tab-size: 2;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Ensure Prism tokens preserve whitespace */
+.CodeBlockPre code * {
+  white-space: pre;
+}
+
+.CodeBlockCode {
+  display: inline-block;
+  white-space: pre;
+  tab-size: 2;
+  color: #d6deeb;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.CodeBlockPre [data-highlighted="true"] {
+  background-color: var(--code-block-highlighted-line);
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+  margin-left: calc(-1 * var(--space-4));
+  margin-right: calc(-1 * var(--space-4));
+}

@@ -1,10 +1,10 @@
 'use client'
 
 // Layout Components
-export { Box, type BoxOwnProps, type BoxProps } from './Box'
-export { Container, type ContainerOwnProps, type ContainerProps } from './Container'
-export { Flex, type FlexOwnProps, type FlexProps } from './Flex'
-export { Grid, type GridOwnProps, type GridProps } from './Grid'
+export { Box, type BoxProps } from './Box'
+export { Container, type ContainerProps } from './Container'
+export { Flex, type FlexProps } from './Flex'
+export { Grid, type GridProps } from './Grid'
 // Layout Utilities and Types
 export {
   type AlignItems,
@@ -18,9 +18,7 @@ export {
   getDisplayClasses,
   getFlexDirectionClasses,
   getFlexWrapClasses,
-  getGridColumnsStyle,
   getGridFlowClasses,
-  getGridRowsStyle,
   getJustifyContentClasses,
   getResponsiveClasses,
   getSharedLayoutClasses,
@@ -38,7 +36,7 @@ export {
   type Spacing,
   spacingScale,
 } from './layout-utils'
-export { Section, type SectionOwnProps, type SectionProps } from './Section'
+export { Section, type SectionProps } from './Section'
 
 // Import CSS
 import './layouts.css'

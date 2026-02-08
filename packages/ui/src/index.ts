@@ -1,5 +1,8 @@
 'use client'
 
+// Import global styles
+import './globals.css'
+
 // Re-export all from elements
 export * from './elements'
 

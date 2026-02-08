@@ -1,3 +1,5 @@
+'use client'
+
 import { Badge, Button, Card, Container, Flex, Grid, Heading, Text } from '@bwalkt/ui'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import Link from 'next/link'

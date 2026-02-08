@@ -19,7 +19,7 @@ export const Showcase: Story = {
         <Heading mb="2" size="6">
           Typography Showcase
         </Heading>
-        <Text size="3" color="default">
+        <Text size="3" color="gray">
           A demonstration of the typography components based on Radix UI Themes.
         </Text>
       </div>
@@ -83,19 +83,19 @@ export const Showcase: Story = {
           Colors
         </Heading>
         <div className="space-y-1">
-          <Text size="3" color="default">
+          <Text size="3" color="gray">
             Default color text
           </Text>
-          <Text size="3" color="info">
+          <Text size="3" color="sky">
             Info color text
           </Text>
-          <Text size="3" color="success">
+          <Text size="3" color="green">
             Success color text
           </Text>
-          <Text size="3" color="warning">
+          <Text size="3" color="amber">
             Warning color text
           </Text>
-          <Text size="3" color="error">
+          <Text size="3" color="red">
             Error color text
           </Text>
         </div>

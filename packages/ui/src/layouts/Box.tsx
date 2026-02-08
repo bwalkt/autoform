@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import {
-  type Display,
   getDisplayClasses,
   getSharedLayoutClasses,
   getSharedLayoutStyles,
@@ -22,7 +21,7 @@ export interface BoxOwnProps extends SharedLayoutProps {
   /** Merge props onto child element */
   asChild?: boolean
   /** CSS display property */
-  display?: Responsive<Display>
+  display?: Responsive<'none' | 'inline' | 'inline-block' | 'block' | 'contents'>
 }
 
 type BoxDivProps = BoxOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof BoxOwnProps>
@@ -76,6 +75,8 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -123,6 +124,8 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,

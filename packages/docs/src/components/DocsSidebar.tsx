@@ -8,7 +8,7 @@ export function DocsSidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="docs-surface hidden h-[calc(100vh-64px)] w-72 flex-shrink-0 rounded-2xl p-6 lg:block">
+    <aside className="docs-surface hidden h-[calc(100vh-64px)] w-64 flex-shrink-0 rounded-2xl p-5 lg:block">
       <div className="space-y-8">
         {docSections.map(section => (
           <div key={section.title}>

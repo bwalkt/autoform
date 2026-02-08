@@ -36,7 +36,7 @@ const sectionSizeClasses: Record<SectionSize, string> = {
   '1': 'py-6', // 24px
   '2': 'py-10', // 40px
   '3': 'py-16', // 64px
-  '4': 'py-24', // 96px
+  '4': 'py-20', // 80px
 }
 
 // Display mapping for Section (limited to none/initial)
@@ -122,6 +122,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -169,6 +171,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
