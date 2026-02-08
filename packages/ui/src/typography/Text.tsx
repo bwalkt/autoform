@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import type { TypographyColor } from './tokens'
 import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
-export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface TextOwnProps {
   as?: 'span' | 'div' | 'label' | 'p'
   asChild?: boolean
   size?: Responsive<TypographySize>
@@ -24,8 +24,11 @@ export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   ml?: Responsive<Spacing>
 }
 
+// TODO: tighten polymorphic typing to match the Box pattern once ref strategy is finalized.
+export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & TextOwnProps
+
 /** Text export. */
-export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
+export const Text = React.forwardRef<HTMLElement, TextProps>(
   (
     {
       as: Tag = 'span',
@@ -52,6 +55,7 @@ export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
     },
     ref,
   ) => {
+    // TODO: support responsive size props (xs/sm/md/lg/xl) or narrow the type.
     const resolvedSize = typeof size === 'string' ? size : (size?.initial ?? '3')
     const weightToken = typographyTokens.weight[weight]
 

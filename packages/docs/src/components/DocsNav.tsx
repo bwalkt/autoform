@@ -74,8 +74,8 @@ interface DocsNavItemProps {
   className?: string
 }
 
-const DocsNavItem = ({ active, disabled, href, ...props }: DocsNavItemProps) => {
-  const className = classNames(styles.DocsNavItem, active && styles.active)
+const DocsNavItem = ({ active, disabled, href, className, ...props }: DocsNavItemProps) => {
+  const mergedClassName = classNames(styles.DocsNavItem, active && styles.active, className)
   const isExternal = href.startsWith('http')
   const ref = React.useRef<HTMLAnchorElement>(null)
 
@@ -94,12 +94,12 @@ const DocsNavItem = ({ active, disabled, href, ...props }: DocsNavItemProps) => 
   }, [active])
 
   if (disabled) {
-    return <span ref={ref} className={className} {...props} />
+    return <span ref={ref} className={mergedClassName} {...props} />
   }
 
   if (isExternal) {
-    return <a ref={ref} className={className} href={href} target="_blank" rel="noopener" {...props} />
+    return <a ref={ref} className={mergedClassName} href={href} target="_blank" rel="noopener" {...props} />
   }
 
-  return <Link href={`/${href}`} ref={ref} className={className} {...props} />
+  return <Link href={`/${href}`} ref={ref} className={mergedClassName} {...props} />
 }

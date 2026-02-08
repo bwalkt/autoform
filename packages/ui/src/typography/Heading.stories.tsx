@@ -26,7 +26,7 @@ const meta: Meta<typeof Heading> = {
     },
     color: {
       control: 'select',
-      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
+      options: ['default', 'neutral', 'info', 'success', 'warning', 'error'],
       description: 'The heading color',
     },
     align: {
@@ -104,25 +104,22 @@ export const AllWeights: Story = {
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-2">
-      <Heading size="4" color="gray">
+      <Heading size="4" color="default">
         Default color heading
       </Heading>
-      <Heading size="4" color="blue">
-        Primary color heading
-      </Heading>
-      <Heading size="4" color="gray">
+      <Heading size="4" color="neutral">
         Neutral color heading
       </Heading>
-      <Heading size="4" color="sky">
+      <Heading size="4" color="info">
         Info color heading
       </Heading>
-      <Heading size="4" color="green">
+      <Heading size="4" color="success">
         Success color heading
       </Heading>
-      <Heading size="4" color="amber">
+      <Heading size="4" color="warning">
         Warning color heading
       </Heading>
-      <Heading size="4" color="red">
+      <Heading size="4" color="error">
         Error color heading
       </Heading>
     </Box>

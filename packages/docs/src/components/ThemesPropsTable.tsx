@@ -17,14 +17,14 @@ export function ThemesPropsTable({ defs }: { defs: keyof typeof definitions }) {
       <Table.Root>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell style={{ width: '37%' }}>Prop</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Prop</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Type</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Default</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map((item, index) => (
-            <Table.Row key={`${item.name}-${index}`} style={{ whiteSpace: 'nowrap' }}>
+          {data.map(item => (
+            <Table.Row key={item.name} className="docs-props-row">
               <Table.RowHeaderCell>
                 <Code size="2">
                   {item.name}

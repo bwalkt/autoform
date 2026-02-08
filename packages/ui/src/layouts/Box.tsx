@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import {
+  type Display,
   getDisplayClasses,
   getSharedLayoutClasses,
   getSharedLayoutStyles,
@@ -21,7 +22,7 @@ export interface BoxOwnProps extends SharedLayoutProps {
   /** Merge props onto child element */
   asChild?: boolean
   /** CSS display property */
-  display?: Responsive<'none' | 'inline' | 'inline-block' | 'block' | 'contents'>
+  display?: Responsive<Display>
 }
 
 type BoxDivProps = BoxOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof BoxOwnProps>

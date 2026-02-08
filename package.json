@@ -15,7 +15,7 @@
     "husky": "^9.1.7",
     "postcss": "catalog:",
     "prettier": "catalog:",
-    "tailwindcss": "^3.4.19",
+    "tailwindcss": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:"
   },

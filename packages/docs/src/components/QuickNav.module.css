@@ -10,3 +10,29 @@
 .LinkWrapper[data-level="2"] ~ .LinkWrapper[data-level="3"] .Link {
   margin-left: var(--space-5);
 }
+
+.QuickNavRoot {
+  position: fixed;
+  flex-shrink: 0;
+  display: var(--quick-nav-display);
+  top: var(--header-height);
+  width: 250px;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+}
+
+.QuickNavInner {
+  padding-block: 68px;
+  display: block;
+}
+
+.QuickNavHidden {
+  display: none;
+}
+
+.QuickNavList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

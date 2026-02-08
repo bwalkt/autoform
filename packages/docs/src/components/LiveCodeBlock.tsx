@@ -37,22 +37,25 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
   }, [])
 
   // Default scope with common imports
-  const fullScope = {
-    Grid,
-    Box,
-    Container: Container ?? Box,
-    Flex: Flex ?? Box,
-    Section: Section ?? Box,
-    DecorativeBox,
-    ...scope,
-  }
+  const fullScope = React.useMemo(
+    () => ({
+      Grid,
+      Box,
+      Container: Container ?? Box,
+      Flex: Flex ?? Box,
+      Section: Section ?? Box,
+      DecorativeBox,
+      ...scope,
+    }),
+    [scope],
+  )
 
   return (
-    <div className={styles.CodeBlockRoot} style={{ marginTop: '2rem' }}>
+    <div className={[styles.CodeBlockRoot, styles.LiveCodeBlockRoot].filter(Boolean).join(' ')}>
       {showPreview && (
         <div className={styles.CodeBlockLivePreview}>
           <ViewportPreview>
-            <div style={{ height: '200px', overflow: 'auto', padding: '1rem' }}>
+            <div className={styles.LiveCodeBlockPreviewInner}>
               <Runner code={code} scope={fullScope} onRendered={handleRendered} />
             </div>
           </ViewportPreview>
@@ -81,24 +84,11 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
             searchKeymap: false,
             tabSize: 2,
           }}
-          style={{
-            fontSize: '14px',
-            fontFamily:
-              'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-          }}
+          className={styles.LiveCodeBlockEditor}
         />
 
         {error && (
-          <Box
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: '#450a0a',
-              color: '#fca5a5',
-              fontSize: '14px',
-              fontFamily: 'monospace',
-              borderTop: '1px solid #7f1d1d',
-            }}
-          >
+          <Box className={styles.LiveCodeBlockError} role="alert" aria-live="polite">
             {error.message}
           </Box>
         )}

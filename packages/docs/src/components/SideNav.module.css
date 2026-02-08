@@ -1,0 +1,12 @@
+/* Copied and adapted from Radix UI website (MIT License, Copyright (c) 2024 WorkOS) */
+.SideNavRoot {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.SideNavInner {
+  z-index: 1;
+  top: var(--header-height);
+  overflow-x: hidden;
+  width: inherit;
+}

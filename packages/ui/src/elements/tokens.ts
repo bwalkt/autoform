@@ -278,7 +278,7 @@ export const layoutTokens = {
 
   justifyContent: ['start', 'center', 'end', 'between', 'around', 'evenly'] as const,
 
-  justifyItems: ['start', 'center', 'end', 'baseline', 'stretch'] as const,
+  justifyItems: ['start', 'center', 'end', 'stretch'] as const,
 
   alignSelf: ['auto', 'start', 'center', 'end', 'baseline', 'stretch'] as const,
 

@@ -8,6 +8,7 @@ import {
   type Display,
   type GridColumns,
   type GridFlow,
+  type GridRows,
   getAlignContentClasses,
   getAlignItemsClasses,
   getDisplayClasses,
@@ -19,6 +20,8 @@ import {
   getSharedLayoutClasses,
   getSharedLayoutStyles,
   getSpacingClasses,
+  isGridColumnsValue,
+  isGridRowsValue,
   type JustifyItems,
   type Responsive,
   type SharedLayoutProps,
@@ -42,10 +45,10 @@ export interface GridOwnProps extends SharedLayoutProps {
   display?: Responsive<GridDisplay>
   /** Grid template areas */
   areas?: Responsive<string>
-  /** Number of columns or explicit column template */
+  /** Number of columns */
   columns?: Responsive<GridColumns | string>
-  /** Number of rows or explicit row template */
-  rows?: Responsive<GridColumns | string>
+  /** Number of rows */
+  rows?: Responsive<GridRows | string>
   /** Grid auto-flow direction */
   flow?: Responsive<GridFlow>
   /** Align items along the cross axis */
@@ -68,6 +71,28 @@ type GridDivProps = GridOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, k
 type GridSpanProps = GridOwnProps & { as: 'span' } & Omit<React.ComponentPropsWithoutRef<'span'>, keyof GridOwnProps>
 
 export type GridProps = GridDivProps | GridSpanProps
+
+function filterResponsiveGridValues<T extends string>(
+  prop: Responsive<T | string> | undefined,
+  isValid: (value: string) => value is T,
+): Responsive<T> | undefined {
+  if (!prop) return undefined
+
+  if (typeof prop === 'string') {
+    return isValid(prop) ? prop : undefined
+  }
+
+  const filtered: Partial<Record<'initial' | 'xs' | 'sm' | 'md' | 'lg' | 'xl', T>> = {}
+
+  if (prop.initial && isValid(prop.initial)) filtered.initial = prop.initial
+  if (prop.xs && isValid(prop.xs)) filtered.xs = prop.xs
+  if (prop.sm && isValid(prop.sm)) filtered.sm = prop.sm
+  if (prop.md && isValid(prop.md)) filtered.md = prop.md
+  if (prop.lg && isValid(prop.lg)) filtered.lg = prop.lg
+  if (prop.xl && isValid(prop.xl)) filtered.xl = prop.xl
+
+  return Object.keys(filtered).length > 0 ? (filtered as Responsive<T>) : undefined
+}
 
 // ============================================================================
 // Grid Component
@@ -190,6 +215,13 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
     // Default to grid display if not specified
     const resolvedDisplay = display || 'grid'
 
+    const mappedColumns = filterResponsiveGridValues(columns, isGridColumnsValue)
+    const mappedRows = filterResponsiveGridValues(rows, isGridRowsValue)
+    const columnClasses = getGridColumnsClasses(mappedColumns)
+    const rowClasses = getGridRowsClasses(mappedRows)
+    const hasCustomColumns = typeof columns === 'string' && !columnClasses
+    const hasCustomRows = typeof rows === 'string' && !rowClasses
+
     const classes = cn(
       'rt-Grid',
       'box-border',
@@ -202,8 +234,8 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       getSpacingClasses(gap, 'gap'),
       getSpacingClasses(gapX, 'gap-x'),
       getSpacingClasses(gapY, 'gap-y'),
-      columns ? getGridColumnsClasses(columns) : 'rt-grid-cols-1',
-      rows ? getGridRowsClasses(rows) : '',
+      columns ? columnClasses : 'rt-grid-cols-1',
+      rows ? rowClasses : '',
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     )
@@ -211,6 +243,8 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
     // Build grid-specific styles - for areas and custom grid values
     const gridStyles: React.CSSProperties = {
       ...(areas && typeof areas === 'string' && { gridTemplateAreas: areas }),
+      ...(hasCustomColumns && { gridTemplateColumns: columns }),
+      ...(hasCustomRows && { gridTemplateRows: rows }),
     }
 
     const styles: React.CSSProperties = {

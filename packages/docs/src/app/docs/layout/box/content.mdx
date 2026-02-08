@@ -1,6 +1,5 @@
 import { Box, Flex, Heading, Text } from '@bwalkt/ui'
 import { CodeBlock } from '../../../../components/CodeBlock'
-import { DecorativeBox } from '../../../../components/DecorativeBox'
 import { LiveCodeBlock } from '../../../../components/LiveCodeBlock'
 import { ThemesPropsTable } from '../../../../components/ThemesPropsTable'
 import { ViewportPreview } from '../../../../components/ViewportPreview'
@@ -46,7 +45,7 @@ This component is based on the `div` element and supports common margin props.
   breakpoint.
 </Box>
 
-<CodeBlock.Root style={{ marginTop: 24 }}>
+<CodeBlock.Root mt="6">
   <CodeBlock.LivePreview>
     <ViewportPreview>
       <Box p={{ initial: '3', md: '5' }} className="rounded-2xl border border-border/70 bg-muted/30">

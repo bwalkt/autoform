@@ -90,10 +90,22 @@ kbd {
   overflow: hidden;
 }
 
+.docs-props-table {
+  overflow-x: auto;
+}
+
 .docs-props-table thead th {
   background: var(--gray-2, #f8f9fa);
   color: var(--gray-12, #1f2328);
   font-weight: 600;
+}
+
+.docs-props-table thead th:first-child {
+  width: 37%;
+}
+
+.docs-props-table .docs-props-row {
+  white-space: nowrap;
 }
 
 .docs-props-table tbody tr:last-child td,
@@ -111,6 +123,23 @@ kbd {
 
 .docs-props-table tbody tr > * {
   border-bottom: 1px solid var(--gray-a5, rgba(0, 0, 0, 0.08));
+}
+
+.docs-demo-surface {
+  background: var(--gray-a2, rgba(0, 0, 0, 0.04));
+  border-radius: var(--radius-3, 10px);
+}
+
+.viewport-preview[data-viewport="desktop"] {
+  max-width: 1200px;
+}
+
+.viewport-preview[data-viewport="tablet"] {
+  max-width: 900px;
+}
+
+.viewport-preview[data-viewport="phone"] {
+  max-width: 375px;
 }
 
 /* Viewport preview responsive overrides */
@@ -132,9 +161,6 @@ kbd {
 
 /* Phone (375px) - shows mobile layout */
 .viewport-preview[data-viewport="phone"] .grid-cols-3 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.viewport-preview[data-viewport="phone"] .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .viewport-preview[data-viewport="phone"] .grid-cols-1.md\:grid-cols-2 {

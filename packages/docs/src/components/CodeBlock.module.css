@@ -7,6 +7,10 @@
   border-radius: var(--code-block-radius);
 }
 
+.LiveCodeBlockRoot {
+  margin-top: var(--space-6, 24px);
+}
+
 .CodeBlockRoot::after {
   content: "";
   inset: 0;
@@ -23,7 +27,7 @@
 
 .CodeBlockLivePreview {
   text-wrap: pretty;
-  background-color: var(--color-background, #fff);
+  background-color: var(--color-background, var(--color-panel-solid, #fff));
   border-radius: var(--code-block-radius) var(--code-block-radius) 0 0;
   box-shadow: inset 0 1px var(--code-block-border);
 }
@@ -31,6 +35,12 @@
 .CodeBlockLivePreviewInner {
   padding: var(--space-4);
   line-height: 1;
+}
+
+.LiveCodeBlockPreviewInner {
+  height: 200px;
+  overflow: auto;
+  padding: var(--space-4);
 }
 
 .CodeBlockLivePreviewInner[data-scroll="true"] {
@@ -82,11 +92,25 @@
   white-space: pre;
 }
 
+.LiveCodeBlockEditor {
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.LiveCodeBlockError {
+  padding: 0.5rem 1rem;
+  background-color: #450a0a;
+  color: #fca5a5;
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  border-top: 1px solid #7f1d1d;
+}
+
 .CodeBlockCode {
   display: inline-block;
   white-space: pre;
   tab-size: 2;
-  color: #d6deeb;
+  color: var(--code-block-text-color, #d6deeb);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 14px;
   line-height: 1.5;

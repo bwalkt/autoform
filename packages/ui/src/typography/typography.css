@@ -63,9 +63,6 @@
   --heading-line-height-7: calc(36px * var(--scaling));
   --heading-line-height-8: calc(40px * var(--scaling));
   --heading-line-height-9: calc(60px * var(--scaling));
-}
-
-.radix-themes {
   overflow-wrap: break-word;
   font-family: var(--default-font-family);
   font-size: var(--default-font-size);
