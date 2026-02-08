@@ -10,7 +10,7 @@ export function DocsHeader() {
             <span className="text-sm font-semibold">AF</span>
           </div>
           <div>
-            <Heading as="span" size="3" className="block">
+            <Heading as="h3" size="3" className="block">
               Autoform UI
             </Heading>
             <span className="text-xs text-muted-foreground">Docs</span>
