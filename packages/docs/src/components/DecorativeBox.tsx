@@ -5,7 +5,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 // Adapted from Radix UI website (MIT License, Copyright (c) 2024 WorkOS)
 import styles from './DecorativeBox.module.css'
 
-export function DecorativeBox(props: ComponentPropsWithoutRef<typeof Box>) {
-  const className = [styles.DecorativeBox, props.className].filter(Boolean).join(' ')
-  return <Box height="100%" {...props} className={className} />
+export function DecorativeBox({ className, height, ...props }: ComponentPropsWithoutRef<typeof Box>) {
+  const composedClassName = [styles.DecorativeBox, className].filter(Boolean).join(' ')
+  return <Box {...props} height={height} className={composedClassName} />
 }

@@ -90,6 +90,10 @@ kbd {
   overflow: hidden;
 }
 
+.docs-props-table {
+  overflow-x: auto;
+}
+
 .docs-props-table thead th {
   background: var(--gray-2, #f8f9fa);
   color: var(--gray-12, #1f2328);

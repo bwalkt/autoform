@@ -81,14 +81,14 @@ export const Alignment: Story = {
 }
 
 // ============================================================================
-// Responsive Size
+// Tokenized Size
 // ============================================================================
 
-export const ResponsiveSize: Story = {
+export const TokenizedSize: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">
       <Container size="4" p="4" className="bg-background border rounded-lg">
-        <p className="font-medium">Responsive Container</p>
+        <p className="font-medium">Tokenized Container</p>
         <p className="text-sm text-muted-foreground mt-2">
           Container sizes are tokenized. Use a specific size per layout.
         </p>

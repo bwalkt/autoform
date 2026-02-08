@@ -309,8 +309,8 @@ export type GridColumns = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 
 export type GridRows = '1' | '2' | '3' | '4' | '5' | '6' | 'none'
 
 /** getGridColumnsClasses export. */
-function getGridClasses(
-  prop: Responsive<string> | undefined,
+function getGridClasses<T extends string>(
+  prop: Responsive<T> | undefined,
   classMap: Record<string, string>,
   prefix: string,
 ): string {
@@ -338,14 +338,23 @@ function getGridClasses(
   return classes.join(' ')
 }
 
+/** isGridColumnsValue export. */
+export function isGridColumnsValue(value: string): value is GridColumns {
+  return value in gridColumnsMap
+}
+
+/** isGridRowsValue export. */
+export function isGridRowsValue(value: string): value is GridRows {
+  return value in gridRowsMap
+}
+
 /** getGridColumnsClasses export. */
-export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | undefined): string {
+export function getGridColumnsClasses(prop: Responsive<GridColumns> | undefined): string {
   return getGridClasses(prop, gridColumnsMap, 'rt-grid-cols')
 }
 
 /** getGridRowsClasses export. */
-/** getGridRowsClasses export. */
-export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefined): string {
+export function getGridRowsClasses(prop: Responsive<GridRows> | undefined): string {
   return getGridClasses(prop, gridRowsMap, 'rt-grid-rows')
 }
 
@@ -354,14 +363,30 @@ export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefin
 // ============================================================================
 
 /** Slot export. */
+function composeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
+  return (node: T | null) => {
+    for (const ref of refs) {
+      if (!ref) continue
+      if (typeof ref === 'function') {
+        ref(node)
+      } else {
+        ;(ref as React.MutableRefObject<T | null>).current = node
+      }
+    }
+  }
+}
+
+/** Slot export. */
 export const Slot = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(({ children, ...props }, ref) => {
   if (React.isValidElement<React.HTMLAttributes<HTMLElement>>(children)) {
+    const childRef = (children as React.ReactElement & { ref?: React.Ref<HTMLElement> }).ref
+
     return React.cloneElement(
       children as React.ReactElement,
       {
         ...props,
         ...children.props,
-        ref,
+        ref: ref ? composeRefs(childRef, ref) : childRef,
         className: cn(props.className, children.props.className),
       } as Record<string, unknown>,
     )

@@ -13,7 +13,7 @@ export const gridPropDefs: PropDef[] = [
   { name: 'display', typeSimple: '"none" | "inline-grid" | "grid"', default: 'grid' },
   { name: 'areas', typeSimple: 'string' },
   { name: 'columns', typeSimple: 'Responsive<GridColumns>' },
-  { name: 'rows', typeSimple: 'Responsive<GridColumns>' },
+  { name: 'rows', typeSimple: 'Responsive<GridRows>' },
   { name: 'flow', typeSimple: '"row" | "column" | "dense" | "row-dense" | "column-dense"' },
   { name: 'align', typeSimple: '"start" | "center" | "end" | "baseline" | "stretch"' },
   {

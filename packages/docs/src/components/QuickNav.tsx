@@ -32,7 +32,7 @@ export function QuickNav({ title = 'Quick nav' }: { title?: string }) {
               <Heading mb="3" size="4" id="site-quick-nav-heading" asChild>
                 <h4>{title}</h4>
               </Heading>
-              <Box asChild p="0" className={styles.QuickNavList}>
+              <Box asChild className={styles.QuickNavList}>
                 <ul>
                   {headings.map(({ id, nodeName, innerText }) => (
                     <Box asChild key={id} data-level={getLevel(nodeName)} className={styles.LinkWrapper}>

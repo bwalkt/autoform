@@ -2,6 +2,8 @@ export type DocItem = {
   title: string
   href: string
   description?: string
+  preview?: boolean
+  deprecated?: boolean
 }
 
 export type DocSection = {
@@ -102,5 +104,7 @@ export const docsRoutes: DocsRoute[] = docSections.map(section => ({
   pages: section.items.map(item => ({
     title: item.title,
     slug: item.href.replace(/^\//, ''),
+    ...(item.preview ? { preview: item.preview } : {}),
+    ...(item.deprecated ? { deprecated: item.deprecated } : {}),
   })),
 }))
