@@ -178,8 +178,12 @@ function validateExpiry(expiry: string): boolean {
   const match = expiry.match(/^(\d{2})\/(\d{2})$/)
   if (!match) return false
 
-  const month = Number.parseInt(match[1], 10)
-  const year = Number.parseInt(match[2], 10) + 2000
+  const monthPart = match[1]
+  const yearPart = match[2]
+  if (!monthPart || !yearPart) return false
+
+  const month = Number.parseInt(monthPart, 10)
+  const year = Number.parseInt(yearPart, 10) + 2000
 
   if (month < 1 || month > 12) return false
 
