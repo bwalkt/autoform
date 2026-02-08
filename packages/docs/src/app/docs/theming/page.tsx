@@ -14,7 +14,7 @@ export default function ThemingPage() {
         <code className="text-foreground">scaling</code>, and <code className="text-foreground">panelBackground</code>.
       </Text>
 
-      <CalloutRoot variant="warning" className="mt-4">
+      <CalloutRoot variant="surface" color="warning" className="mt-4">
         <CalloutText>
           Use themes sparingly. Favor tokens for semantic control, then provide component-level overrides only when
           absolutely necessary.

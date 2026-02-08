@@ -14,7 +14,7 @@ export default function TokensPage() {
         value. The system exposes a compact set of tokens so theme changes are easy to reason about.
       </Text>
 
-      <CalloutRoot variant="info" className="mt-4">
+      <CalloutRoot variant="surface" color="info" className="mt-4">
         <CalloutText>
           Tokens are mapped to CSS variables. You can override them per page or per component tree.
         </CalloutText>

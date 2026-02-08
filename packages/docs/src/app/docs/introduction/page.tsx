@@ -14,7 +14,7 @@ export default function IntroductionPage() {
         building dense workflows where clarity matters more than decoration.
       </Text>
 
-      <CalloutRoot variant="info" className="mt-4">
+      <CalloutRoot variant="surface" color="info" className="mt-4">
         <CalloutText>
           Start with tokens and layout primitives. The rest of the system builds on the same semantic vocabulary.
         </CalloutText>
