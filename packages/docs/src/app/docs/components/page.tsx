@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Card, Heading, Select, SelectItem, Text, TextField } from '@bwalkt/ui'
+import { Button, Card, Heading, Label, Select, SelectItem, Text, TextField } from '@bwalkt/ui'
 
 export default function ComponentsPage() {
   return (
@@ -19,11 +19,14 @@ export default function ComponentsPage() {
 
       <Card.Root className="mt-4 space-y-4 p-6">
         <TextField label="Workspace name" placeholder="Acme Operations" />
-        <Select label="Region" placeholder="Select a region">
-          <SelectItem value="us">United States</SelectItem>
-          <SelectItem value="eu">Europe</SelectItem>
-          <SelectItem value="apac">Asia Pacific</SelectItem>
-        </Select>
+        <div className="space-y-2">
+          <Label>Region</Label>
+          <Select placeholder="Select a region">
+            <SelectItem value="us">United States</SelectItem>
+            <SelectItem value="eu">Europe</SelectItem>
+            <SelectItem value="apac">Asia Pacific</SelectItem>
+          </Select>
+        </div>
         <Button size="3">Create workspace</Button>
       </Card.Root>
 

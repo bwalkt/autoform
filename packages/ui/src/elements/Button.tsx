@@ -196,6 +196,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
       return React.cloneElement(childElement, {
         ...props,
+        ref,
         className: cn(buttonClasses, childProps.className),
         style: { ...combinedStyles, ...childProps.style },
         'aria-busy': loading || undefined,
