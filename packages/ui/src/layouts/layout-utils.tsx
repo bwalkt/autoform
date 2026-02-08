@@ -230,24 +230,23 @@ export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | u
   }
 
   const classes: string[] = []
-  if (prop.initial && gridColumnsMap[prop.initial]) {
-    classes.push(gridColumnsMap[prop.initial])
-  }
-  if (prop.xs && gridColumnsMap[prop.xs]) {
-    classes.push(`xs:${gridColumnsMap[prop.xs]}`)
-  }
-  if (prop.sm && gridColumnsMap[prop.sm]) {
-    classes.push(`sm:${gridColumnsMap[prop.sm]}`)
-  }
-  if (prop.md && gridColumnsMap[prop.md]) {
-    classes.push(`md:${gridColumnsMap[prop.md]}`)
-  }
-  if (prop.lg && gridColumnsMap[prop.lg]) {
-    classes.push(`lg:${gridColumnsMap[prop.lg]}`)
-  }
-  if (prop.xl && gridColumnsMap[prop.xl]) {
-    classes.push(`xl:${gridColumnsMap[prop.xl]}`)
-  }
+  const initialClass = prop.initial ? gridColumnsMap[prop.initial] : undefined
+  if (initialClass) classes.push(initialClass)
+
+  const xsClass = prop.xs ? gridColumnsMap[prop.xs] : undefined
+  if (xsClass) classes.push(`xs:${xsClass}`)
+
+  const smClass = prop.sm ? gridColumnsMap[prop.sm] : undefined
+  if (smClass) classes.push(`sm:${smClass}`)
+
+  const mdClass = prop.md ? gridColumnsMap[prop.md] : undefined
+  if (mdClass) classes.push(`md:${mdClass}`)
+
+  const lgClass = prop.lg ? gridColumnsMap[prop.lg] : undefined
+  if (lgClass) classes.push(`lg:${lgClass}`)
+
+  const xlClass = prop.xl ? gridColumnsMap[prop.xl] : undefined
+  if (xlClass) classes.push(`xl:${xlClass}`)
 
   return classes.join(' ')
 }
