@@ -25,14 +25,16 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
   </CodeBlock.LivePreview>
   <CodeBlock.Content>
     <CodeBlock.Pre>
-      <CodeBlock.Code language="jsx">{`<Grid columns="3" gap="3" rows="repeat(2, 64px)" width="auto">
+      <CodeBlock.Code language="jsx">
+{`<Grid columns="3" gap="3" rows="repeat(2, 64px)" width="auto">
   <DecorativeBox />
   <DecorativeBox />
   <DecorativeBox />
   <DecorativeBox />
   <DecorativeBox />
   <DecorativeBox />
-</Grid>`}</CodeBlock.Code>
+</Grid>`}
+      </CodeBlock.Code>
     </CodeBlock.Pre>
   </CodeBlock.Content>
 </CodeBlock.Root>
@@ -76,14 +78,16 @@ All props marked `Responsive`, such as `columns` and `rows` accept a breakpoint 
   </CodeBlock.LivePreview>
   <CodeBlock.Content>
     <CodeBlock.Pre>
-      <CodeBlock.Code language="jsx">{`<Grid columns={{ initial: "1", md: "2" }} gap="3" width="auto">
+      <CodeBlock.Code language="jsx">
+{`<Grid columns={{ initial: "1", md: "2" }} gap="3" width="auto">
   <Box height="64px">
     <DecorativeBox />
   </Box>
   <Box height="64px">
     <DecorativeBox />
   </Box>
-</Grid>`}</CodeBlock.Code>
+</Grid>`}
+      </CodeBlock.Code>
     </CodeBlock.Pre>
   </CodeBlock.Content>
 </CodeBlock.Root>

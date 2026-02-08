@@ -17,11 +17,14 @@
     "@mdx-js/loader": "catalog:",
     "@mdx-js/react": "catalog:",
     "@next/mdx": "catalog:",
+    "@types/prismjs": "^1.26.5",
     "@uiw/react-codemirror": "^4.25.4",
     "lucide-react": "catalog:",
     "next": "catalog:",
+    "prismjs": "^1.30.0",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "shiki": "^3.22.0"
   },
   "devDependencies": {
     "@bwalkt/typescript-config": "file:../typescript-config",

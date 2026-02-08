@@ -4,6 +4,7 @@ import { Box } from '@bwalkt/ui'
 // Adapted from Radix UI website (MIT License, Copyright (c) 2024 WorkOS)
 import * as React from 'react'
 import styles from './CodeBlock.module.css'
+import { SyntaxHighlighter } from './SyntaxHighlighter'
 
 type RootProps = React.ComponentPropsWithoutRef<typeof Box>
 const Root = React.forwardRef<HTMLDivElement, RootProps>(({ className, ...props }, ref) => (
@@ -43,12 +44,16 @@ const Pre = React.forwardRef<HTMLPreElement, PreProps>(({ className, children, .
 ))
 Pre.displayName = 'CodeBlock.Pre'
 
-type CodeProps = React.ComponentPropsWithoutRef<'code'>
-const Code = React.forwardRef<HTMLElement, CodeProps>(({ className, children, ...props }, ref) => (
-  <code ref={ref} className={className} {...props}>
-    {children}
-  </code>
-))
+type CodeProps = React.ComponentPropsWithoutRef<'code'> & { language?: string }
+const Code = React.forwardRef<HTMLElement, CodeProps>(({ children, language = 'jsx' }) => {
+  const codeString = typeof children === 'string' ? children : String(children)
+
+  return (
+    <div className={styles.CodeBlockContent}>
+      <SyntaxHighlighter code={codeString} language={language} />
+    </div>
+  )
+})
 Code.displayName = 'CodeBlock.Code'
 
 export const CodeBlock = {

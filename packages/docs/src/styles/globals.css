@@ -1,8 +1,8 @@
+@import "@bwalkt/ui/globals.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "@bwalkt/ui/globals.css";
 
 :root {
   --docs-hero-glow: oklch(0.92 0.06 210 / 40%);
