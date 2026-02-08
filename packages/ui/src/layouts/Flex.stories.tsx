@@ -46,6 +46,7 @@ const DemoBox = ({ children }: { children: React.ReactNode }) => (
 // Basic Examples
 // ============================================================================
 
+/** Default export. */
 export const Default: Story = {
   render: () => (
     <Flex gap="3">
@@ -60,6 +61,7 @@ export const Default: Story = {
 // Direction Examples
 // ============================================================================
 
+/** Directions export. */
 export const Directions: Story = {
   render: () => (
     <div className="space-y-6">
@@ -103,6 +105,7 @@ export const Directions: Story = {
 // Alignment Examples
 // ============================================================================
 
+/** AlignItems export. */
 export const AlignItems: Story = {
   render: () => (
     <div className="space-y-4">
@@ -130,6 +133,7 @@ export const AlignItems: Story = {
   ),
 }
 
+/** JustifyContent export. */
 export const JustifyContent: Story = {
   render: () => (
     <div className="space-y-4 w-[400px]">
@@ -151,6 +155,7 @@ export const JustifyContent: Story = {
 // Gap Examples
 // ============================================================================
 
+/** GapScale export. */
 export const GapScale: Story = {
   render: () => (
     <div className="space-y-4">
@@ -168,6 +173,7 @@ export const GapScale: Story = {
   ),
 }
 
+/** DirectionalGap export. */
 export const DirectionalGap: Story = {
   render: () => (
     <div className="space-y-6">
@@ -189,6 +195,7 @@ export const DirectionalGap: Story = {
 // Wrap Examples
 // ============================================================================
 
+/** FlexWrap export. */
 export const FlexWrap: Story = {
   render: () => (
     <div className="space-y-6">
@@ -227,6 +234,7 @@ export const FlexWrap: Story = {
 // Responsive Examples
 // ============================================================================
 
+/** ResponsiveDirection export. */
 export const ResponsiveDirection: Story = {
   render: () => (
     <Flex direction={{ initial: 'column', sm: 'row' }} gap="4" align="center">
@@ -241,6 +249,7 @@ export const ResponsiveDirection: Story = {
 // Common Patterns
 // ============================================================================
 
+/** SpaceBetween export. */
 export const SpaceBetween: Story = {
   render: () => (
     <Flex justify="between" align="center" p="4" className="bg-muted rounded-lg w-[400px]">
@@ -257,6 +266,7 @@ export const SpaceBetween: Story = {
   ),
 }
 
+/** CenteredContent export. */
 export const CenteredContent: Story = {
   render: () => (
     <Flex

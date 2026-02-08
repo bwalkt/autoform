@@ -33,6 +33,7 @@ const itemsWithAvatars: AvatarItem[] = [
   { id: '4', name: 'Alice Williams', description: 'alice@example.com', avatar: 'https://i.pravatar.cc/150?u=alice' },
 ]
 
+/** Default export. */
 export const Default: Story = {
   render: () => {
     const [value, setValue] = React.useState<string>('')
@@ -46,6 +47,7 @@ export const Default: Story = {
   },
 }
 
+/** Multiple export. */
 export const Multiple: Story = {
   render: () => {
     const [value, setValue] = React.useState<string[]>([])
@@ -65,6 +67,7 @@ export const Multiple: Story = {
   },
 }
 
+/** WithAvatars export. */
 export const WithAvatars: Story = {
   render: () => {
     const [value, setValue] = React.useState<string>('')
@@ -78,6 +81,7 @@ export const WithAvatars: Story = {
   },
 }
 
+/** WithDisabledItems export. */
 export const WithDisabledItems: Story = {
   render: () => {
     const [value, setValue] = React.useState<string>('')
@@ -101,6 +105,7 @@ export const WithDisabledItems: Story = {
   },
 }
 
+/** HighlightColors export. */
 export const HighlightColors: Story = {
   render: () => {
     const [values, setValues] = React.useState<Record<string, string>>({})
@@ -125,6 +130,7 @@ export const HighlightColors: Story = {
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => {
     const [values, setValues] = React.useState<Record<string, string>>({})
@@ -148,6 +154,7 @@ export const Sizes: Story = {
   },
 }
 
+/** WithoutSearch export. */
 export const WithoutSearch: Story = {
   render: () => {
     const [value, setValue] = React.useState<string>('')
@@ -166,6 +173,7 @@ export const WithoutSearch: Story = {
   },
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     return (
@@ -177,6 +185,7 @@ export const Disabled: Story = {
   },
 }
 
+/** CustomRenderer export. */
 export const CustomRenderer: Story = {
   render: () => {
     const [value, setValue] = React.useState<string>('')
@@ -216,6 +225,7 @@ export const CustomRenderer: Story = {
   },
 }
 
+/** MultipleWithHighlight export. */
 export const MultipleWithHighlight: Story = {
   render: () => {
     const [values, setValues] = React.useState<Record<string, string[]>>({})
@@ -241,6 +251,7 @@ export const MultipleWithHighlight: Story = {
   },
 }
 
+/** FormExample export. */
 export const FormExample: Story = {
   render: () => {
     const [assignee, setAssignee] = React.useState<string>('')

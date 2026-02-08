@@ -48,30 +48,35 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
+/** Default export. */
 export const Default: Story = {
   args: {
     defaultChecked: true,
   },
 }
 
+/** Checked export. */
 export const Checked: Story = {
   args: {
     defaultChecked: true,
   },
 }
 
+/** Indeterminate export. */
 export const Indeterminate: Story = {
   args: {
     indeterminate: true,
   },
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   args: {
     disabled: true,
   },
 }
 
+/** DisabledChecked export. */
 export const DisabledChecked: Story = {
   args: {
     disabled: true,
@@ -83,6 +88,7 @@ export const DisabledChecked: Story = {
 // Sizes
 // ============================================================================
 
+/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="items-center gap-4">
@@ -94,6 +100,7 @@ export const AllSizes: Story = {
   ),
 }
 
+/** SizesWithLabels export. */
 export const SizesWithLabels: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -109,6 +116,7 @@ export const SizesWithLabels: Story = {
 // Variants
 // ============================================================================
 
+/** VariantSolid export. */
 export const VariantSolid: Story = {
   args: {
     variant: 'solid',
@@ -116,6 +124,7 @@ export const VariantSolid: Story = {
   },
 }
 
+/** VariantSoft export. */
 export const VariantSoft: Story = {
   args: {
     variant: 'soft',
@@ -123,6 +132,7 @@ export const VariantSoft: Story = {
   },
 }
 
+/** VariantOutline export. */
 export const VariantOutline: Story = {
   args: {
     variant: 'outline',
@@ -130,6 +140,7 @@ export const VariantOutline: Story = {
   },
 }
 
+/** AllVariants export. */
 export const AllVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -175,6 +186,7 @@ export const AllVariants: Story = {
 // Colors
 // ============================================================================
 
+/** AllColors export. */
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-10">
@@ -275,16 +287,19 @@ export const AllColors: Story = {
 // With Labels
 // ============================================================================
 
+/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => <CheckboxWithLabel label="Accept terms and conditions" defaultChecked />,
 }
 
+/** WithLabelAndDescription export. */
 export const WithLabelAndDescription: Story = {
   render: () => (
     <CheckboxWithLabel label="Marketing emails" description="Receive emails about new products, features, and more." />
   ),
 }
 
+/** MultipleWithLabels export. */
 export const MultipleWithLabels: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -303,6 +318,7 @@ export const MultipleWithLabels: Story = {
 // Controlled Example
 // ============================================================================
 
+/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [checked, setChecked] = React.useState(false)
@@ -326,6 +342,7 @@ export const Controlled: Story = {
 // Indeterminate State
 // ============================================================================
 
+/** IndeterminateExample export. */
 export const IndeterminateExample: Story = {
   render: () => {
     const [checkedItems, setCheckedItems] = React.useState([true, false, true])
@@ -375,6 +392,7 @@ export const IndeterminateExample: Story = {
 // Form Example
 // ============================================================================
 
+/** FormExample export. */
 export const FormExample: Story = {
   render: () => {
     const [formData, setFormData] = React.useState({
@@ -441,6 +459,7 @@ export const FormExample: Story = {
 // All States Grid
 // ============================================================================
 
+/** AllStatesGrid export. */
 export const AllStatesGrid: Story = {
   render: () => (
     <div className="grid grid-cols-4 gap-4">
@@ -481,6 +500,7 @@ export const AllStatesGrid: Story = {
 // CheckboxGroup Examples
 // ============================================================================
 
+/** GroupBasic export. */
 export const GroupBasic: Story = {
   name: 'Group - Basic',
   render: () => (
@@ -492,6 +512,7 @@ export const GroupBasic: Story = {
   ),
 }
 
+/** GroupWithDescriptions export. */
 export const GroupWithDescriptions: Story = {
   name: 'Group - With Descriptions',
   render: () => (
@@ -507,6 +528,7 @@ export const GroupWithDescriptions: Story = {
   ),
 }
 
+/** GroupSizes export. */
 export const GroupSizes: Story = {
   name: 'Group - Sizes',
   render: () => (
@@ -543,6 +565,7 @@ export const GroupSizes: Story = {
   ),
 }
 
+/** GroupVariants export. */
 export const GroupVariants: Story = {
   name: 'Group - Variants',
   render: () => (
@@ -572,6 +595,7 @@ export const GroupVariants: Story = {
   ),
 }
 
+/** GroupColors export. */
 export const GroupColors: Story = {
   name: 'Group - Colors',
   render: () => (
@@ -615,6 +639,7 @@ export const GroupColors: Story = {
   ),
 }
 
+/** GroupDisabled export. */
 export const GroupDisabled: Story = {
   name: 'Group - Disabled',
   render: () => (
@@ -639,6 +664,7 @@ export const GroupDisabled: Story = {
   ),
 }
 
+/** GroupControlled export. */
 export const GroupControlled: Story = {
   name: 'Group - Controlled',
   render: () => {
@@ -661,6 +687,7 @@ export const GroupControlled: Story = {
   },
 }
 
+/** GroupFormExample export. */
 export const GroupFormExample: Story = {
   name: 'Group - Form Example',
   render: () => {

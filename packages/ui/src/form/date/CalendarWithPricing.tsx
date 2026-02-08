@@ -79,6 +79,7 @@ export interface CalendarWithPricingProps {
  * />
  * ```
  */
+/** CalendarWithPricing export. */
 export const CalendarWithPricing = React.forwardRef<HTMLDivElement, CalendarWithPricingProps>(
   (
     {

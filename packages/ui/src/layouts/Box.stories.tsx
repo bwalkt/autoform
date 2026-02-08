@@ -31,6 +31,7 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
+/** Default export. */
 export const Default: Story = {
   args: {
     p: '4',
@@ -39,6 +40,7 @@ export const Default: Story = {
   },
 }
 
+/** AsSpan export. */
 export const AsSpan: Story = {
   args: {
     as: 'span',
@@ -52,6 +54,7 @@ export const AsSpan: Story = {
 // Padding Examples
 // ============================================================================
 
+/** PaddingScale export. */
 export const PaddingScale: Story = {
   render: () => (
     <div className="space-y-2">
@@ -64,6 +67,7 @@ export const PaddingScale: Story = {
   ),
 }
 
+/** DirectionalPadding export. */
 export const DirectionalPadding: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4">
@@ -87,6 +91,7 @@ export const DirectionalPadding: Story = {
 // Responsive Examples
 // ============================================================================
 
+/** ResponsivePadding export. */
 export const ResponsivePadding: Story = {
   render: () => (
     <Box p={{ initial: '2', sm: '4', md: '6', lg: '8' }} className="bg-muted rounded-md">
@@ -99,6 +104,7 @@ export const ResponsivePadding: Story = {
 // Sizing Examples
 // ============================================================================
 
+/** CustomSizing export. */
 export const CustomSizing: Story = {
   render: () => (
     <div className="space-y-4">
@@ -119,6 +125,7 @@ export const CustomSizing: Story = {
 // Position Examples
 // ============================================================================
 
+/** Positioning export. */
 export const Positioning: Story = {
   render: () => (
     <Box position="relative" height="200px" className="bg-muted rounded-md">
@@ -142,6 +149,7 @@ export const Positioning: Story = {
 // Display Examples
 // ============================================================================
 
+/** DisplayModes export. */
 export const DisplayModes: Story = {
   render: () => (
     <div className="space-y-4">
@@ -163,6 +171,7 @@ export const DisplayModes: Story = {
 // Overflow Examples
 // ============================================================================
 
+/** OverflowBehavior export. */
 export const OverflowBehavior: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4">

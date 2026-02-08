@@ -135,6 +135,7 @@ const variantStyles: Record<CheckboxVariant, string> = {
   ),
 }
 
+/** Checkbox export. */
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   (
     {
@@ -222,6 +223,7 @@ export interface CheckboxWithLabelProps extends CheckboxProps {
   description?: string
 }
 
+/** CheckboxWithLabel export. */
 export const CheckboxWithLabel = React.forwardRef<HTMLButtonElement, CheckboxWithLabelProps>(
   ({ label, description, id, size = '2', className, ...props }, ref) => {
     const generatedId = React.useId()
@@ -406,6 +408,7 @@ const CheckboxGroupItem = React.forwardRef<HTMLButtonElement, CheckboxGroupItemP
 CheckboxGroupItem.displayName = 'CheckboxGroup.Item'
 
 // Export the compound component
+/** CheckboxGroup export. */
 export const CheckboxGroup = {
   Root: CheckboxGroupRoot,
   Item: CheckboxGroupItem,

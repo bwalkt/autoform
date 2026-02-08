@@ -15,6 +15,7 @@ export default meta
 type Story = StoryObj<typeof MiniCalendar>
 
 // Default MiniCalendar
+/** Default export. */
 export const Default: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -28,6 +29,7 @@ export const Default: Story = {
 }
 
 // Compact mode
+/** Compact export. */
 export const Compact: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -41,6 +43,7 @@ export const Compact: Story = {
 }
 
 // Without header
+/** WithoutHeader export. */
 export const WithoutHeader: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -53,6 +56,7 @@ export const WithoutHeader: Story = {
 }
 
 // Week starts on Monday
+/** WeekStartsMonday export. */
 export const WeekStartsMonday: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -65,6 +69,7 @@ export const WeekStartsMonday: Story = {
 }
 
 // With min/max date
+/** WithMinMaxDate export. */
 export const WithMinMaxDate: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -86,6 +91,7 @@ export const WithMinMaxDate: Story = {
 }
 
 // Disabled state
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     return (
@@ -97,6 +103,7 @@ export const Disabled: Story = {
 }
 
 // Multiple calendars
+/** MultipleCalendars export. */
 export const MultipleCalendars: Story = {
   render: () => {
     const [startDate, setStartDate] = React.useState<Date>(new Date())
@@ -125,6 +132,7 @@ export const MultipleCalendars: Story = {
 }
 
 // In a card layout
+/** InCard export. */
 export const InCard: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date>(new Date())

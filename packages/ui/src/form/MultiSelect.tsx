@@ -96,6 +96,7 @@ const Badge: React.FC<BadgeProps> = ({ children, onRemove, disabled }) => (
 // Main Component
 // ============================================================================
 
+/** MultiSelect export. */
 export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
   (
     {

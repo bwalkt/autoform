@@ -44,6 +44,7 @@ const colorMap: Record<Color, { accent: string; soft: string; foreground: string
  * <Calendar mode="range" selected={range} onSelect={setRange} />
  * ```
  */
+/** Calendar export. */
 export function Calendar({
   className,
   classNames,

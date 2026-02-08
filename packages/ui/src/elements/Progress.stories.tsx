@@ -34,6 +34,7 @@ const meta: Meta<typeof Progress> = {
 export default meta
 type Story = StoryObj<typeof Progress>
 
+/** Default export. */
 export const Default: Story = {
   args: {
     value: 60,
@@ -45,6 +46,7 @@ export const Default: Story = {
   ),
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-64 space-y-4">
@@ -58,6 +60,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Colors export. */
 export const Colors: Story = {
   render: () => (
     <div className="w-64 space-y-4">
@@ -71,6 +74,7 @@ export const Colors: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-64 space-y-4">
@@ -84,6 +88,7 @@ export const Variants: Story = {
   ),
 }
 
+/** Indeterminate export. */
 export const Indeterminate: Story = {
   render: () => (
     <div className="w-64 space-y-4">
@@ -93,6 +98,7 @@ export const Indeterminate: Story = {
   ),
 }
 
+/** Animated export. */
 export const Animated: Story = {
   render: () => {
     const [progress, setProgress] = useState(0)
@@ -116,6 +122,7 @@ export const Animated: Story = {
   },
 }
 
+/** FileUpload export. */
 export const FileUpload: Story = {
   render: () => {
     const [progress, setProgress] = useState(0)
@@ -161,6 +168,7 @@ export const FileUpload: Story = {
   },
 }
 
+/** MultipleProgress export. */
 export const MultipleProgress: Story = {
   render: () => (
     <div className="w-80 space-y-4 p-4 border rounded-lg">
@@ -205,6 +213,7 @@ export const MultipleProgress: Story = {
   ),
 }
 
+/** SkillLevels export. */
 export const SkillLevels: Story = {
   render: () => (
     <div className="w-72 space-y-3">

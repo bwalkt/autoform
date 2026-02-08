@@ -33,12 +33,14 @@ const meta: Meta<typeof Badge> = {
 export default meta
 type Story = StoryObj<typeof Badge>
 
+/** Default export. */
 export const Default: Story = {
   args: {
     children: 'Badge',
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -51,6 +53,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -63,6 +66,7 @@ export const Variants: Story = {
   ),
 }
 
+/** Colors export. */
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -80,6 +84,7 @@ export const Colors: Story = {
   ),
 }
 
+/** Radius export. */
 export const Radius: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -92,6 +97,7 @@ export const Radius: Story = {
   ),
 }
 
+/** HighContrast export. */
 export const HighContrast: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -103,6 +109,7 @@ export const HighContrast: Story = {
   ),
 }
 
+/** StatusBadges export. */
 export const StatusBadges: Story = {
   render: () => (
     <div className="flex items-center gap-2">
@@ -122,6 +129,7 @@ export const StatusBadges: Story = {
   ),
 }
 
+/** WithDot export. */
 export const WithDot: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -141,6 +149,7 @@ export const WithDot: Story = {
   ),
 }
 
+/** InContext export. */
 export const InContext: Story = {
   render: () => (
     <div className="space-y-4">
@@ -182,6 +191,7 @@ export const InContext: Story = {
   ),
 }
 
+/** NotificationCount export. */
 export const NotificationCount: Story = {
   render: () => (
     <div className="flex items-center gap-8">

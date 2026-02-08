@@ -250,6 +250,7 @@ function SearchableSelect<T>({
 // Main Component
 // ============================================================================
 
+/** LocationInput export. */
 export const LocationInput = React.forwardRef<HTMLDivElement, LocationInputProps>(
   (
     {

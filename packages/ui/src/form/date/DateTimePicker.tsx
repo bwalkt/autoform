@@ -71,6 +71,7 @@ export interface DateTimePickerProps {
  * />
  * ```
  */
+/** DateTimePicker export. */
 export const DateTimePicker = React.forwardRef<HTMLButtonElement | HTMLInputElement, DateTimePickerProps>(
   (
     {

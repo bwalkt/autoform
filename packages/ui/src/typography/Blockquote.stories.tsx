@@ -44,6 +44,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // Default
+/** Default export. */
 export const Default: Story = {
   args: {
     children:
@@ -53,6 +54,7 @@ export const Default: Story = {
 }
 
 // All Sizes
+/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-xl">
@@ -66,6 +68,7 @@ export const AllSizes: Story = {
 }
 
 // All Colors
+/** AllColors export. */
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-xl">
@@ -81,6 +84,7 @@ export const AllColors: Story = {
 }
 
 // All Weights
+/** AllWeights export. */
 export const AllWeights: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-xl">
@@ -93,6 +97,7 @@ export const AllWeights: Story = {
 }
 
 // Real World Examples
+/** RealWorldExamples export. */
 export const RealWorldExamples: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-xl">
@@ -116,6 +121,7 @@ export const RealWorldExamples: Story = {
 }
 
 // Long Blockquote
+/** LongBlockquote export. */
 export const LongBlockquote: Story = {
   render: () => (
     <Box className="max-w-xl">

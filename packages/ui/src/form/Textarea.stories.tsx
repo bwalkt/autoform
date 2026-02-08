@@ -56,6 +56,7 @@ const meta: Meta<typeof Textarea> = {
 export default meta
 type Story = StoryObj<typeof Textarea>
 
+/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-80">
@@ -64,6 +65,7 @@ export const Default: Story = {
   ),
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -77,6 +79,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -90,6 +93,7 @@ export const Variants: Story = {
   ),
 }
 
+/** Resize export. */
 export const Resize: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -103,6 +107,7 @@ export const Resize: Story = {
   ),
 }
 
+/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -112,6 +117,7 @@ export const WithError: Story = {
   ),
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-80">
@@ -120,6 +126,7 @@ export const Disabled: Story = {
   ),
 }
 
+/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -130,6 +137,7 @@ export const WithLabel: Story = {
   ),
 }
 
+/** CharacterCount export. */
 export const CharacterCount: Story = {
   render: () => {
     const maxLength = 200
@@ -145,6 +153,7 @@ export const CharacterCount: Story = {
   },
 }
 
+/** ContactForm export. */
 export const ContactForm: Story = {
   render: () => (
     <div className="w-96 space-y-4 p-4 border rounded-lg">
@@ -169,6 +178,7 @@ export const ContactForm: Story = {
   ),
 }
 
+/** CodeInput export. */
 export const CodeInput: Story = {
   render: () => (
     <div className="w-96 space-y-2">
@@ -182,6 +192,7 @@ export const CodeInput: Story = {
 // Floating Variants
 // ============================================================================
 
+/** FloatingFilled export. */
 export const FloatingFilled: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -192,6 +203,7 @@ export const FloatingFilled: Story = {
   ),
 }
 
+/** FloatingStandard export. */
 export const FloatingStandard: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -202,6 +214,7 @@ export const FloatingStandard: Story = {
   ),
 }
 
+/** FloatingOutlined export. */
 export const FloatingOutlined: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -212,6 +225,7 @@ export const FloatingOutlined: Story = {
   ),
 }
 
+/** FloatingVariantsComparison export. */
 export const FloatingVariantsComparison: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -231,6 +245,7 @@ export const FloatingVariantsComparison: Story = {
   ),
 }
 
+/** FloatingWithError export. */
 export const FloatingWithError: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -246,6 +261,7 @@ export const FloatingWithError: Story = {
   ),
 }
 
+/** FloatingDisabled export. */
 export const FloatingDisabled: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -256,6 +272,7 @@ export const FloatingDisabled: Story = {
   ),
 }
 
+/** FloatingSizes export. */
 export const FloatingSizes: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -269,6 +286,7 @@ export const FloatingSizes: Story = {
   ),
 }
 
+/** FloatingFeedbackForm export. */
 export const FloatingFeedbackForm: Story = {
   render: () => (
     <div className="w-96 space-y-4 p-6 border rounded-lg">
@@ -286,6 +304,7 @@ export const FloatingFeedbackForm: Story = {
 // AutoSize Variants
 // ============================================================================
 
+/** AutoSize export. */
 export const AutoSize: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -296,6 +315,7 @@ export const AutoSize: Story = {
   ),
 }
 
+/** AutoSizeWithMinMax export. */
 export const AutoSizeWithMinMax: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -321,6 +341,7 @@ export const AutoSizeWithMinMax: Story = {
   ),
 }
 
+/** AutoSizeVariants export. */
 export const AutoSizeVariants: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -334,6 +355,7 @@ export const AutoSizeVariants: Story = {
   ),
 }
 
+/** AutoSizeFloating export. */
 export const AutoSizeFloating: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -353,6 +375,7 @@ export const AutoSizeFloating: Story = {
   ),
 }
 
+/** AutoSizeChatInput export. */
 export const AutoSizeChatInput: Story = {
   render: () => (
     <div className="w-96 border rounded-lg p-4 space-y-4">
@@ -370,6 +393,7 @@ export const AutoSizeChatInput: Story = {
   ),
 }
 
+/** AutoSizeCodeEditor export. */
 export const AutoSizeCodeEditor: Story = {
   render: () => (
     <div className="w-[500px] space-y-2">

@@ -46,6 +46,7 @@ export interface SignatureInputProps {
 // Main Component
 // ============================================================================
 
+/** SignatureInput export. */
 export const SignatureInput = React.forwardRef<HTMLCanvasElement, SignatureInputProps>(
   (
     {

@@ -62,6 +62,7 @@ export interface MentionTextareaProps extends Omit<TextareaProps, 'onChange'> {
  * Textarea with @mention support.
  * Shows a dropdown when the trigger character is typed, allowing users to mention items.
  */
+/** MentionTextarea export. */
 export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionTextareaProps>(
   (
     {

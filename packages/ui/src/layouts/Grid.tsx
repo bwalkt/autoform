@@ -66,6 +66,7 @@ export type GridProps = GridDivProps | GridSpanProps
 // Grid Component
 // ============================================================================
 
+/** Grid export. */
 export const Grid = React.forwardRef<HTMLElement, GridProps>(
   (
     {

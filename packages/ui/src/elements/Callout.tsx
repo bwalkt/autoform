@@ -181,6 +181,7 @@ CalloutText.displayName = 'Callout.Text'
 // Compound Component Export
 // ============================================================================
 
+/** Callout export. */
 export const Callout = {
   Root: CalloutRoot,
   Icon: CalloutIcon,

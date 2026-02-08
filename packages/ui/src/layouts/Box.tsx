@@ -34,6 +34,7 @@ export type BoxProps = BoxDivProps | BoxSpanProps
 // Box Component
 // ============================================================================
 
+/** Box export. */
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
     {

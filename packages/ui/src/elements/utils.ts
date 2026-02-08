@@ -1,6 +1,7 @@
 import type React from 'react'
 import { type Color, designTokens, type Radius, type ResponsiveSize, type Size, type Variant } from './tokens'
 
+/** getResponsiveSize export. */
 export function getResponsiveSize(size: ResponsiveSize): string {
   if (typeof size === 'string') {
     return `size-${size}`
@@ -39,6 +40,7 @@ export function getResponsiveSize(size: ResponsiveSize): string {
   return classes.trim()
 }
 
+/** getSizeStyles export. */
 export function getSizeStyles(size: Size) {
   const sizeTokens = designTokens.size[size]
   return {
@@ -52,12 +54,14 @@ export function getSizeStyles(size: Size) {
   } as React.CSSProperties
 }
 
+/** getRadiusStyles export. */
 export function getRadiusStyles(radius: Radius) {
   return {
     '--element-border-radius': designTokens.radius[radius],
   } as React.CSSProperties
 }
 
+/** getElementStyles export. */
 export function getElementStyles(size: Size, _variant: Variant, _color: Color | undefined, radius: Radius) {
   return {
     ...getSizeStyles(size),

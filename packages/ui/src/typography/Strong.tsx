@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 
 export interface StrongProps extends React.HTMLAttributes<HTMLElement> {}
 
+/** Strong export. */
 export const Strong = React.forwardRef<HTMLElement, StrongProps>(({ className, ...props }, ref) => {
   return <strong ref={ref} className={cn('font-semibold', className)} {...props} />
 })

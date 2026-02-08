@@ -74,6 +74,7 @@ export interface ThemeConfig {
 // Default Theme Configuration
 // ============================================================================
 
+/** defaultThemeConfig export. */
 export const defaultThemeConfig: ThemeConfig = {
   colors: {
     light: {
@@ -143,6 +144,7 @@ export const defaultThemeConfig: ThemeConfig = {
 // Preset Themes
 // ============================================================================
 
+/** presetThemes export. */
 export const presetThemes: Record<string, Partial<ThemeConfig>> = {
   default: defaultThemeConfig,
   zinc: {
@@ -265,6 +267,7 @@ interface ThemeEditorContextValue {
 
 const ThemeEditorContext = React.createContext<ThemeEditorContextValue | null>(null)
 
+/** useThemeEditor export. */
 export function useThemeEditor() {
   const context = React.useContext(ThemeEditorContext)
   if (!context) {
@@ -282,6 +285,7 @@ export interface ThemeEditorProviderProps {
   defaultConfig?: ThemeConfig
 }
 
+/** ThemeEditorProvider export. */
 export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
   children,
   defaultConfig = defaultThemeConfig,
@@ -533,6 +537,7 @@ export interface ThemeEditorProps {
   className?: string
 }
 
+/** ThemeEditor export. */
 export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
   const editor = useThemeEditor()
   const [activeTab, setActiveTab] = React.useState<'colors' | 'typography' | 'layout' | 'export'>('colors')
@@ -820,6 +825,7 @@ ThemeEditor.displayName = 'ThemeEditor'
 // Component Preview
 // ============================================================================
 
+/** ThemePreview export. */
 export const ThemePreview: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <Flex direction="column" gap="6" p="6" className={className}>

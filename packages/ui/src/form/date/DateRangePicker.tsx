@@ -98,6 +98,7 @@ export interface DateRangePickerProps {
  * />
  * ```
  */
+/** DateRangePicker export. */
 export const DateRangePicker = React.forwardRef<HTMLButtonElement | HTMLInputElement, DateRangePickerProps>(
   (
     {

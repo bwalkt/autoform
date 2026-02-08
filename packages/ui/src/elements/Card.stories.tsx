@@ -33,6 +33,7 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
+/** Default export. */
 export const Default: Story = {
   args: {
     size: '2',
@@ -59,6 +60,7 @@ export const Default: Story = {
   ),
 }
 
+/** Simple export. */
 export const Simple: Story = {
   render: () => (
     <Card.Root className="w-80">
@@ -71,6 +73,7 @@ export const Simple: Story = {
 // Sizes
 // ============================================================================
 
+/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -92,6 +95,7 @@ export const AllSizes: Story = {
 // Variants
 // ============================================================================
 
+/** VariantSurface export. */
 export const VariantSurface: Story = {
   render: () => (
     <Card.Root variant="surface" className="w-80">
@@ -106,6 +110,7 @@ export const VariantSurface: Story = {
   ),
 }
 
+/** VariantClassic export. */
 export const VariantClassic: Story = {
   render: () => (
     <Card.Root variant="classic" className="w-80">
@@ -120,6 +125,7 @@ export const VariantClassic: Story = {
   ),
 }
 
+/** VariantGhost export. */
 export const VariantGhost: Story = {
   render: () => (
     <div className="p-6 bg-muted rounded-lg">
@@ -140,6 +146,7 @@ export const VariantGhost: Story = {
 // Real-world Examples
 // ============================================================================
 
+/** UserProfile export. */
 export const UserProfile: Story = {
   render: () => (
     <Card.Root className="w-80">
@@ -170,6 +177,7 @@ export const UserProfile: Story = {
   ),
 }
 
+/** PricingCard export. */
 export const PricingCard: Story = {
   render: () => (
     <Card.Root className="w-72" variant="classic">
@@ -207,6 +215,7 @@ export const PricingCard: Story = {
   ),
 }
 
+/** NotificationCard export. */
 export const NotificationCard: Story = {
   render: () => (
     <Card.Root className="w-96">
@@ -253,6 +262,7 @@ export const NotificationCard: Story = {
   ),
 }
 
+/** SettingsCard export. */
 export const SettingsCard: Story = {
   render: () => (
     <Card.Root className="w-96">
@@ -296,6 +306,7 @@ export const SettingsCard: Story = {
   ),
 }
 
+/** StatsCard export. */
 export const StatsCard: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -332,6 +343,7 @@ export const StatsCard: Story = {
   ),
 }
 
+/** CardGrid export. */
 export const CardGrid: Story = {
   render: () => (
     <div className="grid grid-cols-3 gap-4 w-[700px]">

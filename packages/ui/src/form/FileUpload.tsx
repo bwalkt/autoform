@@ -234,6 +234,7 @@ const FileListWithSections: React.FC<FileListWithSectionsProps> = ({ files, onRe
 // Main Component
 // ============================================================================
 
+/** FileUpload export. */
 export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
   (
     {
@@ -450,6 +451,7 @@ FileUpload.displayName = 'FileUpload'
 // Preset accept configurations
 // ============================================================================
 
+/** acceptPresets export. */
 export const acceptPresets = {
   images: {
     'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'],

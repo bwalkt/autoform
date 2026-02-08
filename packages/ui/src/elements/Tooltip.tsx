@@ -171,6 +171,7 @@ SimpleTooltip.displayName = 'SimpleTooltip'
 // Export compound component
 // ============================================================================
 
+/** Tooltip export. */
 export const Tooltip = {
   Provider: TooltipProvider,
   Root: TooltipRoot,

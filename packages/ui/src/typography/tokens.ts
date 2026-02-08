@@ -1,4 +1,5 @@
 // Typography size scale (1-9) based on Radix UI Themes
+/** typographyTokens export. */
 export const typographyTokens = {
   size: {
     '1': {

@@ -311,6 +311,7 @@ SwitchGroupItem.displayName = 'SwitchGroup.Item'
 // Export compound component
 // ============================================================================
 
+/** SwitchGroup export. */
 export const SwitchGroup = {
   Root: SwitchGroupRoot,
   Item: SwitchGroupItem,

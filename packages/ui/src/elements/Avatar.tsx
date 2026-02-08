@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import type { Color, Radius, Size } from './tokens'
 
 // Size configurations (exported for AvatarGroup)
+/** avatarSizes export. */
 export const avatarSizes = {
   '1': 'h-6 w-6 text-xs',
   '2': 'h-8 w-8 text-sm',

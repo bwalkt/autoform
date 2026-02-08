@@ -254,6 +254,7 @@ const CheckboxCardsItem = React.forwardRef<HTMLLabelElement, CheckboxCardsItemPr
 CheckboxCardsItem.displayName = 'CheckboxCards.Item'
 
 // Export compound component
+/** CheckboxCards export. */
 export const CheckboxCards = {
   Root: CheckboxCardsRoot,
   Item: CheckboxCardsItem,

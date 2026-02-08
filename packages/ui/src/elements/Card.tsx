@@ -29,6 +29,7 @@ export interface CardRootProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean
 }
 
+/** CardRoot export. */
 export const CardRoot = React.forwardRef<HTMLDivElement, CardRootProps>(
   ({ size = '1', variant = 'surface', asChild = false, className, children, ...props }, ref) => {
     const resolvedSize = typeof size === 'string' ? size : size.initial || '1'
@@ -64,6 +65,7 @@ CardRoot.displayName = 'Card.Root'
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+/** CardHeader export. */
 export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, children, ...props }, ref) => {
     return (
@@ -85,6 +87,7 @@ export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement>
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
+/** CardTitle export. */
 export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ as: Comp = 'h3', className, children, ...props }, ref) => {
     return (
@@ -103,6 +106,7 @@ CardTitle.displayName = 'Card.Title'
 
 export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
+/** CardDescription export. */
 export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   ({ className, children, ...props }, ref) => {
     return (
@@ -121,6 +125,7 @@ CardDescription.displayName = 'Card.Description'
 
 export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+/** CardContent export. */
 export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
   ({ className, children, ...props }, ref) => {
     return (
@@ -139,6 +144,7 @@ CardContent.displayName = 'Card.Content'
 
 export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+/** CardFooter export. */
 export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, children, ...props }, ref) => {
     return (
@@ -155,6 +161,7 @@ CardFooter.displayName = 'Card.Footer'
 // Export compound component
 // ============================================================================
 
+/** Card export. */
 export const Card = {
   Root: CardRoot,
   Header: CardHeader,

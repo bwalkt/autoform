@@ -11,6 +11,7 @@ export interface BlockquoteProps extends React.HTMLAttributes<HTMLElement> {
   wrap?: 'wrap' | 'nowrap' | 'pretty' | 'balance'
 }
 
+/** Blockquote export. */
 export const Blockquote = React.forwardRef<HTMLQuoteElement, BlockquoteProps>(
   (
     {

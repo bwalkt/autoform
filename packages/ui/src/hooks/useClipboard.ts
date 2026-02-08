@@ -32,6 +32,7 @@ export interface UseClipboardReturn {
  * );
  * ```
  */
+/** useClipboard export. */
 export function useClipboard(options: UseClipboardOptions = {}): UseClipboardReturn {
   const { timeout = 2000 } = options
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)

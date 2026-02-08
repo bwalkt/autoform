@@ -1,3 +1,4 @@
+/** designTokens export. */
 export const designTokens = {
   // Element sizes for form components (Radix-style 1-4)
   size: {
@@ -249,6 +250,7 @@ export type Color = 'default' | 'primary' | 'neutral' | 'info' | 'success' | 'wa
 export type ResponsiveSize = Responsive<Size>
 
 // Layout tokens for Box and layout components
+/** layoutTokens export. */
 export const layoutTokens = {
   display: [
     'none',
@@ -297,6 +299,7 @@ export type JustifySelf = (typeof layoutTokens.justifySelf)[number]
 export type Spacing = (typeof layoutTokens.spacing)[number]
 
 // FieldGroup layout tokens
+/** fieldGroupTokens export. */
 export const fieldGroupTokens = {
   // Form layout modes
   layout: ['stacked', 'inline', 'grid', 'side-labels', 'sectioned'] as const,
@@ -309,6 +312,7 @@ export type FieldGroupLayout = (typeof fieldGroupTokens.layout)[number]
 export type GridColumns = (typeof fieldGroupTokens.gridColumns)[number]
 
 // TextField variant tokens
+/** textFieldTokens export. */
 export const textFieldTokens = {
   baseVariant: ['classic', 'solid', 'soft', 'surface', 'outline', 'ghost'] as const,
   floatingVariant: ['floating-filled', 'floating-standard', 'floating-outlined'] as const,

@@ -112,6 +112,7 @@ const DefaultSeparator: React.FC = () => (
 // Main Component
 // ============================================================================
 
+/** InputOTP export. */
 export const InputOTP = React.forwardRef<HTMLInputElement, InputOTPProps>(
   (
     {

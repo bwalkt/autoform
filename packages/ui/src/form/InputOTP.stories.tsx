@@ -31,6 +31,7 @@ export default meta
 type Story = StoryObj<typeof InputOTP>
 
 // Basic numeric OTP
+/** Default export. */
 export const Default: Story = {
   render: args => {
     const [value, setValue] = useState('')
@@ -45,6 +46,7 @@ export const Default: Story = {
 }
 
 // 4-digit OTP
+/** FourDigits export. */
 export const FourDigits: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -58,6 +60,7 @@ export const FourDigits: Story = {
 }
 
 // 6-digit OTP (default)
+/** SixDigits export. */
 export const SixDigits: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -71,6 +74,7 @@ export const SixDigits: Story = {
 }
 
 // 8-digit OTP
+/** EightDigits export. */
 export const EightDigits: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -84,6 +88,7 @@ export const EightDigits: Story = {
 }
 
 // Alphanumeric
+/** Alphanumeric export. */
 export const Alphanumeric: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -104,6 +109,7 @@ export const Alphanumeric: Story = {
 }
 
 // Letters only
+/** LettersOnly export. */
 export const LettersOnly: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -118,6 +124,7 @@ export const LettersOnly: Story = {
 }
 
 // Variants
+/** Variants export. */
 export const Variants: Story = {
   render: () => {
     const [v1, setV1] = useState('')
@@ -144,6 +151,7 @@ export const Variants: Story = {
 }
 
 // Grouped with separator
+/** Grouped export. */
 export const Grouped: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -157,6 +165,7 @@ export const Grouped: Story = {
 }
 
 // Grouped 4 digits
+/** GroupedFour export. */
 export const GroupedFour: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -170,6 +179,7 @@ export const GroupedFour: Story = {
 }
 
 // Grouped with custom separator
+/** CustomSeparator export. */
 export const CustomSeparator: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -189,6 +199,7 @@ export const CustomSeparator: Story = {
 }
 
 // With error state
+/** WithError export. */
 export const WithError: Story = {
   render: () => {
     const [value, setValue] = useState('123')
@@ -203,6 +214,7 @@ export const WithError: Story = {
 }
 
 // Disabled
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-2">
@@ -213,6 +225,7 @@ export const Disabled: Story = {
 }
 
 // With completion callback
+/** WithCompletion export. */
 export const WithCompletion: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -242,6 +255,7 @@ export const WithCompletion: Story = {
 }
 
 // With resend timer
+/** WithResendTimer export. */
 export const WithResendTimer: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -286,6 +300,7 @@ export const WithResendTimer: Story = {
 }
 
 // Verification form example
+/** VerificationForm export. */
 export const VerificationForm: Story = {
   render: () => {
     const [value, setValue] = useState('')
@@ -348,6 +363,7 @@ export const VerificationForm: Story = {
 }
 
 // All patterns showcase
+/** PatternShowcase export. */
 export const PatternShowcase: Story = {
   render: () => {
     const [digits, setDigits] = useState('')

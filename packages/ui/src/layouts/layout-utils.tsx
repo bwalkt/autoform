@@ -35,6 +35,7 @@ export type SectionSize = '1' | '2' | '3' | '4'
 // Spacing Scale Mapping
 // ============================================================================
 
+/** spacingScale export. */
 export const spacingScale: Record<Spacing, string> = {
   '0': '0',
   '1': '1',
@@ -52,6 +53,7 @@ export const spacingScale: Record<Spacing, string> = {
 // Responsive Class Helpers
 // ============================================================================
 
+/** getResponsiveClasses export. */
 export function getResponsiveClasses<T extends string>(
   prop: Responsive<T> | undefined,
   prefix: string,
@@ -76,6 +78,7 @@ export function getResponsiveClasses<T extends string>(
   return classes.join(' ')
 }
 
+/** getSpacingClasses export. */
 export function getSpacingClasses(prop: Responsive<Spacing> | undefined, prefix: string): string {
   return getResponsiveClasses(prop, prefix, spacingScale)
 }
@@ -130,7 +133,9 @@ const positionMap: Record<Position, string> = {
   sticky: 'sticky',
 }
 
+/** getDisplayClasses export. */
 export const getDisplayClasses = createMappedClassHelper(displayMap)
+/** getPositionClasses export. */
 export const getPositionClasses = createMappedClassHelper(positionMap)
 
 // ============================================================================
@@ -177,11 +182,17 @@ const flexShrinkMap: Record<'0' | '1', string> = {
   '1': 'shrink',
 }
 
+/** getFlexDirectionClasses export. */
 export const getFlexDirectionClasses = createMappedClassHelper(flexDirectionMap)
+/** getFlexWrapClasses export. */
 export const getFlexWrapClasses = createMappedClassHelper(flexWrapMap)
+/** getAlignItemsClasses export. */
 export const getAlignItemsClasses = createMappedClassHelper(alignItemsMap)
+/** getJustifyContentClasses export. */
 export const getJustifyContentClasses = createMappedClassHelper(justifyContentMap)
+/** getFlexGrowClasses export. */
 export const getFlexGrowClasses = createMappedClassHelper(flexGrowMap)
+/** getFlexShrinkClasses export. */
 export const getFlexShrinkClasses = createMappedClassHelper(flexShrinkMap)
 
 // ============================================================================
@@ -196,6 +207,7 @@ const gridFlowMap: Record<GridFlow, string> = {
   'column-dense': 'grid-flow-col-dense',
 }
 
+/** getGridFlowClasses export. */
 export const getGridFlowClasses = createMappedClassHelper(gridFlowMap)
 
 // Grid columns - map to Tailwind grid-cols-{n} classes
@@ -217,6 +229,7 @@ const gridColumnsMap: Record<string, string> = {
 
 export type GridColumns = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | 'none'
 
+/** getGridColumnsClasses export. */
 export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | undefined): string {
   if (prop === undefined) return ''
 
@@ -252,6 +265,7 @@ export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | u
 }
 
 // Check if columns value can be handled by classes (is numeric preset)
+/** canUseGridColumnsClasses export. */
 export function canUseGridColumnsClasses(prop: Responsive<string> | undefined): boolean {
   if (prop === undefined) return false
 
@@ -264,6 +278,7 @@ export function canUseGridColumnsClasses(prop: Responsive<string> | undefined): 
 }
 
 // Grid columns/rows - returns style object for custom values
+/** getGridColumnsStyle export. */
 export function getGridColumnsStyle(columns: Responsive<string> | undefined): React.CSSProperties {
   if (columns === undefined) return {}
 
@@ -290,6 +305,7 @@ export function getGridColumnsStyle(columns: Responsive<string> | undefined): Re
   return {}
 }
 
+/** getGridRowsStyle export. */
 export function getGridRowsStyle(rows: Responsive<string> | undefined): React.CSSProperties {
   if (rows === undefined) return {}
 
@@ -318,6 +334,7 @@ export function getGridRowsStyle(rows: Responsive<string> | undefined): React.CS
 // Slot Component
 // ============================================================================
 
+/** Slot export. */
 export function Slot({ children, ...props }: React.PropsWithChildren<React.HTMLAttributes<HTMLElement>>) {
   if (React.isValidElement<React.HTMLAttributes<HTMLElement>>(children)) {
     return React.cloneElement(children, {
@@ -388,6 +405,7 @@ export interface SharedLayoutProps {
   gridRowEnd?: string
 }
 
+/** getSharedLayoutClasses export. */
 export function getSharedLayoutClasses(props: SharedLayoutProps): string {
   const {
     p,
@@ -451,6 +469,7 @@ export function getSharedLayoutClasses(props: SharedLayoutProps): string {
   )
 }
 
+/** getSharedLayoutStyles export. */
 export function getSharedLayoutStyles(props: SharedLayoutProps): React.CSSProperties {
   const {
     width,

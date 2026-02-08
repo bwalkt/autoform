@@ -14,6 +14,7 @@ export default meta
 type Story = StoryObj<typeof SegmentedControl.Root>
 
 // Default
+/** Default export. */
 export const Default: Story = {
   render: () => {
     const [value, setValue] = React.useState('inbox')
@@ -28,6 +29,7 @@ export const Default: Story = {
 }
 
 // Sizes
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => {
     const [value1, setValue1] = React.useState('a')
@@ -75,6 +77,7 @@ export const Sizes: Story = {
 }
 
 // Radius
+/** Radius export. */
 export const Radius: Story = {
   render: () => {
     const [v1, setV1] = React.useState('a')
@@ -131,6 +134,7 @@ export const Radius: Story = {
 }
 
 // With Icons
+/** WithIcons export. */
 export const WithIcons: Story = {
   render: () => {
     const [value, setValue] = React.useState('list')
@@ -157,6 +161,7 @@ export const WithIcons: Story = {
 }
 
 // Disabled Items
+/** DisabledItems export. */
 export const DisabledItems: Story = {
   render: () => {
     const [value, setValue] = React.useState('active')
@@ -173,6 +178,7 @@ export const DisabledItems: Story = {
 }
 
 // Two Options
+/** TwoOptions export. */
 export const TwoOptions: Story = {
   render: () => {
     const [value, setValue] = React.useState('monthly')

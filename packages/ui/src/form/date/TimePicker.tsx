@@ -71,6 +71,7 @@ export interface TimePickerProps {
  * />
  * ```
  */
+/** TimePicker export. */
 export const TimePicker = React.forwardRef<HTMLButtonElement | HTMLInputElement, TimePickerProps>(
   (
     {

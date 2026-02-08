@@ -219,6 +219,7 @@ function validateCardNumber(number: string): boolean {
 // Main Component
 // ============================================================================
 
+/** CreditCardInput export. */
 export const CreditCardInput = React.forwardRef<HTMLDivElement, CreditCardInputProps>(
   (
     {

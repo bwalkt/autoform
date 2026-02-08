@@ -618,6 +618,7 @@ ContextMenuSubContent.displayName = 'ContextMenu.SubContent'
 // Export compound component
 // ============================================================================
 
+/** ContextMenu export. */
 export const ContextMenu = {
   Root: ContextMenuRoot,
   Trigger: ContextMenuTrigger,

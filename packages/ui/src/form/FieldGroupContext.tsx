@@ -19,6 +19,7 @@ export interface FieldGroupResolvedValue {
 
 const FieldGroupContext = React.createContext<FieldGroupContextValue | null>(null)
 
+/** FieldGroupProvider export. */
 export function FieldGroupProvider({ children, value }: { children: React.ReactNode; value: FieldGroupContextValue }) {
   return <FieldGroupContext.Provider value={value}>{children}</FieldGroupContext.Provider>
 }
@@ -29,6 +30,7 @@ const defaultFieldGroupValue: FieldGroupResolvedValue = {
   layout: 'stacked',
 }
 
+/** useFieldGroup export. */
 export function useFieldGroup(): FieldGroupResolvedValue {
   const context = React.useContext(FieldGroupContext)
   return {

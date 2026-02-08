@@ -79,6 +79,7 @@ function getSectionDisplayClasses(displayProp: Responsive<SectionDisplay> | unde
 // Section Component
 // ============================================================================
 
+/** Section export. */
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
   (
     {

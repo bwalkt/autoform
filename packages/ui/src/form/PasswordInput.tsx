@@ -112,6 +112,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ showPassword, onToggle, dis
 // Main Component
 // ============================================================================
 
+/** PasswordInput export. */
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
   (
     {

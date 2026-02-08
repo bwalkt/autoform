@@ -14,6 +14,7 @@ const meta: Meta<typeof PhoneInput> = {
 export default meta
 type Story = StoryObj<typeof PhoneInput>
 
+/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-80">
@@ -22,6 +23,7 @@ export const Default: Story = {
   ),
 }
 
+/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -31,6 +33,7 @@ export const WithLabel: Story = {
   ),
 }
 
+/** DefaultCountry export. */
 export const DefaultCountry: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -50,6 +53,7 @@ export const DefaultCountry: Story = {
   ),
 }
 
+/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [phone, setPhone] = useState<PhoneValue>({
@@ -84,6 +88,7 @@ export const Controlled: Story = {
   },
 }
 
+/** LimitedCountries export. */
 export const LimitedCountries: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -94,6 +99,7 @@ export const LimitedCountries: Story = {
   ),
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -107,6 +113,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -120,6 +127,7 @@ export const Variants: Story = {
   ),
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -137,6 +145,7 @@ export const Disabled: Story = {
   ),
 }
 
+/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -147,6 +156,7 @@ export const WithError: Story = {
   ),
 }
 
+/** ContactForm export. */
 export const ContactForm: Story = {
   render: () => {
     const [name, setName] = useState('')

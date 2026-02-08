@@ -30,6 +30,7 @@ const meta: Meta<typeof LocationInput> = {
 export default meta
 type Story = StoryObj<typeof LocationInput>
 
+/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-[500px]">
@@ -38,6 +39,7 @@ export const Default: Story = {
   ),
 }
 
+/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-[500px] space-y-2">
@@ -47,6 +49,7 @@ export const WithLabel: Story = {
   ),
 }
 
+/** DefaultCountry export. */
 export const DefaultCountry: Story = {
   render: () => (
     <div className="w-[500px] space-y-2">
@@ -56,6 +59,7 @@ export const DefaultCountry: Story = {
   ),
 }
 
+/** CountryOnly export. */
 export const CountryOnly: Story = {
   render: () => (
     <div className="w-[500px] space-y-2">
@@ -65,6 +69,7 @@ export const CountryOnly: Story = {
   ),
 }
 
+/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [location, setLocation] = useState<LocationValue>({
@@ -93,6 +98,7 @@ export const Controlled: Story = {
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-[500px] space-y-6">
@@ -106,6 +112,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-[500px] space-y-6">
@@ -119,6 +126,7 @@ export const Variants: Story = {
   ),
 }
 
+/** WithCallbacks export. */
 export const WithCallbacks: Story = {
   render: () => {
     const [logs, setLogs] = useState<string[]>([])
@@ -152,6 +160,7 @@ export const WithCallbacks: Story = {
   },
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-[500px] space-y-2">
@@ -161,6 +170,7 @@ export const Disabled: Story = {
   ),
 }
 
+/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-[500px] space-y-2">
@@ -171,6 +181,7 @@ export const WithError: Story = {
   ),
 }
 
+/** FormExample export. */
 export const FormExample: Story = {
   render: () => {
     const [formData, setFormData] = useState({

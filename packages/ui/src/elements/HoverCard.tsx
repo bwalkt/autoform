@@ -124,6 +124,7 @@ HoverCardContent.displayName = 'HoverCard.Content'
 // Export compound component
 // ============================================================================
 
+/** HoverCard export. */
 export const HoverCard = {
   Root: HoverCardRoot,
   Trigger: HoverCardTrigger,

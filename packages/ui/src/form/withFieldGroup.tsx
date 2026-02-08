@@ -27,6 +27,7 @@ interface FieldGroupAwareProps {
  * </FieldGroup>
  * ```
  */
+/** withFieldGroup export. */
 export function withFieldGroup<P extends FieldGroupAwareProps>(WrappedComponent: React.ComponentType<P>) {
   const WithFieldGroup = React.forwardRef<unknown, P>((props, ref) => {
     const fieldGroup = useFieldGroup()

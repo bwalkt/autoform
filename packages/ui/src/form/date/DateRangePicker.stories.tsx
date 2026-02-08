@@ -15,6 +15,7 @@ export default meta
 type Story = StoryObj<typeof DateRangePicker>
 
 // Default DateRangePicker
+/** Default export. */
 export const Default: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -27,6 +28,7 @@ export const Default: Story = {
 }
 
 // With preselected range
+/** WithValue export. */
 export const WithValue: Story = {
   render: () => {
     const today = new Date()
@@ -46,6 +48,7 @@ export const WithValue: Story = {
 }
 
 // Single month view
+/** SingleMonth export. */
 export const SingleMonth: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -63,6 +66,7 @@ export const SingleMonth: Story = {
 }
 
 // Custom date format
+/** CustomFormat export. */
 export const CustomFormat: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -75,6 +79,7 @@ export const CustomFormat: Story = {
 }
 
 // With min/max dates
+/** WithMinMaxDates export. */
 export const WithMinMaxDates: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -97,6 +102,7 @@ export const WithMinMaxDates: Story = {
 }
 
 // Disabled state
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     const today = new Date()
@@ -112,6 +118,7 @@ export const Disabled: Story = {
 }
 
 // Different sizes
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => {
     const [range1, setRange1] = React.useState<DateRange | undefined>()
@@ -131,6 +138,7 @@ export const Sizes: Story = {
 }
 
 // With FieldGroup context
+/** WithFieldGroup export. */
 export const WithFieldGroup: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -143,6 +151,7 @@ export const WithFieldGroup: Story = {
 }
 
 // Single calendar view (mobile-friendly)
+/** SingleCalendar export. */
 export const SingleCalendar: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -155,6 +164,7 @@ export const SingleCalendar: Story = {
 }
 
 // Single calendar with range summary
+/** SingleCalendarWithSummary export. */
 export const SingleCalendarWithSummary: Story = {
   render: () => {
     const today = new Date()
@@ -180,6 +190,7 @@ export const SingleCalendarWithSummary: Story = {
 }
 
 // Different variants
+/** Variants export. */
 export const Variants: Story = {
   render: () => {
     const today = new Date()
@@ -226,6 +237,7 @@ export const Variants: Story = {
 }
 
 // Different colors with solid variant
+/** Colors export. */
 export const Colors: Story = {
   render: () => {
     const today = new Date()

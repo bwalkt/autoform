@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
  * Variant styles using `focus:` pseudo-class.
  * Use for single input components where the input itself receives focus.
  */
+/** variantStyles export. */
 export const variantStyles: Record<string, string> = {
   classic: cn(
     'border border-input',
@@ -59,6 +60,7 @@ export const variantStyles: Record<string, string> = {
  * Use for compound components where a container wraps multiple elements
  * and should show focus state when any child receives focus.
  */
+/** containerVariantStyles export. */
 export const containerVariantStyles: Record<string, string> = {
   classic: cn(
     'border border-input',
@@ -108,6 +110,7 @@ export const containerVariantStyles: Record<string, string> = {
  * Color-specific overrides using `focus:` pseudo-class.
  * For bordered variants (classic, surface, outline).
  */
+/** colorStyles export. */
 export const colorStyles: Record<Color, string> = {
   default: '',
   primary: 'border-primary focus:border-primary focus:ring-primary/30',
@@ -126,6 +129,7 @@ export const colorStyles: Record<Color, string> = {
  * Color-specific overrides using `focus-within:` pseudo-class.
  * For compound components with bordered variants.
  */
+/** containerColorStyles export. */
 export const containerColorStyles: Record<Color, string> = {
   default: '',
   primary: 'border-primary focus-within:border-primary focus-within:ring-primary/30',
@@ -144,6 +148,7 @@ export const containerColorStyles: Record<Color, string> = {
  * Background color overrides for solid variant.
  * Works for both single inputs and compound components.
  */
+/** solidColorStyles export. */
 export const solidColorStyles: Record<Color, string> = {
   default: '',
   primary:
@@ -167,6 +172,7 @@ export const solidColorStyles: Record<Color, string> = {
  * Highlight color styles for dropdown items in pickers and mention components.
  * Used for hover/selected state backgrounds.
  */
+/** highlightColorStyles export. */
 export const highlightColorStyles: Record<Color, string> = {
   default: 'bg-accent',
   primary: 'bg-primary/10 text-primary',
@@ -184,6 +190,7 @@ export const highlightColorStyles: Record<Color, string> = {
 /**
  * Get the base variant from a TextFieldVariant (strips floating- prefix).
  */
+/** getBaseVariant export. */
 export function getBaseVariant(variant?: string): string {
   if (variant?.startsWith('floating-')) {
     return 'outline'

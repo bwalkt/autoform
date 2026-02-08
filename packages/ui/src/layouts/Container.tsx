@@ -46,6 +46,7 @@ const containerSizeValues: Record<ContainerSize, string> = {
 // Container Component
 // ============================================================================
 
+/** Container export. */
 export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
   (
     {

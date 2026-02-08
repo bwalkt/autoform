@@ -17,6 +17,7 @@ export default meta
 type Story = StoryObj<typeof CalendarWithPresets>
 
 // Default CalendarWithPresets
+/** Default export. */
 export const Default: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -35,6 +36,7 @@ export const Default: Story = {
 }
 
 // Horizontal layout
+/** HorizontalLayout export. */
 export const HorizontalLayout: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -47,6 +49,7 @@ export const HorizontalLayout: Story = {
 }
 
 // Two month view
+/** TwoMonths export. */
 export const TwoMonths: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -59,6 +62,7 @@ export const TwoMonths: Story = {
 }
 
 // Presets only (no calendar)
+/** PresetsOnly export. */
 export const PresetsOnly: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -77,6 +81,7 @@ export const PresetsOnly: Story = {
 }
 
 // Custom presets
+/** CustomPresets export. */
 export const CustomPresets: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -127,6 +132,7 @@ export const CustomPresets: Story = {
 }
 
 // With min/max date
+/** WithMinMaxDate export. */
 export const WithMinMaxDate: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()
@@ -148,6 +154,7 @@ export const WithMinMaxDate: Story = {
 }
 
 // Disabled state
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     const today = new Date()
@@ -163,6 +170,7 @@ export const Disabled: Story = {
 }
 
 // Week starts Monday
+/** WeekStartsMonday export. */
 export const WeekStartsMonday: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>()

@@ -253,6 +253,7 @@ DialogClose.displayName = 'Dialog.Close'
 // Export compound component
 // ============================================================================
 
+/** Dialog export. */
 export const Dialog = {
   Root: DialogRoot,
   Trigger: DialogTrigger,

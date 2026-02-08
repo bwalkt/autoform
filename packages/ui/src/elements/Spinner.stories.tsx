@@ -22,12 +22,14 @@ const meta: Meta<typeof Spinner> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+/** Default export. */
 export const Default: Story = {
   args: {
     loading: true,
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -41,6 +43,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Colors export. */
 export const Colors: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -54,6 +57,7 @@ export const Colors: Story = {
   ),
 }
 
+/** WithText export. */
 export const WithText: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -69,6 +73,7 @@ export const WithText: Story = {
   ),
 }
 
+/** ButtonLoading export. */
 export const ButtonLoading: Story = {
   render: () => {
     const [loading, setLoading] = useState(false)
@@ -93,6 +98,7 @@ export const ButtonLoading: Story = {
   },
 }
 
+/** LoadingOverlay export. */
 export const LoadingOverlay: Story = {
   render: () => (
     <div className="relative w-64 h-32 border rounded-lg">
@@ -107,6 +113,7 @@ export const LoadingOverlay: Story = {
   ),
 }
 
+/** FullPageLoading export. */
 export const FullPageLoading: Story = {
   render: () => (
     <div className="w-80 h-48 border rounded-lg flex flex-col items-center justify-center gap-3">
@@ -119,6 +126,7 @@ export const FullPageLoading: Story = {
   ),
 }
 
+/** InlineLoading export. */
 export const InlineLoading: Story = {
   render: () => (
     <div className="w-72 p-4 border rounded-lg">
@@ -130,6 +138,7 @@ export const InlineLoading: Story = {
   ),
 }
 
+/** LoadingList export. */
 export const LoadingList: Story = {
   render: () => (
     <div className="w-72 border rounded-lg divide-y">
@@ -146,6 +155,7 @@ export const LoadingList: Story = {
   ),
 }
 
+/** ConditionalLoading export. */
 export const ConditionalLoading: Story = {
   render: () => {
     const [loading, setLoading] = useState(true)

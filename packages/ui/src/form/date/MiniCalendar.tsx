@@ -43,6 +43,7 @@ export interface MiniCalendarProps {
  * />
  * ```
  */
+/** MiniCalendar export. */
 export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
   (
     {

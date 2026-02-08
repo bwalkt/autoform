@@ -9,6 +9,7 @@ export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   highContrast?: boolean
 }
 
+/** Code export. */
 export const Code = React.forwardRef<HTMLElement, CodeProps>(
   ({ size = '2', color = 'default', variant = 'soft', highContrast = false, className, style, ...props }, ref) => {
     const sizeTokens = typographyTokens.size[size]

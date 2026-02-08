@@ -33,6 +33,7 @@ const meta: Meta<typeof Select> = {
 export default meta
 type Story = StoryObj<typeof Select>
 
+/** Default export. */
 export const Default: Story = {
   render: args => {
     const [value, setValue] = useState<string>('')
@@ -53,6 +54,7 @@ export const Default: Story = {
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-64">
@@ -67,6 +69,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-64">
@@ -81,6 +84,7 @@ export const Variants: Story = {
   ),
 }
 
+/** Radius export. */
 export const Radius: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-64">
@@ -95,6 +99,7 @@ export const Radius: Story = {
   ),
 }
 
+/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-64 space-y-2">
@@ -107,6 +112,7 @@ export const WithError: Story = {
   ),
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-64">
@@ -118,6 +124,7 @@ export const Disabled: Story = {
   ),
 }
 
+/** Countries export. */
 export const Countries: Story = {
   render: () => {
     const [value, setValue] = useState<string>('')

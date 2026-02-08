@@ -34,6 +34,7 @@ const meta: Meta<typeof Slider> = {
 export default meta
 type Story = StoryObj<typeof Slider>
 
+/** Default export. */
 export const Default: Story = {
   render: args => {
     const [value, setValue] = useState([50])
@@ -46,6 +47,7 @@ export const Default: Story = {
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-64 space-y-6">
@@ -59,6 +61,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Colors export. */
 export const Colors: Story = {
   render: () => (
     <div className="w-64 space-y-4">
@@ -72,6 +75,7 @@ export const Colors: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-64 space-y-6">
@@ -85,6 +89,7 @@ export const Variants: Story = {
   ),
 }
 
+/** Radius export. */
 export const Radius: Story = {
   render: () => (
     <div className="w-64 space-y-6">
@@ -98,6 +103,7 @@ export const Radius: Story = {
   ),
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-64">
@@ -106,6 +112,7 @@ export const Disabled: Story = {
   ),
 }
 
+/** CustomRange export. */
 export const CustomRange: Story = {
   render: args => {
     const [value, setValue] = useState([25])
@@ -122,6 +129,7 @@ export const CustomRange: Story = {
   },
 }
 
+/** VolumeControl export. */
 export const VolumeControl: Story = {
   render: args => {
     const [volume, setVolume] = useState([75])
@@ -144,6 +152,7 @@ export const VolumeControl: Story = {
   },
 }
 
+/** Range export. */
 export const Range: Story = {
   render: args => {
     const [value, setValue] = useState([25, 75])
@@ -158,6 +167,7 @@ export const Range: Story = {
   },
 }
 
+/** PriceRange export. */
 export const PriceRange: Story = {
   args: {
     color: 'success',
@@ -188,6 +198,7 @@ export const PriceRange: Story = {
   },
 }
 
+/** BrightnessControl export. */
 export const BrightnessControl: Story = {
   args: {
     color: 'warning',

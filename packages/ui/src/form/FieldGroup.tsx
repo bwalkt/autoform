@@ -192,6 +192,7 @@ FieldGroupRow.displayName = 'FieldGroup.Row'
 // Compound Export
 // ============================================================================
 
+/** FieldGroup export. */
 export const FieldGroup = Object.assign(FieldGroupRoot, {
   Section: FieldGroupSection,
   Row: FieldGroupRow,

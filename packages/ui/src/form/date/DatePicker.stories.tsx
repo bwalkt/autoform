@@ -15,6 +15,7 @@ export default meta
 type Story = StoryObj<typeof DatePicker>
 
 // Default DatePicker
+/** Default export. */
 export const Default: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -27,6 +28,7 @@ export const Default: Story = {
 }
 
 // With preselected date
+/** WithValue export. */
 export const WithValue: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -39,6 +41,7 @@ export const WithValue: Story = {
 }
 
 // Custom date format
+/** CustomFormat export. */
 export const CustomFormat: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -51,6 +54,7 @@ export const CustomFormat: Story = {
 }
 
 // With min/max dates
+/** WithMinMaxDates export. */
 export const WithMinMaxDates: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -73,6 +77,7 @@ export const WithMinMaxDates: Story = {
 }
 
 // Disabled state
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -85,6 +90,7 @@ export const Disabled: Story = {
 }
 
 // Different sizes
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => {
     const [date1, setDate1] = React.useState<Date | undefined>()
@@ -104,6 +110,7 @@ export const Sizes: Story = {
 }
 
 // With FieldGroup context
+/** WithFieldGroup export. */
 export const WithFieldGroup: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -116,6 +123,7 @@ export const WithFieldGroup: Story = {
 }
 
 // Specific disabled dates
+/** WithDisabledDates export. */
 export const WithDisabledDates: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -135,6 +143,7 @@ export const WithDisabledDates: Story = {
 }
 
 // Different variants
+/** Variants export. */
 export const Variants: Story = {
   render: () => {
     const [date1, setDate1] = React.useState<Date | undefined>(new Date())
@@ -176,6 +185,7 @@ export const Variants: Story = {
 }
 
 // Natural language input
+/** NaturalLanguage export. */
 export const NaturalLanguage: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -193,6 +203,7 @@ export const NaturalLanguage: Story = {
 }
 
 // Natural language with preselected value
+/** NaturalLanguageWithValue export. */
 export const NaturalLanguageWithValue: Story = {
   render: () => {
     const tomorrow = new Date()
@@ -212,6 +223,7 @@ export const NaturalLanguageWithValue: Story = {
 }
 
 // Natural language different sizes
+/** NaturalLanguageSizes export. */
 export const NaturalLanguageSizes: Story = {
   render: () => {
     const [date1, setDate1] = React.useState<Date | undefined>()
@@ -231,6 +243,7 @@ export const NaturalLanguageSizes: Story = {
 }
 
 // Different colors with solid variant
+/** Colors export. */
 export const Colors: Story = {
   render: () => {
     const [date1, setDate1] = React.useState<Date | undefined>(new Date())

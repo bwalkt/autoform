@@ -217,6 +217,7 @@ RadioGroupItem.displayName = 'RadioGroup.Item'
 // Export compound component
 // ============================================================================
 
+/** RadioGroup export. */
 export const RadioGroup = {
   Root: RadioGroupRoot,
   Item: RadioGroupItem,

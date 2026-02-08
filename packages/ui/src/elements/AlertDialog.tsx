@@ -233,6 +233,7 @@ AlertDialogCancel.displayName = 'AlertDialog.Cancel'
 // Export compound component
 // ============================================================================
 
+/** AlertDialog export. */
 export const AlertDialog = {
   Root: AlertDialogRoot,
   Trigger: AlertDialogTrigger,

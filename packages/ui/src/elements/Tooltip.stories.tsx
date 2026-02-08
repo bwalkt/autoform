@@ -19,6 +19,7 @@ const meta: Meta = {
 
 export default meta
 
+/** Default export. */
 export const Default: StoryObj = {
   render: () => (
     <Tooltip.Root>
@@ -30,6 +31,7 @@ export const Default: StoryObj = {
   ),
 }
 
+/** Simple export. */
 export const Simple: StoryObj = {
   render: () => (
     <SimpleTooltip content="This is a simple tooltip">
@@ -38,6 +40,7 @@ export const Simple: StoryObj = {
   ),
 }
 
+/** Positions export. */
 export const Positions: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -55,6 +58,7 @@ export const Positions: StoryObj = {
   ),
 }
 
+/** MaxWidths export. */
 export const MaxWidths: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -72,6 +76,7 @@ export const MaxWidths: StoryObj = {
   ),
 }
 
+/** WithIcons export. */
 export const WithIcons: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -103,6 +108,7 @@ export const WithIcons: StoryObj = {
   ),
 }
 
+/** IconButtonsToolbar export. */
 export const IconButtonsToolbar: StoryObj = {
   render: () => (
     <div className="flex items-center gap-1 p-2 border rounded-lg bg-muted/30">
@@ -125,6 +131,7 @@ export const IconButtonsToolbar: StoryObj = {
   ),
 }
 
+/** RichContent export. */
 export const RichContent: StoryObj = {
   render: () => (
     <Tooltip.Root>
@@ -144,6 +151,7 @@ export const RichContent: StoryObj = {
   ),
 }
 
+/** FormFieldHelp export. */
 export const FormFieldHelp: StoryObj = {
   render: () => (
     <div className="w-72 space-y-2">

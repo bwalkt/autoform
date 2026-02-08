@@ -23,6 +23,7 @@ export interface LabelProps extends Omit<TextProps, 'as'> {
   disabled?: boolean
 }
 
+/** Label export. */
 export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   ({ size: sizeProp, weight = 'medium', htmlFor, disabled, className, children, ...props }, ref) => {
     const fieldGroup = useFieldGroup()

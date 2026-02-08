@@ -13,6 +13,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   highContrast?: boolean
 }
 
+/** Text export. */
 export const Text = React.forwardRef<HTMLElement, TextProps>(
   (
     {

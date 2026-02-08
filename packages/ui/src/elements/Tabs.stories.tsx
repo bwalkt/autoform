@@ -13,6 +13,7 @@ const meta: Meta = {
 
 export default meta
 
+/** Default export. */
 export const Default: StoryObj = {
   render: () => (
     <Tabs.Root defaultValue="account" className="w-[400px]">
@@ -43,6 +44,7 @@ export const Default: StoryObj = {
   ),
 }
 
+/** Sizes export. */
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -65,6 +67,7 @@ export const Sizes: StoryObj = {
   ),
 }
 
+/** Variants export. */
 export const Variants: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -98,6 +101,7 @@ export const Variants: StoryObj = {
   ),
 }
 
+/** Colors export. */
 export const Colors: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -118,6 +122,7 @@ export const Colors: StoryObj = {
   ),
 }
 
+/** ColorsWithSurface export. */
 export const ColorsWithSurface: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -138,6 +143,7 @@ export const ColorsWithSurface: StoryObj = {
   ),
 }
 
+/** HighContrast export. */
 export const HighContrast: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -165,6 +171,7 @@ export const HighContrast: StoryObj = {
   ),
 }
 
+/** Justify export. */
 export const Justify: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -183,6 +190,7 @@ export const Justify: StoryObj = {
   ),
 }
 
+/** Controlled export. */
 export const Controlled: StoryObj = {
   render: () => {
     const [value, setValue] = useState('overview')
@@ -213,6 +221,7 @@ export const Controlled: StoryObj = {
   },
 }
 
+/** DisabledTab export. */
 export const DisabledTab: StoryObj = {
   render: () => (
     <Tabs.Root defaultValue="tab1" className="w-[400px]">
@@ -230,6 +239,7 @@ export const DisabledTab: StoryObj = {
   ),
 }
 
+/** AccountSettings export. */
 export const AccountSettings: StoryObj = {
   render: () => (
     <div className="w-[500px] border rounded-lg p-6">

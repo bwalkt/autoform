@@ -13,6 +13,7 @@ const meta: Meta = {
 
 export default meta
 
+/** Default export. */
 export const Default: StoryObj = {
   render: () => (
     <DropdownMenu.Root>
@@ -29,6 +30,7 @@ export const Default: StoryObj = {
   ),
 }
 
+/** WithShortcuts export. */
 export const WithShortcuts: StoryObj = {
   render: () => (
     <DropdownMenu.Root>
@@ -46,6 +48,7 @@ export const WithShortcuts: StoryObj = {
   ),
 }
 
+/** WithCheckboxItems export. */
 export const WithCheckboxItems: StoryObj = {
   render: () => {
     const [showStatus, setShowStatus] = useState(true)
@@ -75,6 +78,7 @@ export const WithCheckboxItems: StoryObj = {
   },
 }
 
+/** WithRadioItems export. */
 export const WithRadioItems: StoryObj = {
   render: () => {
     const [theme, setTheme] = useState('system')
@@ -98,6 +102,7 @@ export const WithRadioItems: StoryObj = {
   },
 }
 
+/** WithSubmenu export. */
 export const WithSubmenu: StoryObj = {
   render: () => (
     <DropdownMenu.Root>
@@ -124,6 +129,7 @@ export const WithSubmenu: StoryObj = {
   ),
 }
 
+/** UserMenu export. */
 export const UserMenu: StoryObj = {
   render: () => (
     <DropdownMenu.Root>
@@ -201,6 +207,7 @@ export const UserMenu: StoryObj = {
   ),
 }
 
+/** Sizes export. */
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -221,6 +228,7 @@ export const Sizes: StoryObj = {
   ),
 }
 
+/** Variants export. */
 export const Variants: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -243,6 +251,7 @@ export const Variants: StoryObj = {
   ),
 }
 
+/** DisabledItems export. */
 export const DisabledItems: StoryObj = {
   render: () => (
     <DropdownMenu.Root>

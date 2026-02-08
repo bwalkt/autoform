@@ -143,6 +143,7 @@ DataListValue.displayName = 'DataList.Value'
 // Export compound component
 // ============================================================================
 
+/** DataList export. */
 export const DataList = {
   Root: DataListRoot,
   Item: DataListItem,

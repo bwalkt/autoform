@@ -60,6 +60,7 @@ export type FlexProps = FlexDivProps | FlexSpanProps
 // Flex Component
 // ============================================================================
 
+/** Flex export. */
 export const Flex = React.forwardRef<HTMLElement, FlexProps>(
   (
     {

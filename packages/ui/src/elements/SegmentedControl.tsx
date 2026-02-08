@@ -179,6 +179,7 @@ SegmentedControlItem.displayName = 'SegmentedControl.Item'
 // Export compound component
 // ============================================================================
 
+/** SegmentedControl export. */
 export const SegmentedControl = {
   Root: SegmentedControlRoot,
   Item: SegmentedControlItem,

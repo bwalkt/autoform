@@ -164,6 +164,7 @@ export interface CalendarWithPresetsProps {
  * />
  * ```
  */
+/** CalendarWithPresets export. */
 export const CalendarWithPresets = React.forwardRef<HTMLDivElement, CalendarWithPresetsProps>(
   (
     {

@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { TextField } from './TextField'
 
 // Common mask presets
+/** maskPresets export. */
 export const maskPresets = {
   phone: '(999) 999-9999',
   phoneInternational: '+9 (999) 999-9999',
@@ -80,6 +81,7 @@ function getMaskPattern(mask: string | MaskPreset): string {
   return mask
 }
 
+/** InputMask export. */
 export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>(
   (
     {

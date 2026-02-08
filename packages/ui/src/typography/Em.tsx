@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 
 export interface EmProps extends React.HTMLAttributes<HTMLElement> {}
 
+/** Em export. */
 export const Em = React.forwardRef<HTMLElement, EmProps>(({ className, ...props }, ref) => {
   return <em ref={ref} className={cn('italic', className)} {...props} />
 })

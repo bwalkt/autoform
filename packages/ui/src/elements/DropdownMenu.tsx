@@ -523,6 +523,7 @@ DropdownMenuSubContent.displayName = 'DropdownMenu.SubContent'
 // Export compound component
 // ============================================================================
 
+/** DropdownMenu export. */
 export const DropdownMenu = {
   Root: DropdownMenuRoot,
   Trigger: DropdownMenuTrigger,

@@ -37,6 +37,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // Default
+/** Default export. */
 export const Default: Story = {
   render: args => (
     <Callout.Root {...args}>
@@ -54,6 +55,7 @@ export const Default: Story = {
 }
 
 // Variants
+/** Soft export. */
 export const Soft: Story = {
   render: () => (
     <Callout.Root variant="soft" color="info">
@@ -65,6 +67,7 @@ export const Soft: Story = {
   ),
 }
 
+/** Surface export. */
 export const Surface: Story = {
   render: () => (
     <Callout.Root variant="surface" color="info">
@@ -76,6 +79,7 @@ export const Surface: Story = {
   ),
 }
 
+/** Outline export. */
 export const Outline: Story = {
   render: () => (
     <Callout.Root variant="outline" color="info">
@@ -88,6 +92,7 @@ export const Outline: Story = {
 }
 
 // Sizes
+/** Size1 export. */
 export const Size1: Story = {
   name: 'Size 1 (Extra Small)',
   render: () => (
@@ -100,6 +105,7 @@ export const Size1: Story = {
   ),
 }
 
+/** Size2 export. */
 export const Size2: Story = {
   name: 'Size 2 (Small, default)',
   render: () => (
@@ -112,6 +118,7 @@ export const Size2: Story = {
   ),
 }
 
+/** Size3 export. */
 export const Size3: Story = {
   name: 'Size 3 (Medium)',
   render: () => (
@@ -124,6 +131,7 @@ export const Size3: Story = {
   ),
 }
 
+/** Size4 export. */
 export const Size4: Story = {
   name: 'Size 4 (Large)',
   render: () => (
@@ -137,6 +145,7 @@ export const Size4: Story = {
 }
 
 // Colors
+/** ColorDefault export. */
 export const ColorDefault: Story = {
   render: () => (
     <Callout.Root color="default">
@@ -148,6 +157,7 @@ export const ColorDefault: Story = {
   ),
 }
 
+/** ColorPrimary export. */
 export const ColorPrimary: Story = {
   render: () => (
     <Callout.Root color="primary">
@@ -159,6 +169,7 @@ export const ColorPrimary: Story = {
   ),
 }
 
+/** ColorInfo export. */
 export const ColorInfo: Story = {
   render: () => (
     <Callout.Root color="info">
@@ -170,6 +181,7 @@ export const ColorInfo: Story = {
   ),
 }
 
+/** ColorSuccess export. */
 export const ColorSuccess: Story = {
   render: () => (
     <Callout.Root color="success">
@@ -181,6 +193,7 @@ export const ColorSuccess: Story = {
   ),
 }
 
+/** ColorWarning export. */
 export const ColorWarning: Story = {
   render: () => (
     <Callout.Root color="warning">
@@ -192,6 +205,7 @@ export const ColorWarning: Story = {
   ),
 }
 
+/** ColorError export. */
 export const ColorError: Story = {
   render: () => (
     <Callout.Root color="error">
@@ -204,6 +218,7 @@ export const ColorError: Story = {
 }
 
 // All variants showcase
+/** AllVariants export. */
 export const AllVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -230,6 +245,7 @@ export const AllVariants: Story = {
 }
 
 // All sizes showcase
+/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -262,6 +278,7 @@ export const AllSizes: Story = {
 }
 
 // All colors with soft variant
+/** AllColorsSoft export. */
 export const AllColorsSoft: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -306,6 +323,7 @@ export const AllColorsSoft: Story = {
 }
 
 // All colors with surface variant
+/** AllColorsSurface export. */
 export const AllColorsSurface: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -350,6 +368,7 @@ export const AllColorsSurface: Story = {
 }
 
 // All colors with outline variant
+/** AllColorsOutline export. */
 export const AllColorsOutline: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -394,6 +413,7 @@ export const AllColorsOutline: Story = {
 }
 
 // High contrast mode
+/** HighContrast export. */
 export const HighContrast: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -420,6 +440,7 @@ export const HighContrast: Story = {
 }
 
 // Without icon
+/** WithoutIcon export. */
 export const WithoutIcon: Story = {
   render: () => (
     <Callout.Root color="info">
@@ -429,6 +450,7 @@ export const WithoutIcon: Story = {
 }
 
 // Long content
+/** LongContent export. */
 export const LongContent: Story = {
   render: () => (
     <Callout.Root color="info" className="max-w-lg">
@@ -445,6 +467,7 @@ export const LongContent: Story = {
 }
 
 // Real-world examples
+/** RealWorldExamples export. */
 export const RealWorldExamples: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-lg">

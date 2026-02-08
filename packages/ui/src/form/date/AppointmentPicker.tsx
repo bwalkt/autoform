@@ -113,6 +113,7 @@ export interface AppointmentPickerProps {
  * />
  * ```
  */
+/** AppointmentPicker export. */
 export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPickerProps>(
   (
     {

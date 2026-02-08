@@ -22,6 +22,7 @@ export interface SelectProps {
   children: React.ReactNode
 }
 
+/** Select export. */
 export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
   (
     {
@@ -140,6 +141,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
 Select.displayName = 'Select'
 
+/** SelectItem export. */
 export function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Props) {
   return (
     <SelectPrimitive.Item

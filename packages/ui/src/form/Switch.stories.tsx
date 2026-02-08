@@ -37,6 +37,7 @@ const meta: Meta<typeof Switch> = {
 export default meta
 type Story = StoryObj<typeof Switch>
 
+/** Default export. */
 export const Default: Story = {
   render: args => {
     const [checked, setChecked] = useState(false)
@@ -44,6 +45,7 @@ export const Default: Story = {
   },
 }
 
+/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -54,6 +56,7 @@ export const Sizes: Story = {
   ),
 }
 
+/** Colors export. */
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -67,6 +70,7 @@ export const Colors: Story = {
   ),
 }
 
+/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -81,6 +85,7 @@ export const Variants: Story = {
   ),
 }
 
+/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -92,6 +97,7 @@ export const WithLabel: Story = {
   ),
 }
 
+/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -101,6 +107,7 @@ export const Disabled: Story = {
   ),
 }
 
+/** HighContrast export. */
 export const HighContrast: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -116,6 +123,7 @@ export const HighContrast: Story = {
   ),
 }
 
+/** SettingsExample export. */
 export const SettingsExample: Story = {
   render: () => {
     const [settings, setSettings] = useState({

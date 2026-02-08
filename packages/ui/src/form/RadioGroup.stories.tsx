@@ -11,6 +11,7 @@ const meta: Meta = {
 
 export default meta
 
+/** Default export. */
 export const Default: StoryObj = {
   render: () => {
     const [value, setValue] = useState('option1')
@@ -24,6 +25,7 @@ export const Default: StoryObj = {
   },
 }
 
+/** Sizes export. */
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-8">
@@ -41,6 +43,7 @@ export const Sizes: StoryObj = {
   ),
 }
 
+/** Colors export. */
 export const Colors: StoryObj = {
   render: () => (
     <div className="flex gap-8">
@@ -57,6 +60,7 @@ export const Colors: StoryObj = {
   ),
 }
 
+/** Horizontal export. */
 export const Horizontal: StoryObj = {
   render: () => (
     <RadioGroup.Root orientation="horizontal" defaultValue="small">
@@ -67,6 +71,7 @@ export const Horizontal: StoryObj = {
   ),
 }
 
+/** Disabled export. */
 export const Disabled: StoryObj = {
   render: () => (
     <RadioGroup.Root disabled defaultValue="option1">
@@ -77,6 +82,7 @@ export const Disabled: StoryObj = {
   ),
 }
 
+/** IndividualDisabled export. */
 export const IndividualDisabled: StoryObj = {
   render: () => (
     <RadioGroup.Root defaultValue="free">
@@ -87,6 +93,7 @@ export const IndividualDisabled: StoryObj = {
   ),
 }
 
+/** PlanSelection export. */
 export const PlanSelection: StoryObj = {
   render: () => {
     const [plan, setPlan] = useState('starter')
@@ -122,6 +129,7 @@ export const PlanSelection: StoryObj = {
   },
 }
 
+/** ShippingMethod export. */
 export const ShippingMethod: StoryObj = {
   render: () => {
     const [method, setMethod] = useState('standard')

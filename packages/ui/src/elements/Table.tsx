@@ -238,6 +238,7 @@ TableColumnHeaderCell.displayName = 'Table.ColumnHeaderCell'
 // Export compound component
 // ============================================================================
 
+/** Table export. */
 export const Table = {
   Root: TableRoot,
   Header: TableHeader,

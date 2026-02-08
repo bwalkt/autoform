@@ -291,6 +291,7 @@ RadioCardsItem.displayName = 'RadioCards.Item'
 // Export compound component
 // ============================================================================
 
+/** RadioCards export. */
 export const RadioCards = {
   Root: RadioCardsRoot,
   Item: RadioCardsItem,

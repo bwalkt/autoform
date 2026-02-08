@@ -12,6 +12,7 @@ export interface QuoteProps extends React.HTMLAttributes<HTMLQuoteElement> {
  * Quote component for short inline quotations.
  * Renders as a `<q>` element which automatically adds quotation marks.
  */
+/** Quote export. */
 export const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
   ({ truncate = false, wrap = 'wrap', className, ...props }, ref) => {
     return (

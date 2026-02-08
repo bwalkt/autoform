@@ -187,6 +187,7 @@ PopoverArrow.displayName = 'Popover.Arrow'
 // Export compound component
 // ============================================================================
 
+/** Popover export. */
 export const Popover = {
   Root: PopoverRoot,
   Trigger: PopoverTrigger,

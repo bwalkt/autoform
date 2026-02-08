@@ -52,6 +52,7 @@ export interface PhoneInputProps
 // Main Component
 // ============================================================================
 
+/** PhoneInput export. */
 export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
   (
     {

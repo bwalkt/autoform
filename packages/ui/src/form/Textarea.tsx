@@ -42,6 +42,7 @@ const getFloatingStyle = (variant: TextFieldVariant): 'filled' | 'standard' | 'o
   return null
 }
 
+/** Textarea export. */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {

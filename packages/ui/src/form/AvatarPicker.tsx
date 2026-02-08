@@ -87,6 +87,7 @@ export interface AvatarPickerProps {
  * A dropdown picker for selecting items with avatars.
  * Supports single selection or multiple selection with checkboxes.
  */
+/** AvatarPicker export. */
 export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProps>(
   (
     {

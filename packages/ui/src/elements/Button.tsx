@@ -116,6 +116,7 @@ function getResolvedSize(size: Responsive<Size>): Size {
   return size.initial || '2'
 }
 
+/** Button export. */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {

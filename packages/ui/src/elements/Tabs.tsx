@@ -330,6 +330,7 @@ TabsContent.displayName = 'Tabs.Content'
 // Export compound component
 // ============================================================================
 
+/** Tabs export. */
 export const Tabs = {
   Root: TabsRoot,
   List: TabsList,

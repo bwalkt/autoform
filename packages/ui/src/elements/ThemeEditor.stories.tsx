@@ -31,6 +31,7 @@ type Story = StoryObj<typeof meta>
 // Basic Editor
 // ============================================================================
 
+/** Default export. */
 export const Default: Story = {
   render: () => (
     <div className="flex h-screen">
@@ -48,6 +49,7 @@ export const Default: Story = {
 // Editor Only
 // ============================================================================
 
+/** EditorOnly export. */
 export const EditorOnly: Story = {
   render: () => (
     <div className="w-96 h-[600px] border rounded-lg overflow-hidden">
@@ -60,6 +62,7 @@ export const EditorOnly: Story = {
 // Preview Only
 // ============================================================================
 
+/** PreviewOnly export. */
 export const PreviewOnly: Story = {
   render: () => (
     <div className="p-8 bg-background">
@@ -147,6 +150,7 @@ const ComponentShowcase: React.FC = () => {
   )
 }
 
+/** WithCustomComponents export. */
 export const WithCustomComponents: Story = {
   render: () => (
     <div className="flex h-screen">
@@ -198,6 +202,7 @@ const PresetApplier: React.FC<{ preset: string }> = ({ preset }) => {
   )
 }
 
+/** PresetGallery export. */
 export const PresetGallery: Story = {
   render: () => (
     <div className="p-8">
@@ -250,6 +255,7 @@ const ExportDemo: React.FC = () => {
   )
 }
 
+/** ExportConfiguration export. */
 export const ExportConfiguration: Story = {
   render: () => (
     <div className="flex h-screen">
@@ -338,6 +344,7 @@ const DarkModeDemo: React.FC = () => {
   )
 }
 
+/** DarkMode export. */
 export const DarkMode: Story = {
   render: () => (
     <div className="flex h-screen">

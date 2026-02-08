@@ -106,6 +106,7 @@ export interface ThemeContextValue {
 
 const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined)
 
+/** useThemeContext export. */
 export function useThemeContext() {
   const context = React.useContext(ThemeContext)
   if (!context) {
@@ -157,6 +158,7 @@ export interface ThemeProps {
 // Theme Component
 // ============================================================================
 
+/** Theme export. */
 export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
   (
     {

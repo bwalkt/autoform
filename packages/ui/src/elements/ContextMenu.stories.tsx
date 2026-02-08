@@ -37,6 +37,7 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
+/** Default export. */
 export const Default: Story = {
   args: {
     size: '2',
@@ -62,6 +63,7 @@ export const Default: Story = {
   ),
 }
 
+/** WithShortcuts export. */
 export const WithShortcuts: Story = {
   render: () => (
     <ContextMenu.Root>
@@ -88,6 +90,7 @@ export const WithShortcuts: Story = {
 // Sizes
 // ============================================================================
 
+/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="gap-6 flex-wrap">
@@ -117,6 +120,7 @@ export const AllSizes: Story = {
 // Variants
 // ============================================================================
 
+/** VariantSolid export. */
 export const VariantSolid: Story = {
   args: {
     size: '2',
@@ -139,6 +143,7 @@ export const VariantSolid: Story = {
   ),
 }
 
+/** VariantSoft export. */
 export const VariantSoft: Story = {
   args: {
     size: '2',
@@ -165,6 +170,7 @@ export const VariantSoft: Story = {
 // Colors
 // ============================================================================
 
+/** ItemColors export. */
 export const ItemColors: Story = {
   render: () => (
     <ContextMenu.Root>
@@ -190,6 +196,7 @@ export const ItemColors: Story = {
 // With Labels and Groups
 // ============================================================================
 
+/** WithLabelsAndGroups export. */
 export const WithLabelsAndGroups: Story = {
   render: () => (
     <ContextMenu.Root>
@@ -220,6 +227,7 @@ export const WithLabelsAndGroups: Story = {
 // Checkbox Items
 // ============================================================================
 
+/** CheckboxItems export. */
 export const CheckboxItems: Story = {
   render: () => {
     const [showToolbar, setShowToolbar] = React.useState(true)
@@ -254,6 +262,7 @@ export const CheckboxItems: Story = {
 // Radio Items
 // ============================================================================
 
+/** RadioItems export. */
 export const RadioItems: Story = {
   render: () => {
     const [sortBy, setSortBy] = React.useState('name')
@@ -283,6 +292,7 @@ export const RadioItems: Story = {
 // Submenus
 // ============================================================================
 
+/** WithSubmenus export. */
 export const WithSubmenus: Story = {
   render: () => (
     <ContextMenu.Root>
@@ -325,6 +335,7 @@ export const WithSubmenus: Story = {
 // Disabled States
 // ============================================================================
 
+/** DisabledItems export. */
 export const DisabledItems: Story = {
   render: () => (
     <ContextMenu.Root>
@@ -357,6 +368,7 @@ export const DisabledItems: Story = {
 // Real-world Example: File Browser
 // ============================================================================
 
+/** FileBrowserContext export. */
 export const FileBrowserContext: Story = {
   render: () => {
     const [viewType, setViewType] = React.useState('grid')
@@ -427,6 +439,7 @@ export const FileBrowserContext: Story = {
 // Real-world Example: Text Editor
 // ============================================================================
 
+/** TextEditorContext export. */
 export const TextEditorContext: Story = {
   render: () => {
     const [wordWrap, setWordWrap] = React.useState(true)
