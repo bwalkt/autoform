@@ -21,7 +21,7 @@
     "./typography": "./src/typography/index.ts"
   },
   "devDependencies": {
-    "@bwalkt/shadcn": "workspace:*",
+    "@bwalkt/react": "workspace:*",
     "@bwalkt/typescript-config": "file:../typescript-config",
     "@storybook/addon-docs": "catalog:",
     "@storybook/react-vite": "catalog:",

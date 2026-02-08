@@ -187,22 +187,26 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ) : null
 
     if (asChild && React.isValidElement(children)) {
-      return React.cloneElement(
-        children as React.ReactElement<Record<string, unknown>>,
-        {
-          ...props,
-          className: cn(buttonClasses, children.props.className),
-          style: { ...combinedStyles, ...children.props.style },
-          'aria-busy': loading || undefined,
-          'aria-disabled': disabled || loading || undefined,
-          children: (
-            <>
-              {loadingOverlay}
-              {children.props.children}
-            </>
-          ),
-        } as Record<string, unknown>,
-      )
+      const childElement = children as React.ReactElement<Record<string, unknown>>
+      const childProps = childElement.props as {
+        className?: string
+        style?: React.CSSProperties
+        children?: React.ReactNode
+      }
+
+      return React.cloneElement(childElement, {
+        ...props,
+        className: cn(buttonClasses, childProps.className),
+        style: { ...combinedStyles, ...childProps.style },
+        'aria-busy': loading || undefined,
+        'aria-disabled': disabled || loading || undefined,
+        children: (
+          <>
+            {loadingOverlay}
+            {childProps.children}
+          </>
+        ),
+      } as Record<string, unknown>)
     }
 
     return (

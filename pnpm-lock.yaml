@@ -308,97 +308,6 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
-  packages/shadcn:
-    dependencies:
-      '@base-ui/react':
-        specifier: ^1.0.0
-        version: 1.0.0(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@bwalkt/react':
-        specifier: workspace:*
-        version: link:../react
-      class-variance-authority:
-        specifier: ^0.7.1
-        version: 0.7.1
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
-      lucide-react:
-        specifier: '*'
-        version: 0.522.0(react@19.2.3)
-      tw-animate-css:
-        specifier: ^1.4.0
-        version: 1.4.0
-    devDependencies:
-      '@bwalkt/ajv':
-        specifier: workspace:*
-        version: link:../ajv
-      '@bwalkt/core':
-        specifier: workspace:*
-        version: link:../core
-      '@bwalkt/typescript-config':
-        specifier: file:../typescript-config
-        version: link:../typescript-config
-      '@storybook/addon-docs':
-        specifier: 'catalog:'
-        version: 10.1.11(@types/react@19.2.7)(esbuild@0.27.2)(rollup@4.54.0)(storybook@10.1.10(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.0(@types/node@20.19.27)(jiti@2.6.1)(lightningcss@1.30.2)(sugarss@5.0.1(postcss@8.5.6)))
-      '@storybook/react-vite':
-        specifier: 'catalog:'
-        version: 10.1.10(esbuild@0.27.2)(msw@2.12.7(@types/node@20.19.27)(typescript@5.9.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(rollup@4.54.0)(storybook@10.1.10(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)(vite@7.3.0(@types/node@20.19.27)(jiti@2.6.1)(lightningcss@1.30.2)(sugarss@5.0.1(postcss@8.5.6)))
-      '@tailwindcss/postcss':
-        specifier: ^4
-        version: 4.1.18
-      '@types/node':
-        specifier: 'catalog:'
-        version: 20.19.27
-      '@types/react':
-        specifier: 'catalog:'
-        version: 19.2.7
-      '@types/react-dom':
-        specifier: 'catalog:'
-        version: 19.2.3(@types/react@19.2.7)
-      autoprefixer:
-        specifier: 'catalog:'
-        version: 10.4.23(postcss@8.5.6)
-      glob:
-        specifier: 'catalog:'
-        version: 11.1.0
-      postcss:
-        specifier: 'catalog:'
-        version: 8.5.6
-      postcss-load-config:
-        specifier: 'catalog:'
-        version: 6.0.1(jiti@2.6.1)(postcss@8.5.6)
-      react:
-        specifier: 'catalog:'
-        version: 19.2.3
-      react-dom:
-        specifier: 'catalog:'
-        version: 19.2.3(react@19.2.3)
-      react-hook-form:
-        specifier: 'catalog:'
-        version: 7.69.0(react@19.2.3)
-      storybook:
-        specifier: 10.1.10
-        version: 10.1.10(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      tailwind-merge:
-        specifier: ^3.4.0
-        version: 3.4.0
-      tailwindcss:
-        specifier: ^4
-        version: 4.1.18
-      tsup:
-        specifier: 'catalog:'
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vite:
-        specifier: 'catalog:'
-        version: 7.3.0(@types/node@20.19.27)(jiti@2.6.1)(lightningcss@1.30.2)(sugarss@5.0.1(postcss@8.5.6))
-
   packages/typescript-config: {}
 
   packages/ui:
@@ -443,9 +352,9 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     devDependencies:
-      '@bwalkt/shadcn':
+      '@bwalkt/react':
         specifier: workspace:*
-        version: link:../shadcn
+        version: link:../react
       '@bwalkt/typescript-config':
         specifier: file:../typescript-config
         version: link:../typescript-config
