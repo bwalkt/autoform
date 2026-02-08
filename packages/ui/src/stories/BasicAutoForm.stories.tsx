@@ -1,5 +1,4 @@
-import { Button } from '@bwalkt/shadcn/components/ui/button'
-import { Label } from '@bwalkt/shadcn/components/ui/label'
+import { Button, Label } from '@bwalkt/ui'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 

@@ -1,5 +1,5 @@
-import { AutoForm } from '@bwalkt/shadcn/components/ui/autoform'
-import { Button } from '@bwalkt/shadcn/components/ui/button'
+import { AutoForm } from '@bwalkt/react'
+import { Button } from '@bwalkt/ui'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
 

@@ -37,7 +37,7 @@ type Story = StoryObj<typeof meta>
 // Default
 export const Default: Story = {
   args: {
-    children: 'npm install @bwalkt/shadcn',
+    children: 'npm install @bwalkt/ui',
     variant: 'soft',
   },
 }
@@ -98,7 +98,7 @@ export const RealWorldExamples: Story = {
         <Text size="2" color="neutral" className="mb-1">
           Installation
         </Text>
-        <Code variant="soft">npm install @bwalkt/shadcn</Code>
+        <Code variant="soft">npm install @bwalkt/ui</Code>
       </Box>
       <Box>
         <Text size="2" color="neutral" className="mb-1">

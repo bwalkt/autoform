@@ -199,7 +199,9 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
             break
           case 'Enter':
             e.preventDefault()
-            handleSelect(filteredItems[highlightedIndex])
+            if (filteredItems[highlightedIndex]) {
+              handleSelect(filteredItems[highlightedIndex])
+            }
             break
           case 'Escape':
             e.preventDefault()
@@ -285,12 +287,13 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
 
     // Display text for trigger
     const displayText = React.useMemo(() => {
+      const firstSelected = selectedItems[0]
       if (selectedItems.length === 0) return placeholder
       if (multiple) {
-        if (selectedItems.length === 1) return selectedItems[0].name
+        if (selectedItems.length === 1) return firstSelected?.name ?? placeholder
         return `${selectedItems.length} selected`
       }
-      return selectedItems[0].name
+      return firstSelected?.name ?? placeholder
     }, [selectedItems, multiple, placeholder])
 
     return (

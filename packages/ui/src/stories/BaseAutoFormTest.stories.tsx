@@ -1,5 +1,5 @@
 import { AjvProvider } from '@bwalkt/ajv'
-import { Label } from '@bwalkt/shadcn/components/ui/label'
+import { Label } from '@bwalkt/ui'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
 

@@ -1,3 +1,5 @@
+'use client'
+
 // Form Input Components
 
 export { type AvatarItem, AvatarPicker, type AvatarPickerProps } from './AvatarPicker'

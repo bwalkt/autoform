@@ -116,7 +116,7 @@ export const Showcase: Story = {
           Code Examples
         </Heading>
         <div className="space-y-2">
-          <Code variant="soft">npm install @bwalkt/shadcn</Code>
+          <Code variant="soft">npm install @bwalkt/ui</Code>
           <Code variant="solid">const value = "example";</Code>
           <Code variant="outline">git commit -m "feat: add typography"</Code>
           <Code variant="ghost">console.log("Hello World")</Code>

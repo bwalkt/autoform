@@ -221,7 +221,7 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
           if (idx > lastTriggerIndex) {
             // Check if trigger is at start or preceded by whitespace
             const charBefore = textBeforeCursor[idx - 1]
-            const isValidTrigger = idx === 0 || /\s/.test(charBefore)
+            const isValidTrigger = idx === 0 || (charBefore ? /\s/.test(charBefore) : true)
 
             if (isValidTrigger) {
               const textAfterTrigger = textBeforeCursor.slice(idx + triggerChar.length)
@@ -319,7 +319,10 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
           case 'Tab':
             if (filteredMentions.length > 0) {
               e.preventDefault()
-              selectMention(filteredMentions[highlightedIndex])
+              const selected = filteredMentions[highlightedIndex]
+              if (selected) {
+                selectMention(selected)
+              }
             }
             break
           case 'Escape':

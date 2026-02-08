@@ -14,6 +14,7 @@ export interface SelectProps {
   color?: Color
   radius?: Radius
   error?: boolean
+  // TODO: Support a `label` prop for parity with other form controls.
   placeholder?: string
   value?: string
   onValueChange?: (value: string) => void

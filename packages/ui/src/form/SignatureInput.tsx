@@ -215,6 +215,7 @@ export const SignatureInput = React.forwardRef<HTMLCanvasElement, SignatureInput
       if (!canvas || !ctx) return
 
       const previousState = history[history.length - 1]
+      if (!previousState) return
       ctx.putImageData(previousState, 0, 0)
       setHistory(prev => prev.slice(0, -1))
 

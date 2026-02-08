@@ -1,3 +1,5 @@
+'use client'
+
 // Buttons
 
 // Typography
@@ -39,8 +41,16 @@ export {
   type CalloutTextProps,
   type CalloutVariant,
 } from './Callout'
+export type {
+  CardContentProps,
+  CardDescriptionProps,
+  CardFooterProps,
+  CardHeaderProps,
+  CardRootProps,
+  CardTitleProps,
+} from './Card'
 // Layout
-export { Card } from './Card'
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle } from './Card'
 // Menu
 export { ContextMenu } from './ContextMenu'
 export { DataList } from './DataList'
