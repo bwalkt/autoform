@@ -2,7 +2,7 @@
 
 import { Badge, Callout, Code, Heading, Text } from '@bwalkt/ui'
 
-import type { MDXComponents } from 'mdx/types'
+import type { MDXComponents } from '@mdx-js/react'
 import Link from 'next/link'
 
 function mergeClassName(base: string, extra?: string) {
