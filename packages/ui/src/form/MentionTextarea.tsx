@@ -319,7 +319,10 @@ export const MentionTextarea = React.forwardRef<HTMLTextAreaElement, MentionText
           case 'Tab':
             if (filteredMentions.length > 0) {
               e.preventDefault()
-              selectMention(filteredMentions[highlightedIndex])
+              const selected = filteredMentions[highlightedIndex]
+              if (selected) {
+                selectMention(selected)
+              }
             }
             break
           case 'Escape':
