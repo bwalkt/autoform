@@ -326,29 +326,44 @@ export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | u
   const initialClass = prop.initial ? gridColumnsMap[prop.initial] : undefined
   if (initialClass) classes.push(initialClass)
 
-  if (prop.xs && gridColumnsMap[prop.xs]) {
-    const baseClass = gridColumnsMap[prop.xs].replace('rt-grid-cols-', '')
-    classes.push(`rt-grid-cols-xs-${baseClass}`)
+  if (prop.xs) {
+    const mapped = gridColumnsMap[prop.xs]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-cols-', '')
+      classes.push(`rt-grid-cols-xs-${baseClass}`)
+    }
   }
 
-  if (prop.sm && gridColumnsMap[prop.sm]) {
-    const baseClass = gridColumnsMap[prop.sm].replace('rt-grid-cols-', '')
-    classes.push(`rt-grid-cols-sm-${baseClass}`)
+  if (prop.sm) {
+    const mapped = gridColumnsMap[prop.sm]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-cols-', '')
+      classes.push(`rt-grid-cols-sm-${baseClass}`)
+    }
   }
 
-  if (prop.md && gridColumnsMap[prop.md]) {
-    const baseClass = gridColumnsMap[prop.md].replace('rt-grid-cols-', '')
-    classes.push(`rt-grid-cols-md-${baseClass}`)
+  if (prop.md) {
+    const mapped = gridColumnsMap[prop.md]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-cols-', '')
+      classes.push(`rt-grid-cols-md-${baseClass}`)
+    }
   }
 
-  if (prop.lg && gridColumnsMap[prop.lg]) {
-    const baseClass = gridColumnsMap[prop.lg].replace('rt-grid-cols-', '')
-    classes.push(`rt-grid-cols-lg-${baseClass}`)
+  if (prop.lg) {
+    const mapped = gridColumnsMap[prop.lg]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-cols-', '')
+      classes.push(`rt-grid-cols-lg-${baseClass}`)
+    }
   }
 
-  if (prop.xl && gridColumnsMap[prop.xl]) {
-    const baseClass = gridColumnsMap[prop.xl].replace('rt-grid-cols-', '')
-    classes.push(`rt-grid-cols-xl-${baseClass}`)
+  if (prop.xl) {
+    const mapped = gridColumnsMap[prop.xl]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-cols-', '')
+      classes.push(`rt-grid-cols-xl-${baseClass}`)
+    }
   }
 
   return classes.join(' ')
@@ -371,29 +386,44 @@ export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefin
   const initialClass = prop.initial ? gridRowsMap[prop.initial] : undefined
   if (initialClass) classes.push(initialClass)
 
-  if (prop.xs && gridRowsMap[prop.xs]) {
-    const baseClass = gridRowsMap[prop.xs].replace('rt-grid-rows-', '')
-    classes.push(`rt-grid-rows-xs-${baseClass}`)
+  if (prop.xs) {
+    const mapped = gridRowsMap[prop.xs]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-rows-', '')
+      classes.push(`rt-grid-rows-xs-${baseClass}`)
+    }
   }
 
-  if (prop.sm && gridRowsMap[prop.sm]) {
-    const baseClass = gridRowsMap[prop.sm].replace('rt-grid-rows-', '')
-    classes.push(`rt-grid-rows-sm-${baseClass}`)
+  if (prop.sm) {
+    const mapped = gridRowsMap[prop.sm]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-rows-', '')
+      classes.push(`rt-grid-rows-sm-${baseClass}`)
+    }
   }
 
-  if (prop.md && gridRowsMap[prop.md]) {
-    const baseClass = gridRowsMap[prop.md].replace('rt-grid-rows-', '')
-    classes.push(`rt-grid-rows-md-${baseClass}`)
+  if (prop.md) {
+    const mapped = gridRowsMap[prop.md]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-rows-', '')
+      classes.push(`rt-grid-rows-md-${baseClass}`)
+    }
   }
 
-  if (prop.lg && gridRowsMap[prop.lg]) {
-    const baseClass = gridRowsMap[prop.lg].replace('rt-grid-rows-', '')
-    classes.push(`rt-grid-rows-lg-${baseClass}`)
+  if (prop.lg) {
+    const mapped = gridRowsMap[prop.lg]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-rows-', '')
+      classes.push(`rt-grid-rows-lg-${baseClass}`)
+    }
   }
 
-  if (prop.xl && gridRowsMap[prop.xl]) {
-    const baseClass = gridRowsMap[prop.xl].replace('rt-grid-rows-', '')
-    classes.push(`rt-grid-rows-xl-${baseClass}`)
+  if (prop.xl) {
+    const mapped = gridRowsMap[prop.xl]
+    if (mapped) {
+      const baseClass = mapped.replace('rt-grid-rows-', '')
+      classes.push(`rt-grid-rows-xl-${baseClass}`)
+    }
   }
 
   return classes.join(' ')

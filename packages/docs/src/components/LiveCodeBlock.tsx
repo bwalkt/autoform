@@ -3,7 +3,6 @@
 import { Runner } from '@bwalkt/react-runner'
 import { Box, Container, Flex, Grid, Section } from '@bwalkt/ui'
 import { javascript } from '@codemirror/lang-javascript'
-import { indentUnit } from '@codemirror/language'
 import { oneDark } from '@codemirror/theme-one-dark'
 import CodeMirror from '@uiw/react-codemirror'
 import * as React from 'react'
@@ -65,7 +64,7 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
           value={code}
           height="200px"
           theme={oneDark}
-          extensions={[javascript({ jsx: true, typescript: false }), indentUnit.of('  ')]}
+          extensions={[javascript({ jsx: true, typescript: false })]}
           onChange={handleCodeChange}
           basicSetup={{
             lineNumbers: true,

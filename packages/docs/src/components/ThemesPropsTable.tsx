@@ -32,17 +32,17 @@ export function ThemesPropsTable({ defs }: { defs: keyof typeof definitions }) {
                 </Code>
               </Table.RowHeaderCell>
               <Table.Cell>
-                <Code size="2" color="gray">
+                <Code size="2" color="neutral">
                   {item.typeSimple}
                 </Code>
               </Table.Cell>
               <Table.Cell>
                 {item.default !== undefined ? (
-                  <Code size="2" color="gray">
+                  <Code size="2" color="neutral">
                     {String(item.default)}
                   </Code>
                 ) : (
-                  <Text size="2" color="gray">
+                  <Text size="2" color="neutral">
                     —
                   </Text>
                 )}

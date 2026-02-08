@@ -1,7 +1,7 @@
 import * as React from 'react'
-import type { AccentColor } from '@/elements/Theme'
 import { getSpacingClasses, type Responsive, Slot, type Spacing } from '@/layouts/layout-utils'
 import { cn } from '@/lib/utils'
+import type { TypographyColor } from './tokens'
 import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -9,7 +9,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   asChild?: boolean
   size?: Responsive<TypographySize>
   weight?: Weight
-  color?: AccentColor
+  color?: TypographyColor
   align?: 'left' | 'center' | 'right'
   trim?: 'normal' | 'start' | 'end' | 'both'
   truncate?: boolean
@@ -59,6 +59,7 @@ export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
       fontWeight: weightToken,
       textAlign: align,
       textWrap: wrap,
+      ...(color && { color: typographyTokens.color[color].text }),
       ...style,
     }
 
@@ -98,7 +99,6 @@ export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
 
           className,
         )}
-        data-accent-color={color}
         data-trim={trim}
         style={textStyles}
         {...props}

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import type { AccentColor } from '@/elements/Theme'
 import { getSpacingClasses, type Responsive, Slot, type Spacing } from '@/layouts/layout-utils'
 import { cn } from '@/lib/utils'
+import type { TypographyColor } from './tokens'
 import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
@@ -9,7 +9,7 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   asChild?: boolean
   size?: Responsive<TypographySize>
   weight?: Weight
-  color?: AccentColor
+  color?: TypographyColor
   align?: 'left' | 'center' | 'right'
   trim?: 'normal' | 'start' | 'end' | 'both'
   truncate?: boolean
@@ -59,6 +59,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       fontWeight: weightToken,
       textAlign: align,
       textWrap: wrap,
+      ...(color && { color: typographyTokens.color[color].text }),
       ...style,
     }
 
@@ -95,7 +96,6 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
 
           className,
         )}
-        data-accent-color={color}
         data-trim={trim}
         style={headingStyles}
         {...props}

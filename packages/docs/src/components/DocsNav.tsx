@@ -44,15 +44,19 @@ export const DocsNav = ({ routes }: DocsNavProps) => {
               </Flex>
 
               {page.preview && (
-                <Badge ml="2" color="gray" radius="full" variant="surface">
-                  Preview
-                </Badge>
+                <Box ml="2">
+                  <Badge color="neutral" radius="full" variant="surface">
+                    Preview
+                  </Badge>
+                </Box>
               )}
 
               {page.deprecated && (
-                <Badge ml="2" color="gray" radius="full" variant="surface">
-                  Deprecated
-                </Badge>
+                <Box ml="2">
+                  <Badge color="neutral" radius="full" variant="surface">
+                    Deprecated
+                  </Badge>
+                </Box>
               )}
             </DocsNavItem>
           ))}
