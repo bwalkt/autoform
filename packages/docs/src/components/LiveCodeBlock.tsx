@@ -1,7 +1,7 @@
 'use client'
 
 import { Runner } from '@bwalkt/react-runner'
-import { Box, Grid } from '@bwalkt/ui'
+import { Box, Container, Flex, Grid, Section } from '@bwalkt/ui'
 import { javascript } from '@codemirror/lang-javascript'
 import { indentUnit } from '@codemirror/language'
 import { oneDark } from '@codemirror/theme-one-dark'
@@ -41,6 +41,9 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
   const fullScope = {
     Grid,
     Box,
+    Container: Container ?? Box,
+    Flex: Flex ?? Box,
+    Section: Section ?? Box,
     DecorativeBox,
     ...scope,
   }

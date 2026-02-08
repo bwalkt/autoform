@@ -81,6 +81,38 @@ kbd {
   scroll-margin-top: 96px;
 }
 
+.docs-props-table table {
+  border: 1px solid var(--gray-a5, rgba(0, 0, 0, 0.08));
+  border-radius: var(--radius-4, 12px);
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-panel-solid, #fff);
+  overflow: hidden;
+}
+
+.docs-props-table thead th {
+  background: var(--gray-2, #f8f9fa);
+  color: var(--gray-12, #1f2328);
+  font-weight: 600;
+}
+
+.docs-props-table tbody tr:last-child td,
+.docs-props-table tbody tr:last-child th {
+  border-bottom: none;
+}
+
+.docs-props-table tr > * + * {
+  border-left: 1px solid var(--gray-a5, rgba(0, 0, 0, 0.08));
+}
+
+.docs-props-table thead tr > * {
+  border-bottom: 1px solid var(--gray-a5, rgba(0, 0, 0, 0.08));
+}
+
+.docs-props-table tbody tr > * {
+  border-bottom: 1px solid var(--gray-a5, rgba(0, 0, 0, 0.08));
+}
+
 /* Viewport preview responsive overrides */
 /* Desktop (1200px) - shows desktop layout */
 .viewport-preview[data-viewport="desktop"] .grid-cols-3 {

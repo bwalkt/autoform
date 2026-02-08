@@ -13,8 +13,8 @@ export function ThemesPropsTable({ defs }: { defs: keyof typeof definitions }) {
   const data = definitions[defs] ?? []
 
   return (
-    <Box my="5">
-      <Table.Root variant="surface">
+    <Box my="5" className="docs-props-table">
+      <Table.Root>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell style={{ width: '37%' }}>Prop</Table.ColumnHeaderCell>

@@ -4,7 +4,7 @@ const items = [{ label: 'API Reference', href: '#api-reference' }]
 
 export function DocsQuickNav() {
   return (
-    <aside className="hidden w-44 flex-shrink-0 lg:block">
+    <aside className="hidden w-32 flex-shrink-0 lg:block">
       <div className="text-sm font-semibold text-foreground">Quick nav</div>
       <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
         {items.map(item => (
