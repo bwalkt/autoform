@@ -1,30 +1,50 @@
 import * as React from 'react'
+import type { AccentColor } from '@/elements/Theme'
+import { getSpacingClasses, type Responsive, Slot, type Spacing } from '@/layouts/layout-utils'
 import { cn } from '@/lib/utils'
-import { type TypographyColor, type TypographySize, typographyTokens, type Weight } from './tokens'
+import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
-  as?: React.ElementType
-  size?: TypographySize
+  as?: 'span' | 'div' | 'label' | 'p'
+  asChild?: boolean
+  size?: Responsive<TypographySize>
   weight?: Weight
-  color?: TypographyColor
-  align?: 'left' | 'center' | 'right' | 'justify'
+  color?: AccentColor
+  align?: 'left' | 'center' | 'right'
+  trim?: 'normal' | 'start' | 'end' | 'both'
   truncate?: boolean
   wrap?: 'wrap' | 'nowrap' | 'pretty' | 'balance'
   highContrast?: boolean
+  m?: Responsive<Spacing>
+  mx?: Responsive<Spacing>
+  my?: Responsive<Spacing>
+  mt?: Responsive<Spacing>
+  mr?: Responsive<Spacing>
+  mb?: Responsive<Spacing>
+  ml?: Responsive<Spacing>
 }
 
 /** Text export. */
-export const Text = React.forwardRef<HTMLElement, TextProps>(
+export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
   (
     {
-      as = 'span',
+      as: Tag = 'span',
+      asChild = false,
       size = '3',
       weight = 'regular',
-      color = 'default',
+      color,
       align,
+      trim,
       truncate = false,
       wrap = 'wrap',
       highContrast = false,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
       className,
       style,
       children,
@@ -32,34 +52,29 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
     },
     ref,
   ) => {
-    const Component = as
-    const sizeTokens = typographyTokens.size[size]
+    const resolvedSize = typeof size === 'string' ? size : (size?.initial ?? '3')
     const weightToken = typographyTokens.weight[weight]
-    const colorToken = typographyTokens.color[color]
 
     const textStyles: React.CSSProperties = {
-      fontSize: sizeTokens.fontSize,
-      lineHeight: sizeTokens.lineHeight,
-      letterSpacing: sizeTokens.letterSpacing,
       fontWeight: weightToken,
-      color: colorToken.text,
       textAlign: align,
       textWrap: wrap,
       ...style,
     }
 
+    const Component = asChild ? Slot : Tag
+
     return (
       <Component
-        ref={ref as React.Ref<HTMLElement>}
+        ref={ref as any}
         className={cn(
-          // Base styles
-          'font-sans',
+          'rt-Text',
+          `rt-r-size-${resolvedSize}`,
 
           // Text alignment
           align === 'left' && 'text-left',
           align === 'center' && 'text-center',
           align === 'right' && 'text-right',
-          align === 'justify' && 'text-justify',
 
           // Truncation
           truncate && 'truncate',
@@ -72,8 +87,19 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
           // High contrast
           highContrast && 'font-medium',
 
+          // Margin
+          getSpacingClasses(m, 'm'),
+          getSpacingClasses(mx, 'mx'),
+          getSpacingClasses(my, 'my'),
+          getSpacingClasses(mt, 'mt'),
+          getSpacingClasses(mr, 'mr'),
+          getSpacingClasses(mb, 'mb'),
+          getSpacingClasses(ml, 'ml'),
+
           className,
         )}
+        data-accent-color={color}
+        data-trim={trim}
         style={textStyles}
         {...props}
       >

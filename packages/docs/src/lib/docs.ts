@@ -9,6 +9,16 @@ export type DocSection = {
   items: DocItem[]
 }
 
+export type DocsRoute = {
+  label?: string
+  pages: {
+    title: string
+    slug: string
+    preview?: boolean
+    deprecated?: boolean
+  }[]
+}
+
 export const docSections: DocSection[] = [
   {
     title: 'Getting Started',
@@ -26,7 +36,52 @@ export const docSections: DocSection[] = [
     ],
   },
   {
-    title: 'Foundations',
+    title: 'Layout',
+    items: [
+      {
+        title: 'Box',
+        href: '/docs/layout/box',
+        description: 'Fundamental layout building block.',
+      },
+      {
+        title: 'Flex',
+        href: '/docs/layout/flex',
+        description: 'Flexbox primitives for alignment and spacing.',
+      },
+      {
+        title: 'Grid',
+        href: '/docs/layout/grid',
+        description: 'Grid primitives for structured layouts.',
+      },
+      {
+        title: 'Container',
+        href: '/docs/layout/container',
+        description: 'Centered content width with responsive padding.',
+      },
+      {
+        title: 'Section',
+        href: '/docs/layout/section',
+        description: 'Vertical spacing wrapper for page sections.',
+      },
+    ],
+  },
+  {
+    title: 'Typography',
+    items: [
+      {
+        title: 'Text',
+        href: '/docs/typography/text',
+        description: 'Body copy and supporting text.',
+      },
+      {
+        title: 'Heading',
+        href: '/docs/typography/heading',
+        description: 'Display and section headings.',
+      },
+    ],
+  },
+  {
+    title: 'Components',
     items: [
       {
         title: 'Components',
@@ -38,6 +93,40 @@ export const docSections: DocSection[] = [
         href: '/docs/theming',
         description: 'Theme composition and system controls.',
       },
+    ],
+  },
+]
+
+export const docsRoutes: DocsRoute[] = [
+  {
+    label: 'Getting Started',
+    pages: [
+      { title: 'Introduction', slug: 'docs/introduction' },
+      { title: 'Tokens', slug: 'docs/tokens' },
+    ],
+  },
+  {
+    label: 'Layout',
+    pages: [
+      { title: 'Box', slug: 'docs/layout/box' },
+      { title: 'Flex', slug: 'docs/layout/flex' },
+      { title: 'Grid', slug: 'docs/layout/grid' },
+      { title: 'Container', slug: 'docs/layout/container' },
+      { title: 'Section', slug: 'docs/layout/section' },
+    ],
+  },
+  {
+    label: 'Typography',
+    pages: [
+      { title: 'Text', slug: 'docs/typography/text' },
+      { title: 'Heading', slug: 'docs/typography/heading' },
+    ],
+  },
+  {
+    label: 'Components',
+    pages: [
+      { title: 'Components', slug: 'docs/components' },
+      { title: 'Theming', slug: 'docs/theming' },
     ],
   },
 ]

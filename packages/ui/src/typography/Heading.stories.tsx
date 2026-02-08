@@ -104,25 +104,25 @@ export const AllWeights: Story = {
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-2">
-      <Heading size="4" color="default">
+      <Heading size="4" color="gray">
         Default color heading
       </Heading>
-      <Heading size="4" color="primary">
+      <Heading size="4" color="blue">
         Primary color heading
       </Heading>
-      <Heading size="4" color="neutral">
+      <Heading size="4" color="gray">
         Neutral color heading
       </Heading>
-      <Heading size="4" color="info">
+      <Heading size="4" color="sky">
         Info color heading
       </Heading>
-      <Heading size="4" color="success">
+      <Heading size="4" color="green">
         Success color heading
       </Heading>
-      <Heading size="4" color="warning">
+      <Heading size="4" color="amber">
         Warning color heading
       </Heading>
-      <Heading size="4" color="error">
+      <Heading size="4" color="red">
         Error color heading
       </Heading>
     </Box>

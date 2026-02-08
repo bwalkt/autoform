@@ -15,7 +15,6 @@ import {
   getSharedLayoutClasses,
   getSharedLayoutStyles,
   getSpacingClasses,
-  type JustifyContent,
   type Responsive,
   type SharedLayoutProps,
   Slot,
@@ -27,6 +26,7 @@ import {
 // ============================================================================
 
 type FlexDisplay = 'none' | 'flex' | 'inline-flex'
+type FlexJustify = 'start' | 'center' | 'end' | 'between'
 
 export interface FlexOwnProps extends SharedLayoutProps {
   /** Render as a different element */
@@ -40,7 +40,7 @@ export interface FlexOwnProps extends SharedLayoutProps {
   /** Align items along the cross axis */
   align?: Responsive<AlignItems>
   /** Justify content along the main axis */
-  justify?: Responsive<JustifyContent>
+  justify?: Responsive<FlexJustify>
   /** Flex wrap behavior */
   wrap?: Responsive<FlexWrap>
   /** Gap between items */
@@ -69,7 +69,7 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       className,
       style,
       // Flex-specific props
-      display,
+      display = 'flex',
       direction,
       align,
       justify,
@@ -110,6 +110,8 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -157,6 +159,8 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,

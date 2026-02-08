@@ -99,25 +99,25 @@ export const AllWeights: Story = {
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-2">
-      <Text size="3" color="default">
+      <Text size="3" color="gray">
         Default color text
       </Text>
-      <Text size="3" color="primary">
+      <Text size="3" color="blue">
         Primary color text
       </Text>
-      <Text size="3" color="neutral">
+      <Text size="3" color="gray">
         Neutral color text
       </Text>
-      <Text size="3" color="info">
+      <Text size="3" color="sky">
         Info color text
       </Text>
-      <Text size="3" color="success">
+      <Text size="3" color="green">
         Success color text
       </Text>
-      <Text size="3" color="warning">
+      <Text size="3" color="amber">
         Warning color text
       </Text>
-      <Text size="3" color="error">
+      <Text size="3" color="red">
         Error color text
       </Text>
     </Box>

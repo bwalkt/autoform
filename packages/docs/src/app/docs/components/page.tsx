@@ -25,7 +25,7 @@ export default function ComponentsPage() {
         sizing and spacing decisions.
       </Text>
 
-      <Heading as="h2" size="4" className="mt-10">
+      <Heading as="h2" size="4" className="mt-10" id="example-stack" data-heading>
         Example stack
       </Heading>
 
@@ -59,7 +59,7 @@ export default function ComponentsPage() {
         </div>
       </div>
 
-      <Heading as="h2" size="4" className="mt-10">
+      <Heading as="h2" size="4" className="mt-10" id="patterns" data-heading>
         Patterns
       </Heading>
       <ul className="mt-3 list-disc space-y-2 pl-6 text-sm text-muted-foreground">
@@ -73,6 +73,13 @@ export default function ComponentsPage() {
         </li>
         <li>Prefer composition over variants for new workflows.</li>
       </ul>
+
+      <Heading as="h2" size="4" className="mt-10" id="api-reference" data-heading>
+        API Reference
+      </Heading>
+      <Text size="2" className="mt-2 text-muted-foreground">
+        This section will list prop tables for each component. We will align these to Radix Themes patterns next.
+      </Text>
     </div>
   )
 }

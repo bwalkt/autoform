@@ -1,15 +1,22 @@
-@import "@bwalkt/ui/globals.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source "../app/**/*.{ts,tsx,mdx}";
-@source "../components/**/*.{ts,tsx}";
-@source "../lib/**/*.{ts,tsx}";
-@source "../../ui/src/**/*.{ts,tsx}";
+@import "@bwalkt/ui/globals.css";
 
 :root {
   --docs-hero-glow: oklch(0.92 0.06 210 / 40%);
   --docs-hero-edge: oklch(0.62 0.12 205 / 80%);
   --docs-grid: oklch(0.9 0 0 / 45%);
   --docs-surface: oklch(0.99 0 0 / 88%);
+  --header-height: 64px;
+  --quick-nav-display: none;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --quick-nav-display: block;
+  }
 }
 
 body {
@@ -17,6 +24,38 @@ body {
     radial-gradient(1200px 600px at 10% -10%, var(--docs-hero-glow), transparent 70%),
     radial-gradient(800px 500px at 90% 0%, var(--docs-hero-edge), transparent 60%),
     linear-gradient(180deg, oklch(0.99 0 0) 0%, oklch(0.98 0 0) 50%, oklch(0.97 0 0) 100%);
+}
+
+.font-sans {
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+}
+
+.radix-themes {
+  --default-font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  --heading-font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  --code-font-family: var(--font-mono, "JetBrains Mono", monospace);
+  --code-block-header-background: var(--gray-1, #f8f9fa);
+  --code-block-background: var(--color-panel-solid, #f4f5f6);
+  --code-block-border: var(--gray-a5, rgba(0, 0, 0, 0.08));
+  --code-block-highlighted-line: var(--accent-a3, rgba(0, 0, 0, 0.06));
+  --code-block-highlighted-word: var(--accent-a3, rgba(0, 0, 0, 0.06));
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --radius-1: 6px;
+  --radius-4: 12px;
+  --font-size-2: 14px;
+  --letter-spacing-2: 0em;
 }
 
 .docs-grid {
@@ -40,4 +79,32 @@ body {
 .docs-prose h3,
 .docs-prose h4 {
   scroll-margin-top: 96px;
+}
+
+/* Viewport preview responsive overrides */
+/* Desktop (1200px) - shows desktop layout */
+.viewport-preview[data-viewport="desktop"] .grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.viewport-preview[data-viewport="desktop"] .grid-cols-1.md\:grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Tablet (900px) - shows tablet layout (md breakpoint is 1024px, so tablet should show mobile layout for non-md classes) */
+.viewport-preview[data-viewport="tablet"] .grid-cols-3 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.viewport-preview[data-viewport="tablet"] .grid-cols-1.md\:grid-cols-2 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+/* Phone (375px) - shows mobile layout */
+.viewport-preview[data-viewport="phone"] .grid-cols-3 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.viewport-preview[data-viewport="phone"] .grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.viewport-preview[data-viewport="phone"] .grid-cols-1.md\:grid-cols-2 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }

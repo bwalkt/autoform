@@ -25,7 +25,6 @@
     "@bwalkt/typescript-config": "file:../typescript-config",
     "@storybook/addon-docs": "catalog:",
     "@storybook/react-vite": "catalog:",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -36,7 +35,6 @@
     "react-dom": "catalog:",
     "storybook": "catalog:",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"

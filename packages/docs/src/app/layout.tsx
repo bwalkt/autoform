@@ -6,14 +6,14 @@ import { ThemeProvider } from '../components/ThemeProvider'
 
 const sans = Manrope({
   subsets: ['latin'],
-  variable: '--font-sans',
   display: 'swap',
+  variable: '--font-sans',
 })
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-mono',
   display: 'swap',
+  variable: '--font-mono',
 })
 
 export const metadata: Metadata = {
@@ -24,7 +24,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sans.variable} ${mono.variable} antialiased text-foreground`}>
+      <body
+        className={`${sans.variable} ${mono.variable} font-sans antialiased text-foreground`}
+        suppressHydrationWarning
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

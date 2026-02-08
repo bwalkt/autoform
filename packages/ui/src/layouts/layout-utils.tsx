@@ -2,11 +2,15 @@
 
 import * as React from 'react'
 import type {
+  AlignContent,
   AlignItems,
+  AlignSelf,
   Display,
   FlexDirection,
   FlexWrap,
   JustifyContent,
+  JustifyItems,
+  JustifySelf,
   Overflow,
   Position,
   Responsive,
@@ -15,7 +19,21 @@ import type {
 import { cn } from '@/lib/utils'
 
 // Re-export shared types for convenience
-export type { Responsive, Spacing, Display, Position, Overflow, FlexDirection, FlexWrap, AlignItems, JustifyContent }
+export type {
+  Responsive,
+  Spacing,
+  Display,
+  Position,
+  Overflow,
+  FlexDirection,
+  FlexWrap,
+  AlignItems,
+  AlignContent,
+  AlignSelf,
+  JustifyContent,
+  JustifyItems,
+  JustifySelf,
+}
 
 // ============================================================================
 // Layout-specific Types
@@ -62,18 +80,25 @@ export function getResponsiveClasses<T extends string>(
   if (prop === undefined) return ''
 
   const mapValue = (val: T) => (valueMap ? valueMap[val] || val : val)
+  const formatValue = (val: T) => {
+    const stringValue = String(val)
+    const isNegative = stringValue.startsWith('-')
+    const absolute = (isNegative ? stringValue.slice(1) : stringValue) as T
+    const mapped = mapValue(absolute)
+    return isNegative ? `-${prefix}-${mapped}` : `${prefix}-${mapped}`
+  }
 
   if (typeof prop === 'string') {
-    return `${prefix}-${mapValue(prop)}`
+    return formatValue(prop)
   }
 
   const classes: string[] = []
-  if (prop.initial) classes.push(`${prefix}-${mapValue(prop.initial)}`)
-  if (prop.xs) classes.push(`xs:${prefix}-${mapValue(prop.xs)}`)
-  if (prop.sm) classes.push(`sm:${prefix}-${mapValue(prop.sm)}`)
-  if (prop.md) classes.push(`md:${prefix}-${mapValue(prop.md)}`)
-  if (prop.lg) classes.push(`lg:${prefix}-${mapValue(prop.lg)}`)
-  if (prop.xl) classes.push(`xl:${prefix}-${mapValue(prop.xl)}`)
+  if (prop.initial) classes.push(formatValue(prop.initial))
+  if (prop.xs) classes.push(`xs:${formatValue(prop.xs)}`)
+  if (prop.sm) classes.push(`sm:${formatValue(prop.sm)}`)
+  if (prop.md) classes.push(`md:${formatValue(prop.md)}`)
+  if (prop.lg) classes.push(`lg:${formatValue(prop.lg)}`)
+  if (prop.xl) classes.push(`xl:${formatValue(prop.xl)}`)
 
   return classes.join(' ')
 }
@@ -163,6 +188,16 @@ const alignItemsMap: Record<AlignItems, string> = {
   stretch: 'items-stretch',
 }
 
+const alignContentMap: Record<AlignContent, string> = {
+  start: 'content-start',
+  center: 'content-center',
+  end: 'content-end',
+  between: 'content-between',
+  around: 'content-around',
+  evenly: 'content-evenly',
+  stretch: 'content-stretch',
+}
+
 const justifyContentMap: Record<JustifyContent, string> = {
   start: 'justify-start',
   center: 'justify-center',
@@ -170,6 +205,31 @@ const justifyContentMap: Record<JustifyContent, string> = {
   between: 'justify-between',
   around: 'justify-around',
   evenly: 'justify-evenly',
+}
+
+const alignSelfMap: Record<AlignSelf, string> = {
+  auto: 'self-auto',
+  start: 'self-start',
+  center: 'self-center',
+  end: 'self-end',
+  baseline: 'self-baseline',
+  stretch: 'self-stretch',
+}
+
+const justifySelfMap: Record<JustifySelf, string> = {
+  auto: 'justify-self-auto',
+  start: 'justify-self-start',
+  center: 'justify-self-center',
+  end: 'justify-self-end',
+  stretch: 'justify-self-stretch',
+}
+
+const justifyItemsMap: Record<JustifyItems, string> = {
+  start: 'justify-items-start',
+  center: 'justify-items-center',
+  end: 'justify-items-end',
+  baseline: 'justify-items-baseline',
+  stretch: 'justify-items-stretch',
 }
 
 const flexGrowMap: Record<'0' | '1', string> = {
@@ -188,8 +248,16 @@ export const getFlexDirectionClasses = createMappedClassHelper(flexDirectionMap)
 export const getFlexWrapClasses = createMappedClassHelper(flexWrapMap)
 /** getAlignItemsClasses export. */
 export const getAlignItemsClasses = createMappedClassHelper(alignItemsMap)
+/** getAlignContentClasses export. */
+export const getAlignContentClasses = createMappedClassHelper(alignContentMap)
 /** getJustifyContentClasses export. */
 export const getJustifyContentClasses = createMappedClassHelper(justifyContentMap)
+/** getAlignSelfClasses export. */
+export const getAlignSelfClasses = createMappedClassHelper(alignSelfMap)
+/** getJustifySelfClasses export. */
+export const getJustifySelfClasses = createMappedClassHelper(justifySelfMap)
+/** getJustifyItemsClasses export. */
+export const getJustifyItemsClasses = createMappedClassHelper(justifyItemsMap)
 /** getFlexGrowClasses export. */
 export const getFlexGrowClasses = createMappedClassHelper(flexGrowMap)
 /** getFlexShrinkClasses export. */
@@ -227,7 +295,19 @@ const gridColumnsMap: Record<string, string> = {
   none: 'grid-cols-none',
 }
 
+// Grid rows - map to Tailwind grid-rows-{n} classes
+const gridRowsMap: Record<string, string> = {
+  '1': 'grid-rows-1',
+  '2': 'grid-rows-2',
+  '3': 'grid-rows-3',
+  '4': 'grid-rows-4',
+  '5': 'grid-rows-5',
+  '6': 'grid-rows-6',
+  none: 'grid-rows-none',
+}
+
 export type GridColumns = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | 'none'
+export type GridRows = '1' | '2' | '3' | '4' | '5' | '6' | 'none'
 
 /** getGridColumnsClasses export. */
 export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | undefined): string {
@@ -246,20 +326,30 @@ export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | u
   const initialClass = prop.initial ? gridColumnsMap[prop.initial] : undefined
   if (initialClass) classes.push(initialClass)
 
-  const xsClass = prop.xs ? gridColumnsMap[prop.xs] : undefined
-  if (xsClass) classes.push(`xs:${xsClass}`)
+  if (prop.xs && gridColumnsMap[prop.xs]) {
+    const baseClass = gridColumnsMap[prop.xs].replace('grid-cols-', '')
+    classes.push(`xs:grid-cols-${baseClass}`)
+  }
 
-  const smClass = prop.sm ? gridColumnsMap[prop.sm] : undefined
-  if (smClass) classes.push(`sm:${smClass}`)
+  if (prop.sm && gridColumnsMap[prop.sm]) {
+    const baseClass = gridColumnsMap[prop.sm].replace('grid-cols-', '')
+    classes.push(`sm:grid-cols-${baseClass}`)
+  }
 
-  const mdClass = prop.md ? gridColumnsMap[prop.md] : undefined
-  if (mdClass) classes.push(`md:${mdClass}`)
+  if (prop.md && gridColumnsMap[prop.md]) {
+    const baseClass = gridColumnsMap[prop.md].replace('grid-cols-', '')
+    classes.push(`md:grid-cols-${baseClass}`)
+  }
 
-  const lgClass = prop.lg ? gridColumnsMap[prop.lg] : undefined
-  if (lgClass) classes.push(`lg:${lgClass}`)
+  if (prop.lg && gridColumnsMap[prop.lg]) {
+    const baseClass = gridColumnsMap[prop.lg].replace('grid-cols-', '')
+    classes.push(`lg:grid-cols-${baseClass}`)
+  }
 
-  const xlClass = prop.xl ? gridColumnsMap[prop.xl] : undefined
-  if (xlClass) classes.push(`xl:${xlClass}`)
+  if (prop.xl && gridColumnsMap[prop.xl]) {
+    const baseClass = gridColumnsMap[prop.xl].replace('grid-cols-', '')
+    classes.push(`xl:grid-cols-${baseClass}`)
+  }
 
   return classes.join(' ')
 }
@@ -277,32 +367,93 @@ export function canUseGridColumnsClasses(prop: Responsive<string> | undefined): 
   return Object.values(prop).every(val => !val || gridColumnsMap[val])
 }
 
+/** getGridRowsClasses export. */
+export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefined): string {
+  if (prop === undefined) return ''
+
+  if (typeof prop === 'string') {
+    // If it's a known row count, use the class
+    if (gridRowsMap[prop]) {
+      return gridRowsMap[prop]
+    }
+    // Otherwise return empty (will fall back to style)
+    return ''
+  }
+
+  const classes: string[] = []
+  const initialClass = prop.initial ? gridRowsMap[prop.initial] : undefined
+  if (initialClass) classes.push(initialClass)
+
+  if (prop.xs && gridRowsMap[prop.xs]) {
+    const baseClass = gridRowsMap[prop.xs].replace('grid-rows-', '')
+    classes.push(`xs:grid-rows-${baseClass}`)
+  }
+
+  if (prop.sm && gridRowsMap[prop.sm]) {
+    const baseClass = gridRowsMap[prop.sm].replace('grid-rows-', '')
+    classes.push(`sm:grid-rows-${baseClass}`)
+  }
+
+  if (prop.md && gridRowsMap[prop.md]) {
+    const baseClass = gridRowsMap[prop.md].replace('grid-rows-', '')
+    classes.push(`md:grid-rows-${baseClass}`)
+  }
+
+  if (prop.lg && gridRowsMap[prop.lg]) {
+    const baseClass = gridRowsMap[prop.lg].replace('grid-rows-', '')
+    classes.push(`lg:grid-rows-${baseClass}`)
+  }
+
+  if (prop.xl && gridRowsMap[prop.xl]) {
+    const baseClass = gridRowsMap[prop.xl].replace('grid-rows-', '')
+    classes.push(`xl:grid-rows-${baseClass}`)
+  }
+
+  return classes.join(' ')
+}
+
+// Check if rows value can be handled by classes (is numeric preset)
+/** canUseGridRowsClasses export. */
+export function canUseGridRowsClasses(prop: Responsive<string> | undefined): boolean {
+  if (prop === undefined) return false
+
+  if (typeof prop === 'string') {
+    return !!gridRowsMap[prop]
+  }
+
+  // For responsive objects, check if all values are known
+  return Object.values(prop).every(val => !val || gridRowsMap[val])
+}
+
 // Grid columns/rows - returns style object for custom values
+function resolveGridTemplate(value: string): string {
+  if (/^\d+$/.test(value)) {
+    const num = Number(value)
+    return `repeat(${num}, minmax(0, 1fr))`
+  }
+  return value
+}
+
 /** getGridColumnsStyle export. */
 export function getGridColumnsStyle(columns: Responsive<string> | undefined): React.CSSProperties {
   if (columns === undefined) return {}
 
   if (typeof columns === 'string') {
-    // Check if it's a pure number (strict check to avoid parsing "200px 1fr" as 200)
-    if (/^\d+$/.test(columns)) {
-      const num = Number(columns)
-      return { gridTemplateColumns: `repeat(${num}, minmax(0, 1fr))` }
+    return {
+      gridTemplateColumns: resolveGridTemplate(columns),
     }
-    return { gridTemplateColumns: columns }
   }
 
-  // For responsive, we'll use CSS variables approach
-  // This is simplified - in production you'd use CSS custom properties with media queries
-  const initial = columns.initial
-  if (initial) {
-    if (/^\d+$/.test(initial)) {
-      const num = Number(initial)
-      return { gridTemplateColumns: `repeat(${num}, minmax(0, 1fr))` }
-    }
-    return { gridTemplateColumns: initial }
+  // For responsive values, we need to use CSS variables and media queries
+  // But since we can't inject media queries directly in inline styles,
+  // we'll just use the initial value for now
+  const styles: React.CSSProperties = {}
+  if (columns.initial) {
+    styles.gridTemplateColumns = resolveGridTemplate(columns.initial)
   }
 
-  return {}
+  // Note: For true responsive behavior, we need to use CSS classes or CSS-in-JS
+  return styles
 }
 
 /** getGridRowsStyle export. */
@@ -310,24 +461,18 @@ export function getGridRowsStyle(rows: Responsive<string> | undefined): React.CS
   if (rows === undefined) return {}
 
   if (typeof rows === 'string') {
-    // Check if it's a pure number (strict check to avoid parsing "200px 1fr" as 200)
-    if (/^\d+$/.test(rows)) {
-      const num = Number(rows)
-      return { gridTemplateRows: `repeat(${num}, minmax(0, 1fr))` }
+    return {
+      gridTemplateRows: resolveGridTemplate(rows),
     }
-    return { gridTemplateRows: rows }
   }
 
-  const initial = rows.initial
-  if (initial) {
-    if (/^\d+$/.test(initial)) {
-      const num = Number(initial)
-      return { gridTemplateRows: `repeat(${num}, minmax(0, 1fr))` }
-    }
-    return { gridTemplateRows: initial }
+  // For responsive values, use initial value
+  const styles: React.CSSProperties = {}
+  if (rows.initial) {
+    styles.gridTemplateRows = resolveGridTemplate(rows.initial)
   }
 
-  return {}
+  return styles
 }
 
 // ============================================================================
@@ -395,6 +540,10 @@ export interface SharedLayoutProps {
   flexShrink?: Responsive<'0' | '1'>
   flexBasis?: string
 
+  // Self alignment
+  alignSelf?: Responsive<AlignSelf>
+  justifySelf?: Responsive<JustifySelf>
+
   // Grid item props
   gridArea?: string
   gridColumn?: string
@@ -433,6 +582,8 @@ export function getSharedLayoutClasses(props: SharedLayoutProps): string {
     overflowY,
     flexGrow,
     flexShrink,
+    alignSelf,
+    justifySelf,
   } = props
 
   return cn(
@@ -466,6 +617,9 @@ export function getSharedLayoutClasses(props: SharedLayoutProps): string {
     // Flex
     getFlexGrowClasses(flexGrow),
     getFlexShrinkClasses(flexShrink),
+    // Self alignment
+    getAlignSelfClasses(alignSelf),
+    getJustifySelfClasses(justifySelf),
   )
 }
 

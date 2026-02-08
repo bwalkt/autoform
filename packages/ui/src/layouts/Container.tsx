@@ -90,6 +90,8 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -119,12 +121,6 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       mr,
       mb,
       ml,
-      width,
-      minWidth,
-      maxWidth,
-      height,
-      minHeight,
-      maxHeight,
       position,
       inset,
       top,
@@ -137,6 +133,8 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       flexGrow,
       flexShrink,
       flexBasis,
+      alignSelf,
+      justifySelf,
       gridArea,
       gridColumn,
       gridColumnStart,
@@ -147,34 +145,34 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     }
 
     // Get resolved size value
-    const resolvedSize = typeof size === 'string' ? size : size.initial || '4'
+    const resolvedSize = typeof size === 'string' ? size : size?.initial || '4'
     const maxWidthValue = containerSizeValues[resolvedSize]
 
     // Get alignment classes
     const getAlignmentClasses = (alignment: Responsive<ContainerAlign> | undefined) => {
-      if (!alignment) return 'mx-auto'
+      if (!alignment) return 'items-center'
 
       const alignValue = typeof alignment === 'string' ? alignment : alignment.initial
       switch (alignValue) {
         case 'left':
-          return 'mr-auto'
+          return 'items-start'
         case 'right':
-          return 'ml-auto'
+          return 'items-end'
         default:
-          return 'mx-auto'
+          return 'items-center'
       }
     }
 
     // Get display classes
     const getDisplayClass = (displayProp: Responsive<ContainerDisplay> | undefined) => {
-      if (!displayProp) return ''
+      if (!displayProp) return 'flex'
       const displayValue = typeof displayProp === 'string' ? displayProp : displayProp.initial
-      return displayValue === 'none' ? 'hidden' : ''
+      return displayValue === 'none' ? 'hidden' : 'flex'
     }
 
     const classes = cn(
       'rt-Container',
-      'box-border w-full',
+      'box-border w-full flex-col',
       getDisplayClass(display),
       getAlignmentClasses(align),
       getSharedLayoutClasses(sharedLayoutProps),
@@ -182,14 +180,25 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     )
 
     const styles: React.CSSProperties = {
-      maxWidth: maxWidthValue,
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
     }
 
+    const innerStyles: React.CSSProperties = {
+      maxWidth: maxWidthValue,
+      ...(width && { width }),
+      ...(minWidth && { minWidth }),
+      ...(maxWidth && { maxWidth }),
+      ...(height && { height }),
+      ...(minHeight && { minHeight }),
+      ...(maxHeight && { maxHeight }),
+    }
+
     return (
       <Comp ref={ref} className={classes} style={styles} {...restProps}>
-        {children}
+        <div className="rt-ContainerInner w-full" style={innerStyles}>
+          {children}
+        </div>
       </Comp>
     )
   },

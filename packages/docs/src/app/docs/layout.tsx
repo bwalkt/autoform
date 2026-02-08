@@ -1,17 +1,23 @@
-import { Container, Flex } from '@bwalkt/ui'
 import { DocsHeader } from '../../components/DocsHeader'
-import { DocsSidebar } from '../../components/DocsSidebar'
+import { DocsNav } from '../../components/DocsNav'
+import { DocsPageWrapper } from '../../components/DocsPageWrapper'
+import { QuickNav } from '../../components/QuickNav'
+import { SideNav } from '../../components/SideNav'
+import { docsRoutes } from '../../lib/docs'
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
       <DocsHeader />
-      <Container size="4" px="6" className="pb-20 pt-10">
-        <Flex gap="6">
-          <DocsSidebar />
-          <main className="docs-surface min-h-[70vh] flex-1 rounded-2xl p-10">{children}</main>
-        </Flex>
-      </Container>
+      <div className="flex">
+        <SideNav>
+          <DocsNav routes={docsRoutes} />
+        </SideNav>
+        <DocsPageWrapper>
+          <main className="docs-surface min-h-[70vh] w-full rounded-2xl p-8">{children}</main>
+        </DocsPageWrapper>
+        <QuickNav />
+      </div>
     </div>
   )
 }
