@@ -3,6 +3,7 @@
 import { Runner } from '@bwalkt/react-runner'
 import { Box, Grid } from '@bwalkt/ui'
 import { javascript } from '@codemirror/lang-javascript'
+import { indentUnit } from '@codemirror/language'
 import { oneDark } from '@codemirror/theme-one-dark'
 import CodeMirror from '@uiw/react-codemirror'
 import * as React from 'react'
@@ -45,11 +46,13 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
   }
 
   return (
-    <div className={styles.CodeBlockRoot}>
+    <div className={styles.CodeBlockRoot} style={{ marginTop: '2rem' }}>
       {showPreview && (
         <div className={styles.CodeBlockLivePreview}>
           <ViewportPreview>
-            <Runner code={code} scope={fullScope} onRendered={handleRendered} />
+            <div style={{ height: '200px', overflow: 'auto', padding: '1rem' }}>
+              <Runner code={code} scope={fullScope} onRendered={handleRendered} />
+            </div>
           </ViewportPreview>
         </div>
       )}
@@ -57,11 +60,9 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
       <div className={styles.CodeBlockContent}>
         <CodeMirror
           value={code}
-          height="auto"
-          minHeight="100px"
-          maxHeight="400px"
+          height="200px"
           theme={oneDark}
-          extensions={[javascript({ jsx: true, typescript: false })]}
+          extensions={[javascript({ jsx: true, typescript: false }), indentUnit.of('  ')]}
           onChange={handleCodeChange}
           basicSetup={{
             lineNumbers: true,
@@ -76,6 +77,7 @@ export function LiveCodeBlock({ initialCode, scope = {}, showPreview = true }: L
             rectangularSelection: false,
             highlightSelectionMatches: false,
             searchKeymap: false,
+            tabSize: 2,
           }}
           style={{
             fontSize: '14px',
