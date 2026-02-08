@@ -13,14 +13,18 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
 </Text>
 <LiveCodeBlock 
   initialCode={`export default function Example() {
+  // Try changing columns to "4" or "2"  
+  // Also try using inline style as a test: style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}
   return (
     <Grid columns="3" gap="3" width="auto">
-      <DecorativeBox style={{ minHeight: 64 }} />
-      <DecorativeBox style={{ minHeight: 64 }} />
-      <DecorativeBox style={{ minHeight: 64 }} />
-      <DecorativeBox style={{ minHeight: 64 }} />
-      <DecorativeBox style={{ minHeight: 64 }} />
-      <DecorativeBox style={{ minHeight: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox style={{ height: 64 }} />
     </Grid>
   )
 }`}
