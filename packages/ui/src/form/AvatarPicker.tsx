@@ -199,7 +199,9 @@ export const AvatarPicker = React.forwardRef<HTMLButtonElement, AvatarPickerProp
             break
           case 'Enter':
             e.preventDefault()
-            handleSelect(filteredItems[highlightedIndex])
+            if (filteredItems[highlightedIndex]) {
+              handleSelect(filteredItems[highlightedIndex])
+            }
             break
           case 'Escape':
             e.preventDefault()
