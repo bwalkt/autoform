@@ -129,3 +129,9 @@ export const HoverCard = {
   Trigger: HoverCardTrigger,
   Content: HoverCardContent,
 }
+
+export namespace HoverCardProps {
+  export type Root = HoverCardRootProps
+  export type Trigger = HoverCardTriggerProps
+  export type Content = HoverCardContentProps
+}

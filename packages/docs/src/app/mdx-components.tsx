@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge, CalloutRoot, Code, Heading, Text } from '@bwalkt/ui'
+import { Badge, Callout, Code, Heading, Text } from '@bwalkt/ui'
 import Link from 'next/link'
 import type * as React from 'react'
 
@@ -27,7 +27,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         )}
       />
     ),
-    Callout: CalloutRoot,
+    Callout: Callout.Root,
     Badge,
     ...components,
   }

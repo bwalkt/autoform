@@ -183,3 +183,8 @@ export const SegmentedControl = {
   Root: SegmentedControlRoot,
   Item: SegmentedControlItem,
 }
+
+export namespace SegmentedControlProps {
+  export type Root = SegmentedControlRootProps
+  export type Item = SegmentedControlItemProps
+}

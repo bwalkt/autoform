@@ -194,3 +194,11 @@ export const Popover = {
   Close: PopoverClose,
   Arrow: PopoverArrow,
 }
+
+export namespace PopoverProps {
+  export type Root = PopoverRootProps
+  export type Trigger = PopoverTriggerProps
+  export type Content = PopoverContentProps
+  export type Close = PopoverCloseProps
+  export type Arrow = PopoverArrowProps
+}

@@ -264,3 +264,15 @@ export const Dialog = {
   Description: DialogDescription,
   Close: DialogClose,
 }
+
+export namespace DialogProps {
+  export type Root = DialogRootProps
+  export type Trigger = DialogTriggerProps
+  export type Content = DialogContentProps
+  export type Header = DialogHeaderProps
+  export type Body = DialogBodyProps
+  export type Footer = DialogFooterProps
+  export type Title = DialogTitleProps
+  export type Description = DialogDescriptionProps
+  export type Close = DialogCloseProps
+}

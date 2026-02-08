@@ -538,3 +538,19 @@ export const DropdownMenu = {
   SubTrigger: DropdownMenuSubTrigger,
   SubContent: DropdownMenuSubContent,
 }
+
+export namespace DropdownMenuProps {
+  export type Root = DropdownMenuRootProps
+  export type Trigger = DropdownMenuTriggerProps
+  export type Content = DropdownMenuContentProps
+  export type Item = DropdownMenuItemProps
+  export type CheckboxItem = DropdownMenuCheckboxItemProps
+  export type RadioGroup = DropdownMenuRadioGroupProps
+  export type RadioItem = DropdownMenuRadioItemProps
+  export type Label = DropdownMenuLabelProps
+  export type Group = DropdownMenuGroupProps
+  export type Separator = DropdownMenuSeparatorProps
+  export type Sub = DropdownMenuSubProps
+  export type SubTrigger = DropdownMenuSubTriggerProps
+  export type SubContent = DropdownMenuSubContentProps
+}

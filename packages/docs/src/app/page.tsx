@@ -1,4 +1,4 @@
-import { Badge, Button, CardRoot, Container, Flex, Grid, Heading, Text } from '@bwalkt/ui'
+import { Badge, Button, Card, Container, Flex, Grid, Heading, Text } from '@bwalkt/ui'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
@@ -67,7 +67,7 @@ export default function HomePage() {
           <Grid columns={{ initial: '1', md: '2' }} gap="4">
             {quickLinks.map(link => (
               <Link key={link.href} href={link.href} className="block">
-                <CardRoot className="p-6 transition hover:border-primary/50 hover:shadow-sm">
+                <Card.Root className="p-6 transition hover:border-primary/50 hover:shadow-sm">
                   <Heading as="h3" size="4">
                     {link.title}
                   </Heading>
@@ -78,7 +78,7 @@ export default function HomePage() {
                     Explore
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </span>
-                </CardRoot>
+                </Card.Root>
               </Link>
             ))}
           </Grid>

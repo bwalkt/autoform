@@ -187,6 +187,13 @@ export const Callout = {
   Text: CalloutText,
 }
 
+export namespace CalloutProps {
+  export type Root = CalloutRootProps
+  export type Icon = CalloutIconProps
+  export type Text = CalloutTextProps
+  export type Variant = CalloutVariant
+}
+
 // Also export individual components for convenience
 export { CalloutRoot, CalloutIcon, CalloutText }
 

@@ -242,3 +242,13 @@ export const AlertDialog = {
   Action: AlertDialogAction,
   Cancel: AlertDialogCancel,
 }
+
+export namespace AlertDialogProps {
+  export type Root = AlertDialogRootProps
+  export type Trigger = AlertDialogTriggerProps
+  export type Content = AlertDialogContentProps
+  export type Title = AlertDialogTitleProps
+  export type Description = AlertDialogDescriptionProps
+  export type Action = AlertDialogActionProps
+  export type Cancel = AlertDialogCancelProps
+}

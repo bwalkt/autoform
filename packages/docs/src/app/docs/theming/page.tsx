@@ -1,6 +1,6 @@
 'use client'
 
-import { CalloutRoot, CalloutText, Heading, Text } from '@bwalkt/ui'
+import { Callout, Heading, Text } from '@bwalkt/ui'
 
 export default function ThemingPage() {
   return (
@@ -14,12 +14,12 @@ export default function ThemingPage() {
         <code className="text-foreground">scaling</code>, and <code className="text-foreground">panelBackground</code>.
       </Text>
 
-      <CalloutRoot variant="surface" color="warning" className="mt-4">
-        <CalloutText>
+      <Callout.Root variant="surface" color="warning" className="mt-4">
+        <Callout.Text>
           Use themes sparingly. Favor tokens for semantic control, then provide component-level overrides only when
           absolutely necessary.
-        </CalloutText>
-      </CalloutRoot>
+        </Callout.Text>
+      </Callout.Root>
 
       <Heading as="h2" size="4" className="mt-10">
         Theme wrapper

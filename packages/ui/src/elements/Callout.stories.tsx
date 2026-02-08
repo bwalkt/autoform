@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { AlertCircle, AlertTriangle, Bell, CheckCircle, Info, Lightbulb, Rocket, Shield, XCircle } from 'lucide-react'
 import { Box } from '@/layouts/Box'
-import { Callout, CalloutRoot } from './Callout'
+import { Callout } from './Callout'
 
-const meta: Meta<typeof CalloutRoot> = {
+const meta: Meta<typeof Callout.Root> = {
   title: 'Elements/Callout',
-  component: CalloutRoot,
+  component: Callout.Root,
   parameters: {
     layout: 'padded',
   },

@@ -179,4 +179,12 @@ export const Tooltip = {
   Arrow: TooltipArrow,
 }
 
+export namespace TooltipProps {
+  export type Provider = TooltipProviderProps
+  export type Root = TooltipRootProps
+  export type Trigger = TooltipTriggerProps
+  export type Content = TooltipContentProps
+  export type Arrow = TooltipArrowProps
+}
+
 export { SimpleTooltip }

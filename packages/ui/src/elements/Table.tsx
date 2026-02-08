@@ -250,3 +250,16 @@ export const Table = {
   RowHeaderCell: TableRowHeaderCell,
   ColumnHeaderCell: TableColumnHeaderCell,
 }
+
+export namespace TableProps {
+  export type Root = TableRootProps
+  export type Header = TableHeaderProps
+  export type Body = TableBodyProps
+  export type Footer = TableFooterProps
+  export type Row = TableRowProps
+  export type Head = TableHeadProps
+  export type Cell = TableCellProps
+  export type Caption = TableCaptionProps
+  export type RowHeaderCell = TableRowHeaderCellProps
+  export type ColumnHeaderCell = TableColumnHeaderCellProps
+}

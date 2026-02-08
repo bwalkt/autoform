@@ -633,3 +633,19 @@ export const ContextMenu = {
   SubTrigger: ContextMenuSubTrigger,
   SubContent: ContextMenuSubContent,
 }
+
+export namespace ContextMenuProps {
+  export type Root = ContextMenuRootProps
+  export type Trigger = ContextMenuTriggerProps
+  export type Content = ContextMenuContentProps
+  export type Item = ContextMenuItemProps
+  export type CheckboxItem = ContextMenuCheckboxItemProps
+  export type RadioGroup = ContextMenuRadioGroupProps
+  export type RadioItem = ContextMenuRadioItemProps
+  export type Label = ContextMenuLabelProps
+  export type Group = ContextMenuGroupProps
+  export type Separator = ContextMenuSeparatorProps
+  export type Sub = ContextMenuSubProps
+  export type SubTrigger = ContextMenuSubTriggerProps
+  export type SubContent = ContextMenuSubContentProps
+}

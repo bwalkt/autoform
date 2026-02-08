@@ -336,3 +336,10 @@ export const Tabs = {
   Trigger: TabsTrigger,
   Content: TabsContent,
 }
+
+export namespace TabsProps {
+  export type Root = TabsRootProps
+  export type List = TabsListProps
+  export type Trigger = TabsTriggerProps
+  export type Content = TabsContentProps
+}

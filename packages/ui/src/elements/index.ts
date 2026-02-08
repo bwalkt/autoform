@@ -31,26 +31,9 @@ export { AvatarGroup, type AvatarGroupProps } from './AvatarGroup'
 export { Badge, type BadgeProps } from './Badge'
 export { Button, type ButtonProps } from './Button'
 // Feedback
-export {
-  Callout,
-  CalloutIcon,
-  type CalloutIconProps,
-  CalloutRoot,
-  type CalloutRootProps,
-  CalloutText,
-  type CalloutTextProps,
-  type CalloutVariant,
-} from './Callout'
-export type {
-  CardContentProps,
-  CardDescriptionProps,
-  CardFooterProps,
-  CardHeaderProps,
-  CardRootProps,
-  CardTitleProps,
-} from './Card'
+export { Callout, type CalloutVariant } from './Callout'
 // Layout
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle } from './Card'
+export { Card } from './Card'
 // Menu
 export { ContextMenu } from './ContextMenu'
 export { DataList } from './DataList'

@@ -1,6 +1,6 @@
 'use client'
 
-import { CalloutRoot, CalloutText, Heading, Text } from '@bwalkt/ui'
+import { Callout, Heading, Text } from '@bwalkt/ui'
 import { TokenGrid } from '../../../components/TokenGrid'
 
 export default function TokensPage() {
@@ -14,11 +14,11 @@ export default function TokensPage() {
         value. The system exposes a compact set of tokens so theme changes are easy to reason about.
       </Text>
 
-      <CalloutRoot variant="surface" color="info" className="mt-4">
-        <CalloutText>
+      <Callout.Root variant="surface" color="info" className="mt-4">
+        <Callout.Text>
           Tokens are mapped to CSS variables. You can override them per page or per component tree.
-        </CalloutText>
-      </CalloutRoot>
+        </Callout.Text>
+      </Callout.Root>
 
       <Heading as="h2" size="4" className="mt-10">
         Core color tokens

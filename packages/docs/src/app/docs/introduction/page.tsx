@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge, Button, CalloutRoot, CalloutText, Card, Heading, Text } from '@bwalkt/ui'
+import { Badge, Button, Callout, Card, Heading, Text } from '@bwalkt/ui'
 import Link from 'next/link'
 
 export default function IntroductionPage() {
@@ -14,11 +14,11 @@ export default function IntroductionPage() {
         building dense workflows where clarity matters more than decoration.
       </Text>
 
-      <CalloutRoot variant="surface" color="info" className="mt-4">
-        <CalloutText>
+      <Callout.Root variant="surface" color="info" className="mt-4">
+        <Callout.Text>
           Start with tokens and layout primitives. The rest of the system builds on the same semantic vocabulary.
-        </CalloutText>
-      </CalloutRoot>
+        </Callout.Text>
+      </Callout.Root>
 
       <Heading as="h2" size="4" className="mt-10">
         What you get

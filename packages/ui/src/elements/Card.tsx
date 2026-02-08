@@ -163,3 +163,12 @@ export const Card = {
   Content: CardContent,
   Footer: CardFooter,
 }
+
+export namespace CardProps {
+  export type Root = CardRootProps
+  export type Header = CardHeaderProps
+  export type Title = CardTitleProps
+  export type Description = CardDescriptionProps
+  export type Content = CardContentProps
+  export type Footer = CardFooterProps
+}
