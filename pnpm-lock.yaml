@@ -51,6 +51,9 @@ catalogs:
     glob:
       specifier: ^11.0.7
       version: 11.1.0
+    lucide-react:
+      specifier: ^0.539.0
+      version: 0.539.0
     next:
       specifier: ^15.2.0
       version: 15.5.12
@@ -75,6 +78,9 @@ catalogs:
     storybook:
       specifier: 10.1.10
       version: 10.1.10
+    tailwindcss:
+      specifier: ^4.1.10
+      version: 4.1.18
     tsup:
       specifier: 8.5.1
       version: 8.5.1
@@ -200,8 +206,8 @@ importers:
         specifier: 'catalog:'
         version: 15.5.12(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.7)(react@19.2.3))
       lucide-react:
-        specifier: '*'
-        version: 0.522.0(react@19.2.3)
+        specifier: 'catalog:'
+        version: 0.539.0(react@19.2.3)
       next:
         specifier: 'catalog:'
         version: 15.5.12(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -234,7 +240,7 @@ importers:
         specifier: 'catalog:'
         version: 6.0.1(jiti@2.6.1)(postcss@8.5.6)
       tailwindcss:
-        specifier: ^4
+        specifier: 'catalog:'
         version: 4.1.18
       typescript:
         specifier: 'catalog:'
@@ -2695,6 +2701,11 @@ packages:
 
   lucide-react@0.522.0:
     resolution: {integrity: sha512-jnJbw974yZ7rQHHEFKJOlWAefG3ATSCZHANZxIdx8Rk/16siuwjgA4fBULpXEAWx/RlTs3FzmKW/udWUuO0aRw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  lucide-react@0.539.0:
+    resolution: {integrity: sha512-VVISr+VF2krO91FeuCrm1rSOLACQUYVy7NQkzrOty52Y8TlTPcXcMdQFj9bYzBgXbWCiywlwSZ3Z8u6a+6bMlg==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -6115,6 +6126,10 @@ snapshots:
   lru-cache@7.18.3: {}
 
   lucide-react@0.522.0(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+
+  lucide-react@0.539.0(react@19.2.3):
     dependencies:
       react: 19.2.3
 
