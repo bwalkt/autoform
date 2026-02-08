@@ -1,6 +1,5 @@
 @import "tw-animate-css";
 @import "./typography/typography.css";
-@import "./layouts/grid-safelist.css";
 
 @tailwind base;
 @tailwind components;

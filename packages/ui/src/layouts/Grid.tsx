@@ -5,8 +5,6 @@ import { cn } from '@/lib/utils'
 import {
   type AlignContent,
   type AlignItems,
-  canUseGridColumnsClasses,
-  canUseGridRowsClasses,
   type Display,
   type GridColumns,
   type GridFlow,
@@ -14,10 +12,8 @@ import {
   getAlignItemsClasses,
   getDisplayClasses,
   getGridColumnsClasses,
-  getGridColumnsStyle,
   getGridFlowClasses,
   getGridRowsClasses,
-  getGridRowsStyle,
   getJustifyContentClasses,
   getJustifyItemsClasses,
   getSharedLayoutClasses,
@@ -206,9 +202,8 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       getSpacingClasses(gap, 'gap'),
       getSpacingClasses(gapX, 'gap-x'),
       getSpacingClasses(gapY, 'gap-y'),
-      // Grid columns and rows classes - only use classes if the value is a preset
-      canUseGridColumnsClasses(columns) ? getGridColumnsClasses(columns) : '',
-      canUseGridRowsClasses(rows) ? getGridRowsClasses(rows) : '',
+      columns ? getGridColumnsClasses(columns) : 'rt-grid-cols-1',
+      rows ? getGridRowsClasses(rows) : '',
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     )
@@ -216,9 +211,6 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
     // Build grid-specific styles - for areas and custom grid values
     const gridStyles: React.CSSProperties = {
       ...(areas && typeof areas === 'string' && { gridTemplateAreas: areas }),
-      // Add custom grid columns/rows styles when not using classes
-      ...(!canUseGridColumnsClasses(columns) ? getGridColumnsStyle(columns) : {}),
-      ...(!canUseGridRowsClasses(rows) ? getGridRowsStyle(rows) : {}),
     }
 
     const styles: React.CSSProperties = {

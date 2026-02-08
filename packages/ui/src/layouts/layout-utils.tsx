@@ -278,32 +278,32 @@ const gridFlowMap: Record<GridFlow, string> = {
 /** getGridFlowClasses export. */
 export const getGridFlowClasses = createMappedClassHelper(gridFlowMap)
 
-// Grid columns - map to Tailwind grid-cols-{n} classes
+// Grid columns - map to layout classes
 const gridColumnsMap: Record<string, string> = {
-  '1': 'grid-cols-1',
-  '2': 'grid-cols-2',
-  '3': 'grid-cols-3',
-  '4': 'grid-cols-4',
-  '5': 'grid-cols-5',
-  '6': 'grid-cols-6',
-  '7': 'grid-cols-7',
-  '8': 'grid-cols-8',
-  '9': 'grid-cols-9',
-  '10': 'grid-cols-10',
-  '11': 'grid-cols-11',
-  '12': 'grid-cols-12',
-  none: 'grid-cols-none',
+  '1': 'rt-grid-cols-1',
+  '2': 'rt-grid-cols-2',
+  '3': 'rt-grid-cols-3',
+  '4': 'rt-grid-cols-4',
+  '5': 'rt-grid-cols-5',
+  '6': 'rt-grid-cols-6',
+  '7': 'rt-grid-cols-7',
+  '8': 'rt-grid-cols-8',
+  '9': 'rt-grid-cols-9',
+  '10': 'rt-grid-cols-10',
+  '11': 'rt-grid-cols-11',
+  '12': 'rt-grid-cols-12',
+  none: 'rt-grid-cols-none',
 }
 
-// Grid rows - map to Tailwind grid-rows-{n} classes
+// Grid rows - map to layout classes
 const gridRowsMap: Record<string, string> = {
-  '1': 'grid-rows-1',
-  '2': 'grid-rows-2',
-  '3': 'grid-rows-3',
-  '4': 'grid-rows-4',
-  '5': 'grid-rows-5',
-  '6': 'grid-rows-6',
-  none: 'grid-rows-none',
+  '1': 'rt-grid-rows-1',
+  '2': 'rt-grid-rows-2',
+  '3': 'rt-grid-rows-3',
+  '4': 'rt-grid-rows-4',
+  '5': 'rt-grid-rows-5',
+  '6': 'rt-grid-rows-6',
+  none: 'rt-grid-rows-none',
 }
 
 export type GridColumns = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | 'none'
@@ -327,44 +327,31 @@ export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | u
   if (initialClass) classes.push(initialClass)
 
   if (prop.xs && gridColumnsMap[prop.xs]) {
-    const baseClass = gridColumnsMap[prop.xs].replace('grid-cols-', '')
-    classes.push(`xs:grid-cols-${baseClass}`)
+    const baseClass = gridColumnsMap[prop.xs].replace('rt-grid-cols-', '')
+    classes.push(`rt-grid-cols-xs-${baseClass}`)
   }
 
   if (prop.sm && gridColumnsMap[prop.sm]) {
-    const baseClass = gridColumnsMap[prop.sm].replace('grid-cols-', '')
-    classes.push(`sm:grid-cols-${baseClass}`)
+    const baseClass = gridColumnsMap[prop.sm].replace('rt-grid-cols-', '')
+    classes.push(`rt-grid-cols-sm-${baseClass}`)
   }
 
   if (prop.md && gridColumnsMap[prop.md]) {
-    const baseClass = gridColumnsMap[prop.md].replace('grid-cols-', '')
-    classes.push(`md:grid-cols-${baseClass}`)
+    const baseClass = gridColumnsMap[prop.md].replace('rt-grid-cols-', '')
+    classes.push(`rt-grid-cols-md-${baseClass}`)
   }
 
   if (prop.lg && gridColumnsMap[prop.lg]) {
-    const baseClass = gridColumnsMap[prop.lg].replace('grid-cols-', '')
-    classes.push(`lg:grid-cols-${baseClass}`)
+    const baseClass = gridColumnsMap[prop.lg].replace('rt-grid-cols-', '')
+    classes.push(`rt-grid-cols-lg-${baseClass}`)
   }
 
   if (prop.xl && gridColumnsMap[prop.xl]) {
-    const baseClass = gridColumnsMap[prop.xl].replace('grid-cols-', '')
-    classes.push(`xl:grid-cols-${baseClass}`)
+    const baseClass = gridColumnsMap[prop.xl].replace('rt-grid-cols-', '')
+    classes.push(`rt-grid-cols-xl-${baseClass}`)
   }
 
   return classes.join(' ')
-}
-
-// Check if columns value can be handled by classes (is numeric preset)
-/** canUseGridColumnsClasses export. */
-export function canUseGridColumnsClasses(prop: Responsive<string> | undefined): boolean {
-  if (prop === undefined) return false
-
-  if (typeof prop === 'string') {
-    return !!gridColumnsMap[prop]
-  }
-
-  // For responsive objects, check if all values are known
-  return Object.values(prop).every(val => !val || gridColumnsMap[val])
 }
 
 /** getGridRowsClasses export. */
@@ -385,94 +372,31 @@ export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefin
   if (initialClass) classes.push(initialClass)
 
   if (prop.xs && gridRowsMap[prop.xs]) {
-    const baseClass = gridRowsMap[prop.xs].replace('grid-rows-', '')
-    classes.push(`xs:grid-rows-${baseClass}`)
+    const baseClass = gridRowsMap[prop.xs].replace('rt-grid-rows-', '')
+    classes.push(`rt-grid-rows-xs-${baseClass}`)
   }
 
   if (prop.sm && gridRowsMap[prop.sm]) {
-    const baseClass = gridRowsMap[prop.sm].replace('grid-rows-', '')
-    classes.push(`sm:grid-rows-${baseClass}`)
+    const baseClass = gridRowsMap[prop.sm].replace('rt-grid-rows-', '')
+    classes.push(`rt-grid-rows-sm-${baseClass}`)
   }
 
   if (prop.md && gridRowsMap[prop.md]) {
-    const baseClass = gridRowsMap[prop.md].replace('grid-rows-', '')
-    classes.push(`md:grid-rows-${baseClass}`)
+    const baseClass = gridRowsMap[prop.md].replace('rt-grid-rows-', '')
+    classes.push(`rt-grid-rows-md-${baseClass}`)
   }
 
   if (prop.lg && gridRowsMap[prop.lg]) {
-    const baseClass = gridRowsMap[prop.lg].replace('grid-rows-', '')
-    classes.push(`lg:grid-rows-${baseClass}`)
+    const baseClass = gridRowsMap[prop.lg].replace('rt-grid-rows-', '')
+    classes.push(`rt-grid-rows-lg-${baseClass}`)
   }
 
   if (prop.xl && gridRowsMap[prop.xl]) {
-    const baseClass = gridRowsMap[prop.xl].replace('grid-rows-', '')
-    classes.push(`xl:grid-rows-${baseClass}`)
+    const baseClass = gridRowsMap[prop.xl].replace('rt-grid-rows-', '')
+    classes.push(`rt-grid-rows-xl-${baseClass}`)
   }
 
   return classes.join(' ')
-}
-
-// Check if rows value can be handled by classes (is numeric preset)
-/** canUseGridRowsClasses export. */
-export function canUseGridRowsClasses(prop: Responsive<string> | undefined): boolean {
-  if (prop === undefined) return false
-
-  if (typeof prop === 'string') {
-    return !!gridRowsMap[prop]
-  }
-
-  // For responsive objects, check if all values are known
-  return Object.values(prop).every(val => !val || gridRowsMap[val])
-}
-
-// Grid columns/rows - returns style object for custom values
-function resolveGridTemplate(value: string): string {
-  if (/^\d+$/.test(value)) {
-    const num = Number(value)
-    return `repeat(${num}, minmax(0, 1fr))`
-  }
-  return value
-}
-
-/** getGridColumnsStyle export. */
-export function getGridColumnsStyle(columns: Responsive<string> | undefined): React.CSSProperties {
-  if (columns === undefined) return {}
-
-  if (typeof columns === 'string') {
-    return {
-      gridTemplateColumns: resolveGridTemplate(columns),
-    }
-  }
-
-  // For responsive values, we need to use CSS variables and media queries
-  // But since we can't inject media queries directly in inline styles,
-  // we'll just use the initial value for now
-  const styles: React.CSSProperties = {}
-  if (columns.initial) {
-    styles.gridTemplateColumns = resolveGridTemplate(columns.initial)
-  }
-
-  // Note: For true responsive behavior, we need to use CSS classes or CSS-in-JS
-  return styles
-}
-
-/** getGridRowsStyle export. */
-export function getGridRowsStyle(rows: Responsive<string> | undefined): React.CSSProperties {
-  if (rows === undefined) return {}
-
-  if (typeof rows === 'string') {
-    return {
-      gridTemplateRows: resolveGridTemplate(rows),
-    }
-  }
-
-  // For responsive values, use initial value
-  const styles: React.CSSProperties = {}
-  if (rows.initial) {
-    styles.gridTemplateRows = resolveGridTemplate(rows.initial)
-  }
-
-  return styles
 }
 
 // ============================================================================
