@@ -87,14 +87,10 @@ export const Alignment: Story = {
 export const ResponsiveSize: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">
-      <Container size={{ initial: '1', sm: '2', md: '3', lg: '4' }} p="4" className="bg-background border rounded-lg">
+      <Container size="4" p="4" className="bg-background border rounded-lg">
         <p className="font-medium">Responsive Container</p>
         <p className="text-sm text-muted-foreground mt-2">
-          Size changes based on viewport:
-          <br />• Mobile: size="1" (448px)
-          <br />• SM: size="2" (688px)
-          <br />• MD: size="3" (880px)
-          <br />• LG: size="4" (1136px)
+          Container sizes are tokenized. Use a specific size per layout.
         </p>
       </Container>
     </div>

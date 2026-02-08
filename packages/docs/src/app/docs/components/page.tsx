@@ -2,19 +2,13 @@
 
 import { Button, Card, Heading, Label, SegmentedControl, Select, SelectItem, Text, TextField } from '@bwalkt/ui'
 import * as React from 'react'
+import type { ViewportPreset } from '../../../lib/viewport'
 
-type ViewportPreset = 'desktop' | 'tablet' | 'phone'
-
-const viewportWidths: Record<ViewportPreset, number> = {
-  desktop: 1200,
-  tablet: 900,
-  phone: 375,
-}
+const isViewportPreset = (value: string): value is ViewportPreset =>
+  value === 'desktop' || value === 'tablet' || value === 'phone'
 
 export default function ComponentsPage() {
   const [viewport, setViewport] = React.useState<ViewportPreset>('desktop')
-  const previewWidth = viewportWidths[viewport]
-
   return (
     <div className="docs-prose">
       <Heading as="h1" size="6">
@@ -34,7 +28,12 @@ export default function ComponentsPage() {
           <Text size="2" className="text-muted-foreground">
             Preview width
           </Text>
-          <SegmentedControl.Root value={viewport} onValueChange={value => setViewport(value as ViewportPreset)}>
+          <SegmentedControl.Root
+            value={viewport}
+            onValueChange={value => {
+              if (isViewportPreset(value)) setViewport(value)
+            }}
+          >
             <SegmentedControl.Item value="desktop">Desktop</SegmentedControl.Item>
             <SegmentedControl.Item value="tablet">Tablet</SegmentedControl.Item>
             <SegmentedControl.Item value="phone">Phone</SegmentedControl.Item>
@@ -42,7 +41,7 @@ export default function ComponentsPage() {
         </div>
 
         <div className="mt-4 w-full overflow-hidden rounded-2xl border border-border/70 bg-muted/20 p-4">
-          <div className="mx-auto w-full" style={{ maxWidth: previewWidth }}>
+          <div className="viewport-preview mx-auto w-full" data-viewport={viewport}>
             <Card.Root className="space-y-4 p-6">
               <TextField label="Workspace name" placeholder="Acme Operations" />
               <div className="space-y-2">

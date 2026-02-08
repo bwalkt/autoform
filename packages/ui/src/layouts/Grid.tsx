@@ -42,10 +42,10 @@ export interface GridOwnProps extends SharedLayoutProps {
   display?: Responsive<GridDisplay>
   /** Grid template areas */
   areas?: Responsive<string>
-  /** Number of columns or explicit column template */
-  columns?: Responsive<GridColumns | string>
-  /** Number of rows or explicit row template */
-  rows?: Responsive<GridColumns | string>
+  /** Number of columns */
+  columns?: Responsive<GridColumns>
+  /** Number of rows */
+  rows?: Responsive<GridColumns>
   /** Grid auto-flow direction */
   flow?: Responsive<GridFlow>
   /** Align items along the cross axis */

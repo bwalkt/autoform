@@ -16,7 +16,7 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
   initialCode={`export default function Example() {
   return (
     <Section size="2" className="rounded-2xl border border-border/70 bg-muted/30">
-      <DecorativeBox style={{ height: 64 }} />
+      <DecorativeBox className="h-16" />
     </Section>
   )
 }`}
@@ -42,11 +42,11 @@ This component is based on the `div` element and supports common margin props.
   Responsive props accept breakpoint objects. For example, this section increases its spacing at the medium breakpoint.
 </Box>
 
-<CodeBlock.Root style={{ marginTop: 24 }}>
+<CodeBlock.Root mt="6">
   <CodeBlock.LivePreview>
     <ViewportPreview>
       <Section size={{ initial: '1', md: '3' }} className="rounded-2xl border border-border/70 bg-muted/30">
-        <DecorativeBox />
+        <DecorativeBox className="h-16" />
       </Section>
     </ViewportPreview>
   </CodeBlock.LivePreview>

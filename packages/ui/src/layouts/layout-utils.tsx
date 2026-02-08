@@ -228,7 +228,6 @@ const justifyItemsMap: Record<JustifyItems, string> = {
   start: 'justify-items-start',
   center: 'justify-items-center',
   end: 'justify-items-end',
-  baseline: 'justify-items-baseline',
   stretch: 'justify-items-stretch',
 }
 
@@ -310,123 +309,44 @@ export type GridColumns = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 
 export type GridRows = '1' | '2' | '3' | '4' | '5' | '6' | 'none'
 
 /** getGridColumnsClasses export. */
-export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | undefined): string {
+function getGridClasses(
+  prop: Responsive<string> | undefined,
+  classMap: Record<string, string>,
+  prefix: string,
+): string {
   if (prop === undefined) return ''
 
   if (typeof prop === 'string') {
-    // If it's a known column count, use the class
-    if (gridColumnsMap[prop]) {
-      return gridColumnsMap[prop]
-    }
-    // Otherwise return empty (will fall back to style)
-    return ''
+    return classMap[prop] || ''
   }
 
   const classes: string[] = []
-  const initialClass = prop.initial ? gridColumnsMap[prop.initial] : undefined
-  if (initialClass) classes.push(initialClass)
-
-  if (prop.xs) {
-    const mapped = gridColumnsMap[prop.xs]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-cols-', '')
-      classes.push(`rt-grid-cols-xs-${baseClass}`)
-    }
+  if (prop.initial) {
+    const initialClass = classMap[prop.initial]
+    if (initialClass) classes.push(initialClass)
   }
 
-  if (prop.sm) {
-    const mapped = gridColumnsMap[prop.sm]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-cols-', '')
-      classes.push(`rt-grid-cols-sm-${baseClass}`)
-    }
-  }
-
-  if (prop.md) {
-    const mapped = gridColumnsMap[prop.md]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-cols-', '')
-      classes.push(`rt-grid-cols-md-${baseClass}`)
-    }
-  }
-
-  if (prop.lg) {
-    const mapped = gridColumnsMap[prop.lg]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-cols-', '')
-      classes.push(`rt-grid-cols-lg-${baseClass}`)
-    }
-  }
-
-  if (prop.xl) {
-    const mapped = gridColumnsMap[prop.xl]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-cols-', '')
-      classes.push(`rt-grid-cols-xl-${baseClass}`)
+  const breakpoints = ['xs', 'sm', 'md', 'lg', 'xl'] as const
+  for (const bp of breakpoints) {
+    const value = prop[bp]
+    if (value && classMap[value]) {
+      const baseClass = classMap[value].replace(`${prefix}-`, '')
+      classes.push(`${prefix}-${bp}-${baseClass}`)
     }
   }
 
   return classes.join(' ')
 }
 
+/** getGridColumnsClasses export. */
+export function getGridColumnsClasses(prop: Responsive<GridColumns | string> | undefined): string {
+  return getGridClasses(prop, gridColumnsMap, 'rt-grid-cols')
+}
+
+/** getGridRowsClasses export. */
 /** getGridRowsClasses export. */
 export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefined): string {
-  if (prop === undefined) return ''
-
-  if (typeof prop === 'string') {
-    // If it's a known row count, use the class
-    if (gridRowsMap[prop]) {
-      return gridRowsMap[prop]
-    }
-    // Otherwise return empty (will fall back to style)
-    return ''
-  }
-
-  const classes: string[] = []
-  const initialClass = prop.initial ? gridRowsMap[prop.initial] : undefined
-  if (initialClass) classes.push(initialClass)
-
-  if (prop.xs) {
-    const mapped = gridRowsMap[prop.xs]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-rows-', '')
-      classes.push(`rt-grid-rows-xs-${baseClass}`)
-    }
-  }
-
-  if (prop.sm) {
-    const mapped = gridRowsMap[prop.sm]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-rows-', '')
-      classes.push(`rt-grid-rows-sm-${baseClass}`)
-    }
-  }
-
-  if (prop.md) {
-    const mapped = gridRowsMap[prop.md]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-rows-', '')
-      classes.push(`rt-grid-rows-md-${baseClass}`)
-    }
-  }
-
-  if (prop.lg) {
-    const mapped = gridRowsMap[prop.lg]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-rows-', '')
-      classes.push(`rt-grid-rows-lg-${baseClass}`)
-    }
-  }
-
-  if (prop.xl) {
-    const mapped = gridRowsMap[prop.xl]
-    if (mapped) {
-      const baseClass = mapped.replace('rt-grid-rows-', '')
-      classes.push(`rt-grid-rows-xl-${baseClass}`)
-    }
-  }
-
-  return classes.join(' ')
+  return getGridClasses(prop, gridRowsMap, 'rt-grid-rows')
 }
 
 // ============================================================================
@@ -434,16 +354,22 @@ export function getGridRowsClasses(prop: Responsive<GridRows | string> | undefin
 // ============================================================================
 
 /** Slot export. */
-export function Slot({ children, ...props }: React.PropsWithChildren<React.HTMLAttributes<HTMLElement>>) {
+export const Slot = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(({ children, ...props }, ref) => {
   if (React.isValidElement<React.HTMLAttributes<HTMLElement>>(children)) {
-    return React.cloneElement(children, {
-      ...props,
-      ...children.props,
-      className: cn(props.className, children.props.className),
-    })
+    return React.cloneElement(
+      children as React.ReactElement,
+      {
+        ...props,
+        ...children.props,
+        ref,
+        className: cn(props.className, children.props.className),
+      } as Record<string, unknown>,
+    )
   }
   return <>{children}</>
-}
+})
+
+Slot.displayName = 'Slot'
 
 // ============================================================================
 // Shared Layout Props

@@ -15,7 +15,7 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
 <LiveCodeBlock
   initialCode={`export default function Example() {
   return (
-    <Box style={{ background: "var(--gray-a2)", borderRadius: "var(--radius-3)" }}>
+    <Box className="docs-demo-surface">
       <Container size="1">
         <DecorativeBox>
           <Box py="9" />
@@ -46,10 +46,10 @@ This component is based on the `div` element and supports common margin props.
   Containers are useful when you want fixed gutters with a consistent max width.
 </Box>
 
-<CodeBlock.Root style={{ marginTop: 24 }}>
+<CodeBlock.Root mt="6">
   <CodeBlock.LivePreview>
     <ViewportPreview>
-      <Box style={{ background: "var(--gray-a2)", borderRadius: "var(--radius-3)" }}>
+      <Box className="docs-demo-surface">
         <Container size="1">
           <DecorativeBox>
             <Box py="9" />
@@ -61,7 +61,7 @@ This component is based on the `div` element and supports common margin props.
   <CodeBlock.Content>
     <CodeBlock.Pre>
       <CodeBlock.Code language="jsx">
-{`<Box style={{ background: "var(--gray-a2)", borderRadius: "var(--radius-3)" }}>
+{`<Box className="docs-demo-surface">
   <Container size="1">
     <DecorativeBox>
       <Box py="9" />

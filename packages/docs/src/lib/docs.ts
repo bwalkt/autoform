@@ -97,36 +97,10 @@ export const docSections: DocSection[] = [
   },
 ]
 
-export const docsRoutes: DocsRoute[] = [
-  {
-    label: 'Getting Started',
-    pages: [
-      { title: 'Introduction', slug: 'docs/introduction' },
-      { title: 'Tokens', slug: 'docs/tokens' },
-    ],
-  },
-  {
-    label: 'Layout',
-    pages: [
-      { title: 'Box', slug: 'docs/layout/box' },
-      { title: 'Flex', slug: 'docs/layout/flex' },
-      { title: 'Grid', slug: 'docs/layout/grid' },
-      { title: 'Container', slug: 'docs/layout/container' },
-      { title: 'Section', slug: 'docs/layout/section' },
-    ],
-  },
-  {
-    label: 'Typography',
-    pages: [
-      { title: 'Text', slug: 'docs/typography/text' },
-      { title: 'Heading', slug: 'docs/typography/heading' },
-    ],
-  },
-  {
-    label: 'Components',
-    pages: [
-      { title: 'Components', slug: 'docs/components' },
-      { title: 'Theming', slug: 'docs/theming' },
-    ],
-  },
-]
+export const docsRoutes: DocsRoute[] = docSections.map(section => ({
+  label: section.title,
+  pages: section.items.map(item => ({
+    title: item.title,
+    slug: item.href.replace(/^\//, ''),
+  })),
+}))

@@ -24,7 +24,7 @@ export interface ContainerOwnProps extends SharedLayoutProps {
   /** CSS display property */
   display?: Responsive<ContainerDisplay>
   /** Maximum width of container */
-  size?: Responsive<ContainerSize>
+  size?: ContainerSize
   /** Horizontal alignment */
   align?: Responsive<ContainerAlign>
 }
@@ -145,7 +145,7 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     }
 
     // Get resolved size value
-    const resolvedSize = typeof size === 'string' ? size : size?.initial || '4'
+    const resolvedSize = size || '4'
     const maxWidthValue = containerSizeValues[resolvedSize]
 
     // Get alignment classes
