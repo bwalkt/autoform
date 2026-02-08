@@ -42,7 +42,6 @@ const sampleParagraphs = Array.from({ length: 10 }, (_, i) => (
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   args: {
     type: 'hover',
@@ -61,7 +60,6 @@ export const Default: Story = {
   ),
 }
 
-/** Vertical export. */
 export const Vertical: Story = {
   render: () => (
     <ScrollArea scrollbars="vertical" className="h-64 w-80 border rounded-lg p-4">
@@ -70,7 +68,6 @@ export const Vertical: Story = {
   ),
 }
 
-/** Horizontal export. */
 export const Horizontal: Story = {
   render: () => (
     <ScrollArea scrollbars="horizontal" className="h-32 w-80 border rounded-lg">
@@ -85,7 +82,6 @@ export const Horizontal: Story = {
   ),
 }
 
-/** Both export. */
 export const Both: Story = {
   render: () => (
     <ScrollArea scrollbars="both" className="h-64 w-80 border rounded-lg">
@@ -100,7 +96,6 @@ export const Both: Story = {
 // Types (Visibility)
 // ============================================================================
 
-/** TypeAuto export. */
 export const TypeAuto: Story = {
   render: () => (
     <div className="space-y-2">
@@ -112,7 +107,6 @@ export const TypeAuto: Story = {
   ),
 }
 
-/** TypeAlways export. */
 export const TypeAlways: Story = {
   render: () => (
     <div className="space-y-2">
@@ -124,7 +118,6 @@ export const TypeAlways: Story = {
   ),
 }
 
-/** TypeHover export. */
 export const TypeHover: Story = {
   render: () => (
     <div className="space-y-2">
@@ -140,7 +133,6 @@ export const TypeHover: Story = {
 // Sizes
 // ============================================================================
 
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <div className="flex gap-6">
@@ -160,7 +152,6 @@ export const AllSizes: Story = {
 // Real-world Examples
 // ============================================================================
 
-/** MessageList export. */
 export const MessageList: Story = {
   render: () => (
     <div className="w-80 border rounded-lg">
@@ -183,7 +174,6 @@ export const MessageList: Story = {
   ),
 }
 
-/** CodeBlock export. */
 export const CodeBlock: Story = {
   render: () => (
     <ScrollArea scrollbars="both" className="h-64 w-96 border rounded-lg bg-zinc-950 text-zinc-100">
@@ -216,7 +206,6 @@ export default App;`}
   ),
 }
 
-/** TableWithScroll export. */
 export const TableWithScroll: Story = {
   render: () => (
     <div className="w-96 border rounded-lg">
@@ -245,7 +234,6 @@ export const TableWithScroll: Story = {
   ),
 }
 
-/** ImageGallery export. */
 export const ImageGallery: Story = {
   render: () => (
     <div className="w-96 border rounded-lg">
@@ -266,7 +254,6 @@ export const ImageGallery: Story = {
   ),
 }
 
-/** NestedScrollAreas export. */
 export const NestedScrollAreas: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -288,7 +275,6 @@ export const NestedScrollAreas: Story = {
   ),
 }
 
-/** SelectDropdown export. */
 export const SelectDropdown: Story = {
   render: () => (
     <div className="w-64 border rounded-lg shadow-lg">

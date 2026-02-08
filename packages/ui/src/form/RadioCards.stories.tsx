@@ -46,7 +46,6 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   args: {
     size: '2',
@@ -80,7 +79,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithIcons export. */
 export const WithIcons: Story = {
   render: () => (
     <RadioCards.Root defaultValue="card" columns={3}>
@@ -113,7 +111,6 @@ export const WithIcons: Story = {
 // Sizes
 // ============================================================================
 
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -184,7 +181,6 @@ export const AllSizes: Story = {
 // Variants
 // ============================================================================
 
-/** VariantSurface export. */
 export const VariantSurface: Story = {
   render: () => (
     <RadioCards.Root variant="surface" columns={3} defaultValue="1">
@@ -204,7 +200,6 @@ export const VariantSurface: Story = {
   ),
 }
 
-/** VariantClassic export. */
 export const VariantClassic: Story = {
   render: () => (
     <RadioCards.Root variant="classic" columns={3} defaultValue="1">
@@ -228,7 +223,6 @@ export const VariantClassic: Story = {
 // Colors
 // ============================================================================
 
-/** AllColors export. */
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6">
@@ -256,7 +250,6 @@ export const AllColors: Story = {
 // Columns
 // ============================================================================
 
-/** ColumnLayouts export. */
 export const ColumnLayouts: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -336,7 +329,6 @@ export const ColumnLayouts: Story = {
 // Disabled States
 // ============================================================================
 
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6">
@@ -377,7 +369,6 @@ export const Disabled: Story = {
 // Controlled Example
 // ============================================================================
 
-/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [value, setValue] = React.useState('standard')
@@ -421,7 +412,6 @@ export const Controlled: Story = {
 // Real-world Example: Plan Selection
 // ============================================================================
 
-/** PlanSelection export. */
 export const PlanSelection: Story = {
   render: () => {
     const [plan, setPlan] = React.useState('pro')

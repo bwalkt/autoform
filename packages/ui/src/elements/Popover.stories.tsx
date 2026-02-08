@@ -14,7 +14,6 @@ const meta: Meta = {
 
 export default meta
 
-/** Default export. */
 export const Default: StoryObj = {
   render: () => (
     <Popover.Root>
@@ -32,7 +31,6 @@ export const Default: StoryObj = {
   ),
 }
 
-/** Positions export. */
 export const Positions: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -52,7 +50,6 @@ export const Positions: StoryObj = {
   ),
 }
 
-/** Alignments export. */
 export const Alignments: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -72,7 +69,6 @@ export const Alignments: StoryObj = {
   ),
 }
 
-/** Sizes export. */
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -90,7 +86,6 @@ export const Sizes: StoryObj = {
   ),
 }
 
-/** WithForm export. */
 export const WithForm: StoryObj = {
   render: () => (
     <Popover.Root>
@@ -119,7 +114,6 @@ export const WithForm: StoryObj = {
   ),
 }
 
-/** NotificationSettings export. */
 export const NotificationSettings: StoryObj = {
   render: () => {
     const [settings, setSettings] = useState({
@@ -158,7 +152,6 @@ export const NotificationSettings: StoryObj = {
   },
 }
 
-/** DatePicker export. */
 export const DatePicker: StoryObj = {
   render: () => (
     <Popover.Root>
@@ -197,7 +190,6 @@ export const DatePicker: StoryObj = {
   ),
 }
 
-/** SettingsPopover export. */
 export const SettingsPopover: StoryObj = {
   render: () => (
     <Popover.Root>

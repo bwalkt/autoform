@@ -50,7 +50,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // Default
-/** Default export. */
 export const Default: Story = {
   args: {
     children: 'Button',
@@ -58,7 +57,6 @@ export const Default: Story = {
 }
 
 // Variants
-/** Solid export. */
 export const Solid: Story = {
   args: {
     variant: 'solid',
@@ -66,7 +64,6 @@ export const Solid: Story = {
   },
 }
 
-/** Soft export. */
 export const Soft: Story = {
   args: {
     variant: 'soft',
@@ -74,7 +71,6 @@ export const Soft: Story = {
   },
 }
 
-/** Outline export. */
 export const Outline: Story = {
   args: {
     variant: 'outline',
@@ -82,7 +78,6 @@ export const Outline: Story = {
   },
 }
 
-/** Ghost export. */
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
@@ -91,7 +86,6 @@ export const Ghost: Story = {
 }
 
 // Sizes
-/** Size1 export. */
 export const Size1: Story = {
   name: 'Size 1 (Extra Small)',
   args: {
@@ -100,7 +94,6 @@ export const Size1: Story = {
   },
 }
 
-/** Size2 export. */
 export const Size2: Story = {
   name: 'Size 2 (Small, default)',
   args: {
@@ -109,7 +102,6 @@ export const Size2: Story = {
   },
 }
 
-/** Size3 export. */
 export const Size3: Story = {
   name: 'Size 3 (Medium)',
   args: {
@@ -118,7 +110,6 @@ export const Size3: Story = {
   },
 }
 
-/** Size4 export. */
 export const Size4: Story = {
   name: 'Size 4 (Large)',
   args: {
@@ -128,7 +119,6 @@ export const Size4: Story = {
 }
 
 // Colors
-/** ColorPrimary export. */
 export const ColorPrimary: Story = {
   args: {
     color: 'primary',
@@ -136,7 +126,6 @@ export const ColorPrimary: Story = {
   },
 }
 
-/** ColorInfo export. */
 export const ColorInfo: Story = {
   args: {
     color: 'info',
@@ -144,7 +133,6 @@ export const ColorInfo: Story = {
   },
 }
 
-/** ColorSuccess export. */
 export const ColorSuccess: Story = {
   args: {
     color: 'success',
@@ -152,7 +140,6 @@ export const ColorSuccess: Story = {
   },
 }
 
-/** ColorWarning export. */
 export const ColorWarning: Story = {
   args: {
     color: 'warning',
@@ -160,7 +147,6 @@ export const ColorWarning: Story = {
   },
 }
 
-/** ColorError export. */
 export const ColorError: Story = {
   args: {
     color: 'error',
@@ -169,7 +155,6 @@ export const ColorError: Story = {
 }
 
 // Radius
-/** RadiusNone export. */
 export const RadiusNone: Story = {
   args: {
     radius: 'none',
@@ -177,7 +162,6 @@ export const RadiusNone: Story = {
   },
 }
 
-/** RadiusFull export. */
 export const RadiusFull: Story = {
   args: {
     radius: 'full',
@@ -186,7 +170,6 @@ export const RadiusFull: Story = {
 }
 
 // With icons
-/** WithIconLeft export. */
 export const WithIconLeft: Story = {
   args: {
     children: (
@@ -198,7 +181,6 @@ export const WithIconLeft: Story = {
   },
 }
 
-/** WithIconRight export. */
 export const WithIconRight: Story = {
   args: {
     children: (
@@ -210,7 +192,6 @@ export const WithIconRight: Story = {
   },
 }
 
-/** IconOnly export. */
 export const IconOnly: Story = {
   args: {
     children: <Plus />,
@@ -219,7 +200,6 @@ export const IconOnly: Story = {
 }
 
 // States
-/** Loading export. */
 export const Loading: Story = {
   args: {
     loading: true,
@@ -227,7 +207,6 @@ export const Loading: Story = {
   },
 }
 
-/** Disabled export. */
 export const Disabled: Story = {
   args: {
     disabled: true,
@@ -236,7 +215,6 @@ export const Disabled: Story = {
 }
 
 // All variants showcase
-/** AllVariants export. */
 export const AllVariants: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
@@ -249,7 +227,6 @@ export const AllVariants: Story = {
 }
 
 // All sizes showcase
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="gap-4 items-center">
@@ -262,7 +239,6 @@ export const AllSizes: Story = {
 }
 
 // All colors with solid variant
-/** AllColorsSolid export. */
 export const AllColorsSolid: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
@@ -277,7 +253,6 @@ export const AllColorsSolid: Story = {
 }
 
 // All colors with soft variant
-/** AllColorsSoft export. */
 export const AllColorsSoft: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
@@ -304,7 +279,6 @@ export const AllColorsSoft: Story = {
 }
 
 // All colors with outline variant
-/** AllColorsOutline export. */
 export const AllColorsOutline: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
@@ -331,7 +305,6 @@ export const AllColorsOutline: Story = {
 }
 
 // All colors with ghost variant
-/** AllColorsGhost export. */
 export const AllColorsGhost: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
@@ -358,7 +331,6 @@ export const AllColorsGhost: Story = {
 }
 
 // Size and variant matrix
-/** SizeVariantMatrix export. */
 export const SizeVariantMatrix: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -384,7 +356,6 @@ export const SizeVariantMatrix: Story = {
 }
 
 // Real-world examples
-/** RealWorldExamples export. */
 export const RealWorldExamples: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6">
@@ -429,7 +400,6 @@ export const RealWorldExamples: Story = {
 }
 
 // Loading states
-/** LoadingStates export. */
 export const LoadingStates: Story = {
   render: () => (
     <Box display="flex" className="gap-4 flex-wrap">
@@ -448,7 +418,6 @@ export const LoadingStates: Story = {
 }
 
 // Radius examples
-/** AllRadii export. */
 export const AllRadii: Story = {
   render: () => (
     <Box display="flex" className="gap-4 items-center">

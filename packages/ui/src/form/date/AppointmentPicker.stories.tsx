@@ -16,7 +16,6 @@ export default meta
 type Story = StoryObj<typeof AppointmentPicker>
 
 // Default AppointmentPicker
-/** Default export. */
 export const Default: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -33,7 +32,6 @@ export const Default: Story = {
 }
 
 // With preselected value
-/** WithValue export. */
 export const WithValue: Story = {
   render: () => {
     const tomorrow = new Date()
@@ -56,7 +54,6 @@ export const WithValue: Story = {
 }
 
 // Custom title
-/** CustomTitle export. */
 export const CustomTitle: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -75,7 +72,6 @@ export const CustomTitle: Story = {
 }
 
 // Custom time slots (30-minute intervals)
-/** CustomTimeSlots export. */
 export const CustomTimeSlots: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -110,7 +106,6 @@ export const CustomTimeSlots: Story = {
 }
 
 // Dynamic slots based on date
-/** DynamicSlots export. */
 export const DynamicSlots: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -155,7 +150,6 @@ export const DynamicSlots: Story = {
 }
 
 // Without confirmation button
-/** WithoutConfirmButton export. */
 export const WithoutConfirmButton: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -173,7 +167,6 @@ export const WithoutConfirmButton: Story = {
 }
 
 // Without confirmation message
-/** WithoutConfirmation export. */
 export const WithoutConfirmation: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -191,7 +184,6 @@ export const WithoutConfirmation: Story = {
 }
 
 // Custom confirmation format
-/** CustomConfirmationFormat export. */
 export const CustomConfirmationFormat: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -217,7 +209,6 @@ export const CustomConfirmationFormat: Story = {
 }
 
 // With min date (future only)
-/** FutureOnly export. */
 export const FutureOnly: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
@@ -239,7 +230,6 @@ export const FutureOnly: Story = {
 }
 
 // Disabled state
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     const tomorrow = new Date()
@@ -254,7 +244,6 @@ export const Disabled: Story = {
 }
 
 // Compact time slot height
-/** CompactSlots export. */
 export const CompactSlots: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()

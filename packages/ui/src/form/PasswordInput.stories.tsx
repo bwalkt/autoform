@@ -25,7 +25,6 @@ const meta: Meta<typeof PasswordInput> = {
 export default meta
 type Story = StoryObj<typeof PasswordInput>
 
-/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-80">
@@ -34,7 +33,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -44,7 +42,6 @@ export const WithLabel: Story = {
   ),
 }
 
-/** WithStrengthIndicator export. */
 export const WithStrengthIndicator: Story = {
   render: () => {
     const [password, setPassword] = useState('')
@@ -78,7 +75,6 @@ export const WithStrengthIndicator: Story = {
   },
 }
 
-/** WithLeftIcon export. */
 export const WithLeftIcon: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -88,7 +84,6 @@ export const WithLeftIcon: Story = {
   ),
 }
 
-/** CustomStrengthCalculator export. */
 export const CustomStrengthCalculator: Story = {
   render: () => {
     // Custom calculator that requires specific patterns
@@ -115,7 +110,6 @@ export const CustomStrengthCalculator: Story = {
   },
 }
 
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -129,7 +123,6 @@ export const Sizes: Story = {
   ),
 }
 
-/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -143,7 +136,6 @@ export const Variants: Story = {
   ),
 }
 
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -153,7 +145,6 @@ export const Disabled: Story = {
   ),
 }
 
-/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -164,7 +155,6 @@ export const WithError: Story = {
   ),
 }
 
-/** LoginForm export. */
 export const LoginForm: Story = {
   render: () => {
     const [email, setEmail] = useState('')
@@ -214,7 +204,6 @@ export const LoginForm: Story = {
   },
 }
 
-/** SignupForm export. */
 export const SignupForm: Story = {
   render: () => {
     const [password, setPassword] = useState('')

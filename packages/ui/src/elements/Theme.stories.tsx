@@ -74,7 +74,6 @@ type Story = StoryObj<typeof meta>
 // Basic Example
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   render: () => (
     <Theme className="min-h-screen p-8">
@@ -128,7 +127,6 @@ export const Default: Story = {
 // Accent Colors
 // ============================================================================
 
-/** AccentColors export. */
 export const AccentColors: Story = {
   render: () => {
     const colors = [
@@ -168,7 +166,6 @@ export const AccentColors: Story = {
 // Radius Options
 // ============================================================================
 
-/** RadiusOptions export. */
 export const RadiusOptions: Story = {
   render: () => {
     const radii = ['none', 'sm', 'md', 'lg', 'full'] as const
@@ -192,7 +189,6 @@ export const RadiusOptions: Story = {
 // Light and Dark
 // ============================================================================
 
-/** LightAndDark export. */
 export const LightAndDark: Story = {
   render: () => (
     <div className="flex">
@@ -261,7 +257,6 @@ const ThemeInfo: React.FC = () => {
   )
 }
 
-/** UsingContext export. */
 export const UsingContext: Story = {
   render: () => (
     <Theme accentColor="violet" radius="lg" className="min-h-screen p-8">
@@ -278,7 +273,6 @@ export const UsingContext: Story = {
 // Nested Themes
 // ============================================================================
 
-/** NestedThemes export. */
 export const NestedThemes: Story = {
   render: () => (
     <Theme accentColor="blue" className="p-8">

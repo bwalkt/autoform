@@ -30,7 +30,6 @@ const meta: Meta<typeof Avatar> = {
 export default meta
 type Story = StoryObj<typeof Avatar>
 
-/** Default export. */
 export const Default: Story = {
   args: {
     src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
@@ -38,14 +37,12 @@ export const Default: Story = {
   },
 }
 
-/** WithFallback export. */
 export const WithFallback: Story = {
   args: {
     fallback: 'John Doe',
   },
 }
 
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
@@ -60,7 +57,6 @@ export const Sizes: Story = {
   ),
 }
 
-/** FallbackSizes export. */
 export const FallbackSizes: Story = {
   render: () => (
     <div className="flex items-end gap-4">
@@ -71,7 +67,6 @@ export const FallbackSizes: Story = {
   ),
 }
 
-/** Colors export. */
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -91,7 +86,6 @@ export const Colors: Story = {
   ),
 }
 
-/** Radius export. */
 export const Radius: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -107,7 +101,6 @@ export const Radius: Story = {
   ),
 }
 
-/** BrokenImage export. */
 export const BrokenImage: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -118,7 +111,6 @@ export const BrokenImage: Story = {
   ),
 }
 
-/** UserCard export. */
 export const UserCard: Story = {
   render: () => (
     <div className="flex items-center gap-3 p-4 border rounded-lg w-72">
@@ -134,7 +126,6 @@ export const UserCard: Story = {
   ),
 }
 
-/** CommentThread export. */
 export const CommentThread: Story = {
   render: () => (
     <div className="space-y-4 w-96">

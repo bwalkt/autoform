@@ -37,7 +37,6 @@ const skillOptions: MultiSelectOption[] = [
   { value: 'python', label: 'Python' },
 ]
 
-/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-80">
@@ -46,7 +45,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -56,7 +54,6 @@ export const WithLabel: Story = {
   ),
 }
 
-/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [selected, setSelected] = useState<string[]>(['apple', 'banana'])
@@ -75,7 +72,6 @@ export const Controlled: Story = {
   },
 }
 
-/** MaxSelected export. */
 export const MaxSelected: Story = {
   render: () => {
     const [selected, setSelected] = useState<string[]>([])
@@ -96,7 +92,6 @@ export const MaxSelected: Story = {
   },
 }
 
-/** WithIcons export. */
 export const WithIcons: Story = {
   render: () => {
     const iconOptions: MultiSelectOption[] = [
@@ -116,7 +111,6 @@ export const WithIcons: Story = {
   },
 }
 
-/** WithDisabledOptions export. */
 export const WithDisabledOptions: Story = {
   render: () => {
     const options: MultiSelectOption[] = [
@@ -136,7 +130,6 @@ export const WithDisabledOptions: Story = {
   },
 }
 
-/** NoBadges export. */
 export const NoBadges: Story = {
   render: () => {
     const [selected, setSelected] = useState<string[]>(['apple', 'banana'])
@@ -156,7 +149,6 @@ export const NoBadges: Story = {
   },
 }
 
-/** NotSearchable export. */
 export const NotSearchable: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -166,7 +158,6 @@ export const NotSearchable: Story = {
   ),
 }
 
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -180,7 +171,6 @@ export const Sizes: Story = {
   ),
 }
 
-/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -194,7 +184,6 @@ export const Variants: Story = {
   ),
 }
 
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -204,7 +193,6 @@ export const Disabled: Story = {
   ),
 }
 
-/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -215,7 +203,6 @@ export const WithError: Story = {
   ),
 }
 
-/** FormExample export. */
 export const FormExample: Story = {
   render: () => {
     const [skills, setSkills] = useState<string[]>([])

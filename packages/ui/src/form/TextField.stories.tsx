@@ -78,14 +78,12 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   args: {
     placeholder: 'Enter text...',
   },
 }
 
-/** WithFloatingLabel export. */
 export const WithFloatingLabel: Story = {
   name: 'With Floating Label',
   args: {
@@ -98,7 +96,6 @@ export const WithFloatingLabel: Story = {
 // Variants
 // ============================================================================
 
-/** VariantOutline export. */
 export const VariantOutline: Story = {
   args: {
     variant: 'outline',
@@ -106,7 +103,6 @@ export const VariantOutline: Story = {
   },
 }
 
-/** VariantSoft export. */
 export const VariantSoft: Story = {
   args: {
     variant: 'soft',
@@ -114,7 +110,6 @@ export const VariantSoft: Story = {
   },
 }
 
-/** VariantSolid export. */
 export const VariantSolid: Story = {
   args: {
     variant: 'solid',
@@ -122,7 +117,6 @@ export const VariantSolid: Story = {
   },
 }
 
-/** VariantGhost export. */
 export const VariantGhost: Story = {
   args: {
     variant: 'ghost',
@@ -130,7 +124,6 @@ export const VariantGhost: Story = {
   },
 }
 
-/** AllVariants export. */
 export const AllVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-md">
@@ -146,7 +139,6 @@ export const AllVariants: Story = {
 // Sizes
 // ============================================================================
 
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-md">
@@ -162,7 +154,6 @@ export const AllSizes: Story = {
 // Floating Label - Filled
 // ============================================================================
 
-/** FloatingFilled export. */
 export const FloatingFilled: Story = {
   args: {
     label: 'Email address',
@@ -170,7 +161,6 @@ export const FloatingFilled: Story = {
   },
 }
 
-/** FloatingFilledWithValue export. */
 export const FloatingFilledWithValue: Story = {
   args: {
     label: 'Email address',
@@ -183,7 +173,6 @@ export const FloatingFilledWithValue: Story = {
 // Floating Label - Outlined
 // ============================================================================
 
-/** FloatingOutlined export. */
 export const FloatingOutlined: Story = {
   args: {
     label: 'Email address',
@@ -191,7 +180,6 @@ export const FloatingOutlined: Story = {
   },
 }
 
-/** FloatingOutlinedWithValue export. */
 export const FloatingOutlinedWithValue: Story = {
   args: {
     label: 'Email address',
@@ -204,7 +192,6 @@ export const FloatingOutlinedWithValue: Story = {
 // Floating Label - Standard
 // ============================================================================
 
-/** FloatingStandard export. */
 export const FloatingStandard: Story = {
   args: {
     label: 'Email address',
@@ -212,7 +199,6 @@ export const FloatingStandard: Story = {
   },
 }
 
-/** FloatingStandardWithValue export. */
 export const FloatingStandardWithValue: Story = {
   args: {
     label: 'Email address',
@@ -225,7 +211,6 @@ export const FloatingStandardWithValue: Story = {
 // All Floating Label Variants
 // ============================================================================
 
-/** AllFloatingVariants export. */
 export const AllFloatingVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
@@ -240,7 +225,6 @@ export const AllFloatingVariants: Story = {
 // Floating Labels with Icons
 // ============================================================================
 
-/** FloatingWithIcons export. */
 export const FloatingWithIcons: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
@@ -255,7 +239,6 @@ export const FloatingWithIcons: Story = {
 // Floating Labels with Colors
 // ============================================================================
 
-/** FloatingWithColors export. */
 export const FloatingWithColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">
@@ -272,7 +255,6 @@ export const FloatingWithColors: Story = {
 // With Icons
 // ============================================================================
 
-/** WithLeftIcon export. */
 export const WithLeftIcon: Story = {
   args: {
     placeholder: 'Search...',
@@ -280,7 +262,6 @@ export const WithLeftIcon: Story = {
   },
 }
 
-/** WithRightIcon export. */
 export const WithRightIcon: Story = {
   args: {
     placeholder: 'Enter password',
@@ -289,7 +270,6 @@ export const WithRightIcon: Story = {
   },
 }
 
-/** WithBothIcons export. */
 export const WithBothIcons: Story = {
   args: {
     placeholder: 'Enter password',
@@ -302,7 +282,6 @@ export const WithBothIcons: Story = {
 // States
 // ============================================================================
 
-/** ErrorState export. */
 export const ErrorState: Story = {
   args: {
     placeholder: 'Invalid email',
@@ -311,7 +290,6 @@ export const ErrorState: Story = {
   },
 }
 
-/** DisabledState export. */
 export const DisabledState: Story = {
   args: {
     placeholder: 'Disabled field',
@@ -319,7 +297,6 @@ export const DisabledState: Story = {
   },
 }
 
-/** FloatingError export. */
 export const FloatingError: Story = {
   args: {
     label: 'Email address',
@@ -329,7 +306,6 @@ export const FloatingError: Story = {
   },
 }
 
-/** FloatingDisabled export. */
 export const FloatingDisabled: Story = {
   args: {
     label: 'Email address',
@@ -343,7 +319,6 @@ export const FloatingDisabled: Story = {
 // Real-world Examples
 // ============================================================================
 
-/** LoginForm export. */
 export const LoginForm: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-sm p-6 border rounded-lg">
@@ -354,7 +329,6 @@ export const LoginForm: Story = {
   ),
 }
 
-/** ContactForm export. */
 export const ContactForm: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-sm p-6 border rounded-lg">
@@ -366,7 +340,6 @@ export const ContactForm: Story = {
   ),
 }
 
-/** MinimalForm export. */
 export const MinimalForm: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-sm p-6">
@@ -382,7 +355,6 @@ export const MinimalForm: Story = {
 // Size and Floating Label Combinations
 // ============================================================================
 
-/** FloatingSizes export. */
 export const FloatingSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6 max-w-md">

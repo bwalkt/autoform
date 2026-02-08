@@ -46,7 +46,6 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   args: {
     size: '2',
@@ -69,7 +68,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithDescriptions export. */
 export const WithDescriptions: Story = {
   render: () => (
     <SwitchGroup.Root defaultValue={['marketing']}>
@@ -96,7 +94,6 @@ export const WithDescriptions: Story = {
 // Sizes
 // ============================================================================
 
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -118,7 +115,6 @@ export const AllSizes: Story = {
 // Variants
 // ============================================================================
 
-/** AllVariants export. */
 export const AllVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -139,7 +135,6 @@ export const AllVariants: Story = {
 // Colors
 // ============================================================================
 
-/** AllColors export. */
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6">
@@ -160,7 +155,6 @@ export const AllColors: Story = {
 // Orientation
 // ============================================================================
 
-/** Horizontal export. */
 export const Horizontal: Story = {
   render: () => (
     <SwitchGroup.Root orientation="horizontal" defaultValue={['wifi']}>
@@ -175,7 +169,6 @@ export const Horizontal: Story = {
 // Disabled States
 // ============================================================================
 
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-6">
@@ -204,7 +197,6 @@ export const Disabled: Story = {
 // Controlled Example
 // ============================================================================
 
-/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [values, setValues] = React.useState<string[]>(['darkMode'])
@@ -230,7 +222,6 @@ export const Controlled: Story = {
 // Real-world Example: Notification Settings
 // ============================================================================
 
-/** NotificationSettings export. */
 export const NotificationSettings: Story = {
   render: () => {
     const [settings, setSettings] = React.useState<string[]>(['push', 'email'])
@@ -267,7 +258,6 @@ export const NotificationSettings: Story = {
 // Real-world Example: Privacy Settings
 // ============================================================================
 
-/** PrivacySettings export. */
 export const PrivacySettings: Story = {
   render: () => {
     const [privacy, setPrivacy] = React.useState<string[]>(['analytics'])

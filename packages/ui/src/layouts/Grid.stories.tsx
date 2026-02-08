@@ -44,7 +44,6 @@ const DemoBox = ({ children }: { children: React.ReactNode }) => (
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   render: () => (
     <Grid columns="3" gap="4" className="w-[400px]">
@@ -62,7 +61,6 @@ export const Default: Story = {
 // Column Examples
 // ============================================================================
 
-/** ColumnVariants export. */
 export const ColumnVariants: Story = {
   render: () => (
     <div className="space-y-6 w-[500px]">
@@ -80,7 +78,6 @@ export const ColumnVariants: Story = {
   ),
 }
 
-/** CustomColumns export. */
 export const CustomColumns: Story = {
   render: () => (
     <div className="space-y-6 w-[500px]">
@@ -116,7 +113,6 @@ export const CustomColumns: Story = {
 // Row Examples
 // ============================================================================
 
-/** RowsAndColumns export. */
 export const RowsAndColumns: Story = {
   render: () => (
     <div className="space-y-6 w-[400px]">
@@ -139,7 +135,6 @@ export const RowsAndColumns: Story = {
 // Gap Examples
 // ============================================================================
 
-/** GapVariants export. */
 export const GapVariants: Story = {
   render: () => (
     <div className="space-y-6 w-[400px]">
@@ -157,7 +152,6 @@ export const GapVariants: Story = {
   ),
 }
 
-/** DirectionalGap export. */
 export const DirectionalGap: Story = {
   render: () => (
     <Grid columns="3" gapX="6" gapY="2" className="w-[400px]">
@@ -175,7 +169,6 @@ export const DirectionalGap: Story = {
 // Alignment Examples
 // ============================================================================
 
-/** AlignItems export. */
 export const AlignItems: Story = {
   render: () => (
     <div className="space-y-6 w-[400px]">
@@ -205,7 +198,6 @@ export const AlignItems: Story = {
 // Flow Examples
 // ============================================================================
 
-/** GridFlow export. */
 export const GridFlow: Story = {
   render: () => (
     <div className="space-y-6 w-[400px]">
@@ -251,7 +243,6 @@ export const GridFlow: Story = {
 // Responsive Examples
 // ============================================================================
 
-/** ResponsiveColumns export. */
 export const ResponsiveColumns: Story = {
   render: () => (
     <Grid columns={{ initial: '1', sm: '2', md: '3', lg: '4' }} gap="4" className="w-full max-w-[600px]">
@@ -271,7 +262,6 @@ export const ResponsiveColumns: Story = {
 // Common Patterns
 // ============================================================================
 
-/** CardGrid export. */
 export const CardGrid: Story = {
   render: () => (
     <Grid columns="repeat(auto-fill, minmax(200px, 1fr))" gap="4" className="w-[600px]">
@@ -286,7 +276,6 @@ export const CardGrid: Story = {
   ),
 }
 
-/** DashboardLayout export. */
 export const DashboardLayout: Story = {
   render: () => (
     <Grid columns="250px 1fr" rows="60px 1fr" gap="4" className="w-[800px] h-[400px]">

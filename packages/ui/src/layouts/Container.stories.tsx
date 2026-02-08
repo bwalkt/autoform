@@ -28,7 +28,6 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">
@@ -46,7 +45,6 @@ export const Default: Story = {
 // Size Variants
 // ============================================================================
 
-/** SizeVariants export. */
 export const SizeVariants: Story = {
   render: () => (
     <div className="bg-muted/30 py-8 space-y-8">
@@ -69,7 +67,6 @@ export const SizeVariants: Story = {
 // Alignment
 // ============================================================================
 
-/** Alignment export. */
 export const Alignment: Story = {
   render: () => (
     <div className="bg-muted/30 py-8 space-y-8">
@@ -87,7 +84,6 @@ export const Alignment: Story = {
 // Responsive Size
 // ============================================================================
 
-/** ResponsiveSize export. */
 export const ResponsiveSize: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">
@@ -109,7 +105,6 @@ export const ResponsiveSize: Story = {
 // With Content
 // ============================================================================
 
-/** ArticleLayout export. */
 export const ArticleLayout: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">
@@ -140,7 +135,6 @@ export const ArticleLayout: Story = {
   ),
 }
 
-/** PageLayout export. */
 export const PageLayout: Story = {
   render: () => (
     <div className="min-h-screen bg-muted/30">
@@ -194,7 +188,6 @@ export const PageLayout: Story = {
 // Nested Containers
 // ============================================================================
 
-/** NestedContainers export. */
 export const NestedContainers: Story = {
   render: () => (
     <div className="bg-muted/30 py-8">

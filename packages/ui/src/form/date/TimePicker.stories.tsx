@@ -15,7 +15,6 @@ export default meta
 type Story = StoryObj<typeof TimePicker>
 
 // Default TimePicker
-/** Default export. */
 export const Default: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>()
@@ -28,7 +27,6 @@ export const Default: Story = {
 }
 
 // With preselected time
-/** WithValue export. */
 export const WithValue: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>({
@@ -44,7 +42,6 @@ export const WithValue: Story = {
 }
 
 // With seconds
-/** WithSeconds export. */
 export const WithSeconds: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>({
@@ -61,7 +58,6 @@ export const WithSeconds: Story = {
 }
 
 // 12-hour format with AM/PM
-/** TwelveHourFormat export. */
 export const TwelveHourFormat: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>({
@@ -77,7 +73,6 @@ export const TwelveHourFormat: Story = {
 }
 
 // 12-hour format with seconds
-/** TwelveHourWithSeconds export. */
 export const TwelveHourWithSeconds: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>({
@@ -94,7 +89,6 @@ export const TwelveHourWithSeconds: Story = {
 }
 
 // With minute step
-/** WithMinuteStep export. */
 export const WithMinuteStep: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>()
@@ -107,7 +101,6 @@ export const WithMinuteStep: Story = {
 }
 
 // Disabled state
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     return (
@@ -119,7 +112,6 @@ export const Disabled: Story = {
 }
 
 // Different sizes
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => {
     const [time1, setTime1] = React.useState<TimeValue | undefined>()
@@ -139,7 +131,6 @@ export const Sizes: Story = {
 }
 
 // With FieldGroup context
-/** WithFieldGroup export. */
 export const WithFieldGroup: Story = {
   render: () => {
     const [time, setTime] = React.useState<TimeValue | undefined>()
@@ -152,7 +143,6 @@ export const WithFieldGroup: Story = {
 }
 
 // Morning/Afternoon comparison
-/** MorningAfternoon export. */
 export const MorningAfternoon: Story = {
   render: () => {
     const [morning, setMorning] = React.useState<TimeValue | undefined>({
@@ -184,7 +174,6 @@ export const MorningAfternoon: Story = {
 }
 
 // Different variants
-/** Variants export. */
 export const Variants: Story = {
   render: () => {
     const [time1, setTime1] = React.useState<TimeValue | undefined>({ hours: 9, minutes: 0 })
@@ -226,7 +215,6 @@ export const Variants: Story = {
 }
 
 // Different colors
-/** Colors export. */
 export const Colors: Story = {
   render: () => {
     const [time1, setTime1] = React.useState<TimeValue | undefined>({ hours: 9, minutes: 0 })
@@ -263,7 +251,6 @@ export const Colors: Story = {
 }
 
 // Soft variant with colors
-/** SoftColors export. */
 export const SoftColors: Story = {
   render: () => {
     const [time1, setTime1] = React.useState<TimeValue | undefined>({ hours: 9, minutes: 0 })

@@ -13,7 +13,6 @@ export default meta
 type Story = StoryObj
 
 // Em (Emphasis/Italic)
-/** Emphasis export. */
 export const Emphasis: Story = {
   name: 'Em (Emphasis)',
   render: () => (
@@ -32,7 +31,6 @@ export const Emphasis: Story = {
 }
 
 // Strong (Bold)
-/** Bold export. */
 export const Bold: Story = {
   name: 'Strong (Bold)',
   render: () => (
@@ -51,7 +49,6 @@ export const Bold: Story = {
 }
 
 // Combined Usage
-/** CombinedUsage export. */
 export const CombinedUsage: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 max-w-lg">
@@ -78,7 +75,6 @@ export const CombinedUsage: Story = {
 }
 
 // In Different Text Sizes
-/** InDifferentSizes export. */
 export const InDifferentSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-3">

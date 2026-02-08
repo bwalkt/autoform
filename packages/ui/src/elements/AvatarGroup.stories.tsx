@@ -25,7 +25,6 @@ const meta: Meta<typeof AvatarGroup> = {
 export default meta
 type Story = StoryObj<typeof AvatarGroup>
 
-/** Stack export. */
 export const Stack: Story = {
   render: () => (
     <AvatarGroup layout="stack">
@@ -38,7 +37,6 @@ export const Stack: Story = {
   ),
 }
 
-/** Spread export. */
 export const Spread: Story = {
   render: () => (
     <AvatarGroup layout="spread">
@@ -51,7 +49,6 @@ export const Spread: Story = {
   ),
 }
 
-/** Layouts export. */
 export const Layouts: Story = {
   render: () => (
     <div className="space-y-6">
@@ -77,7 +74,6 @@ export const Layouts: Story = {
   ),
 }
 
-/** WithMax export. */
 export const WithMax: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
@@ -120,7 +116,6 @@ export const WithMax: Story = {
   ),
 }
 
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-8">

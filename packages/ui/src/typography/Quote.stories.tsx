@@ -25,7 +25,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // Default
-/** Default export. */
 export const Default: Story = {
   args: {
     children: 'Styles come and go. Good design is a language, not a style.',
@@ -33,7 +32,6 @@ export const Default: Story = {
 }
 
 // Inline Usage
-/** InlineUsage export. */
 export const InlineUsage: Story = {
   render: () => (
     <Text size="3">
@@ -44,7 +42,6 @@ export const InlineUsage: Story = {
 }
 
 // Multiple Quotes
-/** MultipleQuotes export. */
 export const MultipleQuotes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -62,7 +59,6 @@ export const MultipleQuotes: Story = {
 }
 
 // Truncation
-/** Truncation export. */
 export const Truncation: Story = {
   render: () => (
     <Box className="max-w-xs">

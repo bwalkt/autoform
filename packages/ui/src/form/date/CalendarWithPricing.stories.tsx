@@ -50,7 +50,6 @@ const generatePrices = (basePrice: number = 100, seed: number = 42): DayPrice[] 
 }
 
 // Default CalendarWithPricing
-/** Default export. */
 export const Default: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -68,7 +67,6 @@ export const Default: Story = {
 }
 
 // Flight booking scenario
-/** FlightPricing export. */
 export const FlightPricing: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -117,7 +115,6 @@ export const FlightPricing: Story = {
 }
 
 // Hotel booking scenario
-/** HotelPricing export. */
 export const HotelPricing: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -155,7 +152,6 @@ export const HotelPricing: Story = {
 }
 
 // With some unavailable dates
-/** WithUnavailableDates export. */
 export const WithUnavailableDates: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -186,7 +182,6 @@ export const WithUnavailableDates: Story = {
 }
 
 // Different currency
-/** EuroCurrency export. */
 export const EuroCurrency: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -201,7 +196,6 @@ export const EuroCurrency: Story = {
 }
 
 // Custom price formatter
-/** CustomPriceFormat export. */
 export const CustomPriceFormat: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -222,7 +216,6 @@ export const CustomPriceFormat: Story = {
 }
 
 // With min/max date
-/** WithMinMaxDate export. */
 export const WithMinMaxDate: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -244,7 +237,6 @@ export const WithMinMaxDate: Story = {
 }
 
 // Week starts Monday
-/** WeekStartsMonday export. */
 export const WeekStartsMonday: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>()
@@ -259,7 +251,6 @@ export const WeekStartsMonday: Story = {
 }
 
 // Disabled state
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     const prices = React.useMemo(() => generatePrices(100), [])
@@ -274,7 +265,6 @@ export const Disabled: Story = {
 }
 
 // With preselected date
-/** WithPreselectedDate export. */
 export const WithPreselectedDate: Story = {
   render: () => {
     const today = new Date()

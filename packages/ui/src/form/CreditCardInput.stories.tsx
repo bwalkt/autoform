@@ -33,7 +33,6 @@ const meta: Meta<typeof CreditCardInput> = {
 export default meta
 type Story = StoryObj<typeof CreditCardInput>
 
-/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-80">
@@ -42,7 +41,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -52,7 +50,6 @@ export const WithLabel: Story = {
   ),
 }
 
-/** WithCardholderName export. */
 export const WithCardholderName: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -62,7 +59,6 @@ export const WithCardholderName: Story = {
   ),
 }
 
-/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [card, setCard] = useState<CreditCardValue>({
@@ -106,7 +102,6 @@ export const Controlled: Story = {
   },
 }
 
-/** CardTypeDetection export. */
 export const CardTypeDetection: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -130,7 +125,6 @@ export const CardTypeDetection: Story = {
   ),
 }
 
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -144,7 +138,6 @@ export const Sizes: Story = {
   ),
 }
 
-/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-6">
@@ -158,7 +151,6 @@ export const Variants: Story = {
   ),
 }
 
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -179,7 +171,6 @@ export const Disabled: Story = {
   ),
 }
 
-/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -190,7 +181,6 @@ export const WithError: Story = {
   ),
 }
 
-/** CustomPlaceholders export. */
 export const CustomPlaceholders: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -206,7 +196,6 @@ export const CustomPlaceholders: Story = {
   ),
 }
 
-/** CheckoutForm export. */
 export const CheckoutForm: Story = {
   render: () => {
     const [card, setCard] = useState<CreditCardValue>({
@@ -267,7 +256,6 @@ export const CheckoutForm: Story = {
   },
 }
 
-/** ValidationExample export. */
 export const ValidationExample: Story = {
   render: () => {
     const [card, setCard] = useState<CreditCardValue>({

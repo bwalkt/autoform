@@ -11,7 +11,6 @@ const meta: Meta = {
 
 export default meta
 
-/** Default export. */
 export const Default: StoryObj = {
   render: () => (
     <Dialog.Root>
@@ -47,7 +46,6 @@ export const Default: StoryObj = {
   ),
 }
 
-/** Sizes export. */
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -77,7 +75,6 @@ export const Sizes: StoryObj = {
   ),
 }
 
-/** WithForm export. */
 export const WithForm: StoryObj = {
   render: () => (
     <Dialog.Root>
@@ -123,7 +120,6 @@ export const WithForm: StoryObj = {
   ),
 }
 
-/** ScrollableContent export. */
 export const ScrollableContent: StoryObj = {
   render: () => (
     <Dialog.Root>

@@ -34,7 +34,6 @@ const channels: MentionItem[] = [
   { id: '5', label: 'feedback', value: 'feedback' },
 ]
 
-/** Default export. */
 export const Default: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -55,7 +54,6 @@ export const Default: Story = {
   },
 }
 
-/** WithCallback export. */
 export const WithCallback: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -78,7 +76,6 @@ export const WithCallback: Story = {
   },
 }
 
-/** CustomTrigger export. */
 export const CustomTrigger: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -100,7 +97,6 @@ export const CustomTrigger: Story = {
   },
 }
 
-/** WithIcons export. */
 export const WithIcons: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -129,7 +125,6 @@ export const WithIcons: Story = {
   },
 }
 
-/** WithAutoSize export. */
 export const WithAutoSize: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -152,7 +147,6 @@ export const WithAutoSize: Story = {
   },
 }
 
-/** WithFloatingLabel export. */
 export const WithFloatingLabel: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -171,7 +165,6 @@ export const WithFloatingLabel: Story = {
   },
 }
 
-/** DisabledItems export. */
 export const DisabledItems: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -197,7 +190,6 @@ export const DisabledItems: Story = {
   },
 }
 
-/** CustomRenderer export. */
 export const CustomRenderer: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -240,7 +232,6 @@ export const CustomRenderer: Story = {
   },
 }
 
-/** ChatExample export. */
 export const ChatExample: Story = {
   render: () => {
     const [messages, setMessages] = React.useState<string[]>(['Hey everyone!', '@john mentioned you in a comment'])
@@ -295,7 +286,6 @@ export const ChatExample: Story = {
   },
 }
 
-/** MultiTrigger export. */
 export const MultiTrigger: Story = {
   render: () => {
     const [userValue, setUserValue] = React.useState('')
@@ -330,7 +320,6 @@ export const MultiTrigger: Story = {
   },
 }
 
-/** HighlightColors export. */
 export const HighlightColors: Story = {
   render: () => {
     const [values, setValues] = React.useState<Record<string, string>>({})
@@ -356,7 +345,6 @@ export const HighlightColors: Story = {
   },
 }
 
-/** MultipleTriggersSameTextarea export. */
 export const MultipleTriggersSameTextarea: Story = {
   render: () => {
     const [value, setValue] = React.useState('')
@@ -383,7 +371,6 @@ export const MultipleTriggersSameTextarea: Story = {
   },
 }
 
-/** SlackStyleInput export. */
 export const SlackStyleInput: Story = {
   render: () => {
     const [value, setValue] = React.useState('')

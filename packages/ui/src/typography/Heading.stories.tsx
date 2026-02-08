@@ -54,7 +54,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // Default
-/** Default export. */
 export const Default: Story = {
   args: {
     children: 'The quick brown fox',
@@ -65,7 +64,6 @@ export const Default: Story = {
 }
 
 // All Sizes
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">
@@ -83,7 +81,6 @@ export const AllSizes: Story = {
 }
 
 // All Weights
-/** AllWeights export. */
 export const AllWeights: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-2">
@@ -104,7 +101,6 @@ export const AllWeights: Story = {
 }
 
 // All Colors
-/** AllColors export. */
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-2">
@@ -134,7 +130,6 @@ export const AllColors: Story = {
 }
 
 // Semantic HTML Elements
-/** SemanticElements export. */
 export const SemanticElements: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-2">
@@ -161,7 +156,6 @@ export const SemanticElements: Story = {
 }
 
 // With Margin
-/** WithMargin export. */
 export const WithMargin: Story = {
   render: () => (
     <Box className="bg-gray-100 p-4">
@@ -176,7 +170,6 @@ export const WithMargin: Story = {
 }
 
 // Alignment
-/** Alignment export. */
 export const Alignment: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4 w-full">

@@ -14,7 +14,6 @@ const meta: Meta<typeof SignatureInput> = {
 export default meta
 type Story = StoryObj<typeof SignatureInput>
 
-/** Default export. */
 export const Default: Story = {
   render: args => (
     <div>
@@ -23,7 +22,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="space-y-2">
@@ -33,7 +31,6 @@ export const WithLabel: Story = {
   ),
 }
 
-/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [signature, setSignature] = useState<string | undefined>()
@@ -58,7 +55,6 @@ export const Controlled: Story = {
   },
 }
 
-/** CustomSize export. */
 export const CustomSize: Story = {
   render: () => (
     <div className="space-y-6">
@@ -74,7 +70,6 @@ export const CustomSize: Story = {
   ),
 }
 
-/** CustomColors export. */
 export const CustomColors: Story = {
   render: () => (
     <div className="space-y-6">
@@ -94,7 +89,6 @@ export const CustomColors: Story = {
   ),
 }
 
-/** CustomStrokeWidth export. */
 export const CustomStrokeWidth: Story = {
   render: () => (
     <div className="space-y-6">
@@ -114,7 +108,6 @@ export const CustomStrokeWidth: Story = {
   ),
 }
 
-/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="space-y-6">
@@ -128,7 +121,6 @@ export const Variants: Story = {
   ),
 }
 
-/** CustomPlaceholder export. */
 export const CustomPlaceholder: Story = {
   render: () => (
     <div className="space-y-2">
@@ -138,7 +130,6 @@ export const CustomPlaceholder: Story = {
   ),
 }
 
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-2">
@@ -148,7 +139,6 @@ export const Disabled: Story = {
   ),
 }
 
-/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="space-y-2">
@@ -159,7 +149,6 @@ export const WithError: Story = {
   ),
 }
 
-/** ContractForm export. */
 export const ContractForm: Story = {
   render: () => {
     const [agreed, setAgreed] = useState(false)

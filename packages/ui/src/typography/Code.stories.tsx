@@ -35,7 +35,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // Default
-/** Default export. */
 export const Default: Story = {
   args: {
     children: 'npm install @bwalkt/ui',
@@ -44,7 +43,6 @@ export const Default: Story = {
 }
 
 // All Variants
-/** AllVariants export. */
 export const AllVariants: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-3">
@@ -57,7 +55,6 @@ export const AllVariants: Story = {
 }
 
 // All Colors (Soft Variant)
-/** AllColors export. */
 export const AllColors: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-3">
@@ -71,7 +68,6 @@ export const AllColors: Story = {
 }
 
 // All Sizes
-/** AllSizes export. */
 export const AllSizes: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-3">
@@ -85,7 +81,6 @@ export const AllSizes: Story = {
 }
 
 // Inline Code
-/** InlineCode export. */
 export const InlineCode: Story = {
   render: () => (
     <Text size="3">
@@ -96,7 +91,6 @@ export const InlineCode: Story = {
 }
 
 // Real World Examples
-/** RealWorldExamples export. */
 export const RealWorldExamples: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-4">

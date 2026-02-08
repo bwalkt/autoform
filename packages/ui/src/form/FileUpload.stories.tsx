@@ -53,7 +53,6 @@ const simulateUploadWithError = async (file: File, onProgress: (progress: number
 }
 
 // Default dropzone
-/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-[400px]">
@@ -63,7 +62,6 @@ export const Default: Story = {
 }
 
 // With label
-/** WithLabel export. */
 export const WithLabel: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -74,7 +72,6 @@ export const WithLabel: Story = {
 }
 
 // Single file
-/** SingleFile export. */
 export const SingleFile: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -91,7 +88,6 @@ export const SingleFile: Story = {
 }
 
 // Images only
-/** ImagesOnly export. */
 export const ImagesOnly: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -107,7 +103,6 @@ export const ImagesOnly: Story = {
 }
 
 // Documents only
-/** DocumentsOnly export. */
 export const DocumentsOnly: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -122,7 +117,6 @@ export const DocumentsOnly: Story = {
 }
 
 // Spreadsheets
-/** Spreadsheets export. */
 export const Spreadsheets: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -138,7 +132,6 @@ export const Spreadsheets: Story = {
 }
 
 // Variants
-/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-[400px] space-y-8">
@@ -159,7 +152,6 @@ export const Variants: Story = {
 }
 
 // With simulated upload
-/** WithUploadProgress export. */
 export const WithUploadProgress: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadedFile[]>([])
@@ -175,7 +167,6 @@ export const WithUploadProgress: Story = {
 }
 
 // With upload errors
-/** WithUploadErrors export. */
 export const WithUploadErrors: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadedFile[]>([])
@@ -191,7 +182,6 @@ export const WithUploadErrors: Story = {
 }
 
 // Controlled state
-/** Controlled export. */
 export const Controlled: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadedFile[]>([])
@@ -229,7 +219,6 @@ export const Controlled: Story = {
 }
 
 // Disabled
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -240,7 +229,6 @@ export const Disabled: Story = {
 }
 
 // Max files reached
-/** MaxFilesReached export. */
 export const MaxFilesReached: Story = {
   render: () => {
     const initialFiles: UploadedFile[] = [
@@ -277,7 +265,6 @@ export const MaxFilesReached: Story = {
 }
 
 // Without file list
-/** WithoutFileList export. */
 export const WithoutFileList: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadedFile[]>([])
@@ -295,7 +282,6 @@ export const WithoutFileList: Story = {
 }
 
 // Large file size
-/** LargeFileSize export. */
 export const LargeFileSize: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -306,7 +292,6 @@ export const LargeFileSize: Story = {
 }
 
 // Custom placeholder
-/** CustomPlaceholder export. */
 export const CustomPlaceholder: Story = {
   render: () => (
     <div className="w-[400px] space-y-2">
@@ -322,7 +307,6 @@ export const CustomPlaceholder: Story = {
 }
 
 // Form example
-/** FormExample export. */
 export const FormExample: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadedFile[]>([])
@@ -376,7 +360,6 @@ export const FormExample: Story = {
 }
 
 // With status sections
-/** WithStatusSections export. */
 export const WithStatusSections: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadedFile[]>([])
@@ -392,7 +375,6 @@ export const WithStatusSections: Story = {
 }
 
 // Status sections with mixed states
-/** StatusSectionsMixed export. */
 export const StatusSectionsMixed: Story = {
   render: () => {
     const initialFiles: UploadedFile[] = [
@@ -441,7 +423,6 @@ export const StatusSectionsMixed: Story = {
 }
 
 // All accept presets
-/** AcceptPresetsShowcase export. */
 export const AcceptPresetsShowcase: Story = {
   render: () => (
     <div className="w-[400px] space-y-6">

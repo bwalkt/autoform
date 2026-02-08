@@ -15,7 +15,6 @@ export default meta
 type Story = StoryObj<typeof DateTimePicker>
 
 // Default DateTimePicker
-/** Default export. */
 export const Default: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>()
@@ -28,7 +27,6 @@ export const Default: Story = {
 }
 
 // With preselected date and time
-/** WithValue export. */
 export const WithValue: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date())
@@ -41,7 +39,6 @@ export const WithValue: Story = {
 }
 
 // With seconds
-/** WithSeconds export. */
 export const WithSeconds: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date())
@@ -54,7 +51,6 @@ export const WithSeconds: Story = {
 }
 
 // Custom date format
-/** CustomFormat export. */
 export const CustomFormat: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>(new Date())
@@ -72,7 +68,6 @@ export const CustomFormat: Story = {
 }
 
 // With min/max dates
-/** WithMinMaxDates export. */
 export const WithMinMaxDates: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>()
@@ -95,7 +90,6 @@ export const WithMinMaxDates: Story = {
 }
 
 // With minute step
-/** WithMinuteStep export. */
 export const WithMinuteStep: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>()
@@ -108,7 +102,6 @@ export const WithMinuteStep: Story = {
 }
 
 // Disabled state
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => {
     return (
@@ -120,7 +113,6 @@ export const Disabled: Story = {
 }
 
 // Different sizes
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => {
     const [dt1, setDt1] = React.useState<Date | undefined>()
@@ -140,7 +132,6 @@ export const Sizes: Story = {
 }
 
 // With FieldGroup context
-/** WithFieldGroup export. */
 export const WithFieldGroup: Story = {
   render: () => {
     const [dateTime, setDateTime] = React.useState<Date | undefined>()
@@ -153,7 +144,6 @@ export const WithFieldGroup: Story = {
 }
 
 // Complete form example
-/** InForm export. */
 export const InForm: Story = {
   render: () => {
     const [appointmentDate, setAppointmentDate] = React.useState<Date | undefined>()

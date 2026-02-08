@@ -17,7 +17,6 @@ export default meta
 type Story = StoryObj<typeof Calendar>
 
 // Single date selection
-/** Single export. */
 export const Single: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -26,7 +25,6 @@ export const Single: Story = {
 }
 
 // Multiple date selection
-/** Multiple export. */
 export const Multiple: Story = {
   render: () => {
     const [dates, setDates] = React.useState<Date[] | undefined>([])
@@ -35,7 +33,6 @@ export const Multiple: Story = {
 }
 
 // Date range selection
-/** Range export. */
 export const Range: Story = {
   render: () => {
     const [range, setRange] = React.useState<DateRange | undefined>({
@@ -49,7 +46,6 @@ export const Range: Story = {
 }
 
 // With min/max dates
-/** WithMinMaxDates export. */
 export const WithMinMaxDates: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -70,7 +66,6 @@ export const WithMinMaxDates: Story = {
 }
 
 // Hide outside days
-/** HideOutsideDays export. */
 export const HideOutsideDays: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())

@@ -25,7 +25,6 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   render: () => (
     <Section className="bg-muted/30">
@@ -41,7 +40,6 @@ export const Default: Story = {
 // Size Variants
 // ============================================================================
 
-/** SizeVariants export. */
 export const SizeVariants: Story = {
   render: () => (
     <div>
@@ -66,7 +64,6 @@ export const SizeVariants: Story = {
 // Landing Page Example
 // ============================================================================
 
-/** LandingPage export. */
 export const LandingPage: Story = {
   render: () => (
     <div>
@@ -165,7 +162,6 @@ export const LandingPage: Story = {
 // Alternating Backgrounds
 // ============================================================================
 
-/** AlternatingBackgrounds export. */
 export const AlternatingBackgrounds: Story = {
   render: () => (
     <div>
@@ -204,7 +200,6 @@ export const AlternatingBackgrounds: Story = {
 // Responsive Size
 // ============================================================================
 
-/** ResponsiveSize export. */
 export const ResponsiveSize: Story = {
   render: () => (
     <Section size={{ initial: '1', sm: '2', md: '3', lg: '4' }} className="bg-muted/30">
@@ -226,7 +221,6 @@ export const ResponsiveSize: Story = {
 // With Custom Padding Override
 // ============================================================================
 
-/** CustomPaddingOverride export. */
 export const CustomPaddingOverride: Story = {
   render: () => (
     <div>

@@ -70,7 +70,6 @@ type Story = StoryObj<typeof meta>
 // Basic Examples
 // ============================================================================
 
-/** Default export. */
 export const Default: Story = {
   args: {
     size: '2',
@@ -85,7 +84,6 @@ export const Default: Story = {
   ),
 }
 
-/** WithFloatingLabels export. */
 export const WithFloatingLabels: Story = {
   args: {
     size: '2',
@@ -104,7 +102,6 @@ export const WithFloatingLabels: Story = {
 // Size Variations
 // ============================================================================
 
-/** SmallSize export. */
 export const SmallSize: Story = {
   args: {
     size: '1',
@@ -118,7 +115,6 @@ export const SmallSize: Story = {
   ),
 }
 
-/** LargeSize export. */
 export const LargeSize: Story = {
   args: {
     size: '4',
@@ -136,7 +132,6 @@ export const LargeSize: Story = {
 // Variant Variations
 // ============================================================================
 
-/** SolidVariant export. */
 export const SolidVariant: Story = {
   args: {
     size: '2',
@@ -151,7 +146,6 @@ export const SolidVariant: Story = {
   ),
 }
 
-/** SoftVariant export. */
 export const SoftVariant: Story = {
   args: {
     size: '2',
@@ -166,7 +160,6 @@ export const SoftVariant: Story = {
   ),
 }
 
-/** FloatingFilledVariant export. */
 export const FloatingFilledVariant: Story = {
   args: {
     size: '2',
@@ -181,7 +174,6 @@ export const FloatingFilledVariant: Story = {
   ),
 }
 
-/** FloatingStandardVariant export. */
 export const FloatingStandardVariant: Story = {
   args: {
     size: '2',
@@ -200,7 +192,6 @@ export const FloatingStandardVariant: Story = {
 // Gap Variations
 // ============================================================================
 
-/** TightGap export. */
 export const TightGap: Story = {
   args: {
     size: '2',
@@ -216,7 +207,6 @@ export const TightGap: Story = {
   ),
 }
 
-/** LooseGap export. */
 export const LooseGap: Story = {
   args: {
     size: '2',
@@ -236,7 +226,6 @@ export const LooseGap: Story = {
 // With Icons
 // ============================================================================
 
-/** WithIcons export. */
 export const WithIcons: Story = {
   args: {
     size: '2',
@@ -251,7 +240,6 @@ export const WithIcons: Story = {
   ),
 }
 
-/** FloatingWithIcons export. */
 export const FloatingWithIcons: Story = {
   args: {
     size: '2',
@@ -270,7 +258,6 @@ export const FloatingWithIcons: Story = {
 // Individual Field Overrides
 // ============================================================================
 
-/** IndividualOverrides export. */
 export const IndividualOverrides: Story = {
   args: {
     size: '2',
@@ -290,7 +277,6 @@ export const IndividualOverrides: Story = {
 // Real-world Examples
 // ============================================================================
 
-/** LoginForm export. */
 export const LoginForm: Story = {
   args: {
     size: '3',
@@ -308,7 +294,6 @@ export const LoginForm: Story = {
   ),
 }
 
-/** ContactForm export. */
 export const ContactForm: Story = {
   args: {
     size: '2',
@@ -327,7 +312,6 @@ export const ContactForm: Story = {
   ),
 }
 
-/** MinimalForm export. */
 export const MinimalForm: Story = {
   args: {
     size: '2',
@@ -350,7 +334,6 @@ export const MinimalForm: Story = {
 // All Sizes Comparison
 // ============================================================================
 
-/** AllSizesComparison export. */
 export const AllSizesComparison: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -390,7 +373,6 @@ export const AllSizesComparison: Story = {
 // All Variants Comparison
 // ============================================================================
 
-/** AllVariantsComparison export. */
 export const AllVariantsComparison: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-8">
@@ -444,7 +426,6 @@ export const AllVariantsComparison: Story = {
 // Layout Modes
 // ============================================================================
 
-/** StackedLayout export. */
 export const StackedLayout: Story = {
   args: {
     size: '2',
@@ -460,7 +441,6 @@ export const StackedLayout: Story = {
   ),
 }
 
-/** InlineLayout export. */
 export const InlineLayout: Story = {
   args: {
     size: '2',
@@ -477,7 +457,6 @@ export const InlineLayout: Story = {
   ),
 }
 
-/** GridLayout export. */
 export const GridLayout: Story = {
   args: {
     size: '2',
@@ -502,7 +481,6 @@ export const GridLayout: Story = {
  * Columns can be a single value or a responsive object with breakpoints.
  * Resize the browser window to see the columns change.
  */
-/** GridLayoutResponsive export. */
 export const GridLayoutResponsive: Story = {
   args: {
     size: '2',
@@ -525,7 +503,6 @@ export const GridLayoutResponsive: Story = {
   ),
 }
 
-/** SideLabelsLayout export. */
 export const SideLabelsLayout: Story = {
   args: {
     size: '2',
@@ -551,7 +528,6 @@ export const SideLabelsLayout: Story = {
   ),
 }
 
-/** SectionedLayout export. */
 export const SectionedLayout: Story = {
   args: {
     size: '2',
@@ -580,7 +556,6 @@ export const SectionedLayout: Story = {
 // Layout Comparison
 // ============================================================================
 
-/** AllLayoutsComparison export. */
 export const AllLayoutsComparison: Story = {
   render: () => (
     <Box display="flex" className="flex-col gap-12">
@@ -639,7 +614,6 @@ export const AllLayoutsComparison: Story = {
 // Real-world Form Examples
 // ============================================================================
 
-/** CheckoutForm export. */
 export const CheckoutForm: Story = {
   render: () => (
     <Box className="max-w-2xl p-6 border rounded-lg">
@@ -671,7 +645,6 @@ export const CheckoutForm: Story = {
  * Note: This story uses FieldGroup.Row which only works with side-labels layout.
  * For other layouts, see the dedicated layout stories (StackedLayout, InlineLayout, etc.)
  */
-/** SettingsForm export. */
 export const SettingsForm: Story = {
   args: {
     size: '2',

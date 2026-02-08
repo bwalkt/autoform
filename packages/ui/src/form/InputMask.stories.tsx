@@ -35,7 +35,6 @@ export default meta
 type Story = StoryObj<typeof InputMask>
 
 // Basic phone mask
-/** Default export. */
 export const Default: Story = {
   render: args => (
     <div className="w-80">
@@ -45,7 +44,6 @@ export const Default: Story = {
 }
 
 // Phone number with icon
-/** PhoneNumber export. */
 export const PhoneNumber: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -56,7 +54,6 @@ export const PhoneNumber: Story = {
 }
 
 // International phone
-/** InternationalPhone export. */
 export const InternationalPhone: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -67,7 +64,6 @@ export const InternationalPhone: Story = {
 }
 
 // Date input
-/** DateInput export. */
 export const DateInput: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -78,7 +74,6 @@ export const DateInput: Story = {
 }
 
 // ISO Date
-/** ISODate export. */
 export const ISODate: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -89,7 +84,6 @@ export const ISODate: Story = {
 }
 
 // Time input
-/** TimeInput export. */
 export const TimeInput: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -100,7 +94,6 @@ export const TimeInput: Story = {
 }
 
 // Credit card
-/** CreditCardInput export. */
 export const CreditCardInput: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -111,7 +104,6 @@ export const CreditCardInput: Story = {
 }
 
 // Card expiry
-/** CardExpiry export. */
 export const CardExpiry: Story = {
   render: () => (
     <div className="w-40 space-y-2">
@@ -122,7 +114,6 @@ export const CardExpiry: Story = {
 }
 
 // CVV
-/** CVV export. */
 export const CVV: Story = {
   render: () => (
     <div className="w-24 space-y-2">
@@ -133,7 +124,6 @@ export const CVV: Story = {
 }
 
 // SSN
-/** SSN export. */
 export const SSN: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -144,7 +134,6 @@ export const SSN: Story = {
 }
 
 // ZIP Code
-/** ZipCode export. */
 export const ZipCode: Story = {
   render: () => (
     <div className="w-40 space-y-2">
@@ -155,7 +144,6 @@ export const ZipCode: Story = {
 }
 
 // ZIP+4
-/** ZipPlus4 export. */
 export const ZipPlus4: Story = {
   render: () => (
     <div className="w-48 space-y-2">
@@ -166,7 +154,6 @@ export const ZipPlus4: Story = {
 }
 
 // IP Address
-/** IPAddress export. */
 export const IPAddress: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -177,7 +164,6 @@ export const IPAddress: Story = {
 }
 
 // Custom mask
-/** CustomMask export. */
 export const CustomMask: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -189,7 +175,6 @@ export const CustomMask: Story = {
 }
 
 // Sizes
-/** Sizes export. */
 export const Sizes: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -204,7 +189,6 @@ export const Sizes: Story = {
 }
 
 // Variants
-/** Variants export. */
 export const Variants: Story = {
   render: () => (
     <div className="w-80 space-y-4">
@@ -219,7 +203,6 @@ export const Variants: Story = {
 }
 
 // With error
-/** WithError export. */
 export const WithError: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -231,7 +214,6 @@ export const WithError: Story = {
 }
 
 // Disabled
-/** Disabled export. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-80 space-y-2">
@@ -242,7 +224,6 @@ export const Disabled: Story = {
 }
 
 // Payment form example
-/** PaymentForm export. */
 export const PaymentForm: Story = {
   render: () => (
     <div className="w-96 space-y-4 p-6 border rounded-lg">
@@ -292,7 +273,6 @@ const presetPlaceholders: Record<string, string> = {
 }
 
 // All presets showcase
-/** AllPresets export. */
 export const AllPresets: Story = {
   render: () => (
     <div className="w-96 space-y-4">

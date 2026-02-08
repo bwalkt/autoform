@@ -10,7 +10,6 @@ const meta: Meta = {
 
 export default meta
 
-/** Default export. */
 export const Default: StoryObj = {
   render: () => (
     <AlertDialog.Root>
@@ -33,7 +32,6 @@ export const Default: StoryObj = {
   ),
 }
 
-/** Sizes export. */
 export const Sizes: StoryObj = {
   render: () => (
     <div className="flex gap-4">
@@ -56,7 +54,6 @@ export const Sizes: StoryObj = {
   ),
 }
 
-/** DeleteConfirmation export. */
 export const DeleteConfirmation: StoryObj = {
   render: () => (
     <AlertDialog.Root>
@@ -81,7 +78,6 @@ export const DeleteConfirmation: StoryObj = {
   ),
 }
 
-/** UnsavedChanges export. */
 export const UnsavedChanges: StoryObj = {
   render: () => (
     <AlertDialog.Root>
@@ -102,7 +98,6 @@ export const UnsavedChanges: StoryObj = {
   ),
 }
 
-/** LogoutConfirmation export. */
 export const LogoutConfirmation: StoryObj = {
   render: () => (
     <AlertDialog.Root>
