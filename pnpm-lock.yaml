@@ -382,6 +382,9 @@ importers:
       '@storybook/react-vite':
         specifier: 'catalog:'
         version: 10.1.10(esbuild@0.27.2)(msw@2.12.7(@types/node@20.19.27)(typescript@5.9.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(rollup@4.54.0)(storybook@10.1.10(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)(vite@7.3.0(@types/node@20.19.27)(jiti@2.6.1)(lightningcss@1.30.2)(sugarss@5.0.1(postcss@8.5.6)))
+      '@tailwindcss/postcss':
+        specifier: 'catalog:'
+        version: 4.1.18
       '@types/node':
         specifier: 'catalog:'
         version: 20.19.27
