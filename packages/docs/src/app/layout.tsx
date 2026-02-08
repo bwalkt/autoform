@@ -12,7 +12,7 @@ const sans = Manrope({
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-geist-mono',
+  variable: '--font-mono',
   display: 'swap',
 })
 

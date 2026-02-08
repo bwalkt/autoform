@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export interface UseClipboardOptions {
   /** Timeout in milliseconds before resetting copied state */
@@ -34,9 +34,18 @@ export interface UseClipboardReturn {
  */
 export function useClipboard(options: UseClipboardOptions = {}): UseClipboardReturn {
   const { timeout = 2000 } = options
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   const copy = useCallback(
     async (text: string) => {
@@ -44,7 +53,10 @@ export function useClipboard(options: UseClipboardOptions = {}): UseClipboardRet
         await navigator.clipboard.writeText(text)
         setCopied(true)
         setError(null)
-        setTimeout(() => setCopied(false), timeout)
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+        }
+        timeoutRef.current = setTimeout(() => setCopied(false), timeout)
       } catch (e) {
         const err = e instanceof Error ? e : new Error('Failed to copy to clipboard')
         setError(err)

@@ -14,7 +14,7 @@
     "@mdx-js/loader": "catalog:",
     "@mdx-js/react": "catalog:",
     "@next/mdx": "catalog:",
-    "lucide-react": "*",
+    "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
@@ -27,7 +27,7 @@
     "@types/react-dom": "catalog:",
     "postcss": "catalog:",
     "postcss-load-config": "catalog:",
-    "tailwindcss": "^4",
+    "tailwindcss": "catalog:",
     "typescript": "catalog:"
   }
 }

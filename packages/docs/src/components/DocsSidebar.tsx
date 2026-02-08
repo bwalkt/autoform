@@ -22,6 +22,7 @@ export function DocsSidebar() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
                       className={`block rounded-lg px-3 py-2 text-sm transition ${
                         isActive
                           ? 'bg-primary/10 text-primary'

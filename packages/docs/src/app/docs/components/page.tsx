@@ -31,8 +31,14 @@ export default function ComponentsPage() {
         Patterns
       </Heading>
       <ul className="mt-3 list-disc space-y-2 pl-6 text-sm text-muted-foreground">
-        <li>Use layout primitives (`Container`, `Section`, `Grid`, `Flex`) to control rhythm.</li>
-        <li>Keep input sizing aligned by using shared `size` props.</li>
+        <li>
+          Use layout primitives (<code className="text-foreground">Container</code>,{' '}
+          <code className="text-foreground">Section</code>, <code className="text-foreground">Grid</code>,{' '}
+          <code className="text-foreground">Flex</code>) to control rhythm.
+        </li>
+        <li>
+          Keep input sizing aligned by using shared <code className="text-foreground">size</code> props.
+        </li>
         <li>Prefer composition over variants for new workflows.</li>
       </ul>
     </div>

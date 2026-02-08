@@ -66,18 +66,20 @@ export default function HomePage() {
         <Container size="4" px="6">
           <Grid columns={{ initial: '1', md: '2' }} gap="4">
             {quickLinks.map(link => (
-              <CardRoot key={link.href} className="p-6">
-                <Heading as="h3" size="4">
-                  {link.title}
-                </Heading>
-                <Text size="2" className="mt-2 text-muted-foreground">
-                  {link.description}
-                </Text>
-                <Link href={link.href} className="mt-4 inline-flex items-center text-sm font-medium text-primary">
-                  Explore
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
-              </CardRoot>
+              <Link key={link.href} href={link.href} className="block">
+                <CardRoot className="p-6 transition hover:border-primary/50 hover:shadow-sm">
+                  <Heading as="h3" size="4">
+                    {link.title}
+                  </Heading>
+                  <Text size="2" className="mt-2 text-muted-foreground">
+                    {link.description}
+                  </Text>
+                  <span className="mt-4 inline-flex items-center text-sm font-medium text-primary">
+                    Explore
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </span>
+                </CardRoot>
+              </Link>
             ))}
           </Grid>
         </Container>

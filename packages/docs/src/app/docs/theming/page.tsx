@@ -9,8 +9,9 @@ export default function ThemingPage() {
         Theming
       </Heading>
       <Text size="2" className="mt-3 text-muted-foreground">
-        Themes are configured through a small set of controls: `accentColor`, `grayColor`, `radius`, `scaling`, and
-        `panelBackground`.
+        Themes are configured through a small set of controls: <code className="text-foreground">accentColor</code>,{' '}
+        <code className="text-foreground">grayColor</code>, <code className="text-foreground">radius</code>,{' '}
+        <code className="text-foreground">scaling</code>, and <code className="text-foreground">panelBackground</code>.
       </Text>
 
       <CalloutRoot variant="warning" className="mt-4">

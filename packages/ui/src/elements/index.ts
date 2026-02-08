@@ -41,6 +41,14 @@ export {
   type CalloutTextProps,
   type CalloutVariant,
 } from './Callout'
+export type {
+  CardContentProps,
+  CardDescriptionProps,
+  CardFooterProps,
+  CardHeaderProps,
+  CardRootProps,
+  CardTitleProps,
+} from './Card'
 // Layout
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardRoot, CardTitle } from './Card'
 // Menu

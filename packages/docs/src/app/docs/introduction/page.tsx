@@ -1,6 +1,7 @@
 'use client'
 
 import { Badge, Button, CalloutRoot, CalloutText, Card, Heading, Text } from '@bwalkt/ui'
+import Link from 'next/link'
 
 export default function IntroductionPage() {
   return (
@@ -56,7 +57,7 @@ export default function IntroductionPage() {
           Next step
         </Badge>
         <Button asChild size="2">
-          <a href="/docs/tokens">Review design tokens</a>
+          <Link href="/docs/tokens">Review design tokens</Link>
         </Button>
       </div>
     </div>
