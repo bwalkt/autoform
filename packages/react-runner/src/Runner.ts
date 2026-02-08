@@ -67,8 +67,11 @@ export class Runner extends Component<RunnerProps, RunnerState> {
     this.props.onRendered?.(this.state.error)
   }
 
-  componentDidUpdate(): void {
-    this.props.onRendered?.(this.state.error)
+  componentDidUpdate(prevProps: RunnerProps, prevState: RunnerState): void {
+    // Only call onRendered if the error state actually changed
+    if (prevState.error !== this.state.error) {
+      this.props.onRendered?.(this.state.error)
+    }
   }
 
   componentDidCatch(error: Error): void {
