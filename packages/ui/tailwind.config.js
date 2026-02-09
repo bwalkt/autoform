@@ -119,5 +119,13 @@ module.exports = {
     'grid-rows-5',
     'grid-rows-6',
     'grid-rows-none',
+    // Spacing utilities used by tokenized layout props
+    {
+      pattern:
+        /^(p|px|py|pt|pr|pb|pl|m|mx|my|mt|mr|mb|ml|gap|gap-x|gap-y|inset|top|right|bottom|left)-(0|1|2|3|4|5|6|8|10|12)$/,
+    },
+    {
+      pattern: /^-(m|mx|my|mt|mr|mb|ml)-(0|1|2|3|4|5|6|8|10|12)$/,
+    },
   ],
 }

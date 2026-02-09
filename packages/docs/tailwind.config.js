@@ -137,5 +137,13 @@ module.exports = {
     'xl:grid-cols-4',
     'xl:grid-cols-5',
     'xl:grid-cols-6',
+    // Spacing utilities used by tokenized layout props
+    {
+      pattern:
+        /^(p|px|py|pt|pr|pb|pl|m|mx|my|mt|mr|mb|ml|gap|gap-x|gap-y|inset|top|right|bottom|left)-(0|1|2|3|4|5|6|8|10|12)$/,
+    },
+    {
+      pattern: /^-(m|mx|my|mt|mr|mb|ml)-(0|1|2|3|4|5|6|8|10|12)$/,
+    },
   ],
 }

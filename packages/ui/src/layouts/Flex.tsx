@@ -19,6 +19,7 @@ import {
   type SharedLayoutProps,
   Slot,
   type Spacing,
+  spacingToPixels,
 } from './layout-utils'
 
 // ============================================================================
@@ -181,14 +182,17 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       getFlexWrapClasses(wrap),
       getAlignItemsClasses(align),
       getJustifyContentClasses(justify),
-      getSpacingClasses(gap, 'gap'),
-      getSpacingClasses(gapX, 'gap-x'),
-      getSpacingClasses(gapY, 'gap-y'),
+      typeof gap === 'string' ? '' : getSpacingClasses(gap, 'gap'),
+      typeof gapX === 'string' ? '' : getSpacingClasses(gapX, 'gap-x'),
+      typeof gapY === 'string' ? '' : getSpacingClasses(gapY, 'gap-y'),
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     )
 
     const styles: React.CSSProperties = {
+      ...(typeof gap === 'string' && { gap: spacingToPixels[gap] }),
+      ...(typeof gapX === 'string' && { columnGap: spacingToPixels[gapX] }),
+      ...(typeof gapY === 'string' && { rowGap: spacingToPixels[gapY] }),
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
     }

@@ -27,6 +27,7 @@ import {
   type SharedLayoutProps,
   Slot,
   type Spacing,
+  spacingToPixels,
 } from './layout-utils'
 
 // ============================================================================
@@ -231,9 +232,9 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       getAlignContentClasses(alignContent),
       getJustifyContentClasses(justify),
       getJustifyItemsClasses(justifyItems),
-      getSpacingClasses(gap, 'gap'),
-      getSpacingClasses(gapX, 'gap-x'),
-      getSpacingClasses(gapY, 'gap-y'),
+      typeof gap === 'string' ? '' : getSpacingClasses(gap, 'gap'),
+      typeof gapX === 'string' ? '' : getSpacingClasses(gapX, 'gap-x'),
+      typeof gapY === 'string' ? '' : getSpacingClasses(gapY, 'gap-y'),
       columns ? columnClasses : 'rt-grid-cols-1',
       rows ? rowClasses : '',
       getSharedLayoutClasses(sharedLayoutProps),
@@ -249,6 +250,9 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
 
     const styles: React.CSSProperties = {
       ...gridStyles,
+      ...(typeof gap === 'string' && { gap: spacingToPixels[gap] }),
+      ...(typeof gapX === 'string' && { columnGap: spacingToPixels[gapX] }),
+      ...(typeof gapY === 'string' && { rowGap: spacingToPixels[gapY] }),
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
     }

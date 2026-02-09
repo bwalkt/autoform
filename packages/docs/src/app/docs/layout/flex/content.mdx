@@ -16,21 +16,11 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
   initialCode={`export default function Example() {
   return (
     <Flex gap="3">
-      <Box width="64px" height="64px">
-        <DecorativeBox />
-      </Box>
-      <Box width="64px" height="64px">
-        <DecorativeBox />
-      </Box>
-      <Box width="64px" height="64px">
-        <DecorativeBox />
-      </Box>
-      <Box width="64px" height="64px">
-        <DecorativeBox />
-      </Box>
-      <Box width="64px" height="64px">
-        <DecorativeBox />
-      </Box>
+      <DecorativeBox width="64px" height="64px" />
+      <DecorativeBox width="64px" height="64px" />
+      <DecorativeBox width="64px" height="64px" />
+      <DecorativeBox width="64px" height="64px" />
+      <DecorativeBox width="64px" height="64px" />
     </Flex>
   )
 }`}
@@ -60,15 +50,9 @@ This component is based on the `div` element and supports common margin props.
   <CodeBlock.LivePreview>
     <ViewportPreview>
       <Flex direction={{ initial: 'column', md: 'row' }} gap="3">
-        <Box height="64px">
-          <DecorativeBox />
-        </Box>
-        <Box height="64px">
-          <DecorativeBox />
-        </Box>
-        <Box height="64px">
-          <DecorativeBox />
-        </Box>
+        <DecorativeBox height="64px" />
+        <DecorativeBox height="64px" />
+        <DecorativeBox height="64px" />
       </Flex>
     </ViewportPreview>
   </CodeBlock.LivePreview>
@@ -76,15 +60,9 @@ This component is based on the `div` element and supports common margin props.
     <CodeBlock.Pre>
       <CodeBlock.Code language="jsx">
 {`<Flex direction={{ initial: "column", md: "row" }} gap="3">
-  <Box height="64px">
-    <DecorativeBox />
-  </Box>
-  <Box height="64px">
-    <DecorativeBox />
-  </Box>
-  <Box height="64px">
-    <DecorativeBox />
-  </Box>
+  <DecorativeBox height="64px" />
+  <DecorativeBox height="64px" />
+  <DecorativeBox height="64px" />
 </Flex>`}
       </CodeBlock.Code>
     </CodeBlock.Pre>
