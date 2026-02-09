@@ -221,6 +221,7 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
     const columnClasses = getGridColumnsClasses(mappedColumns)
     const rowClasses = getGridRowsClasses(mappedRows)
     const hasCustomColumns = typeof columns === 'string' && !columnClasses
+    const hasTokenColumns = typeof columns === 'string' && !!columnClasses
     const hasCustomRows = typeof rows === 'string' && !rowClasses
 
     const classes = cn(
@@ -241,10 +242,14 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       className,
     )
 
-    // Build grid-specific styles - for areas and custom grid values
+    // Build grid-specific styles.
     const gridStyles: React.CSSProperties = {
       ...(areas && typeof areas === 'string' && { gridTemplateAreas: areas }),
+      // Preserve arbitrary templates (e.g. "1fr 2fr") while keeping deterministic token rendering.
       ...(hasCustomColumns && { gridTemplateColumns: columns }),
+      ...(hasTokenColumns && {
+        gridTemplateColumns: columns === 'none' ? 'none' : `repeat(${columns}, minmax(0, 1fr))`,
+      }),
       ...(hasCustomRows && { gridTemplateRows: rows }),
     }
 
