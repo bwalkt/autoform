@@ -67,7 +67,7 @@ export const spacingScale: Record<Spacing, string> = {
   '9': '12',
 }
 
-const spacingToPixels: Record<Spacing, string> = {
+export const spacingToPixels: Record<Spacing, string> = {
   '0': '0px',
   '1': '4px',
   '2': '8px',
@@ -75,15 +75,15 @@ const spacingToPixels: Record<Spacing, string> = {
   '4': '16px',
   '5': '24px',
   '6': '32px',
+  // `7` intentionally matches `6` in the current design token scale.
   '7': '32px',
   '8': '40px',
   '9': '48px',
 }
 
 function getSpacingPixelValue(prop: Responsive<Spacing> | undefined): string | undefined {
-  if (!prop) return undefined
-  if (typeof prop === 'string') return spacingToPixels[prop]
-  return prop.initial ? spacingToPixels[prop.initial] : undefined
+  if (!prop || typeof prop !== 'string') return undefined
+  return spacingToPixels[prop]
 }
 
 // ============================================================================

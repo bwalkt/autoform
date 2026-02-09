@@ -19,6 +19,7 @@ import {
   type SharedLayoutProps,
   Slot,
   type Spacing,
+  spacingToPixels,
 } from './layout-utils'
 
 // ============================================================================
@@ -55,19 +56,6 @@ type FlexDivProps = FlexOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, k
 type FlexSpanProps = FlexOwnProps & { as: 'span' } & Omit<React.ComponentPropsWithoutRef<'span'>, keyof FlexOwnProps>
 
 export type FlexProps = FlexDivProps | FlexSpanProps
-
-const spacingToPixels: Record<Spacing, string> = {
-  '0': '0px',
-  '1': '4px',
-  '2': '8px',
-  '3': '12px',
-  '4': '16px',
-  '5': '24px',
-  '6': '32px',
-  '7': '32px',
-  '8': '40px',
-  '9': '48px',
-}
 
 // ============================================================================
 // Flex Component
@@ -194,9 +182,9 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
       getFlexWrapClasses(wrap),
       getAlignItemsClasses(align),
       getJustifyContentClasses(justify),
-      getSpacingClasses(gap, 'gap'),
-      getSpacingClasses(gapX, 'gap-x'),
-      getSpacingClasses(gapY, 'gap-y'),
+      typeof gap === 'string' ? '' : getSpacingClasses(gap, 'gap'),
+      typeof gapX === 'string' ? '' : getSpacingClasses(gapX, 'gap-x'),
+      typeof gapY === 'string' ? '' : getSpacingClasses(gapY, 'gap-y'),
       getSharedLayoutClasses(sharedLayoutProps),
       className,
     )

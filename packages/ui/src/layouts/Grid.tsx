@@ -27,6 +27,7 @@ import {
   type SharedLayoutProps,
   Slot,
   type Spacing,
+  spacingToPixels,
 } from './layout-utils'
 
 // ============================================================================
@@ -71,19 +72,6 @@ type GridDivProps = GridOwnProps & Omit<React.ComponentPropsWithoutRef<'div'>, k
 type GridSpanProps = GridOwnProps & { as: 'span' } & Omit<React.ComponentPropsWithoutRef<'span'>, keyof GridOwnProps>
 
 export type GridProps = GridDivProps | GridSpanProps
-
-const spacingToPixels: Record<Spacing, string> = {
-  '0': '0px',
-  '1': '4px',
-  '2': '8px',
-  '3': '12px',
-  '4': '16px',
-  '5': '24px',
-  '6': '32px',
-  '7': '32px',
-  '8': '40px',
-  '9': '48px',
-}
 
 function filterResponsiveGridValues<T extends string>(
   prop: Responsive<T | string> | undefined,
@@ -244,9 +232,9 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
       getAlignContentClasses(alignContent),
       getJustifyContentClasses(justify),
       getJustifyItemsClasses(justifyItems),
-      getSpacingClasses(gap, 'gap'),
-      getSpacingClasses(gapX, 'gap-x'),
-      getSpacingClasses(gapY, 'gap-y'),
+      typeof gap === 'string' ? '' : getSpacingClasses(gap, 'gap'),
+      typeof gapX === 'string' ? '' : getSpacingClasses(gapX, 'gap-x'),
+      typeof gapY === 'string' ? '' : getSpacingClasses(gapY, 'gap-y'),
       columns ? columnClasses : 'rt-grid-cols-1',
       rows ? rowClasses : '',
       getSharedLayoutClasses(sharedLayoutProps),

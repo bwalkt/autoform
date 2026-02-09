@@ -24,7 +24,8 @@ export interface TextOwnProps {
   ml?: Responsive<Spacing>
 }
 
-// TODO: tighten polymorphic typing to match the Box pattern once ref strategy is finalized.
+// TODO(ui-text): Remove the `any` ref cast by introducing proper polymorphic ref typing.
+// Keep aligned with Box once shared polymorphic strategy is finalized.
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & TextOwnProps
 
 /** Text export. */
