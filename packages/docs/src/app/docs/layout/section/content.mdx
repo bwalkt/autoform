@@ -16,7 +16,7 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
   initialCode={`export default function Example() {
   return (
     <Section size="2" className="rounded-2xl border border-border/70 bg-muted/30">
-      <DecorativeBox className="h-16" />
+      <DecorativeBox height="64px" />
     </Section>
   )
 }`}
@@ -46,7 +46,7 @@ This component is based on the `div` element and supports common margin props.
   <CodeBlock.LivePreview>
     <ViewportPreview>
       <Section size={{ initial: '1', md: '3' }} className="rounded-2xl border border-border/70 bg-muted/30">
-        <DecorativeBox className="h-16" />
+        <DecorativeBox height="64px" />
       </Section>
     </ViewportPreview>
   </CodeBlock.LivePreview>
@@ -54,7 +54,7 @@ This component is based on the `div` element and supports common margin props.
     <CodeBlock.Pre>
       <CodeBlock.Code language="jsx">
 {`<Section size={{ initial: "1", md: "3" }} className="rounded-2xl border border-border/70 bg-muted/30">
-  <DecorativeBox />
+  <DecorativeBox height="64px" />
 </Section>`}
       </CodeBlock.Code>
     </CodeBlock.Pre>

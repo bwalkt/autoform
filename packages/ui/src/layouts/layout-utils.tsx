@@ -67,6 +67,25 @@ export const spacingScale: Record<Spacing, string> = {
   '9': '12',
 }
 
+const spacingToPixels: Record<Spacing, string> = {
+  '0': '0px',
+  '1': '4px',
+  '2': '8px',
+  '3': '12px',
+  '4': '16px',
+  '5': '24px',
+  '6': '32px',
+  '7': '32px',
+  '8': '40px',
+  '9': '48px',
+}
+
+function getSpacingPixelValue(prop: Responsive<Spacing> | undefined): string | undefined {
+  if (!prop) return undefined
+  if (typeof prop === 'string') return spacingToPixels[prop]
+  return prop.initial ? spacingToPixels[prop.initial] : undefined
+}
+
 // ============================================================================
 // Responsive Class Helpers
 // ============================================================================
@@ -531,6 +550,20 @@ export function getSharedLayoutClasses(props: SharedLayoutProps): string {
 /** getSharedLayoutStyles export. */
 export function getSharedLayoutStyles(props: SharedLayoutProps): React.CSSProperties {
   const {
+    p,
+    px,
+    py,
+    pt,
+    pr,
+    pb,
+    pl,
+    m,
+    mx,
+    my,
+    mt,
+    mr,
+    mb,
+    ml,
     width,
     minWidth,
     maxWidth,
@@ -545,9 +578,28 @@ export function getSharedLayoutStyles(props: SharedLayoutProps): React.CSSProper
     gridRow,
     gridRowStart,
     gridRowEnd,
+    inset,
+    top,
+    right,
+    bottom,
+    left,
   } = props
 
   return {
+    ...(getSpacingPixelValue(p) && { padding: getSpacingPixelValue(p) }),
+    ...(getSpacingPixelValue(px) && { paddingLeft: getSpacingPixelValue(px), paddingRight: getSpacingPixelValue(px) }),
+    ...(getSpacingPixelValue(py) && { paddingTop: getSpacingPixelValue(py), paddingBottom: getSpacingPixelValue(py) }),
+    ...(getSpacingPixelValue(pt) && { paddingTop: getSpacingPixelValue(pt) }),
+    ...(getSpacingPixelValue(pr) && { paddingRight: getSpacingPixelValue(pr) }),
+    ...(getSpacingPixelValue(pb) && { paddingBottom: getSpacingPixelValue(pb) }),
+    ...(getSpacingPixelValue(pl) && { paddingLeft: getSpacingPixelValue(pl) }),
+    ...(getSpacingPixelValue(m) && { margin: getSpacingPixelValue(m) }),
+    ...(getSpacingPixelValue(mx) && { marginLeft: getSpacingPixelValue(mx), marginRight: getSpacingPixelValue(mx) }),
+    ...(getSpacingPixelValue(my) && { marginTop: getSpacingPixelValue(my), marginBottom: getSpacingPixelValue(my) }),
+    ...(getSpacingPixelValue(mt) && { marginTop: getSpacingPixelValue(mt) }),
+    ...(getSpacingPixelValue(mr) && { marginRight: getSpacingPixelValue(mr) }),
+    ...(getSpacingPixelValue(mb) && { marginBottom: getSpacingPixelValue(mb) }),
+    ...(getSpacingPixelValue(ml) && { marginLeft: getSpacingPixelValue(ml) }),
     ...(width && { width }),
     ...(minWidth && { minWidth }),
     ...(maxWidth && { maxWidth }),
@@ -562,5 +614,10 @@ export function getSharedLayoutStyles(props: SharedLayoutProps): React.CSSProper
     ...(gridRow && { gridRow }),
     ...(gridRowStart && { gridRowStart }),
     ...(gridRowEnd && { gridRowEnd }),
+    ...(getSpacingPixelValue(inset) && { inset: getSpacingPixelValue(inset) }),
+    ...(getSpacingPixelValue(top) && { top: getSpacingPixelValue(top) }),
+    ...(getSpacingPixelValue(right) && { right: getSpacingPixelValue(right) }),
+    ...(getSpacingPixelValue(bottom) && { bottom: getSpacingPixelValue(bottom) }),
+    ...(getSpacingPixelValue(left) && { left: getSpacingPixelValue(left) }),
   }
 }

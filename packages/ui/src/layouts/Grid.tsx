@@ -72,6 +72,19 @@ type GridSpanProps = GridOwnProps & { as: 'span' } & Omit<React.ComponentPropsWi
 
 export type GridProps = GridDivProps | GridSpanProps
 
+const spacingToPixels: Record<Spacing, string> = {
+  '0': '0px',
+  '1': '4px',
+  '2': '8px',
+  '3': '12px',
+  '4': '16px',
+  '5': '24px',
+  '6': '32px',
+  '7': '32px',
+  '8': '40px',
+  '9': '48px',
+}
+
 function filterResponsiveGridValues<T extends string>(
   prop: Responsive<T | string> | undefined,
   isValid: (value: string) => value is T,
@@ -249,6 +262,9 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(
 
     const styles: React.CSSProperties = {
       ...gridStyles,
+      ...(typeof gap === 'string' && { gap: spacingToPixels[gap] }),
+      ...(typeof gapX === 'string' && { columnGap: spacingToPixels[gapX] }),
+      ...(typeof gapY === 'string' && { rowGap: spacingToPixels[gapY] }),
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
     }

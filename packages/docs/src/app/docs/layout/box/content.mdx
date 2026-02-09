@@ -16,7 +16,7 @@ import { ViewportPreview } from '../../../../components/ViewportPreview'
   initialCode={`export default function Example() {
   return (
     <Box p="4" className="rounded-2xl border border-border/70 bg-muted/30">
-      <Box className="rounded-xl border border-border/70 bg-background px-4 py-3 text-sm text-muted-foreground">
+      <Box p="3" className="rounded-xl border border-border/70 bg-background text-sm text-muted-foreground">
         Box content
       </Box>
     </Box>
@@ -49,7 +49,7 @@ This component is based on the `div` element and supports common margin props.
   <CodeBlock.LivePreview>
     <ViewportPreview>
       <Box p={{ initial: '3', md: '5' }} className="rounded-2xl border border-border/70 bg-muted/30">
-        <Box className="rounded-xl border border-border/70 bg-background px-4 py-3 text-sm text-muted-foreground">
+        <Box p="3" className="rounded-xl border border-border/70 bg-background text-sm text-muted-foreground">
           Box content
         </Box>
       </Box>
@@ -59,7 +59,7 @@ This component is based on the `div` element and supports common margin props.
     <CodeBlock.Pre>
       <CodeBlock.Code language="jsx">
 {`<Box p={{ initial: "3", md: "5" }} className="rounded-2xl border border-border/70 bg-muted/30">
-  <Box className="rounded-xl border border-border/70 bg-background px-4 py-3 text-sm text-muted-foreground">
+  <Box p="3" className="rounded-xl border border-border/70 bg-background text-sm text-muted-foreground">
     Box content
   </Box>
 </Box>`}

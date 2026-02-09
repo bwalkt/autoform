@@ -56,6 +56,19 @@ type FlexSpanProps = FlexOwnProps & { as: 'span' } & Omit<React.ComponentPropsWi
 
 export type FlexProps = FlexDivProps | FlexSpanProps
 
+const spacingToPixels: Record<Spacing, string> = {
+  '0': '0px',
+  '1': '4px',
+  '2': '8px',
+  '3': '12px',
+  '4': '16px',
+  '5': '24px',
+  '6': '32px',
+  '7': '32px',
+  '8': '40px',
+  '9': '48px',
+}
+
 // ============================================================================
 // Flex Component
 // ============================================================================
@@ -189,6 +202,9 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(
     )
 
     const styles: React.CSSProperties = {
+      ...(typeof gap === 'string' && { gap: spacingToPixels[gap] }),
+      ...(typeof gapX === 'string' && { columnGap: spacingToPixels[gapX] }),
+      ...(typeof gapY === 'string' && { rowGap: spacingToPixels[gapY] }),
       ...getSharedLayoutStyles(sharedLayoutProps),
       ...style,
     }
