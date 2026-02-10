@@ -2,118 +2,213 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type * as React from 'react'
-import { DayPicker, type DayPickerProps } from 'react-day-picker'
-import type { Color } from '@/elements/tokens'
+import { useRef, useState } from 'react'
+import { type DayButton, DayPicker, type DayPickerProps, getDefaultClassNames } from 'react-day-picker'
+import { type Color, designTokens } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
-import './calendar.css'
 
 export type CalendarSelectionVariant = 'solid' | 'soft' | 'outline'
+const DayPickerAny = DayPicker as unknown as React.ComponentType<Record<string, unknown>>
 
 export type CalendarProps = DayPickerProps & {
   /** Additional class names */
   className?: string
-  /** Visual variant for selected dates */
-  selectionVariant?: CalendarSelectionVariant
+  /** First month shown (defaults to current month) */
+  from?: Date
+  /** Last month shown; when present calendar switches to range mode */
+  to?: Date | null
   /** Accent color for selections */
   color?: Color
 }
 
-// Direct color values for calendar selections
-const colorMap: Record<Color, { accent: string; soft: string; foreground: string }> = {
-  default: { accent: '#0d9488', soft: 'rgba(13, 148, 136, 0.1)', foreground: 'white' },
-  primary: { accent: '#0d9488', soft: 'rgba(13, 148, 136, 0.1)', foreground: 'white' },
-  neutral: { accent: '#6b7280', soft: 'rgba(107, 114, 128, 0.1)', foreground: 'white' },
-  info: { accent: '#3b82f6', soft: 'rgba(59, 130, 246, 0.1)', foreground: 'white' },
-  success: { accent: '#22c55e', soft: 'rgba(34, 197, 94, 0.1)', foreground: 'white' },
-  warning: { accent: '#f59e0b', soft: 'rgba(245, 158, 11, 0.1)', foreground: 'white' },
-  error: { accent: '#ef4444', soft: 'rgba(239, 68, 68, 0.1)', foreground: 'white' },
+function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
+  if (color === 'default' || color === 'primary') {
+    return {
+      accent: 'var(--primary)',
+      soft: 'color-mix(in oklab, var(--primary) 18%, transparent)',
+      foreground: 'var(--primary-foreground)',
+    }
+  }
+
+  const token = designTokens.color[color]
+  return {
+    accent: token.primary,
+    soft: token.primaryAlpha,
+    foreground: 'white',
+  }
 }
 
 /**
  * Calendar component built on react-day-picker.
- * Supports single date, multiple dates, and range selection.
+ * Single month by default. When `to` is provided, it renders a multi-month
+ * range calendar similar to shadcn calendar-04.
  *
  * @example
  * ```tsx
- * import { Calendar } from "@/form";
+ * import { Calendar } from "@/form"
  *
- * // Single date selection
- * <Calendar mode="single" selected={date} onSelect={setDate} />
+ * // calendar-01 style (single month)
+ * <Calendar selected={date} onSelect={setDate} />
  *
- * // Date range selection
- * <Calendar mode="range" selected={range} onSelect={setRange} />
+ * // calendar-04 style (multi-month range)
+ * <Calendar from={new Date(2025, 4, 1)} to={new Date(2025, 5, 1)} selected={range} onSelect={setRange} />
  * ```
  */
 /** Calendar export. */
 export function Calendar({
   className,
+  from,
+  to = null,
   classNames,
   showOutsideDays = true,
-  selectionVariant = 'solid',
   color = 'primary',
+  mode,
+  defaultMonth,
+  numberOfMonths,
+  startMonth,
+  endMonth,
+  hideNavigation: _hideNavigation,
   ...props
 }: CalendarProps) {
-  const colors = colorMap[color]
+  const resolvedColors = resolveCalendarColors(color)
+  const initialMonthRef = useRef(from ?? defaultMonth ?? new Date())
+  const resolvedFrom = from ?? defaultMonth ?? initialMonthRef.current
+  const [month, setMonth] = useState(resolvedFrom)
+  const defaultClassNames = getDefaultClassNames()
+  const resolvedMode = to ? 'range' : (mode ?? 'single')
+  const forcedModeProps =
+    resolvedMode === 'range'
+      ? { mode: 'range' as const }
+      : resolvedMode === 'multiple'
+        ? { mode: 'multiple' as const }
+        : { mode: 'single' as const }
+  const resolvedNumberOfMonths = to
+    ? Math.max(2, (to.getFullYear() - resolvedFrom.getFullYear()) * 12 + (to.getMonth() - resolvedFrom.getMonth()) + 1)
+    : (numberOfMonths ?? 1)
 
   return (
-    <DayPicker
-      showOutsideDays={showOutsideDays}
+    <div className="relative">
+      <button
+        type="button"
+        aria-label="Go to previous month"
+        onClick={() => {
+          const nextMonth = new Date(month)
+          nextMonth.setMonth(nextMonth.getMonth() - 1)
+          if (startMonth && nextMonth < startMonth) return
+          setMonth(nextMonth)
+        }}
+        className={cn(
+          'absolute left-0 top-0 z-20 inline-flex h-9 w-9 items-center justify-center rounded-md p-0',
+          'bg-transparent border-0 shadow-none',
+          'opacity-50 hover:opacity-100',
+          'text-muted-foreground',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        )}
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        aria-label="Go to next month"
+        onClick={() => {
+          const nextMonth = new Date(month)
+          nextMonth.setMonth(nextMonth.getMonth() + 1)
+          if (endMonth && nextMonth > endMonth) return
+          setMonth(nextMonth)
+        }}
+        className={cn(
+          'absolute right-0 top-0 z-20 inline-flex h-9 w-9 items-center justify-center rounded-md p-0',
+          'bg-transparent border-0 shadow-none',
+          'opacity-50 hover:opacity-100',
+          'text-muted-foreground',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        )}
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+      <DayPickerAny
+        {...props}
+        {...forcedModeProps}
+        month={month}
+        onMonthChange={setMonth}
+        defaultMonth={resolvedFrom}
+        numberOfMonths={resolvedNumberOfMonths}
+        showOutsideDays={showOutsideDays}
+        hideNavigation
+        className={cn('rdp-calendar p-3', className)}
+        style={
+          {
+            '--cal-accent': resolvedColors.accent,
+            '--cal-accent-soft': resolvedColors.soft,
+            '--cal-accent-foreground': resolvedColors.foreground,
+            '--rdp-day-width': '2.5rem',
+            '--rdp-day-height': '2.5rem',
+            '--rdp-day_button-width': '2.25rem',
+            '--rdp-day_button-height': '2.25rem',
+            '--rdp-day_button-border': '0',
+            '--rdp-day_button-border-radius': '0.5rem',
+          } as React.CSSProperties
+        }
+        classNames={{
+          root: cn('w-fit', defaultClassNames.root),
+          months: cn('flex gap-4 flex-col sm:flex-row', defaultClassNames.months),
+          month: cn('flex flex-col gap-4', defaultClassNames.month),
+          month_caption: cn('relative flex h-9 items-center justify-center px-10', defaultClassNames.month_caption),
+          caption_label: cn('text-sm font-medium', defaultClassNames.caption_label),
+          month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
+          weekdays: cn(defaultClassNames.weekdays),
+          weekday: cn(
+            'text-muted-foreground rounded-md font-normal text-[0.8rem] text-center',
+            defaultClassNames.weekday,
+          ),
+          week: cn(defaultClassNames.week),
+          day: cn('relative p-0 text-center text-sm', defaultClassNames.day),
+          day_button: cn('h-9 w-9 p-0 rounded-md border-0 bg-transparent', defaultClassNames.day_button),
+          range_start: cn('bg-transparent', defaultClassNames.range_start),
+          range_end: cn('bg-transparent', defaultClassNames.range_end),
+          range_middle: cn('bg-transparent', defaultClassNames.range_middle),
+          selected: cn('font-normal text-sm', defaultClassNames.selected),
+          today: cn('font-normal', defaultClassNames.today),
+          outside: cn('text-muted-foreground opacity-50', defaultClassNames.outside),
+          disabled: cn('text-muted-foreground opacity-50', defaultClassNames.disabled),
+          hidden: cn('invisible', defaultClassNames.hidden),
+          ...classNames,
+        }}
+        components={{
+          DayButton: CalendarDayButton,
+        }}
+        startMonth={startMonth}
+        endMonth={endMonth}
+      />
+    </div>
+  )
+}
+
+function CalendarDayButton({ className, modifiers, ...props }: React.ComponentProps<typeof DayButton>) {
+  return (
+    <button
+      {...props}
+      data-today={modifiers.today}
+      data-selected-single={
+        modifiers.selected && !modifiers.range_start && !modifiers.range_end && !modifiers.range_middle
+      }
+      data-range-start={modifiers.range_start}
+      data-range-end={modifiers.range_end}
+      data-range-middle={modifiers.range_middle}
       className={cn(
-        'rdp-calendar p-3',
-        selectionVariant === 'soft' && 'rdp-variant-soft',
-        selectionVariant === 'outline' && 'rdp-variant-outline',
+        'h-9 w-9 p-0 rounded-md border-0 bg-transparent',
+        'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
+        'hover:bg-accent hover:text-accent-foreground',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        'data-[today=true]:bg-[var(--cal-accent-soft)] data-[today=true]:font-semibold',
+        'data-[today=true][data-selected-single=true]:bg-[var(--cal-accent)] data-[today=true][data-selected-single=true]:text-[var(--cal-accent-foreground)]',
+        'data-[selected-single=true]:bg-[var(--cal-accent)] data-[selected-single=true]:text-[var(--cal-accent-foreground)]',
+        'data-[range-start=true]:bg-[var(--cal-accent)] data-[range-start=true]:text-[var(--cal-accent-foreground)]',
+        'data-[range-end=true]:bg-[var(--cal-accent)] data-[range-end=true]:text-[var(--cal-accent-foreground)]',
+        'data-[range-middle=true]:bg-[var(--cal-accent-soft)] data-[range-middle=true]:rounded-none',
+        'data-[range-start=true]:rounded-l-md data-[range-end=true]:rounded-r-md',
         className,
       )}
-      style={
-        {
-          '--cal-accent': colors.accent,
-          '--cal-accent-soft': colors.soft,
-          '--cal-accent-foreground': colors.foreground,
-        } as React.CSSProperties
-      }
-      classNames={{
-        months: 'flex flex-col sm:flex-row gap-4 sm:gap-6',
-        month: 'flex flex-col gap-4',
-        month_caption: 'flex justify-center pt-1 relative items-center w-full',
-        caption_label: 'text-sm font-medium',
-        nav: 'flex items-center gap-1',
-        button_previous: cn(
-          'absolute left-1 top-0',
-          'inline-flex items-center justify-center',
-          'h-7 w-7 bg-transparent p-0',
-          'opacity-50 hover:opacity-100',
-          'text-muted-foreground',
-        ),
-        button_next: cn(
-          'absolute right-1 top-0',
-          'inline-flex items-center justify-center',
-          'h-7 w-7 bg-transparent p-0',
-          'opacity-50 hover:opacity-100',
-          'text-muted-foreground',
-        ),
-        month_grid: 'w-full border-collapse space-y-1',
-        weekdays: 'flex',
-        weekday: cn('text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]', 'text-center'),
-        week: 'flex w-full mt-2',
-        day: 'rdp-day relative p-0 text-center text-sm focus-within:relative focus-within:z-20',
-        day_button: 'rdp-day_button',
-        range_start: 'rdp-range_start',
-        range_end: 'rdp-range_end',
-        range_middle: 'rdp-range_middle',
-        selected: 'rdp-selected',
-        today: 'rdp-today',
-        outside: 'rdp-outside',
-        disabled: 'rdp-disabled',
-        hidden: 'invisible',
-        ...classNames,
-      }}
-      components={{
-        Chevron: ({ orientation }) => {
-          const Icon = orientation === 'left' ? ChevronLeft : ChevronRight
-          return <Icon className="h-4 w-4" />
-        },
-      }}
-      {...props}
     />
   )
 }

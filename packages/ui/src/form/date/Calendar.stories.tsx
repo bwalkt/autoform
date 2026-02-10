@@ -16,32 +16,47 @@ const meta: Meta<typeof Calendar> = {
 export default meta
 type Story = StoryObj<typeof Calendar>
 
-// Single date selection
-export const Single: Story = {
+// calendar-01 style
+export const DefaultMonth: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
-    return <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
+    return (
+      <div>
+        <Calendar selected={date} onSelect={setDate} className="rounded-md border" />
+        <p className="text-muted-foreground mt-3 text-center text-xs">Default Month</p>
+      </div>
+    )
   },
 }
 
-// Multiple date selection
+// Multi-month automatic range mode (calendar-04 style)
+export const MultiMonthRange: Story = {
+  render: () => {
+    const [range, setRange] = React.useState<DateRange | undefined>({
+      from: new Date(2025, 4, 22),
+      to: new Date(2025, 5, 17),
+    })
+
+    return (
+      <div>
+        <Calendar
+          from={new Date(2025, 4, 1)}
+          to={new Date(2025, 5, 1)}
+          selected={range}
+          onSelect={setRange}
+          className="rounded-md border"
+        />
+        <p className="text-muted-foreground mt-3 text-center text-xs">Multi month calendar with range selection</p>
+      </div>
+    )
+  },
+}
+
+// Multiple date selection (explicit mode override)
 export const Multiple: Story = {
   render: () => {
     const [dates, setDates] = React.useState<Date[] | undefined>([])
     return <Calendar mode="multiple" selected={dates} onSelect={setDates} className="rounded-md border" />
-  },
-}
-
-// Date range selection
-export const Range: Story = {
-  render: () => {
-    const [range, setRange] = React.useState<DateRange | undefined>({
-      from: new Date(),
-      to: undefined,
-    })
-    return (
-      <Calendar mode="range" selected={range} onSelect={setRange} numberOfMonths={2} className="rounded-md border" />
-    )
   },
 }
 
@@ -50,6 +65,7 @@ export const WithMinMaxDates: Story = {
   render: () => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
     const today = new Date()
+    const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
     const maxDate = new Date(today)
     maxDate.setDate(today.getDate() + 30)
 
@@ -58,7 +74,7 @@ export const WithMinMaxDates: Story = {
         mode="single"
         selected={date}
         onSelect={setDate}
-        disabled={[{ before: today }, { after: maxDate }]}
+        disabled={[{ before: minDate }, { after: maxDate }]}
         className="rounded-md border"
       />
     )
