@@ -19,11 +19,16 @@ type Story = StoryObj<typeof Calendar>
 // calendar-01 style
 export const DefaultMonth: Story = {
   render: () => {
-    const [date, setDate] = React.useState<Date | undefined>(new Date())
+    const [date, setDate] = React.useState<Date | undefined>(undefined)
+    const today = new Date()
     return (
       <div>
-        <Calendar selected={date} onSelect={setDate} className="rounded-md border" />
+        <Calendar selected={date} onSelect={setDate} today={today} className="rounded-md border" />
         <p className="text-muted-foreground mt-3 text-center text-xs">Default Month</p>
+        <p className="text-muted-foreground mt-1 text-center text-xs">Today: {today.toDateString()}</p>
+        <p className="text-muted-foreground mt-1 text-center text-xs">
+          Selected: {date ? date.toDateString() : 'none'}
+        </p>
       </div>
     )
   },

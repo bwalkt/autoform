@@ -2,7 +2,7 @@
 
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import * as React from 'react'
-import { type DayButton, DayPicker, type DayPickerProps, getDefaultClassNames } from 'react-day-picker'
+import { DayPicker, type DayPickerProps, getDefaultClassNames } from 'react-day-picker'
 import { type Color, designTokens } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
 
@@ -80,6 +80,7 @@ export function Calendar({
         {
           '--rdp-accent-color': resolvedColors.accent,
           '--rdp-accent-background-color': resolvedColors.soft,
+          '--rdp-day_button-border': '0px',
           '--rdp-selected-border': '0px',
           '--cal-accent-foreground': resolvedColors.foreground,
         } as React.CSSProperties
@@ -135,11 +136,23 @@ export function Calendar({
             : '[&:first-child[data-selected=true]_button]:rounded-l-md',
           defaultClassNames.day,
         ),
+        day_button: cn(
+          'h-9 w-9 p-0 rounded-md border-0 bg-transparent shadow-none appearance-none',
+          'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
+          'hover:bg-accent hover:text-accent-foreground',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'group-data-[today=true]/day:bg-[var(--rdp-accent-background-color)] group-data-[today=true]/day:text-foreground',
+          'group-data-[selected=true]/day:bg-[var(--rdp-accent-color)] group-data-[selected=true]/day:text-[var(--cal-accent-foreground)]',
+          'group-data-[range-middle=true]/day:bg-[var(--rdp-accent-background-color)] group-data-[range-middle=true]/day:rounded-none',
+          'group-data-[range-start=true]/day:bg-[var(--rdp-accent-color)] group-data-[range-start=true]/day:text-[var(--cal-accent-foreground)] group-data-[range-start=true]/day:rounded-l-md',
+          'group-data-[range-end=true]/day:bg-[var(--rdp-accent-color)] group-data-[range-end=true]/day:text-[var(--cal-accent-foreground)] group-data-[range-end=true]/day:rounded-r-md',
+          defaultClassNames.day_button,
+        ),
         range_start: cn('rounded-l-md bg-accent', defaultClassNames.range_start),
         range_middle: cn('rounded-none', defaultClassNames.range_middle),
         range_end: cn('rounded-r-md bg-accent', defaultClassNames.range_end),
-        today: cn('text-[var(--rdp-accent-color)] font-medium', defaultClassNames.today),
-        selected: cn('text-[var(--cal-accent-foreground)]', defaultClassNames.selected),
+        today: cn('font-normal', defaultClassNames.today),
+        selected: cn('font-normal text-sm', defaultClassNames.selected),
         outside: cn('text-muted-foreground aria-selected:text-muted-foreground', defaultClassNames.outside),
         disabled: cn('text-muted-foreground opacity-50', defaultClassNames.disabled),
         hidden: cn('invisible', defaultClassNames.hidden),
@@ -159,47 +172,8 @@ export function Calendar({
           }
           return <ChevronDownIcon className={cn('size-4', className)} {...iconProps} />
         },
-        DayButton: CalendarDayButton,
         ...components,
       }}
-    />
-  )
-}
-
-function CalendarDayButton({ className, day, modifiers, ...props }: React.ComponentProps<typeof DayButton>) {
-  const defaultClassNames = getDefaultClassNames()
-  const ref = React.useRef<HTMLButtonElement>(null)
-
-  React.useEffect(() => {
-    if (modifiers.focused) ref.current?.focus()
-  }, [modifiers.focused])
-
-  return (
-    <button
-      ref={ref}
-      data-day={day.date.toLocaleDateString()}
-      data-today={modifiers.today}
-      data-selected-single={
-        modifiers.selected && !modifiers.range_start && !modifiers.range_end && !modifiers.range_middle
-      }
-      data-range-start={modifiers.range_start}
-      data-range-end={modifiers.range_end}
-      data-range-middle={modifiers.range_middle}
-      className={cn(
-        'inline-flex aspect-square size-auto w-full min-w-(--cell-size) items-center justify-center rounded-md p-0 text-sm leading-none',
-        'appearance-none border-0 bg-transparent shadow-none',
-        'hover:bg-accent hover:text-accent-foreground',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-        'data-[today=true]:bg-[var(--rdp-accent-background-color)] data-[today=true]:text-foreground',
-        'data-[selected-single=true]:bg-[var(--rdp-accent-color)] data-[selected-single=true]:text-[var(--cal-accent-foreground)]',
-        'data-[today=true][data-selected-single=true]:bg-[var(--rdp-accent-color)] data-[today=true][data-selected-single=true]:text-[var(--cal-accent-foreground)]',
-        'data-[range-middle=true]:bg-[var(--rdp-accent-background-color)] data-[range-middle=true]:rounded-none',
-        'data-[range-start=true]:bg-[var(--rdp-accent-color)] data-[range-start=true]:text-[var(--cal-accent-foreground)] data-[range-start=true]:rounded-l-md',
-        'data-[range-end=true]:bg-[var(--rdp-accent-color)] data-[range-end=true]:text-[var(--cal-accent-foreground)] data-[range-end=true]:rounded-r-md',
-        defaultClassNames.day,
-        className,
-      )}
-      {...props}
     />
   )
 }
