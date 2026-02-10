@@ -10,7 +10,7 @@ import type { Color, Radius, Size, TextFieldVariant, Variant } from '@/elements/
 import { cn } from '@/lib/utils'
 import { useFieldGroup } from '../FieldGroupContext'
 import { TextField } from '../TextField'
-import { Calendar, type CalendarSelectionVariant } from './Calendar'
+import { Calendar } from './Calendar'
 
 /** Check if variant is a floating type */
 const isFloatingVariant = (variant?: string): boolean => variant?.startsWith('floating-') ?? false
@@ -19,20 +19,6 @@ const isFloatingVariant = (variant?: string): boolean => variant?.startsWith('fl
 const toButtonVariant = (variant?: TextFieldVariant): Variant => {
   if (!variant || variant.startsWith('floating-')) return 'outline'
   return variant as Variant
-}
-
-/** Map button variant to calendar selection variant */
-const getCalendarVariant = (variant?: TextFieldVariant): CalendarSelectionVariant => {
-  const buttonVariant = toButtonVariant(variant)
-  switch (buttonVariant) {
-    case 'soft':
-      return 'soft'
-    case 'outline':
-    case 'ghost':
-      return 'outline'
-    default:
-      return 'solid'
-  }
 }
 
 export type { DateRange }
@@ -255,7 +241,6 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement | HTMLInputEle
               onSelect={onChange}
               numberOfMonths={numberOfMonths}
               disabled={disabledMatcher}
-              selectionVariant={getCalendarVariant(variant)}
               color={color}
               autoFocus
             />
