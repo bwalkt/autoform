@@ -83,6 +83,15 @@ export function Calendar({
       ...(props.styles?.day_button ?? {}),
       width: '1.75rem',
       height: '1.75rem',
+      borderRadius: 'var(--cal-radius)',
+    },
+    button_previous: {
+      ...(props.styles?.button_previous ?? {}),
+      borderRadius: 'var(--cal-radius)',
+    },
+    button_next: {
+      ...(props.styles?.button_next ?? {}),
+      borderRadius: 'var(--cal-radius)',
     },
   }
 
@@ -117,7 +126,9 @@ export function Calendar({
           '--rdp-day-width': 'var(--cell-size)',
           '--rdp-day_button-height': 'var(--cell-size)',
           '--rdp-day_button-width': 'var(--cell-size)',
-          '--cal-radius': radius ? designTokens.radius[radius] : 'var(--theme-calendar-radius, var(--theme-radius))',
+          '--cal-radius': radius
+            ? designTokens.radius[radius]
+            : 'var(--theme-calendar-radius, var(--theme-radius, 0.375rem))',
         } as React.CSSProperties
       }
       styles={mergedStyles}
