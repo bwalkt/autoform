@@ -4,10 +4,12 @@ import { cn } from '@/lib/utils'
 import type { TypographyColor } from './tokens'
 import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
+type TextElement = HTMLSpanElement | HTMLDivElement | HTMLLabelElement | HTMLParagraphElement
+
 export interface TextOwnProps {
   as?: 'span' | 'div' | 'label' | 'p'
   asChild?: boolean
-  size?: Responsive<TypographySize>
+  size?: TypographySize
   weight?: Weight
   color?: TypographyColor
   align?: 'left' | 'center' | 'right'
@@ -24,12 +26,10 @@ export interface TextOwnProps {
   ml?: Responsive<Spacing>
 }
 
-// TODO(ui-text): Remove the `any` ref cast by introducing proper polymorphic ref typing.
-// Keep aligned with Box once shared polymorphic strategy is finalized.
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & TextOwnProps
 
 /** Text export. */
-export const Text = React.forwardRef<HTMLElement, TextProps>(
+export const Text = React.forwardRef<TextElement, TextProps>(
   (
     {
       as: Tag = 'span',
@@ -56,8 +56,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
     },
     ref,
   ) => {
-    // TODO: support responsive size props (xs/sm/md/lg/xl) or narrow the type.
-    const resolvedSize = typeof size === 'string' ? size : (size?.initial ?? '3')
+    const resolvedSize = size
     const weightToken = typographyTokens.weight[weight]
 
     const textStyles: React.CSSProperties = {
@@ -68,48 +67,76 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
       ...style,
     }
 
-    const Component = asChild ? Slot : Tag
+    const sharedProps = {
+      className: cn(
+        'rt-Text',
+        `rt-r-size-${resolvedSize}`,
 
+        // Text alignment
+        align === 'left' && 'text-left',
+        align === 'center' && 'text-center',
+        align === 'right' && 'text-right',
+
+        // Truncation
+        truncate && 'truncate',
+
+        // Text wrapping
+        wrap === 'nowrap' && 'whitespace-nowrap',
+        wrap === 'pretty' && 'text-pretty',
+        wrap === 'balance' && 'text-balance',
+
+        // High contrast
+        highContrast && 'font-medium',
+
+        // Margin
+        getSpacingClasses(m, 'm'),
+        getSpacingClasses(mx, 'mx'),
+        getSpacingClasses(my, 'my'),
+        getSpacingClasses(mt, 'mt'),
+        getSpacingClasses(mr, 'mr'),
+        getSpacingClasses(mb, 'mb'),
+        getSpacingClasses(ml, 'ml'),
+
+        className,
+      ),
+      'data-trim': trim,
+      style: textStyles,
+      ...props,
+    }
+
+    if (asChild) {
+      return (
+        <Slot ref={ref as React.Ref<HTMLElement>} {...sharedProps}>
+          {children}
+        </Slot>
+      )
+    }
+
+    if (Tag === 'div') {
+      return (
+        <div ref={ref as React.Ref<HTMLDivElement>} {...sharedProps}>
+          {children}
+        </div>
+      )
+    }
+    if (Tag === 'label') {
+      return (
+        <label ref={ref as React.Ref<HTMLLabelElement>} {...sharedProps}>
+          {children}
+        </label>
+      )
+    }
+    if (Tag === 'p') {
+      return (
+        <p ref={ref as React.Ref<HTMLParagraphElement>} {...sharedProps}>
+          {children}
+        </p>
+      )
+    }
     return (
-      <Component
-        ref={ref as any}
-        className={cn(
-          'rt-Text',
-          `rt-r-size-${resolvedSize}`,
-
-          // Text alignment
-          align === 'left' && 'text-left',
-          align === 'center' && 'text-center',
-          align === 'right' && 'text-right',
-
-          // Truncation
-          truncate && 'truncate',
-
-          // Text wrapping
-          wrap === 'nowrap' && 'whitespace-nowrap',
-          wrap === 'pretty' && 'text-pretty',
-          wrap === 'balance' && 'text-balance',
-
-          // High contrast
-          highContrast && 'font-medium',
-
-          // Margin
-          getSpacingClasses(m, 'm'),
-          getSpacingClasses(mx, 'mx'),
-          getSpacingClasses(my, 'my'),
-          getSpacingClasses(mt, 'mt'),
-          getSpacingClasses(mr, 'mr'),
-          getSpacingClasses(mb, 'mb'),
-          getSpacingClasses(ml, 'ml'),
-
-          className,
-        )}
-        data-trim={trim}
-        style={textStyles}
-        {...props}
-      >
+      <span ref={ref as React.Ref<HTMLSpanElement>} {...sharedProps}>
         {children}
-      </Component>
+      </span>
     )
   },
 )

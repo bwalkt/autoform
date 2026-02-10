@@ -40,7 +40,7 @@ export const DocsNav = ({ routes }: DocsNavProps) => {
             <DocsNavItem key={page.slug} href={page.slug} active={currentPageSlug === page.slug}>
               <Flex gap="2" align="center">
                 {page.icon}
-                <Text size={{ initial: '3', md: '2' }}>{page.title}</Text>
+                <Text size="3">{page.title}</Text>
               </Flex>
 
               {page.preview && (

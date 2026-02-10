@@ -26,23 +26,23 @@ export function ThemesPropsTable({ defs }: { defs: keyof typeof definitions }) {
           {data.map(item => (
             <Table.Row key={item.name} className="docs-props-row">
               <Table.RowHeaderCell>
-                <Code size="2">
+                <Code size="2" className="docs-props-chip docs-props-chip-prop">
                   {item.name}
                   {item.required ? '*' : null}
                 </Code>
               </Table.RowHeaderCell>
               <Table.Cell>
-                <Code size="2" color="neutral">
+                <Code size="2" className="docs-props-chip docs-props-chip-type">
                   {item.typeSimple}
                 </Code>
               </Table.Cell>
               <Table.Cell>
                 {item.default !== undefined ? (
-                  <Code size="2" color="neutral">
+                  <Code size="2" className="docs-props-chip docs-props-chip-default">
                     {String(item.default)}
                   </Code>
                 ) : (
-                  <Text size="2" color="neutral">
+                  <Text size="2" className="docs-props-empty">
                     —
                   </Text>
                 )}
