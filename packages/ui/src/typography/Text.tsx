@@ -4,8 +4,6 @@ import { cn } from '@/lib/utils'
 import type { TypographyColor } from './tokens'
 import { type TypographySize, typographyTokens, type Weight } from './tokens'
 
-type TextElement = HTMLSpanElement | HTMLDivElement | HTMLLabelElement | HTMLParagraphElement
-
 export interface TextOwnProps {
   as?: 'span' | 'div' | 'label' | 'p'
   asChild?: boolean
@@ -29,7 +27,7 @@ export interface TextOwnProps {
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & TextOwnProps
 
 /** Text export. */
-export const Text = React.forwardRef<TextElement, TextProps>(
+export const Text = React.forwardRef<HTMLElement, TextProps>(
   (
     {
       as: Tag = 'span',
