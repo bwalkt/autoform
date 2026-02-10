@@ -24,7 +24,7 @@ export interface TextOwnProps {
   ml?: Responsive<Spacing>
 }
 
-export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & TextOwnProps
+export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & TextOwnProps & { htmlFor?: string }
 
 /** Text export. */
 export const Text = React.forwardRef<HTMLElement, TextProps>(
@@ -99,12 +99,11 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
       ),
       'data-trim': trim,
       style: textStyles,
-      ...props,
     }
 
     if (asChild) {
       return (
-        <Slot ref={ref as React.Ref<HTMLElement>} {...sharedProps}>
+        <Slot ref={ref as React.Ref<HTMLElement>} {...sharedProps} {...props}>
           {children}
         </Slot>
       )
@@ -112,27 +111,27 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
 
     if (Tag === 'div') {
       return (
-        <div ref={ref as React.Ref<HTMLDivElement>} {...sharedProps}>
+        <div ref={ref as React.Ref<HTMLDivElement>} {...sharedProps} {...props}>
           {children}
         </div>
       )
     }
     if (Tag === 'label') {
       return (
-        <label ref={ref as React.Ref<HTMLLabelElement>} {...sharedProps}>
+        <label ref={ref as React.Ref<HTMLLabelElement>} {...sharedProps} {...props}>
           {children}
         </label>
       )
     }
     if (Tag === 'p') {
       return (
-        <p ref={ref as React.Ref<HTMLParagraphElement>} {...sharedProps}>
+        <p ref={ref as React.Ref<HTMLParagraphElement>} {...sharedProps} {...props}>
           {children}
         </p>
       )
     }
     return (
-      <span ref={ref as React.Ref<HTMLSpanElement>} {...sharedProps}>
+      <span ref={ref as React.Ref<HTMLSpanElement>} {...sharedProps} {...props}>
         {children}
       </span>
     )
