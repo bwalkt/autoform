@@ -107,14 +107,14 @@ export function Calendar({
         month: cn('flex flex-col w-full gap-2', defaultClassNames.month),
         nav: cn('flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between', defaultClassNames.nav),
         button_previous: cn(
-          'inline-flex size-(--cell-size) items-center justify-center rounded-md p-0',
+          'inline-flex size-(--cell-size) items-center justify-center rounded-md p-0 cursor-pointer',
           'bg-transparent border-0 shadow-none',
           'text-muted-foreground opacity-70 hover:opacity-100',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           defaultClassNames.button_previous,
         ),
         button_next: cn(
-          'inline-flex size-(--cell-size) items-center justify-center rounded-md p-0',
+          'inline-flex size-(--cell-size) items-center justify-center rounded-md p-0 cursor-pointer',
           'bg-transparent border-0 shadow-none',
           'text-muted-foreground opacity-70 hover:opacity-100',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
