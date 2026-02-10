@@ -165,13 +165,14 @@ export function Calendar({
           orientation,
           ...iconProps
         }: { className?: string; orientation?: 'left' | 'right' | 'down' } & React.SVGProps<SVGSVGElement>) => {
+          const forcedSizeProps = { width: 14, height: 14 }
           if (orientation === 'left') {
-            return <ChevronLeftIcon className={cn('size-4', className)} {...iconProps} />
+            return <ChevronLeftIcon className={cn(className)} {...forcedSizeProps} {...iconProps} />
           }
           if (orientation === 'right') {
-            return <ChevronRightIcon className={cn('size-4', className)} {...iconProps} />
+            return <ChevronRightIcon className={cn(className)} {...forcedSizeProps} {...iconProps} />
           }
-          return <ChevronDownIcon className={cn('size-4', className)} {...iconProps} />
+          return <ChevronDownIcon className={cn(className)} {...forcedSizeProps} {...iconProps} />
         },
         ...components,
       }}
