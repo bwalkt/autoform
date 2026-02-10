@@ -127,7 +127,13 @@ export const Countries: Story = {
     const [value, setValue] = useState<string>('')
     return (
       <div className="w-64">
-        <Select label="Country" value={value} onValueChange={setValue} placeholder="Select a country...">
+        <Select
+          id="country-select"
+          label="Country"
+          value={value}
+          onValueChange={setValue}
+          placeholder="Select a country..."
+        >
           <SelectItem value="us">United States</SelectItem>
           <SelectItem value="uk">United Kingdom</SelectItem>
           <SelectItem value="ca">Canada</SelectItem>

@@ -46,6 +46,8 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
     },
     ref,
   ) => {
+    const generatedId = React.useId()
+    const effectiveId = id ?? (label ? generatedId : undefined)
     const fieldGroup = useFieldGroup()
     const size = sizeProp ?? fieldGroup.size
     const variant = variantProp ?? fieldGroup.variant
@@ -74,12 +76,12 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
       >
         <div className="grid gap-1.5">
           {label ? (
-            <Text as="label" size="2" htmlFor={id} color={error ? 'error' : undefined}>
+            <Text as="label" size="2" htmlFor={effectiveId} color={error ? 'error' : undefined}>
               {label}
             </Text>
           ) : null}
           <SelectPrimitive.Trigger
-            id={id}
+            id={effectiveId}
             ref={ref}
             className={cn(
               'inline-flex items-center justify-between w-full outline-none transition-all duration-150 ease-in-out',
