@@ -27,6 +27,9 @@ const meta: Meta<typeof Select> = {
     disabled: {
       control: 'boolean',
     },
+    label: {
+      control: 'text',
+    },
   },
 }
 
@@ -49,6 +52,7 @@ export const Default: Story = {
     )
   },
   args: {
+    label: 'Favorite fruit',
     placeholder: 'Select a fruit...',
   },
 }
@@ -123,7 +127,7 @@ export const Countries: Story = {
     const [value, setValue] = useState<string>('')
     return (
       <div className="w-64">
-        <Select value={value} onValueChange={setValue} placeholder="Select a country...">
+        <Select label="Country" value={value} onValueChange={setValue} placeholder="Select a country...">
           <SelectItem value="us">United States</SelectItem>
           <SelectItem value="uk">United Kingdom</SelectItem>
           <SelectItem value="ca">Canada</SelectItem>
@@ -135,4 +139,16 @@ export const Countries: Story = {
       </div>
     )
   },
+}
+
+export const WithLabel: Story = {
+  render: () => (
+    <div className="w-64">
+      <Select id="status-select" label="Status" placeholder="Select status...">
+        <SelectItem value="todo">Todo</SelectItem>
+        <SelectItem value="in-progress">In progress</SelectItem>
+        <SelectItem value="done">Done</SelectItem>
+      </Select>
+    </div>
+  ),
 }
