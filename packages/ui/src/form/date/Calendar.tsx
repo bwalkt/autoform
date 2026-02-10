@@ -143,6 +143,7 @@ export function Calendar({
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           'group-data-[today=true]/day:bg-[var(--rdp-accent-background-color)] group-data-[today=true]/day:text-foreground',
           'group-data-[selected=true]/day:bg-[var(--rdp-accent-color)] group-data-[selected=true]/day:text-[var(--cal-accent-foreground)]',
+          'group-data-[today=true]/day:group-data-[selected=true]/day:bg-[var(--rdp-accent-color)] group-data-[today=true]/day:group-data-[selected=true]/day:text-[var(--cal-accent-foreground)]',
           'group-data-[range-middle=true]/day:bg-[var(--rdp-accent-background-color)] group-data-[range-middle=true]/day:rounded-none',
           'group-data-[range-start=true]/day:bg-[var(--rdp-accent-color)] group-data-[range-start=true]/day:text-[var(--cal-accent-foreground)] group-data-[range-start=true]/day:rounded-l-md',
           'group-data-[range-end=true]/day:bg-[var(--rdp-accent-color)] group-data-[range-end=true]/day:text-[var(--cal-accent-foreground)] group-data-[range-end=true]/day:rounded-r-md',
