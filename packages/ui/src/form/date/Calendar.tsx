@@ -177,7 +177,7 @@ export function Calendar({
         ),
         week: cn('flex w-full mt-2', defaultClassNames.week),
         day: cn(
-          'relative h-9 w-9 p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-md group/day select-none',
+          'relative p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-md group/day select-none',
           props.showWeekNumber
             ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-md'
             : '[&:first-child[data-selected=true]_button]:rounded-l-md',
@@ -185,7 +185,7 @@ export function Calendar({
         ),
         day_button: cn(
           defaultClassNames.day_button,
-          'h-9 w-9 p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none',
+          'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none',
           'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
           'hover:bg-accent hover:text-accent-foreground',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',

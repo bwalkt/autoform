@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
+import { getThemeRadiusValue } from './radius-utils'
 
 // ============================================================================
 // Theme Types
@@ -336,8 +337,8 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
     const themeStyles: React.CSSProperties = {
       '--theme-accent-color': accentColor,
       '--theme-gray-color': resolvedGrayColor,
-      '--theme-radius': getRadiusValue(radius),
-      '--theme-calendar-radius': getRadiusValue(calendar.radius),
+      '--theme-radius': getThemeRadiusValue(radius),
+      '--theme-calendar-radius': getThemeRadiusValue(calendar.radius),
       '--theme-scaling': scaling,
     } as React.CSSProperties
 
@@ -394,27 +395,6 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
 )
 
 Theme.displayName = 'Theme'
-
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-function getRadiusValue(radius: Radius): string {
-  switch (radius) {
-    case 'none':
-      return '0'
-    case 'sm':
-      return '0.25rem'
-    case 'md':
-      return '0.375rem'
-    case 'lg':
-      return '0.5rem'
-    case 'full':
-      return '9999px'
-    default:
-      return '0.375rem'
-  }
-}
 
 function getResolvedLocale(locale?: Partial<ThemeLocale>): ThemeLocale {
   const defaults = getDefaultLocale()

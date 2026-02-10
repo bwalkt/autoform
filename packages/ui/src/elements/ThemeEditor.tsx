@@ -9,6 +9,7 @@ import { Code } from '@/typography'
 import { Badge } from './Badge'
 import { Button } from './Button'
 import { Card } from './Card'
+import { getThemeRadiusValue, resolveThemeRadius } from './radius-utils'
 import { ScrollArea } from './ScrollArea'
 import { SegmentedControl } from './SegmentedControl'
 import { Tabs } from './Tabs'
@@ -838,9 +839,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                 />
               </Box>
               <Box>
-                <Label htmlFor="calendar-radius" className="mb-2 block">
-                  Calendar Radius
-                </Label>
+                <Label className="mb-2 block">Calendar Radius</Label>
                 <Flex gap="2" className="mt-2">
                   {(['none', 'sm', 'md', 'lg', 'full'] as const).map(r => (
                     <Button
@@ -997,37 +996,3 @@ export const ThemePreview: React.FC<{ className?: string }> = ({ className }) =>
 }
 
 ThemePreview.displayName = 'ThemePreview'
-
-function resolveThemeRadius(radius: string): ThemeRadius {
-  switch (radius) {
-    case '0':
-      return 'none'
-    case '0.25rem':
-      return 'sm'
-    case '0.375rem':
-      return 'md'
-    case '0.5rem':
-      return 'lg'
-    case '9999px':
-      return 'full'
-    default:
-      return 'md'
-  }
-}
-
-function getThemeRadiusValue(radius: ThemeRadius): string {
-  switch (radius) {
-    case 'none':
-      return '0'
-    case 'sm':
-      return '0.25rem'
-    case 'md':
-      return '0.375rem'
-    case 'lg':
-      return '0.5rem'
-    case 'full':
-      return '9999px'
-    default:
-      return '0.375rem'
-  }
-}

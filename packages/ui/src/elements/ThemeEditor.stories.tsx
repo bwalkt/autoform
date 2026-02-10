@@ -6,7 +6,8 @@ import { Badge } from './Badge'
 import { Button } from './Button'
 import { Card } from './Card'
 import { Progress } from './Progress'
-import { Theme, type Radius as ThemeRadius } from './Theme'
+import { resolveThemeRadius } from './radius-utils'
+import { Theme } from './Theme'
 import { presetThemes, ThemeEditor, ThemeEditorProvider, ThemePreview, useThemeEditor } from './ThemeEditor'
 
 const meta: Meta<typeof ThemeEditor> = {
@@ -362,21 +363,4 @@ export const DarkMode: Story = {
       </div>
     </div>
   ),
-}
-
-function resolveThemeRadius(radius: string): ThemeRadius {
-  switch (radius) {
-    case '0':
-      return 'none'
-    case '0.25rem':
-      return 'sm'
-    case '0.375rem':
-      return 'md'
-    case '0.5rem':
-      return 'lg'
-    case '9999px':
-      return 'full'
-    default:
-      return 'md'
-  }
 }
