@@ -24,11 +24,6 @@ export const DefaultMonth: Story = {
     return (
       <div>
         <Calendar selected={date} onSelect={setDate} today={today} className="rounded-md border" />
-        <p className="text-muted-foreground mt-3 text-center text-xs">Default Month</p>
-        <p className="text-muted-foreground mt-1 text-center text-xs">Today: {today.toDateString()}</p>
-        <p className="text-muted-foreground mt-1 text-center text-xs">
-          Selected: {date ? date.toDateString() : 'none'}
-        </p>
       </div>
     )
   },
