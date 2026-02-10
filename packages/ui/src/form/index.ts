@@ -29,7 +29,6 @@ export {
   type AppointmentValue,
   Calendar,
   type CalendarProps,
-  type CalendarSelectionVariant,
   CalendarWithPresets,
   type CalendarWithPresetsProps,
   CalendarWithPricing,

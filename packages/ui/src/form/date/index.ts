@@ -7,7 +7,7 @@ export {
   defaultTimeSlots,
   type TimeSlot,
 } from './AppointmentPicker'
-export { Calendar, type CalendarProps, type CalendarSelectionVariant } from './Calendar'
+export { Calendar, type CalendarProps } from './Calendar'
 export {
   CalendarWithPresets,
   type CalendarWithPresetsProps,

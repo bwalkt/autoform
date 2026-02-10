@@ -30,6 +30,10 @@ body {
   font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }
 
+.font-serif {
+  font-family: var(--font-serif, ui-serif, "Georgia", serif);
+}
+
 .font-mono {
   font-family: var(--font-mono, "JetBrains Mono", monospace);
 }
@@ -42,7 +46,7 @@ kbd {
 
 .radix-themes {
   --default-font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
-  --heading-font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  --heading-font-family: var(--font-serif, ui-serif, "Georgia", serif);
   --code-font-family: var(--font-mono, "JetBrains Mono", monospace);
   --code-block-header-background: var(--gray-1, #f8f9fa);
   --code-block-background: var(--color-panel-solid, #f4f5f6);

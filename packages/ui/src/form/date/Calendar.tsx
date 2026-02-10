@@ -134,7 +134,6 @@ export function Calendar({
         ),
         dropdown: cn('absolute bg-popover inset-0 opacity-0', defaultClassNames.dropdown),
         caption_label: cn('select-none text-sm font-medium', defaultClassNames.caption_label),
-        table: cn('w-full border-collapse', defaultClassNames.table),
         month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
         weekdays: cn('flex', defaultClassNames.weekdays),
         weekday: cn(
