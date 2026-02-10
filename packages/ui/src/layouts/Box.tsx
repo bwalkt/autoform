@@ -17,7 +17,6 @@ import {
 // ============================================================================
 
 export interface BoxOwnProps extends SharedLayoutProps {
-  // TODO(ui-box): add a first-class `radius` prop so callers do not rely on utility classes for border radius.
   /** Render as a different element */
   as?: 'div' | 'span'
   /** Merge props onto child element */
@@ -65,6 +64,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       height,
       minHeight,
       maxHeight,
+      radius,
       position,
       inset,
       top,
@@ -114,6 +114,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       height,
       minHeight,
       maxHeight,
+      radius,
       position,
       inset,
       top,

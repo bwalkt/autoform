@@ -21,6 +21,10 @@ const meta: Meta<typeof Box> = {
       control: 'select',
       options: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
     },
+    radius: {
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
+    },
   },
 }
 
@@ -46,6 +50,18 @@ export const AsSpan: Story = {
     children: 'Box as span',
     className: 'bg-primary text-primary-foreground rounded',
   },
+}
+
+export const RadiusVariants: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 gap-4">
+      {(['none', 'sm', 'md', 'lg', 'full'] as const).map(radius => (
+        <Box key={radius} radius={radius} p="4" className="border border-border bg-muted text-sm">
+          radius=&quot;{radius}&quot;
+        </Box>
+      ))}
+    </div>
+  ),
 }
 
 // ============================================================================
