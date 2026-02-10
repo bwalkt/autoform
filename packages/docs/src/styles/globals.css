@@ -98,6 +98,7 @@ kbd {
   background: var(--gray-2, #f8f9fa);
   color: var(--gray-12, #1f2328);
   font-weight: 600;
+  padding: 14px 18px;
 }
 
 .docs-props-table thead th:first-child {
@@ -106,6 +107,11 @@ kbd {
 
 .docs-props-table .docs-props-row {
   white-space: nowrap;
+}
+
+.docs-props-table tbody th,
+.docs-props-table tbody td {
+  padding: 12px 18px;
 }
 
 .docs-props-table tbody tr:last-child td,
@@ -123,6 +129,33 @@ kbd {
 
 .docs-props-table tbody tr > * {
   border-bottom: 1px solid var(--gray-a5, rgba(0, 0, 0, 0.08));
+}
+
+.docs-props-table .docs-props-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 2px 8px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.docs-props-table .docs-props-chip-prop {
+  background: oklch(0.95 0.03 255 / 85%);
+  border-color: oklch(0.88 0.04 250 / 80%);
+  color: oklch(0.54 0.14 260);
+}
+
+.docs-props-table .docs-props-chip-type,
+.docs-props-table .docs-props-chip-default {
+  background: var(--gray-2, #f4f5f6);
+  border-color: var(--gray-a5, rgba(0, 0, 0, 0.08));
+  color: var(--gray-11, #60646c);
+}
+
+.docs-props-table .docs-props-empty {
+  color: var(--gray-10, #7e838b);
 }
 
 .docs-demo-surface {
