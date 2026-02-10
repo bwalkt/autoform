@@ -55,6 +55,17 @@ export function Calendar({
     ? Math.max(2, (to.getFullYear() - resolvedFrom.getFullYear()) * 12 + (to.getMonth() - resolvedFrom.getMonth()) + 1)
     : (numberOfMonths ?? 1)
   const resolvedColors = resolveCalendarColors(color)
+  const mergedStyles = {
+    ...props.styles,
+    month_caption: {
+      ...(props.styles?.month_caption ?? {}),
+      marginBottom: '0.5rem',
+    },
+    week: {
+      ...(props.styles?.week ?? {}),
+      paddingTop: '0.5rem',
+    },
+  }
 
   const forcedModeProps =
     resolvedMode === 'range'
@@ -85,6 +96,7 @@ export function Calendar({
           '--cal-accent-foreground': resolvedColors.foreground,
         } as React.CSSProperties
       }
+      styles={mergedStyles}
       formatters={{
         formatMonthDropdown: (date: Date) => date.toLocaleString('default', { month: 'short' }),
         ...formatters,
@@ -92,7 +104,7 @@ export function Calendar({
       classNames={{
         root: cn('w-fit', defaultClassNames.root),
         months: cn('flex gap-4 flex-col md:flex-row relative', defaultClassNames.months),
-        month: cn('flex flex-col w-full gap-4', defaultClassNames.month),
+        month: cn('flex flex-col w-full gap-2', defaultClassNames.month),
         nav: cn('flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between', defaultClassNames.nav),
         button_previous: cn(
           'inline-flex size-(--cell-size) items-center justify-center rounded-md p-0',
@@ -122,6 +134,7 @@ export function Calendar({
         ),
         dropdown: cn('absolute bg-popover inset-0 opacity-0', defaultClassNames.dropdown),
         caption_label: cn('select-none text-sm font-medium', defaultClassNames.caption_label),
+        table: cn('w-full border-collapse', defaultClassNames.table),
         month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
         weekdays: cn('flex', defaultClassNames.weekdays),
         weekday: cn(
