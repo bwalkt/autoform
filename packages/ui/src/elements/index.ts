@@ -61,7 +61,9 @@ export {
   type PanelBackground,
   type Scaling,
   Theme,
+  type ThemeCalendar,
   type ThemeContextValue,
+  type ThemeLocale,
   type ThemeProps,
   useThemeContext,
 } from './Theme'

@@ -12,6 +12,7 @@ import { Card } from './Card'
 import { ScrollArea } from './ScrollArea'
 import { SegmentedControl } from './SegmentedControl'
 import { Tabs } from './Tabs'
+import { Theme, type Radius as ThemeRadius } from './Theme'
 
 // ============================================================================
 // Theme Configuration Types
@@ -51,6 +52,19 @@ export interface ThemeLayout {
   spacing: string
 }
 
+export interface ThemeLocaleSettings {
+  locale: string
+  language: string
+  country: string
+  timezone: string
+}
+
+export interface ThemeCalendarSettings {
+  radius: ThemeRadius
+  locale?: string
+  timezone?: string
+}
+
 export interface ThemeShadow {
   color: string
   opacity: string
@@ -67,6 +81,8 @@ export interface ThemeConfig {
   }
   typography: ThemeTypography
   layout: ThemeLayout
+  locale: ThemeLocaleSettings
+  calendar: ThemeCalendarSettings
   shadow: ThemeShadow
 }
 
@@ -129,6 +145,15 @@ export const defaultThemeConfig: ThemeConfig = {
   layout: {
     radius: '0.5rem',
     spacing: '0.25rem',
+  },
+  locale: {
+    locale: 'en-US',
+    language: 'en',
+    country: 'US',
+    timezone: 'UTC',
+  },
+  calendar: {
+    radius: 'md',
   },
   shadow: {
     color: '0 0% 0%',
@@ -258,6 +283,8 @@ interface ThemeEditorContextValue {
   updateColors: (mode: 'light' | 'dark', colors: Partial<ThemeColors>) => void
   updateTypography: (typography: Partial<ThemeTypography>) => void
   updateLayout: (layout: Partial<ThemeLayout>) => void
+  updateLocale: (locale: Partial<ThemeLocaleSettings>) => void
+  updateCalendar: (calendar: Partial<ThemeCalendarSettings>) => void
   updateShadow: (shadow: Partial<ThemeShadow>) => void
   applyPreset: (presetName: string) => void
   resetToDefault: () => void
@@ -317,6 +344,20 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
     }))
   }, [])
 
+  const updateLocale = React.useCallback((locale: Partial<ThemeLocaleSettings>) => {
+    setConfig(prev => ({
+      ...prev,
+      locale: { ...prev.locale, ...locale },
+    }))
+  }, [])
+
+  const updateCalendar = React.useCallback((calendar: Partial<ThemeCalendarSettings>) => {
+    setConfig(prev => ({
+      ...prev,
+      calendar: { ...prev.calendar, ...calendar },
+    }))
+  }, [])
+
   const updateShadow = React.useCallback((shadow: Partial<ThemeShadow>) => {
     setConfig(prev => ({
       ...prev,
@@ -358,6 +399,8 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
       updateColors,
       updateTypography,
       updateLayout,
+      updateLocale,
+      updateCalendar,
       updateShadow,
       applyPreset,
       resetToDefault,
@@ -370,6 +413,8 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
       updateColors,
       updateTypography,
       updateLayout,
+      updateLocale,
+      updateCalendar,
       updateShadow,
       applyPreset,
       resetToDefault,
@@ -401,7 +446,8 @@ export const ThemeEditorProvider: React.FC<ThemeEditorProviderProps> = ({
     // Layout
     root.style.setProperty('--radius', config.layout.radius)
     root.style.setProperty('--spacing', config.layout.spacing)
-    setVars.push('--radius', '--spacing')
+    root.style.setProperty('--theme-calendar-radius', getThemeRadiusValue(config.calendar.radius))
+    setVars.push('--radius', '--spacing', '--theme-calendar-radius')
 
     // Shadow
     root.style.setProperty('--shadow-color', config.shadow.color)
@@ -438,6 +484,7 @@ function generateCSS(config: ThemeConfig): string {
 ${generateColorVars(config.colors.light)}
     --radius: ${config.layout.radius};
     --spacing: ${config.layout.spacing};
+    --theme-calendar-radius: ${getThemeRadiusValue(config.calendar.radius)};
     --font-sans: ${config.typography.fontSans};
     --font-serif: ${config.typography.fontSerif};
     --font-mono: ${config.typography.fontMono};
@@ -790,6 +837,45 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ className }) => {
                   placeholder="e.g., 0.25rem"
                 />
               </Box>
+              <Box>
+                <Label htmlFor="calendar-radius" className="mb-2 block">
+                  Calendar Radius
+                </Label>
+                <Flex gap="2" className="mt-2">
+                  {(['none', 'sm', 'md', 'lg', 'full'] as const).map(r => (
+                    <Button
+                      key={r}
+                      size="1"
+                      variant={editor.config.calendar.radius === r ? 'solid' : 'outline'}
+                      onClick={() => editor.updateCalendar({ radius: r })}
+                    >
+                      {r}
+                    </Button>
+                  ))}
+                </Flex>
+              </Box>
+              <Box>
+                <Label htmlFor="theme-locale" className="mb-2 block">
+                  Locale
+                </Label>
+                <TextField
+                  id="theme-locale"
+                  value={editor.config.locale.locale}
+                  onChange={e => editor.updateLocale({ locale: e.target.value })}
+                  placeholder="e.g., en-US"
+                />
+              </Box>
+              <Box>
+                <Label htmlFor="theme-timezone" className="mb-2 block">
+                  Timezone
+                </Label>
+                <TextField
+                  id="theme-timezone"
+                  value={editor.config.locale.timezone}
+                  onChange={e => editor.updateLocale({ timezone: e.target.value })}
+                  placeholder="e.g., America/New_York"
+                />
+              </Box>
             </Flex>
           </Tabs.Content>
 
@@ -827,74 +913,121 @@ ThemeEditor.displayName = 'ThemeEditor'
 
 /** ThemePreview export. */
 export const ThemePreview: React.FC<{ className?: string }> = ({ className }) => {
+  const editor = useThemeEditor()
+
   return (
-    <Flex direction="column" gap="6" p="6" className={className}>
-      {/* Buttons */}
-      <Box>
-        <h3 className="text-sm font-medium mb-3">Buttons</h3>
-        <Flex wrap="wrap" gap="2">
-          <Button>Primary</Button>
-          <Button variant="soft">Soft</Button>
-          <Button color="error">Destructive</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="ghost">Ghost</Button>
-        </Flex>
-      </Box>
-
-      {/* Cards */}
-      <Box>
-        <h3 className="text-sm font-medium mb-3">Card</h3>
-        <Card.Root className="p-4">
-          <h4 className="font-semibold">Card Title</h4>
-          <p className="text-sm text-muted-foreground mt-1">Card description with muted text.</p>
-        </Card.Root>
-      </Box>
-
-      {/* Inputs */}
-      <Box>
-        <h3 className="text-sm font-medium mb-3">Inputs</h3>
-        <Flex direction="column" gap="3">
-          <TextField placeholder="Text input..." />
-          <Flex align="center" gap="2">
-            <input type="checkbox" id="preview-checkbox" className="h-4 w-4 rounded border-input accent-primary" />
-            <Label htmlFor="preview-checkbox">Checkbox label</Label>
+    <Theme
+      appearance={editor.mode}
+      radius={resolveThemeRadius(editor.config.layout.radius)}
+      locale={editor.config.locale}
+      calendar={{
+        radius: editor.config.calendar.radius,
+        locale: editor.config.calendar.locale,
+        timezone: editor.config.calendar.timezone,
+      }}
+    >
+      <Flex direction="column" gap="6" p="6" className={className}>
+        {/* Buttons */}
+        <Box>
+          <h3 className="text-sm font-medium mb-3">Buttons</h3>
+          <Flex wrap="wrap" gap="2">
+            <Button>Primary</Button>
+            <Button variant="soft">Soft</Button>
+            <Button color="error">Destructive</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
           </Flex>
-        </Flex>
-      </Box>
+        </Box>
 
-      {/* Badges */}
-      <Box>
-        <h3 className="text-sm font-medium mb-3">Badges</h3>
-        <Flex wrap="wrap" gap="2">
-          <Badge>Primary</Badge>
-          <Badge color="neutral">Neutral</Badge>
-          <Badge color="success">Success</Badge>
-          <Badge color="warning">Warning</Badge>
-          <Badge color="error">Error</Badge>
-          <Badge variant="outline">Outline</Badge>
-        </Flex>
-      </Box>
+        {/* Cards */}
+        <Box>
+          <h3 className="text-sm font-medium mb-3">Card</h3>
+          <Card.Root className="p-4">
+            <h4 className="font-semibold">Card Title</h4>
+            <p className="text-sm text-muted-foreground mt-1">Card description with muted text.</p>
+          </Card.Root>
+        </Box>
 
-      {/* Alert */}
-      <Box>
-        <h3 className="text-sm font-medium mb-3">Callout</h3>
-        <Card.Root className="p-4 bg-muted">
-          <p className="text-sm font-medium">Heads up!</p>
-          <p className="text-sm text-muted-foreground mt-1">You can customize this theme using the editor panel.</p>
-        </Card.Root>
-      </Box>
+        {/* Inputs */}
+        <Box>
+          <h3 className="text-sm font-medium mb-3">Inputs</h3>
+          <Flex direction="column" gap="3">
+            <TextField placeholder="Text input..." />
+            <Flex align="center" gap="2">
+              <input type="checkbox" id="preview-checkbox" className="h-4 w-4 rounded border-input accent-primary" />
+              <Label htmlFor="preview-checkbox">Checkbox label</Label>
+            </Flex>
+          </Flex>
+        </Box>
 
-      {/* Segmented Control */}
-      <Box>
-        <h3 className="text-sm font-medium mb-3">Segmented Control</h3>
-        <SegmentedControl.Root defaultValue="option1">
-          <SegmentedControl.Item value="option1">Option 1</SegmentedControl.Item>
-          <SegmentedControl.Item value="option2">Option 2</SegmentedControl.Item>
-          <SegmentedControl.Item value="option3">Option 3</SegmentedControl.Item>
-        </SegmentedControl.Root>
-      </Box>
-    </Flex>
+        {/* Badges */}
+        <Box>
+          <h3 className="text-sm font-medium mb-3">Badges</h3>
+          <Flex wrap="wrap" gap="2">
+            <Badge>Primary</Badge>
+            <Badge color="neutral">Neutral</Badge>
+            <Badge color="success">Success</Badge>
+            <Badge color="warning">Warning</Badge>
+            <Badge color="error">Error</Badge>
+            <Badge variant="outline">Outline</Badge>
+          </Flex>
+        </Box>
+
+        {/* Alert */}
+        <Box>
+          <h3 className="text-sm font-medium mb-3">Callout</h3>
+          <Card.Root className="p-4 bg-muted">
+            <p className="text-sm font-medium">Heads up!</p>
+            <p className="text-sm text-muted-foreground mt-1">You can customize this theme using the editor panel.</p>
+          </Card.Root>
+        </Box>
+
+        {/* Segmented Control */}
+        <Box>
+          <h3 className="text-sm font-medium mb-3">Segmented Control</h3>
+          <SegmentedControl.Root defaultValue="option1">
+            <SegmentedControl.Item value="option1">Option 1</SegmentedControl.Item>
+            <SegmentedControl.Item value="option2">Option 2</SegmentedControl.Item>
+            <SegmentedControl.Item value="option3">Option 3</SegmentedControl.Item>
+          </SegmentedControl.Root>
+        </Box>
+      </Flex>
+    </Theme>
   )
 }
 
 ThemePreview.displayName = 'ThemePreview'
+
+function resolveThemeRadius(radius: string): ThemeRadius {
+  switch (radius) {
+    case '0':
+      return 'none'
+    case '0.25rem':
+      return 'sm'
+    case '0.375rem':
+      return 'md'
+    case '0.5rem':
+      return 'lg'
+    case '9999px':
+      return 'full'
+    default:
+      return 'md'
+  }
+}
+
+function getThemeRadiusValue(radius: ThemeRadius): string {
+  switch (radius) {
+    case 'none':
+      return '0'
+    case 'sm':
+      return '0.25rem'
+    case 'md':
+      return '0.375rem'
+    case 'lg':
+      return '0.5rem'
+    case 'full':
+      return '9999px'
+    default:
+      return '0.375rem'
+  }
+}

@@ -1,5 +1,6 @@
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/newsreader";
+@import "./elements/design-tokens.css";
 @import "tw-animate-css";
 @import "./typography/typography.css";
 @config "../tailwind.config.js";

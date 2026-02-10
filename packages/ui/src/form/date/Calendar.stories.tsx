@@ -11,6 +11,12 @@ const meta: Meta<typeof Calendar> = {
   parameters: {
     layout: 'centered',
   },
+  argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
+    },
+  },
 }
 
 export default meta
@@ -18,12 +24,21 @@ type Story = StoryObj<typeof Calendar>
 
 // calendar-01 style
 export const DefaultMonth: Story = {
-  render: () => {
-    const [date, setDate] = React.useState<Date | undefined>(undefined)
-    const today = new Date()
+  args: {
+    color: 'default',
+  },
+  render: args => {
+    const [date, setDate] = React.useState<Date | undefined>(new Date())
     return (
       <div>
-        <Calendar selected={date} onSelect={setDate} today={today} className="rounded-md border" />
+        <Calendar
+          mode="single"
+          defaultMonth={date}
+          selected={date}
+          onSelect={setDate}
+          color={args.color}
+          className="rounded-md border"
+        />
       </div>
     )
   },
