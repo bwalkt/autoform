@@ -48,6 +48,7 @@ export const layoutPropDefs: PropDef[] = [
   { name: 'height', typeSimple: 'string' },
   { name: 'minHeight', typeSimple: 'string' },
   { name: 'maxHeight', typeSimple: 'string' },
+  { name: 'radius', typeSimple: '"none" | "sm" | "md" | "lg" | "full"' },
   { name: 'position', typeSimple: '"static" | "relative" | "absolute" | "fixed" | "sticky"' },
   { name: 'inset', typeSimple: 'Responsive<Spacing>' },
   { name: 'top', typeSimple: 'Responsive<Spacing>' },

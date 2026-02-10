@@ -13,9 +13,11 @@ import type {
   JustifySelf,
   Overflow,
   Position,
+  Radius,
   Responsive,
   Spacing,
 } from '@/elements/tokens'
+import { designTokens } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
 
 // Re-export shared types for convenience
@@ -33,6 +35,7 @@ export type {
   JustifyContent,
   JustifyItems,
   JustifySelf,
+  Radius,
 }
 
 // ============================================================================
@@ -445,6 +448,7 @@ export interface SharedLayoutProps {
   height?: string
   minHeight?: string
   maxHeight?: string
+  radius?: Radius
 
   // Position
   position?: Responsive<Position>
@@ -570,6 +574,7 @@ export function getSharedLayoutStyles(props: SharedLayoutProps): React.CSSProper
     height,
     minHeight,
     maxHeight,
+    radius,
     flexBasis,
     gridArea,
     gridColumn,
@@ -606,6 +611,7 @@ export function getSharedLayoutStyles(props: SharedLayoutProps): React.CSSProper
     ...(height && { height }),
     ...(minHeight && { minHeight }),
     ...(maxHeight && { maxHeight }),
+    ...(radius && { borderRadius: designTokens.radius[radius] }),
     ...(flexBasis && { flexBasis }),
     ...(gridArea && { gridArea }),
     ...(gridColumn && { gridColumn }),
