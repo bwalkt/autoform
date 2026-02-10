@@ -53,9 +53,16 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     ref,
   ) => {
     const resolvedSize = typeof size === 'string' ? size : (size?.initial ?? '6')
-    const weightToken = typographyTokens.weight[weight]
+    const resolvedWeight = highContrast
+      ? ({
+          light: 'regular',
+          regular: 'medium',
+          medium: 'bold',
+          bold: 'bold',
+        }[weight] as Weight)
+      : weight
+    const weightToken = typographyTokens.weight[resolvedWeight]
 
-    // TODO: apply highContrast styling once design tokens are finalized.
     const headingStyles: React.CSSProperties = {
       fontWeight: weightToken,
       textAlign: align,
@@ -85,6 +92,9 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
           wrap === 'nowrap' && 'whitespace-nowrap',
           wrap === 'pretty' && 'text-pretty',
           wrap === 'balance' && 'text-balance',
+
+          // High contrast
+          highContrast && 'saturate-[1.1]',
 
           // Margin
           getSpacingClasses(m, 'm'),

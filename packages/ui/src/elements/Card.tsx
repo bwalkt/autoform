@@ -3,11 +3,10 @@
 import * as React from 'react'
 import { Slot } from '@/layouts/layout-utils'
 import { cn } from '@/lib/utils'
-import type { Responsive } from './tokens'
+import type { Responsive, Size } from './tokens'
 
-// Size configurations for padding
-// TODO: Consolidate component-specific size tokens with global design token types.
-type CardSize = '1' | '2' | '3' | '4' | '5'
+// Reuse shared size tokens and extend for the largest card padding variant.
+type CardSize = Size | '5'
 
 const cardSizes: Record<CardSize, string> = {
   '1': 'p-2',
