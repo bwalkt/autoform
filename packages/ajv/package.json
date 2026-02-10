@@ -18,7 +18,7 @@
     "@bwalkt/typescript-config": "workspace:*",
     "@storybook/react": "catalog:",
     "@storybook/react-vite": "catalog:",
-    "@turbo/gen": "^1.12.4",
+    "@turbo/gen": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
