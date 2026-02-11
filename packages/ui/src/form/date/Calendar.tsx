@@ -115,11 +115,14 @@ function toMatcherArray(matcher: Matcher | Matcher[] | undefined): Matcher[] {
 }
 
 /**
- * A themed, locale- and timezone-aware calendar React component with support for single, range, and multiple date selection.
+ * A themed, localized wrapper around react-day-picker that renders a customizable calendar UI.
  *
- * Renders a DayPicker calendar that respects theme tokens (colors, radius, nav button style), supports controlled and uncontrolled modes (including complex multiple-selection constraints: min, max, required), and formats captions, months, weekdays, and day labels using `localeCode` and `timeZone`.
+ * Supports single, range, and multiple selection modes; controlled and uncontrolled month/selection handling;
+ * custom colors, radii, navigation button styling, locale- and timeZone-aware date formatting, and component/formatter overrides.
  *
- * @returns The rendered DayPicker calendar React element
+ * @param localeCode - BCP 47 locale string used for month, weekday, and day formatting (falls back to theme or "en-US")
+ * @param timeZone - IANA time zone identifier to apply when formatting dates (falls back to theme if not provided)
+ * @returns The rendered DayPicker calendar component configured with the provided props
  */
 export function Calendar({
   className,
