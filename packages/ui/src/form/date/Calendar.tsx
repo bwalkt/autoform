@@ -6,6 +6,7 @@ import {
   DayPicker,
   type DayPickerProps,
   getDefaultClassNames,
+  type Matcher,
   type MonthChangeEventHandler,
   type PropsMulti,
   type PropsRange,
@@ -104,6 +105,13 @@ function resolveCalendarColors(color: Color): { accent: string; soft: string; fo
   }
 }
 
+function toMatcherArray(matcher: Matcher | Matcher[] | undefined): Matcher[] {
+  if (!matcher) {
+    return []
+  }
+  return Array.isArray(matcher) ? matcher : [matcher]
+}
+
 /** Calendar export. */
 export function Calendar({
   className,
@@ -137,6 +145,17 @@ export function Calendar({
     Array.isArray(multipleSelectedProp) ? multipleSelectedProp : undefined,
   )
   const multipleSelected = isMultipleControlled ? multipleSelectedProp : uncontrolledMultipleSelected
+  const isMultipleAtMax =
+    resolvedMode === 'multiple' &&
+    typeof multipleModeProps?.max === 'number' &&
+    (multipleSelected?.length ?? 0) >= multipleModeProps.max
+  const maxReachedDisabledMatcher: Matcher = React.useCallback(
+    (date: Date) => !(multipleSelected ?? []).some(selectedDate => isSameDay(selectedDate, date)),
+    [multipleSelected],
+  )
+  const resolvedDisabled = isMultipleAtMax
+    ? [...toMatcherArray(dayPickerProps.disabled), maxReachedDisabledMatcher]
+    : dayPickerProps.disabled
   const resolvedNavButtonColor: Color = color
   const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
   const resolvedNavButtonBordered = navButtonBorderedProp ?? theme?.calendar.navButtonBordered ?? false
@@ -245,6 +264,7 @@ export function Calendar({
     mode: resolvedMode,
     selected: resolvedMode === 'multiple' ? multipleSelected : dayPickerProps.selected,
     onSelect: resolvedMode === 'multiple' ? handleMultipleSelect : dayPickerProps.onSelect,
+    disabled: resolvedDisabled,
     month: displayedMonth,
     onMonthChange: handleMonthChange,
     defaultMonth: resolvedFrom,
@@ -345,7 +365,10 @@ export function Calendar({
         defaultClassNames.selected,
       ),
       outside: cn('text-muted-foreground aria-selected:text-muted-foreground', defaultClassNames.outside),
-      disabled: cn('text-muted-foreground opacity-50', defaultClassNames.disabled),
+      disabled: cn(
+        'text-muted-foreground opacity-50 [&>button]:pointer-events-none [&>button]:cursor-not-allowed',
+        defaultClassNames.disabled,
+      ),
       hidden: cn('invisible', defaultClassNames.hidden),
       ...classNames,
     },
