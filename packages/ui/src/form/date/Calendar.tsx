@@ -35,6 +35,8 @@ type CalendarCommonProps = Omit<
   className?: string
   from?: Date
   to?: Date | null
+  localeCode?: string
+  timeZone?: string
   color?: Color
   radius?: Radius
   month?: Date
@@ -119,6 +121,8 @@ export function Calendar({
   showOutsideDays = true,
   from,
   to = null,
+  localeCode,
+  timeZone,
   color = 'default',
   radius,
   month: monthProp,
@@ -159,11 +163,58 @@ export function Calendar({
   const resolvedNavButtonColor: Color = color
   const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
   const resolvedNavButtonBordered = navButtonBorderedProp ?? theme?.calendar.navButtonBordered ?? false
+  const resolvedLocaleCode = localeCode ?? theme?.calendar.locale ?? theme?.locale.locale ?? 'en-US'
+  const resolvedTimeZone = timeZone ?? theme?.calendar.timezone ?? theme?.locale.timezone
   const resolvedNumberOfMonths = to
     ? Math.max(2, (to.getFullYear() - resolvedFrom.getFullYear()) * 12 + (to.getMonth() - resolvedFrom.getMonth()) + 1)
     : (numberOfMonths ?? 1)
   const resolvedPagedNavigation = pagedNavigationProp ?? resolvedNumberOfMonths > 1
   const resolvedColors = resolveCalendarColors(color)
+  const dateFormatOptions = React.useMemo(
+    () => (resolvedTimeZone ? ({ timeZone: resolvedTimeZone } as const) : undefined),
+    [resolvedTimeZone],
+  )
+  const captionFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(resolvedLocaleCode, {
+        month: 'long',
+        year: 'numeric',
+        ...dateFormatOptions,
+      }),
+    [resolvedLocaleCode, dateFormatOptions],
+  )
+  const monthDropdownFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(resolvedLocaleCode, {
+        month: 'short',
+        ...dateFormatOptions,
+      }),
+    [resolvedLocaleCode, dateFormatOptions],
+  )
+  const yearDropdownFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(resolvedLocaleCode, {
+        year: 'numeric',
+        ...dateFormatOptions,
+      }),
+    [resolvedLocaleCode, dateFormatOptions],
+  )
+  const weekdayFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(resolvedLocaleCode, {
+        weekday: 'short',
+        ...dateFormatOptions,
+      }),
+    [resolvedLocaleCode, dateFormatOptions],
+  )
+  const dayFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(resolvedLocaleCode, {
+        day: 'numeric',
+        ...dateFormatOptions,
+      }),
+    [resolvedLocaleCode, dateFormatOptions],
+  )
   const navButtonClassName = resolvedNavButtonBordered
     ? cn(
         'shrink-0 border touch-manipulation [-webkit-tap-highlight-color:transparent]',
@@ -294,7 +345,11 @@ export function Calendar({
     } as React.CSSProperties,
     styles: mergedStyles,
     formatters: {
-      formatMonthDropdown: (date: Date) => date.toLocaleString('default', { month: 'short' }),
+      formatCaption: (date: Date, _options?: unknown, _dateLib?: unknown) => captionFormatter.format(date),
+      formatMonthDropdown: (date: Date, _options?: unknown, _dateLib?: unknown) => monthDropdownFormatter.format(date),
+      formatYearDropdown: (date: Date, _options?: unknown, _dateLib?: unknown) => yearDropdownFormatter.format(date),
+      formatWeekdayName: (date: Date, _options?: unknown, _dateLib?: unknown) => weekdayFormatter.format(date),
+      formatDay: (date: Date, _options?: unknown, _dateLib?: unknown) => dayFormatter.format(date),
       ...formatters,
     },
     classNames: {

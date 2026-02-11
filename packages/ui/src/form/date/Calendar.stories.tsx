@@ -300,3 +300,14 @@ export const ThemeProviderDefaults: Story = {
     )
   },
 }
+
+export const ThemeProviderLocaleDefaults: Story = {
+  render: () => {
+    const [date, setDate] = React.useState<Date | undefined>(new Date())
+    return (
+      <Theme locale={{ locale: 'fr-FR', language: 'fr', country: 'FR', timezone: 'Europe/Paris' }}>
+        <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
+      </Theme>
+    )
+  },
+}
