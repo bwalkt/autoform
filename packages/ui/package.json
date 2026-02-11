@@ -7,6 +7,8 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint . --write",
     "build": "tsup src/index.ts --format esm --dts --external react --external react-dom",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -25,6 +27,9 @@
     "@bwalkt/typescript-config": "file:../typescript-config",
     "@storybook/addon-docs": "catalog:",
     "@storybook/react-vite": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -38,7 +43,9 @@
     "tailwind-merge": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "jsdom": "catalog:"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
