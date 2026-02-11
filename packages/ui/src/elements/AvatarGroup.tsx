@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { type AvatarProps, type AvatarSize, avatarSizes } from './Avatar'
+import { type AvatarProps, type AvatarSize, avatarSizeStyles, avatarSizes } from './Avatar'
 
 type AvatarGroupLayout = 'spread' | 'stack'
 
@@ -83,6 +83,7 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
               type="button"
               onClick={handleOverflowClick}
               disabled={!onOverflowClick}
+              style={avatarSizeStyles[size]}
               className={cn(
                 'relative inline-flex items-center justify-center rounded-full',
                 'bg-muted text-muted-foreground font-medium',

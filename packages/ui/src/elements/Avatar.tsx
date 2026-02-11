@@ -2,20 +2,57 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import type { Color, Radius, Size } from './tokens'
+import { type Color, designTokens, type Radius, type Size } from './tokens'
 
-// Size configurations (exported for AvatarGroup)
-/** avatarSizes export. */
 export const avatarSizes = {
-  '1': 'h-6 w-6 text-xs',
-  '2': 'h-8 w-8 text-sm',
-  '3': 'h-10 w-10 text-base',
-  '4': 'h-12 w-12 text-lg',
-  '5': 'h-16 w-16 text-xl',
-  '6': 'h-20 w-20 text-2xl',
+  '1': 'rt-avatar-size',
+  '2': 'rt-avatar-size',
+  '3': 'rt-avatar-size',
+  '4': 'rt-avatar-size',
+  '5': 'rt-avatar-size',
+  '6': 'rt-avatar-size',
 }
 
 export type AvatarSize = Size | '5' | '6'
+
+type AvatarSizeStyle = React.CSSProperties & {
+  '--rt-avatar-size': string
+  '--rt-avatar-font-size': string
+  '--rt-avatar-line-height': string
+}
+
+export const avatarSizeStyles: Record<AvatarSize, AvatarSizeStyle> = {
+  '1': {
+    '--rt-avatar-size': designTokens.size['1'].height,
+    '--rt-avatar-font-size': designTokens.size['1'].fontSize,
+    '--rt-avatar-line-height': designTokens.size['1'].lineHeight,
+  },
+  '2': {
+    '--rt-avatar-size': designTokens.size['2'].height,
+    '--rt-avatar-font-size': designTokens.size['2'].fontSize,
+    '--rt-avatar-line-height': designTokens.size['2'].lineHeight,
+  },
+  '3': {
+    '--rt-avatar-size': designTokens.size['3'].height,
+    '--rt-avatar-font-size': designTokens.size['3'].fontSize,
+    '--rt-avatar-line-height': designTokens.size['3'].lineHeight,
+  },
+  '4': {
+    '--rt-avatar-size': designTokens.size['4'].height,
+    '--rt-avatar-font-size': designTokens.size['4'].fontSize,
+    '--rt-avatar-line-height': designTokens.size['4'].lineHeight,
+  },
+  '5': {
+    '--rt-avatar-size': '4rem',
+    '--rt-avatar-font-size': designTokens.typography['5'].fontSize,
+    '--rt-avatar-line-height': designTokens.typography['5'].lineHeight,
+  },
+  '6': {
+    '--rt-avatar-size': '5rem',
+    '--rt-avatar-font-size': designTokens.typography['6'].fontSize,
+    '--rt-avatar-line-height': designTokens.typography['6'].lineHeight,
+  },
+}
 
 // Variant styles
 type AvatarVariant = 'solid' | 'soft'
@@ -100,11 +137,11 @@ const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
     return (
       <span
         ref={ref}
+        style={avatarSizeStyles[size]}
         className={cn(
           'relative inline-flex shrink-0 items-center justify-center overflow-hidden',
           avatarSizes[size],
           radiusStyles[radius],
-          // Fallback colors
           showFallback && variant === 'solid' && solidColorStyles[color],
           showFallback && variant === 'soft' && softColorStyles[color],
           className,
