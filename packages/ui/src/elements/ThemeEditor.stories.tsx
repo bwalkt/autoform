@@ -6,6 +6,8 @@ import { Badge } from './Badge'
 import { Button } from './Button'
 import { Card } from './Card'
 import { Progress } from './Progress'
+import { resolveThemeRadius } from './radius-utils'
+import { Theme } from './Theme'
 import { presetThemes, ThemeEditor, ThemeEditorProvider, ThemePreview, useThemeEditor } from './ThemeEditor'
 
 const meta: Meta<typeof ThemeEditor> = {
@@ -76,74 +78,81 @@ const ComponentShowcase: React.FC = () => {
   const editor = useThemeEditor()
 
   return (
-    <div className="p-8 space-y-8">
-      <div>
-        <h2 className="text-2xl font-bold mb-2">Component Showcase</h2>
-        <p className="text-muted-foreground">
-          Current mode: <span className="font-medium">{editor.mode}</span>
-        </p>
+    <Theme
+      appearance={editor.mode}
+      radius={resolveThemeRadius(editor.config.layout.radius)}
+      locale={editor.config.locale}
+      calendar={editor.config.calendar}
+    >
+      <div className="p-8 space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold mb-2">Component Showcase</h2>
+          <p className="text-muted-foreground">
+            Current mode: <span className="font-medium">{editor.mode}</span>
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <section>
+          <h3 className="text-lg font-semibold mb-4">Buttons</h3>
+          <div className="flex flex-wrap gap-3">
+            <Button>Primary</Button>
+            <Button variant="soft">Soft</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+          </div>
+        </section>
+
+        {/* Cards */}
+        <section>
+          <h3 className="text-lg font-semibold mb-4">Cards</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <Card.Root>
+              <Card.Header>
+                <Card.Title>Card Title</Card.Title>
+                <Card.Description>Card description goes here</Card.Description>
+              </Card.Header>
+              <Card.Content>
+                <p>Card content with your customized theme.</p>
+              </Card.Content>
+            </Card.Root>
+            <Card.Root>
+              <Card.Header>
+                <Card.Title>Another Card</Card.Title>
+              </Card.Header>
+              <Card.Content>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm w-20">Switch:</span>
+                    <Switch defaultChecked />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm w-20">Slider:</span>
+                    <Slider defaultValue={[50]} className="flex-1" />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm w-20">Progress:</span>
+                    <Progress value={65} className="flex-1" />
+                  </div>
+                </div>
+              </Card.Content>
+            </Card.Root>
+          </div>
+        </section>
+
+        {/* Badges */}
+        <section>
+          <h3 className="text-lg font-semibold mb-4">Badges</h3>
+          <div className="flex flex-wrap gap-2">
+            <Badge>Default</Badge>
+            <Badge color="primary">Primary</Badge>
+            <Badge color="success">Success</Badge>
+            <Badge color="warning">Warning</Badge>
+            <Badge color="error">Error</Badge>
+          </div>
+        </section>
       </div>
-
-      {/* Buttons */}
-      <section>
-        <h3 className="text-lg font-semibold mb-4">Buttons</h3>
-        <div className="flex flex-wrap gap-3">
-          <Button>Primary</Button>
-          <Button variant="soft">Soft</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="ghost">Ghost</Button>
-        </div>
-      </section>
-
-      {/* Cards */}
-      <section>
-        <h3 className="text-lg font-semibold mb-4">Cards</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Description>Card description goes here</Card.Description>
-            </Card.Header>
-            <Card.Content>
-              <p>Card content with your customized theme.</p>
-            </Card.Content>
-          </Card.Root>
-          <Card.Root>
-            <Card.Header>
-              <Card.Title>Another Card</Card.Title>
-            </Card.Header>
-            <Card.Content>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <span className="text-sm w-20">Switch:</span>
-                  <Switch defaultChecked />
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm w-20">Slider:</span>
-                  <Slider defaultValue={[50]} className="flex-1" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm w-20">Progress:</span>
-                  <Progress value={65} className="flex-1" />
-                </div>
-              </div>
-            </Card.Content>
-          </Card.Root>
-        </div>
-      </section>
-
-      {/* Badges */}
-      <section>
-        <h3 className="text-lg font-semibold mb-4">Badges</h3>
-        <div className="flex flex-wrap gap-2">
-          <Badge>Default</Badge>
-          <Badge color="primary">Primary</Badge>
-          <Badge color="success">Success</Badge>
-          <Badge color="warning">Warning</Badge>
-          <Badge color="error">Error</Badge>
-        </div>
-      </section>
-    </div>
+    </Theme>
   )
 }
 
@@ -271,7 +280,12 @@ const DarkModeDemo: React.FC = () => {
   const editor = useThemeEditor()
 
   return (
-    <div className={editor.mode === 'dark' ? 'dark' : ''}>
+    <Theme
+      appearance={editor.mode}
+      radius={resolveThemeRadius(editor.config.layout.radius)}
+      locale={editor.config.locale}
+      calendar={editor.config.calendar}
+    >
       <div className="min-h-screen bg-background text-foreground p-8">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="flex items-center justify-between">
@@ -334,7 +348,7 @@ const DarkModeDemo: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Theme>
   )
 }
 

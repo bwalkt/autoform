@@ -10,6 +10,16 @@
   --color-default-primary-alpha: #6b728015;
   --color-default-text: #374151;
   --color-default-background: #ffffff;
+  /* Neutral (alias of Default for now) */
+  --color-neutral-border: var(--color-default-border);
+  --color-neutral-border-subtle: var(--color-default-border-subtle);
+  --color-neutral-surface: var(--color-default-surface);
+  --color-neutral-soft: var(--color-default-soft);
+  --color-neutral-soft-hover: var(--color-default-soft-hover);
+  --color-neutral-primary: var(--color-default-primary);
+  --color-neutral-primary-alpha: var(--color-default-primary-alpha);
+  --color-neutral-text: var(--color-default-text);
+  --color-neutral-background: var(--color-default-background);
 
   /* Info (Blue) Colors */
   --color-info-border: #e0f0ff;
@@ -69,6 +79,16 @@
     --color-default-primary-alpha: #9ca3af15;
     --color-default-text: #f3f4f6;
     --color-default-background: #0f172a;
+    /* Neutral (alias of Default for now) - Dark */
+    --color-neutral-border: var(--color-default-border);
+    --color-neutral-border-subtle: var(--color-default-border-subtle);
+    --color-neutral-surface: var(--color-default-surface);
+    --color-neutral-soft: var(--color-default-soft);
+    --color-neutral-soft-hover: var(--color-default-soft-hover);
+    --color-neutral-primary: var(--color-default-primary);
+    --color-neutral-primary-alpha: var(--color-default-primary-alpha);
+    --color-neutral-text: var(--color-default-text);
+    --color-neutral-background: var(--color-default-background);
 
     /* Info (Blue) Colors - Dark */
     --color-info-border: #1e3a8a;
