@@ -56,7 +56,7 @@ export interface ThemeLayout {
 export interface ThemeLocaleSettings {
   locale: string
   language: string
-  country: string
+  country?: string
   timezone: string
 }
 
