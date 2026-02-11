@@ -246,40 +246,46 @@ export function Calendar({
       ...classNames,
     },
     components: {
-      PreviousMonthButton: ({ children, ...buttonProps }) => (
-        <IconButton
-          size="2"
-          color={resolvedNavButtonColor}
-          radius={resolvedRadius}
-          variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
-          className={cn(
-            'size-(--cell-size) shrink-0',
-            resolvedNavButtonBordered
-              ? 'hover:!text-foreground'
-              : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
-          )}
-          {...buttonProps}
-        >
-          {children}
-        </IconButton>
-      ),
-      NextMonthButton: ({ children, ...buttonProps }) => (
-        <IconButton
-          size="2"
-          color={resolvedNavButtonColor}
-          radius={resolvedRadius}
-          variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
-          className={cn(
-            'size-(--cell-size) shrink-0',
-            resolvedNavButtonBordered
-              ? 'hover:!text-foreground'
-              : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
-          )}
-          {...buttonProps}
-        >
-          {children}
-        </IconButton>
-      ),
+      PreviousMonthButton: ({ children, ...buttonProps }) => {
+        const { color: _unusedColor, ...safeButtonProps } = buttonProps as React.ComponentPropsWithoutRef<'button'>
+        return (
+          <IconButton
+            size="2"
+            color={resolvedNavButtonColor}
+            radius={resolvedRadius}
+            variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
+            className={cn(
+              'size-(--cell-size) shrink-0',
+              resolvedNavButtonBordered
+                ? 'hover:!text-foreground'
+                : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
+            )}
+            {...safeButtonProps}
+          >
+            {children}
+          </IconButton>
+        )
+      },
+      NextMonthButton: ({ children, ...buttonProps }) => {
+        const { color: _unusedColor, ...safeButtonProps } = buttonProps as React.ComponentPropsWithoutRef<'button'>
+        return (
+          <IconButton
+            size="2"
+            color={resolvedNavButtonColor}
+            radius={resolvedRadius}
+            variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
+            className={cn(
+              'size-(--cell-size) shrink-0',
+              resolvedNavButtonBordered
+                ? 'hover:!text-foreground'
+                : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
+            )}
+            {...safeButtonProps}
+          >
+            {children}
+          </IconButton>
+        )
+      },
       Chevron: ({
         className,
         orientation,
