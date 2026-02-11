@@ -22,7 +22,7 @@ describe('Avatar', () => {
     })
 
     it('hides fallback after image loads', async () => {
-      const { container } = render(<Avatar src="https://example.com/avatar.jpg" fallback="John Doe" />)
+      render(<Avatar src="https://example.com/avatar.jpg" fallback="John Doe" />)
       const img = screen.getByRole('img')
 
       // Initially fallback should be visible
@@ -206,9 +206,7 @@ describe('Avatar', () => {
     })
 
     it('does not apply color classes when showing image', async () => {
-      const { container } = render(
-        <Avatar src="https://example.com/avatar.jpg" color="primary" fallback="JD" />,
-      )
+      const { container } = render(<Avatar src="https://example.com/avatar.jpg" color="primary" fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
       const img = screen.getByRole('img')
 

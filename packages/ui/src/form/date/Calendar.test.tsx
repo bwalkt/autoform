@@ -1,4 +1,4 @@
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as React from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -34,7 +34,12 @@ describe('Calendar', () => {
       const day15 = getDayButton(container, 'June', 15)
       await user.click(day15)
 
-      expect(handleSelect).toHaveBeenCalledWith(expect.any(Date), expect.any(Date), expect.any(Object), expect.any(Object))
+      expect(handleSelect).toHaveBeenCalledWith(
+        expect.any(Date),
+        expect.any(Date),
+        expect.any(Object),
+        expect.any(Object),
+      )
       const selectedDate = handleSelect.mock.calls[0]?.[0] as Date
       expect(selectedDate.getDate()).toBe(15)
       expect(selectedDate.getMonth()).toBe(5)
@@ -120,7 +125,12 @@ describe('Calendar', () => {
       const handleSelect = vi.fn()
 
       const { container } = render(
-        <Calendar mode="multiple" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} onSelect={handleSelect} />,
+        <Calendar
+          mode="multiple"
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
       )
 
       const day10 = getDayButton(container, 'June', 10)
@@ -137,7 +147,10 @@ describe('Calendar', () => {
       const user = userEvent.setup()
 
       function ControlledCalendar() {
-        const [selected, setSelected] = React.useState<Date[] | undefined>([new Date(2025, 5, 4), new Date(2025, 5, 10)])
+        const [selected, setSelected] = React.useState<Date[] | undefined>([
+          new Date(2025, 5, 4),
+          new Date(2025, 5, 10),
+        ])
         return (
           <div>
             <Calendar
@@ -189,9 +202,7 @@ describe('Calendar', () => {
               defaultMonth={new Date(2025, 5, 1)}
               showOutsideDays={false}
             />
-            <p data-testid="selected-values">
-              {selected?.map(date => date.getDate()).join(',') ?? 'none'}
-            </p>
+            <p data-testid="selected-values">{selected?.map(date => date.getDate()).join(',') ?? 'none'}</p>
           </div>
         )
       }
@@ -221,9 +232,7 @@ describe('Calendar', () => {
               defaultMonth={new Date(2025, 5, 1)}
               showOutsideDays={false}
             />
-            <p data-testid="selected-values">
-              {selected?.map(date => date.getDate()).join(',') ?? 'none'}
-            </p>
+            <p data-testid="selected-values">{selected?.map(date => date.getDate()).join(',') ?? 'none'}</p>
           </div>
         )
       }
@@ -322,9 +331,7 @@ describe('Calendar', () => {
       const user = userEvent.setup()
       const handleMonthChange = vi.fn()
 
-      render(
-        <Calendar defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} onMonthChange={handleMonthChange} />,
-      )
+      render(<Calendar defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} onMonthChange={handleMonthChange} />)
 
       await user.click(screen.getByRole('button', { name: /next/i }))
 
@@ -497,7 +504,9 @@ describe('Calendar', () => {
     it('handles uncontrolled multiple mode', async () => {
       const user = userEvent.setup()
 
-      const { container } = render(<Calendar mode="multiple" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      const { container } = render(
+        <Calendar mode="multiple" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />,
+      )
 
       const day10 = getDayButton(container, 'June', 10)
       await user.click(day10)
