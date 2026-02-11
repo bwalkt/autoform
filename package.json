@@ -6,7 +6,7 @@
     "dev": "turbo dev --concurrency 20",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "test": "echo \"no test specified\" && exit 0",
+    "test": "turbo test",
     "prepare": "husky"
   },
   "devDependencies": {
