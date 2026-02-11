@@ -132,10 +132,11 @@ export function Calendar({
   const resolvedMode = dayPickerProps.mode ?? 'single'
   const multipleModeProps = resolvedMode === 'multiple' ? (dayPickerProps as CalendarMultipleProps) : null
   const multipleSelectedProp = multipleModeProps?.selected
+  const isMultipleControlled = resolvedMode === 'multiple' && 'selected' in dayPickerProps
   const [uncontrolledMultipleSelected, setUncontrolledMultipleSelected] = React.useState<Date[] | undefined>(
     Array.isArray(multipleSelectedProp) ? multipleSelectedProp : undefined,
   )
-  const multipleSelected = multipleSelectedProp ?? uncontrolledMultipleSelected
+  const multipleSelected = isMultipleControlled ? multipleSelectedProp : uncontrolledMultipleSelected
   const resolvedNavButtonColor: Color = color
   const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
   const resolvedNavButtonBordered = navButtonBorderedProp ?? theme?.calendar.navButtonBordered ?? false
@@ -146,12 +147,12 @@ export function Calendar({
   const resolvedColors = resolveCalendarColors(color)
   const navButtonClassName = resolvedNavButtonBordered
     ? cn(
-        'shrink-0 border touch-manipulation [webkit-tap-highlight-color:transparent]',
+        'shrink-0 border touch-manipulation [-webkit-tap-highlight-color:transparent]',
         'border-[var(--rdp-accent-color)] text-[var(--rdp-accent-color)]',
         'hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]',
       )
     : cn(
-        'shrink-0 touch-manipulation [webkit-tap-highlight-color:transparent]',
+        'shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent]',
         'bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)]',
         'hover:bg-[var(--rdp-accent-color)] hover:text-[var(--cal-accent-foreground)]',
       )
@@ -167,13 +168,11 @@ export function Calendar({
   )
 
   React.useEffect(() => {
-    if (resolvedMode !== 'multiple') {
+    if (resolvedMode !== 'multiple' || !isMultipleControlled) {
       return
     }
-    if (Array.isArray(multipleSelectedProp)) {
-      setUncontrolledMultipleSelected(multipleSelectedProp)
-    }
-  }, [resolvedMode, multipleSelectedProp])
+    setUncontrolledMultipleSelected(Array.isArray(multipleSelectedProp) ? multipleSelectedProp : undefined)
+  }, [resolvedMode, isMultipleControlled, multipleSelectedProp])
 
   const handleMultipleSelect = React.useCallback<NonNullable<PropsMulti['onSelect']>>(
     (nextSelected, triggerDate, modifiers, event) => {
@@ -191,7 +190,7 @@ export function Calendar({
         }
         const updated = current.filter(day => !isSameDay(day, triggerDate))
         const normalized = updated.length > 0 ? updated : undefined
-        if (multipleSelectedProp === undefined) {
+        if (!isMultipleControlled) {
           setUncontrolledMultipleSelected(normalized)
         }
         multipleModeProps.onSelect?.(normalized, triggerDate, modifiers, event)
@@ -204,12 +203,12 @@ export function Calendar({
       }
 
       const normalized = nextSelected && nextSelected.length > 0 ? nextSelected : undefined
-      if (multipleSelectedProp === undefined) {
+      if (!isMultipleControlled) {
         setUncontrolledMultipleSelected(normalized)
       }
       multipleModeProps.onSelect?.(normalized, triggerDate, modifiers, event)
     },
-    [multipleModeProps, multipleSelected, multipleSelectedProp],
+    [isMultipleControlled, multipleModeProps, multipleSelected],
   )
 
   const mergedStyles = {
@@ -315,7 +314,7 @@ export function Calendar({
       ),
       day_button: cn(
         defaultClassNames.day_button,
-        'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none touch-manipulation [webkit-tap-highlight-color:transparent]',
+        'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none touch-manipulation [-webkit-tap-highlight-color:transparent]',
         'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
         'hover:bg-[var(--rdp-accent-background-color)] hover:text-foreground',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
