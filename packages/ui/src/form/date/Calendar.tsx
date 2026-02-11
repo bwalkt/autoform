@@ -179,6 +179,8 @@ export function Calendar({
       '--rdp-day-width': 'var(--cell-size)',
       '--rdp-day_button-height': 'var(--cell-size)',
       '--rdp-day_button-width': 'var(--cell-size)',
+      '--rdp-nav_button-height': 'var(--cell-size)',
+      '--rdp-nav_button-width': 'var(--cell-size)',
       '--cal-radius': designTokens.radius[resolvedRadius],
       '--cal-nav-radius': designTokens.radius[resolvedRadius],
     } as React.CSSProperties,
@@ -216,10 +218,10 @@ export function Calendar({
       ),
       week: cn('flex w-full mt-2', defaultClassNames.week),
       day: cn(
-        'relative p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-md group/day select-none',
+        'relative p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-[var(--cal-radius)] group/day select-none',
         dayPickerProps.showWeekNumber
-          ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-md'
-          : '[&:first-child[data-selected=true]_button]:rounded-l-md',
+          ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-[var(--cal-radius)]'
+          : '[&:first-child[data-selected=true]_button]:rounded-l-[var(--cal-radius)]',
         defaultClassNames.day,
       ),
       day_button: cn(
@@ -228,18 +230,32 @@ export function Calendar({
         'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
         'hover:bg-accent hover:text-accent-foreground',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-        'group-data-[today=true]/day:bg-[var(--rdp-accent-background-color)] group-data-[today=true]/day:text-foreground',
-        'group-data-[selected=true]/day:bg-[var(--rdp-accent-color)] group-data-[selected=true]/day:text-[var(--cal-accent-foreground)]',
-        'group-data-[today=true]/day:group-data-[selected=true]/day:bg-[var(--rdp-accent-color)] group-data-[today=true]/day:group-data-[selected=true]/day:text-[var(--cal-accent-foreground)]',
-        'group-data-[range-middle=true]/day:bg-[var(--rdp-accent-background-color)] group-data-[range-middle=true]/day:rounded-none',
-        'group-data-[range-start=true]/day:bg-[var(--rdp-accent-color)] group-data-[range-start=true]/day:text-[var(--cal-accent-foreground)] group-data-[range-start=true]/day:rounded-l-[var(--cal-radius)]',
-        'group-data-[range-end=true]/day:bg-[var(--rdp-accent-color)] group-data-[range-end=true]/day:text-[var(--cal-accent-foreground)] group-data-[range-end=true]/day:rounded-r-[var(--cal-radius)]',
       ),
-      range_start: cn('rounded-l-[var(--cal-radius)] bg-accent', defaultClassNames.range_start),
-      range_middle: cn('rounded-none', defaultClassNames.range_middle),
-      range_end: cn('rounded-r-[var(--cal-radius)] bg-accent', defaultClassNames.range_end),
-      today: cn('font-normal', defaultClassNames.today),
-      selected: cn('font-normal text-sm', defaultClassNames.selected),
+      range_start: cn(
+        'bg-[var(--rdp-accent-background-color)] rounded-l-[var(--cal-radius)]',
+        '[&>button]:bg-[var(--rdp-accent-color)] [&>button]:text-[var(--cal-accent-foreground)]',
+        defaultClassNames.range_start,
+      ),
+      range_middle: cn(
+        'bg-[var(--rdp-accent-background-color)] rounded-none',
+        '[&>button]:!bg-transparent [&>button]:!text-foreground [&>button:hover]:!bg-transparent [&>button:hover]:!text-foreground',
+        defaultClassNames.range_middle,
+      ),
+      range_end: cn(
+        'bg-[var(--rdp-accent-background-color)] rounded-r-[var(--cal-radius)]',
+        '[&>button]:bg-[var(--rdp-accent-color)] [&>button]:text-[var(--cal-accent-foreground)]',
+        defaultClassNames.range_end,
+      ),
+      today: cn(
+        'font-normal',
+        '[&>button]:bg-[var(--rdp-accent-background-color)] [&>button]:text-foreground',
+        defaultClassNames.today,
+      ),
+      selected: cn(
+        'font-normal text-sm',
+        '[&>button]:bg-[var(--rdp-accent-color)] [&>button]:text-[var(--cal-accent-foreground)]',
+        defaultClassNames.selected,
+      ),
       outside: cn('text-muted-foreground aria-selected:text-muted-foreground', defaultClassNames.outside),
       disabled: cn('text-muted-foreground opacity-50', defaultClassNames.disabled),
       hidden: cn('invisible', defaultClassNames.hidden),
@@ -247,7 +263,11 @@ export function Calendar({
     },
     components: {
       PreviousMonthButton: ({ children, ...buttonProps }) => {
-        const { color: _unusedColor, ...safeButtonProps } = buttonProps as React.ComponentPropsWithoutRef<'button'>
+        const {
+          color: _unusedColor,
+          className: dayPickerButtonClassName,
+          ...safeButtonProps
+        } = buttonProps as React.ComponentPropsWithoutRef<'button'>
         return (
           <IconButton
             size="2"
@@ -259,6 +279,7 @@ export function Calendar({
               resolvedNavButtonBordered
                 ? 'hover:!text-foreground'
                 : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
+              dayPickerButtonClassName,
             )}
             {...safeButtonProps}
           >
@@ -267,7 +288,11 @@ export function Calendar({
         )
       },
       NextMonthButton: ({ children, ...buttonProps }) => {
-        const { color: _unusedColor, ...safeButtonProps } = buttonProps as React.ComponentPropsWithoutRef<'button'>
+        const {
+          color: _unusedColor,
+          className: dayPickerButtonClassName,
+          ...safeButtonProps
+        } = buttonProps as React.ComponentPropsWithoutRef<'button'>
         return (
           <IconButton
             size="2"
@@ -279,6 +304,7 @@ export function Calendar({
               resolvedNavButtonBordered
                 ? 'hover:!text-foreground'
                 : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
+              dayPickerButtonClassName,
             )}
             {...safeButtonProps}
           >

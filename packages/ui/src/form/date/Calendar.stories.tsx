@@ -56,6 +56,37 @@ export const DefaultMonth: Story = {
   },
 }
 
+// Single-month range selection
+export const SingleMonthRange: Story = {
+  args: {
+    color: 'primary',
+    radius: 'md',
+    navButtonBordered: false,
+  },
+  render: args => {
+    const [range, setRange] = React.useState<DateRange | undefined>({
+      from: new Date(2025, 5, 4),
+      to: new Date(2025, 5, 17),
+    })
+
+    return (
+      <div>
+        <Calendar
+          mode="range"
+          defaultMonth={new Date(2025, 5, 1)}
+          selected={range}
+          onSelect={setRange}
+          color={args.color}
+          radius={args.radius}
+          navButtonBordered={args.navButtonBordered}
+          className="rounded-md border"
+        />
+        <p className="text-muted-foreground mt-3 text-center text-xs">Single month range selection</p>
+      </div>
+    )
+  },
+}
+
 // Multi-month automatic range mode (calendar-04 style)
 export const MultiMonthRange: Story = {
   args: {
@@ -73,8 +104,9 @@ export const MultiMonthRange: Story = {
       <div>
         <Calendar
           mode="range"
-          from={new Date(2025, 4, 1)}
-          to={new Date(2025, 5, 1)}
+          defaultMonth={new Date(2025, 4, 1)}
+          numberOfMonths={2}
+          pagedNavigation
           selected={range}
           onSelect={setRange}
           color={args.color}
