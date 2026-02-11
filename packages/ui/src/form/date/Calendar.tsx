@@ -72,6 +72,14 @@ type CalendarMultipleProps = {
 
 export type CalendarProps = CalendarCommonProps & (CalendarSingleProps | CalendarRangeProps | CalendarMultipleProps)
 
+function isSameDay(left: Date, right: Date): boolean {
+  return (
+    left.getFullYear() === right.getFullYear() &&
+    left.getMonth() === right.getMonth() &&
+    left.getDate() === right.getDate()
+  )
+}
+
 function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
     return {
@@ -122,6 +130,12 @@ export function Calendar({
   const [uncontrolledMonth, setUncontrolledMonth] = React.useState<Date>(resolvedFrom)
   const displayedMonth = monthProp ?? uncontrolledMonth
   const resolvedMode = dayPickerProps.mode ?? 'single'
+  const multipleModeProps = resolvedMode === 'multiple' ? (dayPickerProps as CalendarMultipleProps) : null
+  const multipleSelectedProp = multipleModeProps?.selected
+  const [uncontrolledMultipleSelected, setUncontrolledMultipleSelected] = React.useState<Date[] | undefined>(
+    Array.isArray(multipleSelectedProp) ? multipleSelectedProp : undefined,
+  )
+  const multipleSelected = multipleSelectedProp ?? uncontrolledMultipleSelected
   const resolvedNavButtonColor: Color = color
   const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
   const resolvedNavButtonBordered = navButtonBorderedProp ?? theme?.calendar.navButtonBordered ?? false
@@ -132,12 +146,12 @@ export function Calendar({
   const resolvedColors = resolveCalendarColors(color)
   const navButtonClassName = resolvedNavButtonBordered
     ? cn(
-        'shrink-0 border',
+        'shrink-0 border touch-manipulation [webkit-tap-highlight-color:transparent]',
         'border-[var(--rdp-accent-color)] text-[var(--rdp-accent-color)]',
         'hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]',
       )
     : cn(
-        'shrink-0',
+        'shrink-0 touch-manipulation [webkit-tap-highlight-color:transparent]',
         'bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)]',
         'hover:bg-[var(--rdp-accent-color)] hover:text-[var(--cal-accent-foreground)]',
       )
@@ -150,6 +164,52 @@ export function Calendar({
       onMonthChangeProp?.(month)
     },
     [monthProp, onMonthChangeProp],
+  )
+
+  React.useEffect(() => {
+    if (resolvedMode !== 'multiple') {
+      return
+    }
+    if (Array.isArray(multipleSelectedProp)) {
+      setUncontrolledMultipleSelected(multipleSelectedProp)
+    }
+  }, [resolvedMode, multipleSelectedProp])
+
+  const handleMultipleSelect = React.useCallback<NonNullable<PropsMulti['onSelect']>>(
+    (nextSelected, triggerDate, modifiers, event) => {
+      if (!multipleModeProps) return
+      const current = multipleSelected ?? []
+      const max = multipleModeProps.max
+      const min = multipleModeProps.min
+      const required = multipleModeProps.required
+
+      if (modifiers.selected) {
+        const canUnselect = !(required && current.length <= 1) && !(typeof min === 'number' && current.length <= min)
+        if (!canUnselect) {
+          multipleModeProps.onSelect?.(current.length > 0 ? current : undefined, triggerDate, modifiers, event)
+          return
+        }
+        const updated = current.filter(day => !isSameDay(day, triggerDate))
+        const normalized = updated.length > 0 ? updated : undefined
+        if (multipleSelectedProp === undefined) {
+          setUncontrolledMultipleSelected(normalized)
+        }
+        multipleModeProps.onSelect?.(normalized, triggerDate, modifiers, event)
+        return
+      }
+
+      if (typeof max === 'number' && current.length >= max) {
+        multipleModeProps.onSelect?.(current.length > 0 ? current : undefined, triggerDate, modifiers, event)
+        return
+      }
+
+      const normalized = nextSelected && nextSelected.length > 0 ? nextSelected : undefined
+      if (multipleSelectedProp === undefined) {
+        setUncontrolledMultipleSelected(normalized)
+      }
+      multipleModeProps.onSelect?.(normalized, triggerDate, modifiers, event)
+    },
+    [multipleModeProps, multipleSelected, multipleSelectedProp],
   )
 
   const mergedStyles = {
@@ -184,6 +244,8 @@ export function Calendar({
   const pickerProps = {
     ...dayPickerProps,
     mode: resolvedMode,
+    selected: resolvedMode === 'multiple' ? multipleSelected : dayPickerProps.selected,
+    onSelect: resolvedMode === 'multiple' ? handleMultipleSelect : dayPickerProps.onSelect,
     month: displayedMonth,
     onMonthChange: handleMonthChange,
     defaultMonth: resolvedFrom,
@@ -253,9 +315,9 @@ export function Calendar({
       ),
       day_button: cn(
         defaultClassNames.day_button,
-        'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none',
+        'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none touch-manipulation [webkit-tap-highlight-color:transparent]',
         'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
-        'hover:bg-accent hover:text-accent-foreground',
+        'hover:bg-[var(--rdp-accent-background-color)] hover:text-foreground',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       ),
       range_start: cn(
