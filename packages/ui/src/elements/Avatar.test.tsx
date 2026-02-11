@@ -24,7 +24,7 @@ describe('Avatar', () => {
   })
 
   it('shows fallback while image is loading', () => {
-    const { container } = render(<Avatar src="https://example.com/avatar.jpg" fallback="John Doe" />)
+    render(<Avatar src="https://example.com/avatar.jpg" fallback="John Doe" />)
 
     // Fallback should be visible initially
     expect(screen.getByText('JD')).toBeInTheDocument()
@@ -35,7 +35,7 @@ describe('Avatar', () => {
   })
 
   it('removes opacity from image after loading', async () => {
-    const { container } = render(<Avatar src="https://example.com/avatar.jpg" alt="User" />)
+    render(<Avatar src="https://example.com/avatar.jpg" alt="User" />)
 
     const img = screen.getByRole('img', { name: 'User' })
 
@@ -218,51 +218,49 @@ describe('Avatar', () => {
   it('applies all color variants in solid mode', () => {
     const colors = ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const
 
-    colors.forEach(color => {
+    for (const color of colors) {
       const { container } = render(<Avatar variant="solid" color={color} fallback="T" />)
       const avatar = container.querySelector('span')
       expect(avatar).toBeInTheDocument()
       cleanup()
-    })
+    }
   })
 
   it('applies all color variants in soft mode', () => {
     const colors = ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'] as const
 
-    colors.forEach(color => {
+    for (const color of colors) {
       const { container } = render(<Avatar variant="soft" color={color} fallback="T" />)
       const avatar = container.querySelector('span')
       expect(avatar).toBeInTheDocument()
       cleanup()
-    })
+    }
   })
 
   it('applies all size variants', () => {
     const sizes = ['1', '2', '3', '4', '5', '6'] as const
 
-    sizes.forEach(size => {
+    for (const size of sizes) {
       const { container } = render(<Avatar size={size} fallback="T" />)
       const avatar = container.querySelector('span')
       expect(avatar).toHaveClass('rt-avatar-size')
       cleanup()
-    })
+    }
   })
 
   it('applies all radius variants', () => {
     const radiusOptions = ['none', 'sm', 'md', 'lg', 'full'] as const
 
-    radiusOptions.forEach(radius => {
+    for (const radius of radiusOptions) {
       const { container } = render(<Avatar radius={radius} fallback="T" />)
       const avatar = container.querySelector('span')
       expect(avatar).toBeInTheDocument()
       cleanup()
-    })
+    }
   })
 
   it('does not apply color classes when image is shown', async () => {
-    const { container } = render(
-      <Avatar src="https://example.com/avatar.jpg" variant="solid" color="error" fallback="JD" />
-    )
+    render(<Avatar src="https://example.com/avatar.jpg" variant="solid" color="error" fallback="JD" />)
 
     const img = screen.getByRole('img')
     img.dispatchEvent(new Event('load'))
@@ -271,7 +269,6 @@ describe('Avatar', () => {
       expect(img).not.toHaveClass('opacity-0')
     })
 
-    const avatar = container.querySelector('span')
     // Color classes should not be applied when image is showing
     expect(screen.queryByText('JD')).not.toBeInTheDocument()
   })

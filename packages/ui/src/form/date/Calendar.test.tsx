@@ -311,27 +311,27 @@ describe('Calendar', () => {
   it('renders with custom color variants', () => {
     const colors = ['info', 'success', 'warning', 'error'] as const
 
-    colors.forEach(color => {
+    for (const color of colors) {
       const { container } = render(
         <Calendar mode="single" color={color} defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />,
       )
       const calendar = container.querySelector('.group\\/calendar')
       expect(calendar).toBeInTheDocument()
       cleanup()
-    })
+    }
   })
 
   it('applies custom radius', () => {
     const radiusOptions = ['none', 'sm', 'md', 'lg', 'full'] as const
 
-    radiusOptions.forEach(radius => {
+    for (const radius of radiusOptions) {
       const { container } = render(
         <Calendar mode="single" radius={radius} defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />,
       )
       const calendar = container.querySelector('.group\\/calendar')
       expect(calendar).toBeInTheDocument()
       cleanup()
-    })
+    }
   })
 
   it('uses bordered navigation buttons when navButtonBordered is true', () => {
@@ -344,14 +344,7 @@ describe('Calendar', () => {
   })
 
   it('calculates numberOfMonths based on from and to props', () => {
-    render(
-      <Calendar
-        mode="single"
-        from={new Date(2025, 0, 1)}
-        to={new Date(2025, 2, 31)}
-        showOutsideDays={false}
-      />,
-    )
+    render(<Calendar mode="single" from={new Date(2025, 0, 1)} to={new Date(2025, 2, 31)} showOutsideDays={false} />)
 
     // Should show at least 3 months (Jan, Feb, Mar)
     expect(screen.getAllByText(/2025/)).not.toHaveLength(0)
@@ -403,7 +396,12 @@ describe('Calendar', () => {
 
   it('renders with custom className', () => {
     const { container } = render(
-      <Calendar mode="single" className="custom-calendar" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />,
+      <Calendar
+        mode="single"
+        className="custom-calendar"
+        defaultMonth={new Date(2025, 5, 1)}
+        showOutsideDays={false}
+      />,
     )
 
     const calendar = container.querySelector('.custom-calendar')
@@ -447,9 +445,7 @@ describe('Calendar', () => {
   })
 
   it('handles showOutsideDays prop', () => {
-    const { container } = render(
-      <Calendar mode="single" showOutsideDays={true} defaultMonth={new Date(2025, 5, 1)} />,
-    )
+    const { container } = render(<Calendar mode="single" showOutsideDays={true} defaultMonth={new Date(2025, 5, 1)} />)
 
     const calendar = container.querySelector('.group\\/calendar')
     expect(calendar).toBeInTheDocument()

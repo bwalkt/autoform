@@ -99,7 +99,7 @@ describe('AvatarGroup', () => {
       { size: '6' as const, spacing: '-space-x-5' },
     ]
 
-    sizes.forEach(({ size, spacing }) => {
+    for (const { size, spacing } of sizes) {
       const { container } = render(
         <AvatarGroup size={size} layout="stack">
           <Avatar fallback="A" />
@@ -108,7 +108,7 @@ describe('AvatarGroup', () => {
       const group = container.querySelector('div')
       expect(group).toHaveClass(spacing)
       cleanup()
-    })
+    }
   })
 
   it('applies correct spacing for different sizes in spread layout', () => {
@@ -121,7 +121,7 @@ describe('AvatarGroup', () => {
       { size: '6' as const, spacing: 'gap-3' },
     ]
 
-    sizes.forEach(({ size, spacing }) => {
+    for (const { size, spacing } of sizes) {
       const { container } = render(
         <AvatarGroup size={size} layout="spread">
           <Avatar fallback="A" />
@@ -130,7 +130,7 @@ describe('AvatarGroup', () => {
       const group = container.querySelector('div')
       expect(group).toHaveClass(spacing)
       cleanup()
-    })
+    }
   })
 
   it('passes size prop to children avatars', () => {
