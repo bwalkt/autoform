@@ -345,11 +345,11 @@ export function Calendar({
     } as React.CSSProperties,
     styles: mergedStyles,
     formatters: {
-      formatCaption: (date: Date) => captionFormatter.format(date),
-      formatMonthDropdown: (date: Date) => monthDropdownFormatter.format(date),
-      formatYearDropdown: (date: Date) => yearDropdownFormatter.format(date),
-      formatWeekdayName: (date: Date) => weekdayFormatter.format(date),
-      formatDay: (date: Date) => dayFormatter.format(date),
+      formatCaption: (date: Date, _options?: unknown, _dateLib?: unknown) => captionFormatter.format(date),
+      formatMonthDropdown: (date: Date, _options?: unknown, _dateLib?: unknown) => monthDropdownFormatter.format(date),
+      formatYearDropdown: (date: Date, _options?: unknown, _dateLib?: unknown) => yearDropdownFormatter.format(date),
+      formatWeekdayName: (date: Date, _options?: unknown, _dateLib?: unknown) => weekdayFormatter.format(date),
+      formatDay: (date: Date, _options?: unknown, _dateLib?: unknown) => dayFormatter.format(date),
       ...formatters,
     },
     classNames: {
