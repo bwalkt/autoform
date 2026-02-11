@@ -38,6 +38,8 @@ type CalendarMatrixArgs = {
   color: 'default' | 'primary' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
   radius: 'none' | 'sm' | 'md' | 'lg' | 'full'
   navButtonBordered: boolean
+  min?: number
+  max?: number
 }
 
 // calendar-01 style
@@ -73,6 +75,8 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
     color: 'default',
     radius: 'md',
     navButtonBordered: false,
+    min: undefined,
+    max: undefined,
   },
   argTypes: {
     mode: {
@@ -93,6 +97,12 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
     },
     navButtonBordered: {
       control: { type: 'boolean' },
+    },
+    min: {
+      control: { type: 'number' },
+    },
+    max: {
+      control: { type: 'number' },
     },
   },
   render: args => {
@@ -121,7 +131,16 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
     }
 
     if (args.mode === 'multiple') {
-      return <Calendar {...sharedProps} mode="multiple" selected={multipleDates} onSelect={setMultipleDates} />
+      return (
+        <Calendar
+          {...sharedProps}
+          mode="multiple"
+          selected={multipleDates}
+          onSelect={setMultipleDates}
+          min={args.min}
+          max={args.max}
+        />
+      )
     }
 
     return <Calendar {...sharedProps} mode="single" selected={singleDate} onSelect={setSingleDate} />
