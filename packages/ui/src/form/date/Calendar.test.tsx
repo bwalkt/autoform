@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as React from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { Theme } from '@/elements/Theme'
 import { Calendar } from './Calendar'
 
 function getDayButton(container: HTMLElement, month: string, day: number): HTMLButtonElement {
@@ -497,6 +498,59 @@ describe('Calendar', () => {
     it('defaults to en-US locale', () => {
       render(<Calendar defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
       expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('uses locale precedence: prop over theme calendar over theme locale', () => {
+      render(
+        <Theme
+          locale={{ locale: 'fr-FR', language: 'fr', timezone: 'UTC' }}
+          calendar={{ locale: 'de-DE', timezone: 'UTC' }}
+        >
+          <Calendar localeCode="es-ES" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />
+        </Theme>,
+      )
+
+      expect(screen.getByText(/junio/i)).toBeInTheDocument()
+      expect(screen.queryByText(/Juni/)).not.toBeInTheDocument()
+      expect(screen.queryByText(/juin/i)).not.toBeInTheDocument()
+    })
+
+    it('falls back to en-US for invalid locale codes', () => {
+      render(<Calendar localeCode="invalid-locale-code" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('uses timezone precedence and allows timeZone prop override', () => {
+      const dateTimeFormatSpy = vi.spyOn(Intl, 'DateTimeFormat')
+
+      const { unmount } = render(
+        <Theme
+          locale={{ locale: 'en-US', language: 'en', timezone: 'UTC' }}
+          calendar={{ timezone: 'America/Los_Angeles' }}
+        >
+          <Calendar defaultMonth={new Date(2025, 2, 1)} showOutsideDays={false} />
+        </Theme>,
+      )
+
+      expect(dateTimeFormatSpy).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ timeZone: 'America/Los_Angeles' }),
+      )
+
+      unmount()
+      dateTimeFormatSpy.mockClear()
+
+      render(
+        <Theme
+          locale={{ locale: 'en-US', language: 'en', timezone: 'UTC' }}
+          calendar={{ timezone: 'America/Los_Angeles' }}
+        >
+          <Calendar timeZone="UTC" defaultMonth={new Date(2025, 2, 1)} showOutsideDays={false} />
+        </Theme>,
+      )
+
+      expect(dateTimeFormatSpy).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ timeZone: 'UTC' }))
+      dateTimeFormatSpy.mockRestore()
     })
   })
 
