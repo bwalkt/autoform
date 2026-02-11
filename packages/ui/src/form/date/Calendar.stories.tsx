@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import * as React from 'react'
 import type { DateRange } from 'react-day-picker'
+import { Theme } from '@/elements/Theme'
 import { Calendar } from './Calendar'
 
 const meta: Meta<typeof Calendar> = {
@@ -20,6 +21,9 @@ const meta: Meta<typeof Calendar> = {
       control: { type: 'select' },
       options: ['none', 'sm', 'md', 'lg', 'full'],
     },
+    navButtonBordered: {
+      control: { type: 'boolean' },
+    },
   },
 }
 
@@ -31,6 +35,7 @@ export const DefaultMonth: Story = {
   args: {
     color: 'default',
     radius: 'md',
+    navButtonBordered: false,
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -43,6 +48,7 @@ export const DefaultMonth: Story = {
           onSelect={setDate}
           color={args.color}
           radius={args.radius}
+          navButtonBordered={args.navButtonBordered}
           className="rounded-md border"
         />
       </div>
@@ -53,7 +59,9 @@ export const DefaultMonth: Story = {
 // Multi-month automatic range mode (calendar-04 style)
 export const MultiMonthRange: Story = {
   args: {
+    color: 'primary',
     radius: 'md',
+    navButtonBordered: false,
   },
   render: args => {
     const [range, setRange] = React.useState<DateRange | undefined>({
@@ -64,11 +72,14 @@ export const MultiMonthRange: Story = {
     return (
       <div>
         <Calendar
+          mode="range"
           from={new Date(2025, 4, 1)}
           to={new Date(2025, 5, 1)}
           selected={range}
           onSelect={setRange}
+          color={args.color}
           radius={args.radius}
+          navButtonBordered={args.navButtonBordered}
           className="rounded-md border"
         />
         <p className="text-muted-foreground mt-3 text-center text-xs">Multi month calendar with range selection</p>
@@ -80,7 +91,9 @@ export const MultiMonthRange: Story = {
 // Multiple date selection (explicit mode override)
 export const Multiple: Story = {
   args: {
+    color: 'default',
     radius: 'md',
+    navButtonBordered: false,
   },
   render: args => {
     const [dates, setDates] = React.useState<Date[] | undefined>([])
@@ -89,7 +102,9 @@ export const Multiple: Story = {
         mode="multiple"
         selected={dates}
         onSelect={setDates}
+        color={args.color}
         radius={args.radius}
+        navButtonBordered={args.navButtonBordered}
         className="rounded-md border"
       />
     )
@@ -99,7 +114,9 @@ export const Multiple: Story = {
 // With min/max dates
 export const WithMinMaxDates: Story = {
   args: {
+    color: 'default',
     radius: 'md',
+    navButtonBordered: false,
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -114,7 +131,9 @@ export const WithMinMaxDates: Story = {
         selected={date}
         onSelect={setDate}
         disabled={[{ before: minDate }, { after: maxDate }]}
+        color={args.color}
         radius={args.radius}
+        navButtonBordered={args.navButtonBordered}
         className="rounded-md border"
       />
     )
@@ -124,7 +143,9 @@ export const WithMinMaxDates: Story = {
 // Hide outside days
 export const HideOutsideDays: Story = {
   args: {
+    color: 'default',
     radius: 'md',
+    navButtonBordered: false,
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -134,9 +155,23 @@ export const HideOutsideDays: Story = {
         selected={date}
         onSelect={setDate}
         showOutsideDays={false}
+        color={args.color}
         radius={args.radius}
+        navButtonBordered={args.navButtonBordered}
         className="rounded-md border"
       />
+    )
+  },
+}
+
+// ThemeProvider-driven calendar defaults
+export const ThemeProviderDefaults: Story = {
+  render: () => {
+    const [date, setDate] = React.useState<Date | undefined>(new Date())
+    return (
+      <Theme calendar={{ navButtonBordered: true, radius: 'lg' }}>
+        <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
+      </Theme>
     )
   },
 }
