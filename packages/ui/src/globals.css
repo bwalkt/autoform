@@ -94,10 +94,10 @@
 
 @layer components {
   .rt-avatar-size {
-    width: var(--rt-avatar-size);
-    height: var(--rt-avatar-size);
-    font-size: var(--rt-avatar-font-size);
-    line-height: var(--rt-avatar-line-height);
+    width: var(--rt-avatar-size, 2rem);
+    height: var(--rt-avatar-size, 2rem);
+    font-size: var(--rt-avatar-font-size, 0.875rem);
+    line-height: var(--rt-avatar-line-height, 1.25rem);
   }
 }
 
