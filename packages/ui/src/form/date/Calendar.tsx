@@ -114,7 +114,13 @@ function toMatcherArray(matcher: Matcher | Matcher[] | undefined): Matcher[] {
   return Array.isArray(matcher) ? matcher : [matcher]
 }
 
-/** Calendar export. */
+/**
+ * A themed, locale- and timezone-aware calendar React component with support for single, range, and multiple date selection.
+ *
+ * Renders a DayPicker calendar that respects theme tokens (colors, radius, nav button style), supports controlled and uncontrolled modes (including complex multiple-selection constraints: min, max, required), and formats captions, months, weekdays, and day labels using `localeCode` and `timeZone`.
+ *
+ * @returns The rendered DayPicker calendar React element
+ */
 export function Calendar({
   className,
   classNames,
