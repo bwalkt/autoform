@@ -127,7 +127,9 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
     } as const
 
     if (args.mode === 'range') {
-      return <Calendar {...sharedProps} mode="range" selected={range} onSelect={setRange} />
+      return (
+        <Calendar {...sharedProps} mode="range" selected={range} onSelect={setRange} min={args.min} max={args.max} />
+      )
     }
 
     if (args.mode === 'multiple') {
