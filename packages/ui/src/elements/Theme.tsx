@@ -57,6 +57,7 @@ export interface ThemeCalendar {
   radius: Radius
   locale?: string
   timezone?: string
+  navButtonBordered?: boolean
 }
 
 // ============================================================================
@@ -131,6 +132,11 @@ export function useThemeContext() {
     throw new Error('useThemeContext must be used within a Theme component')
   }
   return context
+}
+
+/** useOptionalThemeContext export. */
+export function useOptionalThemeContext() {
+  return React.useContext(ThemeContext)
 }
 
 // ============================================================================
@@ -418,6 +424,7 @@ function getResolvedCalendar(
     radius: calendar?.radius ?? radius,
     locale: calendar?.locale ?? resolvedLocale.locale,
     timezone: calendar?.timezone ?? resolvedLocale.timezone,
+    navButtonBordered: calendar?.navButtonBordered ?? false,
   }
 }
 
