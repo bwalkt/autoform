@@ -108,6 +108,17 @@ export function Calendar({
     : (numberOfMonths ?? 1)
   const resolvedPagedNavigation = pagedNavigationProp ?? resolvedNumberOfMonths > 1
   const resolvedColors = resolveCalendarColors(color)
+  const navButtonClassName = resolvedNavButtonBordered
+    ? cn(
+        'shrink-0 border',
+        'border-[var(--rdp-accent-color)] text-[var(--rdp-accent-color)]',
+        'hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]',
+      )
+    : cn(
+        'shrink-0',
+        'bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)]',
+        'hover:bg-[var(--rdp-accent-color)] hover:text-[var(--cal-accent-foreground)]',
+      )
 
   const handleMonthChange = React.useCallback<MonthChangeEventHandler>(
     month => {
@@ -142,15 +153,9 @@ export function Calendar({
     },
     button_previous: {
       ...(dayPickerProps.styles?.button_previous ?? {}),
-      borderRadius: 'var(--cal-nav-radius)',
-      width: 'var(--cell-size)',
-      height: 'var(--cell-size)',
     },
     button_next: {
       ...(dayPickerProps.styles?.button_next ?? {}),
-      borderRadius: 'var(--cal-nav-radius)',
-      width: 'var(--cell-size)',
-      height: 'var(--cell-size)',
     },
   }
 
@@ -265,7 +270,8 @@ export function Calendar({
       PreviousMonthButton: ({ children, ...buttonProps }) => {
         const {
           color: _unusedColor,
-          className: dayPickerButtonClassName,
+          className: _unusedClassName,
+          style: _unusedStyle,
           ...safeButtonProps
         } = buttonProps as React.ComponentPropsWithoutRef<'button'>
         return (
@@ -274,13 +280,7 @@ export function Calendar({
             color={resolvedNavButtonColor}
             radius={resolvedRadius}
             variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
-            className={cn(
-              'size-(--cell-size) shrink-0',
-              resolvedNavButtonBordered
-                ? 'hover:!text-foreground'
-                : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
-              dayPickerButtonClassName,
-            )}
+            className={navButtonClassName}
             {...safeButtonProps}
           >
             {children}
@@ -290,7 +290,8 @@ export function Calendar({
       NextMonthButton: ({ children, ...buttonProps }) => {
         const {
           color: _unusedColor,
-          className: dayPickerButtonClassName,
+          className: _unusedClassName,
+          style: _unusedStyle,
           ...safeButtonProps
         } = buttonProps as React.ComponentPropsWithoutRef<'button'>
         return (
@@ -299,13 +300,7 @@ export function Calendar({
             color={resolvedNavButtonColor}
             radius={resolvedRadius}
             variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
-            className={cn(
-              'size-(--cell-size) shrink-0',
-              resolvedNavButtonBordered
-                ? 'hover:!text-foreground'
-                : '!bg-[var(--rdp-accent-background-color)] !text-[var(--rdp-accent-color)] hover:!bg-[var(--rdp-accent-color)] hover:!text-[var(--cal-accent-foreground)]',
-              dayPickerButtonClassName,
-            )}
+            className={navButtonClassName}
             {...safeButtonProps}
           >
             {children}
