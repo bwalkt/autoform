@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { type AvatarProps, type AvatarSize, avatarSizeStyles, avatarSizes } from './Avatar'
+import { AVATAR_SIZE_CLASS, type AvatarProps, type AvatarSize, avatarSizeStyles } from './Avatar'
 
 type AvatarGroupLayout = 'spread' | 'stack'
 
@@ -91,7 +91,7 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
                 isStack && 'ring-2 ring-background',
                 onOverflowClick && 'hover:bg-muted/80 cursor-pointer',
                 !onOverflowClick && 'cursor-default',
-                avatarSizes[size],
+                AVATAR_SIZE_CLASS,
               )}
               aria-label={`${remainingCount} more`}
             >

@@ -38,6 +38,24 @@ export const designTokens = {
       iconSize: '1.5rem',
       gap: '0.625rem',
     },
+    '5': {
+      height: '4rem',
+      fontSize: '1.25rem',
+      paddingX: '1.5rem',
+      paddingY: '0.75rem',
+      lineHeight: '1.75rem',
+      iconSize: '1.75rem',
+      gap: '0.75rem',
+    },
+    '6': {
+      height: '5rem',
+      fontSize: '1.5rem',
+      paddingX: '1.75rem',
+      paddingY: '0.875rem',
+      lineHeight: '2rem',
+      iconSize: '2rem',
+      gap: '0.875rem',
+    },
   },
 
   // Typography scale (9-step scale based on Radix UI)

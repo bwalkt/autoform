@@ -4,14 +4,7 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { type Color, designTokens, type Radius, type Size } from './tokens'
 
-export const avatarSizes = {
-  '1': 'rt-avatar-size',
-  '2': 'rt-avatar-size',
-  '3': 'rt-avatar-size',
-  '4': 'rt-avatar-size',
-  '5': 'rt-avatar-size',
-  '6': 'rt-avatar-size',
-}
+export const AVATAR_SIZE_CLASS = 'rt-avatar-size'
 
 export type AvatarSize = Size | '5' | '6'
 
@@ -21,37 +14,19 @@ type AvatarSizeStyle = React.CSSProperties & {
   '--rt-avatar-line-height': string
 }
 
+const buildAvatarSizeStyle = (s: AvatarSize): AvatarSizeStyle => ({
+  '--rt-avatar-size': designTokens.size[s].height,
+  '--rt-avatar-font-size': designTokens.size[s].fontSize,
+  '--rt-avatar-line-height': designTokens.size[s].lineHeight,
+})
+
 export const avatarSizeStyles: Record<AvatarSize, AvatarSizeStyle> = {
-  '1': {
-    '--rt-avatar-size': designTokens.size['1'].height,
-    '--rt-avatar-font-size': designTokens.size['1'].fontSize,
-    '--rt-avatar-line-height': designTokens.size['1'].lineHeight,
-  },
-  '2': {
-    '--rt-avatar-size': designTokens.size['2'].height,
-    '--rt-avatar-font-size': designTokens.size['2'].fontSize,
-    '--rt-avatar-line-height': designTokens.size['2'].lineHeight,
-  },
-  '3': {
-    '--rt-avatar-size': designTokens.size['3'].height,
-    '--rt-avatar-font-size': designTokens.size['3'].fontSize,
-    '--rt-avatar-line-height': designTokens.size['3'].lineHeight,
-  },
-  '4': {
-    '--rt-avatar-size': designTokens.size['4'].height,
-    '--rt-avatar-font-size': designTokens.size['4'].fontSize,
-    '--rt-avatar-line-height': designTokens.size['4'].lineHeight,
-  },
-  '5': {
-    '--rt-avatar-size': '4rem',
-    '--rt-avatar-font-size': designTokens.typography['5'].fontSize,
-    '--rt-avatar-line-height': designTokens.typography['5'].lineHeight,
-  },
-  '6': {
-    '--rt-avatar-size': '5rem',
-    '--rt-avatar-font-size': designTokens.typography['6'].fontSize,
-    '--rt-avatar-line-height': designTokens.typography['6'].lineHeight,
-  },
+  '1': buildAvatarSizeStyle('1'),
+  '2': buildAvatarSizeStyle('2'),
+  '3': buildAvatarSizeStyle('3'),
+  '4': buildAvatarSizeStyle('4'),
+  '5': buildAvatarSizeStyle('5'),
+  '6': buildAvatarSizeStyle('6'),
 }
 
 // Variant styles
@@ -140,7 +115,7 @@ const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
         style={avatarSizeStyles[size]}
         className={cn(
           'relative inline-flex shrink-0 items-center justify-center overflow-hidden',
-          avatarSizes[size],
+          AVATAR_SIZE_CLASS,
           radiusStyles[radius],
           showFallback && variant === 'solid' && solidColorStyles[color],
           showFallback && variant === 'soft' && softColorStyles[color],
