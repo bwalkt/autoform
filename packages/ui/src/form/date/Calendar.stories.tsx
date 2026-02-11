@@ -30,6 +30,18 @@ const meta: Meta<typeof Calendar> = {
 export default meta
 type Story = StoryObj<typeof Calendar>
 
+type CalendarMode = 'single' | 'range' | 'multiple'
+
+type CalendarMatrixArgs = {
+  mode: CalendarMode
+  months: 1 | 2
+  color: 'default' | 'primary' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
+  radius: 'none' | 'sm' | 'md' | 'lg' | 'full'
+  navButtonBordered: boolean
+  min?: number
+  max?: number
+}
+
 // calendar-01 style
 export const DefaultMonth: Story = {
   args: {
@@ -53,6 +65,87 @@ export const DefaultMonth: Story = {
         />
       </div>
     )
+  },
+}
+
+export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
+  args: {
+    mode: 'single',
+    months: 1,
+    color: 'default',
+    radius: 'md',
+    navButtonBordered: false,
+    min: undefined,
+    max: undefined,
+  },
+  argTypes: {
+    mode: {
+      control: { type: 'radio' },
+      options: ['single', 'range', 'multiple'],
+    },
+    months: {
+      control: { type: 'radio' },
+      options: [1, 2],
+    },
+    color: {
+      control: { type: 'select' },
+      options: ['default', 'primary', 'neutral', 'info', 'success', 'warning', 'error'],
+    },
+    radius: {
+      control: { type: 'select' },
+      options: ['none', 'sm', 'md', 'lg', 'full'],
+    },
+    navButtonBordered: {
+      control: { type: 'boolean' },
+    },
+    min: {
+      control: { type: 'number' },
+    },
+    max: {
+      control: { type: 'number' },
+    },
+  },
+  render: args => {
+    const [singleDate, setSingleDate] = React.useState<Date | undefined>(new Date())
+    const [range, setRange] = React.useState<DateRange | undefined>({
+      from: new Date(2025, 5, 4),
+      to: new Date(2025, 5, 17),
+    })
+    const [multipleDates, setMultipleDates] = React.useState<Date[] | undefined>([
+      new Date(2025, 5, 4),
+      new Date(2025, 5, 17),
+    ])
+
+    const sharedProps = {
+      color: args.color,
+      radius: args.radius,
+      navButtonBordered: args.navButtonBordered,
+      numberOfMonths: args.months,
+      pagedNavigation: args.months > 1,
+      defaultMonth: new Date(2025, 5, 1),
+      className: 'rounded-md border',
+    } as const
+
+    if (args.mode === 'range') {
+      return (
+        <Calendar {...sharedProps} mode="range" selected={range} onSelect={setRange} min={args.min} max={args.max} />
+      )
+    }
+
+    if (args.mode === 'multiple') {
+      return (
+        <Calendar
+          {...sharedProps}
+          mode="multiple"
+          selected={multipleDates}
+          onSelect={setMultipleDates}
+          min={args.min}
+          max={args.max}
+        />
+      )
+    }
+
+    return <Calendar {...sharedProps} mode="single" selected={singleDate} onSelect={setSingleDate} />
   },
 }
 

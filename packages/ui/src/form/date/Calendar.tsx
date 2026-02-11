@@ -44,9 +44,31 @@ type CalendarCommonProps = Omit<
   navButtonBordered?: boolean
 }
 
-type CalendarSingleProps = Omit<PropsSingle, 'mode'> & { mode?: 'single' }
-type CalendarRangeProps = Omit<PropsRange, 'mode'> & { mode: 'range' }
-type CalendarMultipleProps = Omit<PropsMulti, 'mode'> & { mode: 'multiple' }
+type CalendarSingleProps = {
+  mode?: 'single'
+  selected?: PropsSingle['selected']
+  onSelect?: PropsSingle['onSelect']
+  required?: PropsSingle['required']
+}
+
+type CalendarRangeProps = {
+  mode: 'range'
+  selected?: PropsRange['selected']
+  onSelect?: PropsRange['onSelect']
+  required?: PropsRange['required']
+  min?: PropsRange['min']
+  max?: PropsRange['max']
+  excludeDisabled?: PropsRange['excludeDisabled']
+}
+
+type CalendarMultipleProps = {
+  mode: 'multiple'
+  selected?: PropsMulti['selected']
+  onSelect?: PropsMulti['onSelect']
+  required?: PropsMulti['required']
+  min?: PropsMulti['min']
+  max?: PropsMulti['max']
+}
 
 export type CalendarProps = CalendarCommonProps & (CalendarSingleProps | CalendarRangeProps | CalendarMultipleProps)
 
