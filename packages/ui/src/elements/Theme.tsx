@@ -224,6 +224,7 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
     const [grayColor, setGrayColor] = React.useState<GrayColor>(grayColorProp)
     const [radius, setRadius] = React.useState<Radius>(radiusProp)
     const [locale, setLocale] = React.useState<ThemeLocale>(() => getResolvedLocale(localeProp))
+    const localeRef = React.useRef<ThemeLocale>(getResolvedLocale(localeProp))
     const [calendar, setCalendar] = React.useState<ThemeCalendar>(() =>
       getResolvedCalendar(calendarProp, radiusProp, localeProp),
     )
@@ -236,9 +237,12 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
     React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp])
     React.useEffect(() => setRadius(radiusProp), [radiusProp])
     React.useEffect(() => setLocale(getResolvedLocale(localeProp)), [localeProp])
+    React.useEffect(() => {
+      localeRef.current = locale
+    }, [locale])
     React.useEffect(
-      () => setCalendar(getResolvedCalendar(calendarProp, radius, locale)),
-      [calendarProp, radius, locale],
+      () => setCalendar(getResolvedCalendar(calendarProp, radius, localeProp ?? localeRef.current)),
+      [calendarProp, radius, localeProp],
     )
     React.useEffect(() => setScaling(scalingProp), [scalingProp])
     React.useEffect(() => setPanelBackground(panelBackgroundProp), [panelBackgroundProp])
@@ -283,11 +287,27 @@ export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(
       (value: Partial<ThemeLocale>) => {
         setLocale(previous => {
           const next = getResolvedLocale({ ...previous, ...value })
+          setCalendar(previousCalendar => {
+            // Keep calendar locale/timezone in sync only when it is currently
+            // inheriting those values from the global locale.
+            const shouldSyncLocale = !calendarProp?.locale && previousCalendar.locale === previous.locale
+            const shouldSyncTimezone = !calendarProp?.timezone && previousCalendar.timezone === previous.timezone
+
+            if (!shouldSyncLocale && !shouldSyncTimezone) {
+              return previousCalendar
+            }
+
+            return {
+              ...previousCalendar,
+              locale: shouldSyncLocale ? next.locale : previousCalendar.locale,
+              timezone: shouldSyncTimezone ? next.timezone : previousCalendar.timezone,
+            }
+          })
           onLocaleChangeProp?.(next)
           return next
         })
       },
-      [onLocaleChangeProp],
+      [calendarProp?.locale, calendarProp?.timezone, onLocaleChangeProp],
     )
 
     const handleCalendarChange = React.useCallback(
