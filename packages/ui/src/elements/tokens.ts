@@ -1,6 +1,6 @@
 /** designTokens export. */
 export const designTokens = {
-  // Element sizes for form components (Radix-style 1-4)
+  // Element sizes: 1-4 are general form/component sizes (see Size type), 5-6 are avatar-only
   size: {
     '1': {
       height: '1.5rem',
@@ -38,6 +38,7 @@ export const designTokens = {
       iconSize: '1.5rem',
       gap: '0.625rem',
     },
+    // Avatar-only sizes (not included in the general Size type)
     '5': {
       height: '4rem',
       fontSize: '1.25rem',
