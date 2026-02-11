@@ -4,15 +4,13 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import type { Color, Radius, Size } from './tokens'
 
-// Size configurations (exported for AvatarGroup)
-/** avatarSizes export. */
 export const avatarSizes = {
-  '1': 'h-6 w-6 text-xs',
-  '2': 'h-8 w-8 text-sm',
-  '3': 'h-10 w-10 text-base',
-  '4': 'h-12 w-12 text-lg',
-  '5': 'h-16 w-16 text-xl',
-  '6': 'h-20 w-20 text-2xl',
+  '1': 'avatar-size-1',
+  '2': 'avatar-size-2',
+  '3': 'avatar-size-3',
+  '4': 'avatar-size-4',
+  '5': 'avatar-size-5',
+  '6': 'avatar-size-6',
 }
 
 export type AvatarSize = Size | '5' | '6'
@@ -104,7 +102,6 @@ const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
           'relative inline-flex shrink-0 items-center justify-center overflow-hidden',
           avatarSizes[size],
           radiusStyles[radius],
-          // Fallback colors
           showFallback && variant === 'solid' && solidColorStyles[color],
           showFallback && variant === 'soft' && softColorStyles[color],
           className,
