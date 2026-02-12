@@ -3,10 +3,10 @@
 import { addDays, addWeeks, format, isSameDay, isToday, startOfDay, startOfWeek, subWeeks } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import * as React from 'react'
-import { IconButton } from '@/elements/IconButton'
 import { useOptionalThemeContext } from '@/elements/Theme'
 import { type Color, designTokens, type Radius } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
+import { CalendarNavButton } from './CalendarNavButton'
 
 export interface MiniCalendarProps {
   /** Selected date */
@@ -132,14 +132,6 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
       return false
     }
 
-    const weekHasSelectableDay = (baseDate: Date): boolean => {
-      const start = startOfWeek(baseDate, { weekStartsOn })
-      return Array.from({ length: 7 }, (_, i) => addDays(start, i)).some(day => !isDateDisabled(day))
-    }
-
-    const canGoPrev = weekHasSelectableDay(subWeeks(currentDate, 1))
-    const canGoNext = weekHasSelectableDay(addWeeks(currentDate, 1))
-
     const handleDateSelect = (date: Date) => {
       if (disabled) return
       if (isDateDisabled(date)) return
@@ -152,7 +144,7 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
 
     const dayCellSize = compact ? 'text-base' : 'text-[1.125rem]'
     const dayCellPixelSize = compact ? '2.25rem' : '2.75rem'
-    const navButtonSize = compact ? 'h-8 w-8' : 'h-9 w-9'
+    const navButtonSize = compact ? '!h-8 !w-8' : '!h-9 !w-9'
     const title = format(currentDate, 'MMMM yyyy')
 
     return (
@@ -177,18 +169,24 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
         {/* Header with navigation */}
         {showHeader && (
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2">
-            <IconButton
-              variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
-              size="1"
+            <CalendarNavButton
               color={color}
               radius={resolvedRadius}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
               onClick={handlePrevWeek}
-              disabled={disabled || !canGoPrev}
-              className={navButtonSize}
+              disabled={disabled}
+              className={cn(
+                navButtonSize,
+                'text-[var(--mini-cal-accent)] disabled:opacity-70',
+                '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
+              )}
               aria-label="Previous week"
             >
-              <ChevronLeft className="h-4 w-4" />
-            </IconButton>
+              <ChevronLeft />
+            </CalendarNavButton>
 
             <div className="min-w-0 flex-1 text-center">
               <span className={cn('font-medium text-foreground', compact ? 'text-sm' : 'text-[1.125rem]')}>
@@ -197,18 +195,24 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
             </div>
 
             <div className="justify-self-end">
-              <IconButton
-                variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
-                size="1"
+              <CalendarNavButton
                 color={color}
                 radius={resolvedRadius}
+                bordered={resolvedNavButtonBordered}
+                accentColor={resolvedColors.accent}
+                softColor={resolvedColors.soft}
+                foregroundColor={resolvedColors.foreground}
                 onClick={handleNextWeek}
-                disabled={disabled || !canGoNext}
-                className={navButtonSize}
+                disabled={disabled}
+                className={cn(
+                  navButtonSize,
+                  'text-[var(--mini-cal-accent)] disabled:opacity-70',
+                  '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
+                )}
                 aria-label="Next week"
               >
-                <ChevronRight className="h-4 w-4" />
-              </IconButton>
+                <ChevronRight />
+              </CalendarNavButton>
             </div>
           </div>
         )}
