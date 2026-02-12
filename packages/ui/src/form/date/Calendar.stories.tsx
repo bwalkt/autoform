@@ -47,6 +47,18 @@ type CalendarLocaleArgs = {
   timeZone?: string
 }
 
+const localeOptions = ['en-US', 'fr-FR', 'de-DE', 'es-ES'] as const
+const timeZoneOptions = [
+  '',
+  'UTC',
+  'America/New_York',
+  'America/Los_Angeles',
+  'Europe/Paris',
+  'Europe/Berlin',
+  'Asia/Tokyo',
+  'Asia/Dubai',
+] as const
+
 // calendar-01 style
 export const DefaultMonth: Story = {
   args: {
@@ -363,10 +375,12 @@ export const LocaleKnobs: StoryObj<CalendarLocaleArgs> = {
   },
   argTypes: {
     localeCode: {
-      control: { type: 'text' },
+      control: { type: 'select' },
+      options: localeOptions,
     },
     timeZone: {
-      control: { type: 'text' },
+      control: { type: 'select' },
+      options: timeZoneOptions,
     },
   },
   render: args => {
