@@ -1,10 +1,12 @@
 'use client'
 
-import { addDays, addWeeks, endOfWeek, format, isSameDay, isToday, startOfDay, startOfWeek, subWeeks } from 'date-fns'
+import { addDays, addWeeks, format, isSameDay, isToday, startOfDay, startOfWeek, subWeeks } from 'date-fns'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import * as React from 'react'
-import { Button } from '@/elements/Button'
+import { useOptionalThemeContext } from '@/elements/Theme'
+import { type Color, designTokens, type Radius } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
+import { CalendarNavButton } from './CalendarNavButton'
 
 export interface MiniCalendarProps {
   /** Selected date */
@@ -25,6 +27,37 @@ export interface MiniCalendarProps {
   showHeader?: boolean
   /** Compact mode - smaller buttons */
   compact?: boolean
+  /** Accent color token */
+  color?: Color
+  /** Border radius token */
+  radius?: Radius
+  /** Whether nav buttons should use border outline */
+  navButtonBordered?: boolean
+}
+
+function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
+  if (color === 'default') {
+    return {
+      accent: 'var(--accent)',
+      soft: 'color-mix(in oklab, var(--accent) 18%, transparent)',
+      foreground: 'var(--accent-foreground)',
+    }
+  }
+
+  if (color === 'primary') {
+    return {
+      accent: 'var(--primary)',
+      soft: 'color-mix(in oklab, var(--primary) 18%, transparent)',
+      foreground: 'var(--primary-foreground)',
+    }
+  }
+
+  const token = designTokens.color[color]
+  return {
+    accent: token.primary,
+    soft: token.primaryAlpha,
+    foreground: token.text,
+  }
 }
 
 /**
@@ -56,21 +89,31 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
       className,
       showHeader = true,
       compact = false,
+      color = 'default',
+      radius,
+      navButtonBordered,
     },
     ref,
   ) => {
-    const [currentDate, setCurrentDate] = React.useState<Date>(value || new Date())
+    const theme = useOptionalThemeContext()
+    const resolvedRadius = radius ?? theme?.calendar?.radius ?? theme?.radius ?? 'md'
+    const resolvedNavButtonBordered = navButtonBordered ?? theme?.calendar?.navButtonBordered ?? false
+    const resolvedColors = resolveCalendarColors(color)
+    const isControlled = value !== undefined
+    const [selectedDateState, setSelectedDateState] = React.useState<Date>(value ?? new Date())
+    const selectedDate = isControlled ? value : selectedDateState
+    const [currentDate, setCurrentDate] = React.useState<Date>(selectedDate ?? new Date())
 
-    // Update current date when value changes
+    // Keep local selection/date in sync with controlled value updates
     React.useEffect(() => {
-      if (value) {
+      if (value !== undefined) {
         setCurrentDate(value)
+        setSelectedDateState(value)
       }
     }, [value])
 
     // Get week days based on current date
     const weekStart = startOfWeek(currentDate, { weekStartsOn })
-    const weekEnd = endOfWeek(currentDate, { weekStartsOn })
     const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
     const handlePrevWeek = () => {
@@ -92,87 +135,100 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
     const handleDateSelect = (date: Date) => {
       if (disabled) return
       if (isDateDisabled(date)) return
+      if (!isControlled) {
+        setSelectedDateState(date)
+      }
+      setCurrentDate(date)
       onChange?.(date)
     }
 
-    const handleToday = () => {
-      const today = new Date()
-      setCurrentDate(today)
-      if (!isDateDisabled(today)) {
-        onChange?.(today)
-      }
-    }
-
-    const buttonSize = compact ? 'h-8 w-8 text-xs' : 'h-10 w-10 text-sm'
-    const navButtonSize = compact ? 'h-6 w-6' : 'h-8 w-8'
+    const dayCellSize = compact ? 'text-base' : 'text-[1.125rem]'
+    const dayCellPixelSize = compact ? '2.25rem' : '2.75rem'
+    const navButtonSize = compact ? '!h-8 !w-8' : '!h-9 !w-9'
+    const title = format(currentDate, 'MMMM yyyy')
 
     return (
       <div
         ref={ref}
         className={cn(
-          'flex flex-col gap-2 p-3 rounded-lg border bg-background',
+          'inline-flex w-full flex-col gap-1.5 border bg-background p-3',
+          'rounded-lg',
           disabled && 'opacity-50 pointer-events-none',
           className,
         )}
+        style={
+          {
+            '--mini-cal-radius': designTokens.radius[resolvedRadius],
+            '--mini-cal-accent': resolvedColors.accent,
+            '--mini-cal-soft': resolvedColors.soft,
+            '--mini-cal-fg': resolvedColors.foreground,
+            '--mini-cal-cell-size': dayCellPixelSize,
+          } as React.CSSProperties
+        }
       >
         {/* Header with navigation */}
         {showHeader && (
-          <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              size="1"
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2">
+            <CalendarNavButton
+              color={color}
+              radius={resolvedRadius}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
               onClick={handlePrevWeek}
               disabled={disabled}
-              className={cn('p-0', navButtonSize)}
+              className={cn(
+                navButtonSize,
+                'text-[var(--mini-cal-accent)] disabled:opacity-70',
+                '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
+              )}
+              aria-label="Previous week"
             >
-              <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">Previous week</span>
-            </Button>
+              <ChevronLeft />
+            </CalendarNavButton>
 
-            <div className="flex items-center gap-2">
-              <span className={cn('font-medium', compact ? 'text-xs' : 'text-sm')}>
-                {format(weekStart, 'MMM d')} - {format(weekEnd, 'MMM d, yyyy')}
+            <div className="min-w-0 flex-1 text-center">
+              <span className={cn('font-medium text-foreground', compact ? 'text-sm' : 'text-[1.125rem]')}>
+                {title}
               </span>
-              <Button
-                variant="outline"
-                size="1"
-                onClick={handleToday}
-                disabled={disabled}
-                className={cn('text-xs px-2', compact ? 'h-5' : 'h-6')}
-              >
-                Today
-              </Button>
             </div>
 
-            <Button
-              variant="ghost"
-              size="1"
+            <CalendarNavButton
+              color={color}
+              radius={resolvedRadius}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
               onClick={handleNextWeek}
               disabled={disabled}
-              className={cn('p-0', navButtonSize)}
+              className={cn(
+                navButtonSize,
+                'text-[var(--mini-cal-accent)] disabled:opacity-70',
+                '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
+              )}
+              aria-label="Next week"
             >
-              <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">Next week</span>
-            </Button>
+              <ChevronRight />
+            </CalendarNavButton>
           </div>
         )}
 
-        {/* Day labels */}
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 place-items-center gap-0">
           {weekDays.map(day => (
             <div
               key={`label-${day.toISOString()}`}
-              className={cn('text-center text-muted-foreground font-medium', compact ? 'text-[10px]' : 'text-xs')}
+              className={cn('text-center font-medium text-muted-foreground', compact ? 'text-xs' : 'text-[0.875rem]')}
             >
-              {format(day, 'EEE')}
+              {format(day, 'EEEEE')}
             </div>
           ))}
         </div>
 
-        {/* Day buttons */}
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 place-items-center gap-0">
           {weekDays.map(day => {
-            const isSelected = value && isSameDay(day, value)
+            const isSelected = Boolean(selectedDate && isSameDay(day, selectedDate))
             const isTodayDate = isToday(day)
             const isDisabled = isDateDisabled(day)
 
@@ -185,16 +241,23 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
                 aria-pressed={isSelected}
                 aria-current={isTodayDate ? 'date' : undefined}
                 aria-label={format(day, 'EEEE, MMMM d, yyyy')}
+                style={{
+                  width: 'var(--mini-cal-cell-size)',
+                  height: 'var(--mini-cal-cell-size)',
+                  flex: '0 0 auto',
+                }}
                 className={cn(
-                  'inline-flex items-center justify-center rounded-md font-medium transition-colors',
+                  'inline-flex shrink-0 items-center justify-center font-medium transition-colors',
+                  'appearance-none border-0 bg-transparent p-0 shadow-none',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-                  'disabled:pointer-events-none disabled:opacity-50',
-                  buttonSize,
+                  'disabled:pointer-events-none disabled:opacity-45',
+                  'rounded-[var(--mini-cal-radius)]',
+                  dayCellSize,
                   isSelected
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    ? 'bg-[var(--mini-cal-accent)] text-[var(--mini-cal-fg)]'
                     : isTodayDate
-                      ? 'bg-accent text-accent-foreground hover:bg-accent/80'
-                      : 'hover:bg-accent hover:text-accent-foreground',
+                      ? 'bg-[var(--mini-cal-soft)] text-foreground'
+                      : 'text-foreground hover:bg-[var(--mini-cal-soft)]',
                 )}
               >
                 {format(day, 'd')}

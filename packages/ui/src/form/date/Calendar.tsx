@@ -12,10 +12,10 @@ import {
   type PropsRange,
   type PropsSingle,
 } from 'react-day-picker'
-import { IconButton } from '@/elements/IconButton'
 import { useOptionalThemeContext } from '@/elements/Theme'
 import { type Color, designTokens, type Radius } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
+import { CalendarNavButton } from './CalendarNavButton'
 
 type CalendarCommonProps = Omit<
   DayPickerProps,
@@ -229,17 +229,7 @@ export function Calendar({
       }),
     [safeLocaleCode, dateFormatOptions],
   )
-  const navButtonClassName = resolvedNavButtonBordered
-    ? cn(
-        'shrink-0 border touch-manipulation [-webkit-tap-highlight-color:transparent]',
-        'border-[var(--rdp-accent-color)] text-[var(--rdp-accent-color)]',
-        'hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]',
-      )
-    : cn(
-        'shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent]',
-        'bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)]',
-        'hover:bg-[var(--rdp-accent-color)] hover:text-[var(--cal-accent-foreground)]',
-      )
+  const navButtonClassName = 'touch-manipulation [-webkit-tap-highlight-color:transparent]'
 
   const handleMonthChange = React.useCallback<MonthChangeEventHandler>(
     month => {
@@ -450,16 +440,18 @@ export function Calendar({
           ...safeButtonProps
         } = buttonProps as React.ComponentPropsWithoutRef<'button'>
         return (
-          <IconButton
-            size="2"
+          <CalendarNavButton
             color={resolvedNavButtonColor}
             radius={resolvedRadius}
-            variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
+            bordered={resolvedNavButtonBordered}
+            accentColor={resolvedColors.accent}
+            softColor={resolvedColors.soft}
+            foregroundColor={resolvedColors.foreground}
             className={navButtonClassName}
             {...safeButtonProps}
           >
             {children}
-          </IconButton>
+          </CalendarNavButton>
         )
       },
       NextMonthButton: ({ children, ...buttonProps }) => {
@@ -470,16 +462,18 @@ export function Calendar({
           ...safeButtonProps
         } = buttonProps as React.ComponentPropsWithoutRef<'button'>
         return (
-          <IconButton
-            size="2"
+          <CalendarNavButton
             color={resolvedNavButtonColor}
             radius={resolvedRadius}
-            variant={resolvedNavButtonBordered ? 'outline' : 'soft'}
+            bordered={resolvedNavButtonBordered}
+            accentColor={resolvedColors.accent}
+            softColor={resolvedColors.soft}
+            foregroundColor={resolvedColors.foreground}
             className={navButtonClassName}
             {...safeButtonProps}
           >
             {children}
-          </IconButton>
+          </CalendarNavButton>
         )
       },
       Chevron: ({
