@@ -617,9 +617,7 @@ describe('Calendar', () => {
     })
 
     it('prioritizes from prop over defaultMonth for initial display', () => {
-      render(
-        <Calendar from={new Date(2025, 7, 1)} defaultMonth={new Date(2025, 2, 1)} showOutsideDays={false} />,
-      )
+      render(<Calendar from={new Date(2025, 7, 1)} defaultMonth={new Date(2025, 2, 1)} showOutsideDays={false} />)
       expect(screen.getByText('August 2025')).toBeInTheDocument()
     })
 
@@ -669,7 +667,12 @@ describe('Calendar', () => {
 
     it('allows overriding paged navigation with pagedNavigation prop', () => {
       render(
-        <Calendar numberOfMonths={2} pagedNavigation={false} defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />,
+        <Calendar
+          numberOfMonths={2}
+          pagedNavigation={false}
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+        />,
       )
       expect(screen.getByText('June 2025')).toBeInTheDocument()
       expect(screen.getByText('July 2025')).toBeInTheDocument()
@@ -930,7 +933,7 @@ describe('Calendar', () => {
           <Calendar
             mode="multiple"
             selected={selected}
-            onSelect={(dates) => {
+            onSelect={dates => {
               handleSelect(dates)
               setSelected(dates)
             }}
@@ -954,7 +957,11 @@ describe('Calendar', () => {
 
   describe('Custom components', () => {
     it('allows custom components to be provided', () => {
-      const CustomChevron = () => <svg data-testid="custom-chevron"><path /></svg>
+      const CustomChevron = () => (
+        <svg data-testid="custom-chevron">
+          <path />
+        </svg>
+      )
       render(
         <Calendar
           defaultMonth={new Date(2025, 5, 1)}
@@ -999,7 +1006,7 @@ describe('Calendar', () => {
       render(<Calendar defaultMonth={new Date(2025, 2, 1)} showOutsideDays={false} />)
 
       // At least one call should not have timeZone
-      const callsWithoutTimeZone = dateTimeFormatSpy.mock.calls.filter((call) => {
+      const callsWithoutTimeZone = dateTimeFormatSpy.mock.calls.filter(call => {
         const options = call[1] as Record<string, unknown> | undefined
         return !options || !('timeZone' in options)
       })
@@ -1016,7 +1023,7 @@ describe('Calendar', () => {
         const [, setRenderCount] = React.useState(0)
         return (
           <div>
-            <button data-testid="force-rerender" onClick={() => setRenderCount((c) => c + 1)}>
+            <button data-testid="force-rerender" onClick={() => setRenderCount(c => c + 1)}>
               Re-render
             </button>
             <Calendar defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />
@@ -1038,13 +1045,7 @@ describe('Calendar', () => {
       const user = userEvent.setup()
       const handleMonthChange = vi.fn()
 
-      render(
-        <Calendar
-          month={new Date(2025, 5, 1)}
-          onMonthChange={handleMonthChange}
-          showOutsideDays={false}
-        />,
-      )
+      render(<Calendar month={new Date(2025, 5, 1)} onMonthChange={handleMonthChange} showOutsideDays={false} />)
 
       expect(screen.getByText('June 2025')).toBeInTheDocument()
 
