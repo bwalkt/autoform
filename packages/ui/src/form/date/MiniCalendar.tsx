@@ -160,8 +160,7 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
         ref={ref}
         className={cn(
           'inline-flex w-full flex-col gap-1.5 border bg-background p-3',
-          'rounded-[var(--mini-cal-radius)]',
-          '[--mini-cal-radius:0.375rem]',
+          'rounded-lg',
           disabled && 'opacity-50 pointer-events-none',
           className,
         )}
