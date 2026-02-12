@@ -185,6 +185,7 @@ export const ThemeOverrideComparison: Story = {
         >
           <div className="space-y-2">
             <p className="text-xs text-muted-foreground">Theme defaults only</p>
+            {/* Intentionally not spreading args: this side shows theme-only defaults */}
             <MiniCalendar value={leftDate} onChange={setLeftDate} />
           </div>
         </Theme>

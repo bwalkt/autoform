@@ -56,7 +56,7 @@ function resolveCalendarColors(color: Color): { accent: string; soft: string; fo
   return {
     accent: token.primary,
     soft: token.primaryAlpha,
-    foreground: 'white',
+    foreground: token.background,
   }
 }
 
@@ -194,26 +194,24 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
               </span>
             </div>
 
-            <div className="justify-self-end">
-              <CalendarNavButton
-                color={color}
-                radius={resolvedRadius}
-                bordered={resolvedNavButtonBordered}
-                accentColor={resolvedColors.accent}
-                softColor={resolvedColors.soft}
-                foregroundColor={resolvedColors.foreground}
-                onClick={handleNextWeek}
-                disabled={disabled}
-                className={cn(
-                  navButtonSize,
-                  'text-[var(--mini-cal-accent)] disabled:opacity-70',
-                  '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
-                )}
-                aria-label="Next week"
-              >
-                <ChevronRight />
-              </CalendarNavButton>
-            </div>
+            <CalendarNavButton
+              color={color}
+              radius={resolvedRadius}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
+              onClick={handleNextWeek}
+              disabled={disabled}
+              className={cn(
+                navButtonSize,
+                'text-[var(--mini-cal-accent)] disabled:opacity-70',
+                '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
+              )}
+              aria-label="Next week"
+            >
+              <ChevronRight />
+            </CalendarNavButton>
           </div>
         )}
 
