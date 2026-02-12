@@ -56,7 +56,7 @@ function resolveCalendarColors(color: Color): { accent: string; soft: string; fo
   return {
     accent: token.primary,
     soft: token.primaryAlpha,
-    foreground: token.background,
+    foreground: token.text,
   }
 }
 
@@ -242,12 +242,9 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
                 aria-current={isTodayDate ? 'date' : undefined}
                 aria-label={format(day, 'EEEE, MMMM d, yyyy')}
                 style={{
-                  width: dayCellPixelSize,
-                  height: dayCellPixelSize,
-                  minWidth: dayCellPixelSize,
-                  minHeight: dayCellPixelSize,
-                  maxWidth: dayCellPixelSize,
-                  maxHeight: dayCellPixelSize,
+                  width: 'var(--mini-cal-cell-size)',
+                  height: 'var(--mini-cal-cell-size)',
+                  flex: '0 0 auto',
                 }}
                 className={cn(
                   'inline-flex shrink-0 items-center justify-center font-medium transition-colors',

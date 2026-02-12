@@ -36,14 +36,14 @@ export function CalendarNavButton({
         'shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent]',
         bordered
           ? 'border border-[var(--rdp-accent-color)] bg-transparent text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]'
-          : 'border border-transparent bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-color)] hover:text-[var(--cal-accent-foreground)]',
+          : 'border border-transparent bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-color)] hover:text-[var(--rdp-accent-foreground)]',
         className,
       )}
       style={
         {
           '--rdp-accent-color': accentColor,
           '--rdp-accent-background-color': softColor,
-          '--cal-accent-foreground': foregroundColor,
+          '--rdp-accent-foreground': foregroundColor,
         } as React.CSSProperties
       }
       {...props}
