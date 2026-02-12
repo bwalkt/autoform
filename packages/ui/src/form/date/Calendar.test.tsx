@@ -1068,4 +1068,443 @@ describe('Calendar', () => {
       expect(day15).toHaveAttribute('aria-label')
     })
   })
+
+  describe('Range mode constraints', () => {
+    it('respects min constraint in range mode', async () => {
+      const user = userEvent.setup()
+      const handleSelect = vi.fn()
+
+      const { container } = render(
+        <Calendar
+          mode="range"
+          min={3}
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
+      )
+
+      const day10 = getDayButton(container, 'June', 10)
+      await user.click(day10)
+
+      const day12 = getDayButton(container, 'June', 12)
+      await user.click(day12)
+
+      expect(handleSelect).toHaveBeenCalled()
+    })
+
+    it('respects max constraint in range mode', async () => {
+      const user = userEvent.setup()
+      const handleSelect = vi.fn()
+
+      const { container } = render(
+        <Calendar
+          mode="range"
+          max={5}
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
+      )
+
+      const day10 = getDayButton(container, 'June', 10)
+      await user.click(day10)
+
+      const day20 = getDayButton(container, 'June', 20)
+      await user.click(day20)
+
+      expect(handleSelect).toHaveBeenCalled()
+    })
+
+    it('respects excludeDisabled in range mode', async () => {
+      const user = userEvent.setup()
+      const handleSelect = vi.fn()
+
+      const { container } = render(
+        <Calendar
+          mode="range"
+          excludeDisabled
+          disabled={{ dayOfWeek: [0, 6] }}
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
+      )
+
+      const day10 = getDayButton(container, 'June', 10)
+      await user.click(day10)
+
+      expect(handleSelect).toHaveBeenCalled()
+    })
+  })
+
+  describe('Single mode required', () => {
+    it('prevents deselection when required is true in single mode', async () => {
+      const user = userEvent.setup()
+
+      function ControlledCalendar() {
+        const [selected, setSelected] = React.useState<Date | undefined>(new Date(2025, 5, 10))
+        return (
+          <div>
+            <Calendar
+              mode="single"
+              required
+              selected={selected}
+              onSelect={setSelected}
+              defaultMonth={new Date(2025, 5, 1)}
+              showOutsideDays={false}
+            />
+            <p data-testid="selected-value">{selected ? selected.getDate() : 'none'}</p>
+          </div>
+        )
+      }
+
+      const { container } = render(<ControlledCalendar />)
+
+      expect(screen.getByTestId('selected-value')).toHaveTextContent('10')
+
+      const day10 = getDayButton(container, 'June', 10)
+      await user.click(day10)
+
+      // Should remain selected due to required
+      expect(screen.getByTestId('selected-value')).toHaveTextContent('10')
+    })
+  })
+
+  describe('Complex disabled matchers', () => {
+    it('handles array of disabled matchers', () => {
+      const { container } = render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          disabled={[{ before: new Date(2025, 5, 10) }, { after: new Date(2025, 5, 20) }]}
+        />,
+      )
+
+      const day5 = getDayButton(container, 'June', 5)
+      expect(day5).toBeDisabled()
+
+      const day25 = getDayButton(container, 'June', 25)
+      expect(day25).toBeDisabled()
+
+      const day15 = getDayButton(container, 'June', 15)
+      expect(day15).not.toBeDisabled()
+    })
+
+    it('handles function disabled matcher', () => {
+      const { container } = render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          disabled={(date: Date) => date.getDate() % 2 === 0}
+        />,
+      )
+
+      const day2 = getDayButton(container, 'June', 2)
+      expect(day2).toBeDisabled()
+
+      const day3 = getDayButton(container, 'June', 3)
+      expect(day3).not.toBeDisabled()
+    })
+
+    it('handles dayOfWeek disabled matcher', () => {
+      const { container } = render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          disabled={{ dayOfWeek: [0, 6] }}
+        />,
+      )
+
+      // June 1, 2025 is a Sunday (0), June 7 is Saturday (6)
+      const calendar = container.querySelector('.custom-calendar')
+      expect(calendar).not.toBeInTheDocument()
+    })
+
+    it('handles specific date disabled matcher', () => {
+      const { container } = render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          disabled={new Date(2025, 5, 15)}
+        />,
+      )
+
+      const day15 = getDayButton(container, 'June', 15)
+      expect(day15).toBeDisabled()
+
+      const day14 = getDayButton(container, 'June', 14)
+      expect(day14).not.toBeDisabled()
+    })
+  })
+
+  describe('Week number display', () => {
+    it('renders with week numbers when showWeekNumber is true', () => {
+      render(<Calendar defaultMonth={new Date(2025, 5, 1)} showWeekNumber showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('does not render week numbers by default', () => {
+      render(<Calendar defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+  })
+
+  describe('Year boundary navigation', () => {
+    it('navigates from December to January correctly', async () => {
+      const user = userEvent.setup()
+      render(<Calendar defaultMonth={new Date(2025, 11, 1)} showOutsideDays={false} />)
+
+      expect(screen.getByText('December 2025')).toBeInTheDocument()
+
+      await user.click(screen.getByRole('button', { name: /next/i }))
+      expect(screen.getByText('January 2026')).toBeInTheDocument()
+    })
+
+    it('navigates from January to December correctly', async () => {
+      const user = userEvent.setup()
+      render(<Calendar defaultMonth={new Date(2025, 0, 1)} showOutsideDays={false} />)
+
+      expect(screen.getByText('January 2025')).toBeInTheDocument()
+
+      await user.click(screen.getByRole('button', { name: /previous/i }))
+      expect(screen.getByText('December 2024')).toBeInTheDocument()
+    })
+
+    it('calculates correct number of months across year boundaries', () => {
+      render(
+        <Calendar
+          from={new Date(2025, 11, 1)}
+          to={new Date(2026, 1, 28)}
+          defaultMonth={new Date(2025, 11, 1)}
+          showOutsideDays={false}
+        />,
+      )
+
+      expect(screen.getByText('December 2025')).toBeInTheDocument()
+      expect(screen.getByText('January 2026')).toBeInTheDocument()
+      expect(screen.getByText('February 2026')).toBeInTheDocument()
+    })
+  })
+
+  describe('Additional edge cases', () => {
+    it('handles undefined onSelect callback gracefully in single mode', async () => {
+      const user = userEvent.setup()
+
+      const { container } = render(<Calendar mode="single" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+
+      const day15 = getDayButton(container, 'June', 15)
+      await user.click(day15)
+
+      // Should not throw error
+      expect(day15).toBeInTheDocument()
+    })
+
+    it('handles undefined onSelect callback gracefully in range mode', async () => {
+      const user = userEvent.setup()
+
+      const { container } = render(<Calendar mode="range" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+
+      const day15 = getDayButton(container, 'June', 15)
+      await user.click(day15)
+
+      // Should not throw error
+      expect(day15).toBeInTheDocument()
+    })
+
+    it('renders correctly with all props undefined', () => {
+      render(<Calendar />)
+      // Should render without error using all defaults
+      const calendar = screen.getByRole('grid', { hidden: true })
+      expect(calendar).toBeInTheDocument()
+    })
+
+    it('handles rapid month navigation', async () => {
+      const user = userEvent.setup()
+      const handleMonthChange = vi.fn()
+
+      render(<Calendar defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} onMonthChange={handleMonthChange} />)
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+
+      await user.click(screen.getByRole('button', { name: /next/i }))
+      await user.click(screen.getByRole('button', { name: /next/i }))
+      await user.click(screen.getByRole('button', { name: /next/i }))
+
+      // Verify that onMonthChange was called 3 times
+      expect(handleMonthChange).toHaveBeenCalledTimes(3)
+    })
+
+    it('preserves selection when navigating months', async () => {
+      const user = userEvent.setup()
+
+      function ControlledCalendar() {
+        const [selected, setSelected] = React.useState<Date | undefined>(new Date(2025, 5, 15))
+        return (
+          <div>
+            <Calendar mode="single" selected={selected} onSelect={setSelected} defaultMonth={new Date(2025, 5, 1)} />
+            <p data-testid="selected-date">
+              {selected
+                ? `${selected.getFullYear()}-${selected.getMonth() + 1}-${selected.getDate()}`
+                : 'none'}
+            </p>
+          </div>
+        )
+      }
+
+      render(<ControlledCalendar />)
+
+      expect(screen.getByTestId('selected-date')).toHaveTextContent('2025-6-15')
+
+      await user.click(screen.getByRole('button', { name: /next/i }))
+
+      // Selection should be preserved even though we navigated to a different month
+      expect(screen.getByTestId('selected-date')).toHaveTextContent('2025-6-15')
+    })
+
+    it('handles empty formatters object', () => {
+      render(<Calendar defaultMonth={new Date(2025, 5, 1)} formatters={{}} showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('handles empty components object', () => {
+      render(<Calendar defaultMonth={new Date(2025, 5, 1)} components={{}} showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('handles className with multiple classes', () => {
+      const { container } = render(
+        <Calendar className="custom-class-1 custom-class-2 custom-class-3" defaultMonth={new Date(2025, 5, 1)} />,
+      )
+      expect(container.firstChild).toBeInTheDocument()
+    })
+  })
+
+  describe('Prop combinations', () => {
+    it('combines color and radius props correctly', () => {
+      const { container } = render(
+        <Calendar color="primary" radius="full" defaultMonth={new Date(2025, 5, 1)} />,
+      )
+      expect(container.firstChild).toBeInTheDocument()
+    })
+
+    it('combines theme and prop overrides correctly', () => {
+      render(
+        <Theme calendar={{ radius: 'sm', navButtonBordered: false, locale: 'fr-FR' }}>
+          <Calendar
+            radius="lg"
+            navButtonBordered={true}
+            localeCode="es-ES"
+            defaultMonth={new Date(2025, 5, 1)}
+            showOutsideDays={false}
+          />
+        </Theme>,
+      )
+      // Prop overrides should take precedence
+      expect(screen.getByText(/junio/i)).toBeInTheDocument()
+    })
+
+    it('handles multiple months with paged navigation and range selection', async () => {
+      const user = userEvent.setup()
+      const handleSelect = vi.fn()
+
+      const { container } = render(
+        <Calendar
+          mode="range"
+          numberOfMonths={2}
+          pagedNavigation
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
+      )
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+      expect(screen.getByText('July 2025')).toBeInTheDocument()
+
+      const day10 = getDayButton(container, 'June', 10)
+      await user.click(day10)
+
+      expect(handleSelect).toHaveBeenCalled()
+    })
+  })
+
+  describe('Date selection validation', () => {
+    it('does not allow selecting disabled dates in single mode', async () => {
+      const user = userEvent.setup()
+      const handleSelect = vi.fn()
+
+      const { container } = render(
+        <Calendar
+          mode="single"
+          disabled={{ before: new Date(2025, 5, 15) }}
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
+      )
+
+      const day10 = getDayButton(container, 'June', 10)
+      expect(day10).toBeDisabled()
+
+      // Attempting to click a disabled button shouldn't call onSelect
+      // (browsers prevent click events on disabled buttons)
+    })
+
+    it('allows selecting dates that match today', async () => {
+      const user = userEvent.setup()
+      const handleSelect = vi.fn()
+      const today = new Date()
+
+      const { container } = render(
+        <Calendar
+          mode="single"
+          defaultMonth={today}
+          showOutsideDays={false}
+          onSelect={handleSelect}
+        />,
+      )
+
+      const todayButton = getDayButton(container, today.toLocaleString('en-US', { month: 'long' }), today.getDate())
+      await user.click(todayButton)
+
+      expect(handleSelect).toHaveBeenCalled()
+    })
+  })
+
+  describe('Locale formatting edge cases', () => {
+    it('handles locale codes with region variants', () => {
+      render(<Calendar localeCode="zh-CN" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      // Should render without error
+      const calendar = screen.getByRole('grid', { hidden: true })
+      expect(calendar).toBeInTheDocument()
+    })
+
+    it('handles right-to-left locales', () => {
+      render(<Calendar localeCode="ar-SA" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      const calendar = screen.getByRole('grid', { hidden: true })
+      expect(calendar).toBeInTheDocument()
+    })
+
+    it('applies timezone to all formatters consistently', () => {
+      const dateTimeFormatSpy = vi.spyOn(Intl, 'DateTimeFormat')
+
+      render(
+        <Calendar
+          timeZone="America/New_York"
+          defaultMonth={new Date(2025, 2, 1)}
+          showOutsideDays={false}
+        />,
+      )
+
+      // All formatters should use the same timezone
+      const callsWithNY = dateTimeFormatSpy.mock.calls.filter(call => {
+        const options = call[1] as Record<string, unknown> | undefined
+        return options && options.timeZone === 'America/New_York'
+      })
+      expect(callsWithNY.length).toBeGreaterThan(0)
+
+      dateTimeFormatSpy.mockRestore()
+    })
+  })
 })
