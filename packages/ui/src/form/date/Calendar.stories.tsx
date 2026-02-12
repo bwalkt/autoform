@@ -371,11 +371,21 @@ export const LocaleKnobs: StoryObj<CalendarLocaleArgs> = {
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date(2025, 5, 12))
+    const safeTimeZone = React.useMemo(() => {
+      if (!args.timeZone) return undefined
+      try {
+        new Intl.DateTimeFormat('en-US', { timeZone: args.timeZone })
+        return args.timeZone
+      } catch {
+        return undefined
+      }
+    }, [args.timeZone])
+
     return (
       <Calendar
         mode="single"
         localeCode={args.localeCode}
-        timeZone={args.timeZone || undefined}
+        timeZone={safeTimeZone}
         selected={date}
         onSelect={setDate}
         defaultMonth={new Date(2025, 5, 1)}

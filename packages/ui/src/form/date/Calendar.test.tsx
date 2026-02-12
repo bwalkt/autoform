@@ -1053,6 +1053,29 @@ describe('Calendar', () => {
       // Month should not change until controlled prop changes
       expect(screen.getByText('June 2025')).toBeInTheDocument()
     })
+
+    it('updates display when controlled month prop changes', async () => {
+      function ControlledMonthCalendar() {
+        const [month, setMonth] = React.useState(new Date(2025, 5, 1))
+
+        return (
+          <div>
+            <button data-testid="change-month" onClick={() => setMonth(new Date(2025, 8, 1))}>
+              Change Month
+            </button>
+            <Calendar month={month} showOutsideDays={false} />
+          </div>
+        )
+      }
+
+      const user = userEvent.setup()
+      render(<ControlledMonthCalendar />)
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+
+      await user.click(screen.getByTestId('change-month'))
+      expect(screen.getByText('September 2025')).toBeInTheDocument()
+    })
   })
 
   describe('Accessibility', () => {
