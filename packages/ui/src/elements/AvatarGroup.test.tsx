@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as React from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Avatar } from './Avatar'
+import { AVATAR_SIZE_CLASS, Avatar, avatarSizeStyles } from './Avatar'
 import { AvatarGroup } from './AvatarGroup'
 
 afterEach(() => {
@@ -265,7 +265,8 @@ describe('AvatarGroup', () => {
       )
 
       const avatar = container.querySelector('span > span')
-      expect(avatar).toHaveClass('h-12', 'w-12')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['4'])
     })
 
     it('uses default size 2 when not specified', () => {
@@ -276,7 +277,8 @@ describe('AvatarGroup', () => {
       )
 
       const avatar = container.querySelector('span > span')
-      expect(avatar).toHaveClass('h-8', 'w-8')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['2'])
     })
 
     it('applies correct spacing for size 1', () => {
@@ -432,7 +434,8 @@ describe('AvatarGroup', () => {
 
       const avatar = container.querySelector('span > span')
       // Size from AvatarGroup should override
-      expect(avatar).toHaveClass('h-16', 'w-16')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['5'])
     })
   })
 })

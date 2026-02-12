@@ -173,6 +173,14 @@ export function Calendar({
   const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
   const resolvedNavButtonBordered = navButtonBorderedProp ?? theme?.calendar.navButtonBordered ?? false
   const resolvedLocaleCode = localeCode ?? theme?.calendar.locale ?? theme?.locale.locale ?? 'en-US'
+  const safeLocaleCode = React.useMemo(() => {
+    try {
+      new Intl.DateTimeFormat(resolvedLocaleCode)
+      return resolvedLocaleCode
+    } catch {
+      return 'en-US'
+    }
+  }, [resolvedLocaleCode])
   const resolvedTimeZone = timeZone ?? theme?.calendar.timezone ?? theme?.locale.timezone
   const resolvedNumberOfMonths = to
     ? Math.max(2, (to.getFullYear() - resolvedFrom.getFullYear()) * 12 + (to.getMonth() - resolvedFrom.getMonth()) + 1)
@@ -185,44 +193,44 @@ export function Calendar({
   )
   const captionFormatter = React.useMemo(
     () =>
-      new Intl.DateTimeFormat(resolvedLocaleCode, {
+      new Intl.DateTimeFormat(safeLocaleCode, {
         month: 'long',
         year: 'numeric',
         ...dateFormatOptions,
       }),
-    [resolvedLocaleCode, dateFormatOptions],
+    [safeLocaleCode, dateFormatOptions],
   )
   const monthDropdownFormatter = React.useMemo(
     () =>
-      new Intl.DateTimeFormat(resolvedLocaleCode, {
+      new Intl.DateTimeFormat(safeLocaleCode, {
         month: 'short',
         ...dateFormatOptions,
       }),
-    [resolvedLocaleCode, dateFormatOptions],
+    [safeLocaleCode, dateFormatOptions],
   )
   const yearDropdownFormatter = React.useMemo(
     () =>
-      new Intl.DateTimeFormat(resolvedLocaleCode, {
+      new Intl.DateTimeFormat(safeLocaleCode, {
         year: 'numeric',
         ...dateFormatOptions,
       }),
-    [resolvedLocaleCode, dateFormatOptions],
+    [safeLocaleCode, dateFormatOptions],
   )
   const weekdayFormatter = React.useMemo(
     () =>
-      new Intl.DateTimeFormat(resolvedLocaleCode, {
+      new Intl.DateTimeFormat(safeLocaleCode, {
         weekday: 'short',
         ...dateFormatOptions,
       }),
-    [resolvedLocaleCode, dateFormatOptions],
+    [safeLocaleCode, dateFormatOptions],
   )
   const dayFormatter = React.useMemo(
     () =>
-      new Intl.DateTimeFormat(resolvedLocaleCode, {
+      new Intl.DateTimeFormat(safeLocaleCode, {
         day: 'numeric',
         ...dateFormatOptions,
       }),
-    [resolvedLocaleCode, dateFormatOptions],
+    [safeLocaleCode, dateFormatOptions],
   )
   const navButtonClassName = resolvedNavButtonBordered
     ? cn(
