@@ -96,8 +96,8 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
     ref,
   ) => {
     const theme = useOptionalThemeContext()
-    const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
-    const resolvedNavButtonBordered = navButtonBordered ?? theme?.calendar.navButtonBordered ?? false
+    const resolvedRadius = radius ?? theme?.calendar?.radius ?? theme?.radius ?? 'md'
+    const resolvedNavButtonBordered = navButtonBordered ?? theme?.calendar?.navButtonBordered ?? false
     const resolvedColors = resolveCalendarColors(color)
     const isControlled = value !== undefined
     const [selectedDateState, setSelectedDateState] = React.useState<Date>(value ?? new Date())
