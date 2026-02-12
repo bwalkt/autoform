@@ -1,5 +1,6 @@
 'use client'
 
+import { addMonths, startOfMonth } from 'date-fns'
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import * as React from 'react'
 import {
@@ -45,6 +46,7 @@ type CalendarCommonProps = Omit<
   numberOfMonths?: number
   pagedNavigation?: boolean
   navButtonBordered?: boolean
+  navButtonVariant?: 'soft' | 'outline' | 'ghost'
 }
 
 type CalendarSingleProps = {
@@ -137,6 +139,7 @@ export function Calendar({
   pagedNavigation: pagedNavigationProp,
   numberOfMonths,
   navButtonBordered: navButtonBorderedProp,
+  navButtonVariant: navButtonVariantProp,
   formatters,
   components,
   ...dayPickerProps
@@ -169,6 +172,7 @@ export function Calendar({
   const resolvedNavButtonColor: Color = color
   const resolvedRadius = radius ?? theme?.calendar.radius ?? theme?.radius ?? 'md'
   const resolvedNavButtonBordered = navButtonBorderedProp ?? theme?.calendar.navButtonBordered ?? false
+  const resolvedNavButtonVariant = navButtonVariantProp ?? (resolvedNavButtonBordered ? 'outline' : 'soft')
   const resolvedLocaleCode = localeCode ?? theme?.calendar.locale ?? theme?.locale.locale ?? 'en-US'
   const safeLocaleCode = React.useMemo(() => {
     try {
@@ -183,6 +187,7 @@ export function Calendar({
     ? Math.max(2, (to.getFullYear() - resolvedFrom.getFullYear()) * 12 + (to.getMonth() - resolvedFrom.getMonth()) + 1)
     : (numberOfMonths ?? 1)
   const resolvedPagedNavigation = pagedNavigationProp ?? resolvedNumberOfMonths > 1
+  const useCustomHeader = resolvedNumberOfMonths === 1
   const resolvedColors = resolveCalendarColors(color)
   const dateFormatOptions = React.useMemo(
     () => (resolvedTimeZone ? ({ timeZone: resolvedTimeZone } as const) : undefined),
@@ -229,7 +234,8 @@ export function Calendar({
       }),
     [safeLocaleCode, dateFormatOptions],
   )
-  const navButtonClassName = 'touch-manipulation [-webkit-tap-highlight-color:transparent]'
+  const navButtonClassName =
+    'static shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent] text-[color-mix(in_oklab,var(--rdp-accent-color),black_50%)]'
 
   const handleMonthChange = React.useCallback<MonthChangeEventHandler>(
     month => {
@@ -240,6 +246,22 @@ export function Calendar({
     },
     [monthProp, onMonthChangeProp],
   )
+
+  const fromMonthBoundary = dayPickerProps.startMonth ?? (from ? startOfMonth(from) : undefined)
+  const toMonthBoundary = dayPickerProps.endMonth ?? (to ? startOfMonth(to) : undefined)
+  const normalizedDisplayedMonth = startOfMonth(displayedMonth)
+  const canNavigatePrev = !fromMonthBoundary || normalizedDisplayedMonth > startOfMonth(fromMonthBoundary)
+  const canNavigateNext = !toMonthBoundary || normalizedDisplayedMonth < startOfMonth(toMonthBoundary)
+
+  const handlePrevMonth = React.useCallback(() => {
+    if (!canNavigatePrev || dayPickerProps.disableNavigation) return
+    handleMonthChange(addMonths(displayedMonth, -1))
+  }, [canNavigatePrev, dayPickerProps.disableNavigation, displayedMonth, handleMonthChange])
+
+  const handleNextMonth = React.useCallback(() => {
+    if (!canNavigateNext || dayPickerProps.disableNavigation) return
+    handleMonthChange(addMonths(displayedMonth, 1))
+  }, [canNavigateNext, dayPickerProps.disableNavigation, displayedMonth, handleMonthChange])
 
   React.useEffect(() => {
     if (resolvedMode !== 'multiple' || !isMultipleControlled) {
@@ -308,9 +330,13 @@ export function Calendar({
     },
     button_previous: {
       ...(dayPickerProps.styles?.button_previous ?? {}),
+      position: 'static',
+      inset: 'auto',
     },
     button_next: {
       ...(dayPickerProps.styles?.button_next ?? {}),
+      position: 'static',
+      inset: 'auto',
     },
   }
 
@@ -325,6 +351,7 @@ export function Calendar({
     defaultMonth: resolvedFrom,
     numberOfMonths: resolvedNumberOfMonths,
     pagedNavigation: resolvedPagedNavigation,
+    hideNavigation: useCustomHeader ? true : dayPickerProps.hideNavigation,
     showOutsideDays,
     className: cn(
       'bg-background group/calendar p-3 [--cell-size:--spacing(8)]',
@@ -349,7 +376,8 @@ export function Calendar({
     } as React.CSSProperties,
     styles: mergedStyles,
     formatters: {
-      formatCaption: (date: Date, _options?: unknown, _dateLib?: unknown) => captionFormatter.format(date),
+      formatCaption: (date: Date, _options?: unknown, _dateLib?: unknown) =>
+        useCustomHeader ? '' : captionFormatter.format(date),
       formatMonthDropdown: (date: Date, _options?: unknown, _dateLib?: unknown) => monthDropdownFormatter.format(date),
       formatYearDropdown: (date: Date, _options?: unknown, _dateLib?: unknown) => yearDropdownFormatter.format(date),
       formatWeekdayName: (date: Date, _options?: unknown, _dateLib?: unknown) => weekdayFormatter.format(date),
@@ -360,23 +388,23 @@ export function Calendar({
       root: cn('w-fit', defaultClassNames.root),
       months: cn('flex gap-4 flex-col md:flex-row relative', defaultClassNames.months),
       month: cn('flex flex-col w-full gap-2', defaultClassNames.month),
-      nav: cn('flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between', defaultClassNames.nav),
+      nav: 'absolute right-0 top-0 z-10 flex items-center justify-end gap-1',
       button_previous: '',
       button_next: '',
-      month_caption: cn(
-        'flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)',
-        defaultClassNames.month_caption,
-      ),
-      dropdowns: cn(
-        'w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5',
-        defaultClassNames.dropdowns,
-      ),
+      month_caption: useCustomHeader
+        ? 'hidden'
+        : 'flex h-(--cell-size) w-full items-center justify-start pr-[calc(var(--cell-size)*2+0.5rem)]',
+      dropdowns: useCustomHeader
+        ? 'hidden'
+        : 'flex h-(--cell-size) w-full items-center justify-start gap-1.5 pr-[calc(var(--cell-size)*2+0.5rem)] text-sm font-medium',
       dropdown_root: cn(
         'relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md',
         defaultClassNames.dropdown_root,
       ),
       dropdown: cn('absolute bg-popover inset-0 opacity-0', defaultClassNames.dropdown),
-      caption_label: cn('select-none text-sm font-medium', defaultClassNames.caption_label),
+      caption_label: useCustomHeader
+        ? 'hidden'
+        : cn('select-none text-sm font-medium', defaultClassNames.caption_label),
       month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
       weekdays: cn('flex mt-1', defaultClassNames.weekdays),
       weekday: cn(
@@ -435,7 +463,6 @@ export function Calendar({
       PreviousMonthButton: ({ children, ...buttonProps }) => {
         const {
           color: _unusedColor,
-          className: _unusedClassName,
           style: _unusedStyle,
           ...safeButtonProps
         } = buttonProps as React.ComponentPropsWithoutRef<'button'>
@@ -443,6 +470,7 @@ export function Calendar({
           <CalendarNavButton
             color={resolvedNavButtonColor}
             radius={resolvedRadius}
+            variant={resolvedNavButtonVariant}
             bordered={resolvedNavButtonBordered}
             accentColor={resolvedColors.accent}
             softColor={resolvedColors.soft}
@@ -457,7 +485,6 @@ export function Calendar({
       NextMonthButton: ({ children, ...buttonProps }) => {
         const {
           color: _unusedColor,
-          className: _unusedClassName,
           style: _unusedStyle,
           ...safeButtonProps
         } = buttonProps as React.ComponentPropsWithoutRef<'button'>
@@ -465,6 +492,7 @@ export function Calendar({
           <CalendarNavButton
             color={resolvedNavButtonColor}
             radius={resolvedRadius}
+            variant={resolvedNavButtonVariant}
             bordered={resolvedNavButtonBordered}
             accentColor={resolvedColors.accent}
             softColor={resolvedColors.soft}
@@ -503,7 +531,60 @@ export function Calendar({
     },
   } as DayPickerProps
 
-  return <DayPicker {...pickerProps} />
+  const ChevronComponent = components?.Chevron
+  const previousIcon = ChevronComponent ? (
+    <ChevronComponent orientation="left" className="!text-current !opacity-100" />
+  ) : (
+    <ChevronLeftIcon className="!text-current !opacity-100" width={14} height={14} />
+  )
+  const nextIcon = ChevronComponent ? (
+    <ChevronComponent orientation="right" className="!text-current !opacity-100" />
+  ) : (
+    <ChevronRightIcon className="!text-current !opacity-100" width={14} height={14} />
+  )
+
+  return (
+    <div className="w-fit">
+      {useCustomHeader ? (
+        <div className="mb-1 flex h-(--cell-size) items-center justify-between gap-2">
+          <span className="truncate text-sm font-medium">{captionFormatter.format(displayedMonth)}</span>
+          <div className="flex items-center gap-1">
+            <CalendarNavButton
+              color={resolvedNavButtonColor}
+              radius={resolvedRadius}
+              variant={resolvedNavButtonVariant}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
+              className={navButtonClassName}
+              aria-label="Previous month"
+              onClick={handlePrevMonth}
+              disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
+            >
+              {previousIcon}
+            </CalendarNavButton>
+            <CalendarNavButton
+              color={resolvedNavButtonColor}
+              radius={resolvedRadius}
+              variant={resolvedNavButtonVariant}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
+              className={navButtonClassName}
+              aria-label="Next month"
+              onClick={handleNextMonth}
+              disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+            >
+              {nextIcon}
+            </CalendarNavButton>
+          </div>
+        </div>
+      ) : null}
+      <DayPicker {...pickerProps} />
+    </div>
+  )
 }
 
 Calendar.displayName = 'Calendar'
