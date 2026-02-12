@@ -1,7 +1,7 @@
 import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import * as React from 'react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Avatar } from './Avatar'
+import { AVATAR_SIZE_CLASS, Avatar, avatarSizeStyles } from './Avatar'
 
 afterEach(() => {
   cleanup()
@@ -116,37 +116,43 @@ describe('Avatar', () => {
     it('applies size 1 classes', () => {
       const { container } = render(<Avatar size="1" fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
-      expect(avatar).toHaveClass('h-6', 'w-6', 'text-xs')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['1'])
     })
 
     it('applies size 2 classes (default)', () => {
       const { container } = render(<Avatar fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
-      expect(avatar).toHaveClass('h-8', 'w-8', 'text-sm')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['2'])
     })
 
     it('applies size 3 classes', () => {
       const { container } = render(<Avatar size="3" fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
-      expect(avatar).toHaveClass('h-10', 'w-10', 'text-base')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['3'])
     })
 
     it('applies size 4 classes', () => {
       const { container } = render(<Avatar size="4" fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
-      expect(avatar).toHaveClass('h-12', 'w-12', 'text-lg')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['4'])
     })
 
     it('applies size 5 classes', () => {
       const { container } = render(<Avatar size="5" fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
-      expect(avatar).toHaveClass('h-16', 'w-16', 'text-xl')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['5'])
     })
 
     it('applies size 6 classes', () => {
       const { container } = render(<Avatar size="6" fallback="JD" />)
       const avatar = container.firstChild as HTMLElement
-      expect(avatar).toHaveClass('h-20', 'w-20', 'text-2xl')
+      expect(avatar).toHaveClass(AVATAR_SIZE_CLASS)
+      expect(avatar).toHaveStyle(avatarSizeStyles['6'])
     })
   })
 
