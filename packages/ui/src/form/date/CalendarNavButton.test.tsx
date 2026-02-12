@@ -1,6 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import * as React from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { CalendarNavButton } from './CalendarNavButton'
 
@@ -20,7 +19,7 @@ describe('CalendarNavButton', () => {
 
   describe('Variant rendering', () => {
     it('renders with soft variant when bordered is false', () => {
-      const { container } = render(
+      render(
         <CalendarNavButton {...defaultProps} bordered={false} aria-label="Test button">
           <span>Icon</span>
         </CalendarNavButton>,
@@ -33,7 +32,7 @@ describe('CalendarNavButton', () => {
     })
 
     it('renders with outline variant when bordered is true', () => {
-      const { container } = render(
+      render(
         <CalendarNavButton {...defaultProps} bordered={true} aria-label="Test button">
           <span>Icon</span>
         </CalendarNavButton>,
@@ -121,7 +120,7 @@ describe('CalendarNavButton', () => {
 
   describe('CSS custom properties', () => {
     it('applies accent color CSS variable', () => {
-      const { container } = render(
+      render(
         <CalendarNavButton {...defaultProps} accentColor="#ff0000" aria-label="Test button">
           <span>Icon</span>
         </CalendarNavButton>,
@@ -132,7 +131,7 @@ describe('CalendarNavButton', () => {
     })
 
     it('applies soft color CSS variable', () => {
-      const { container } = render(
+      render(
         <CalendarNavButton {...defaultProps} softColor="rgba(255, 0, 0, 0.1)" aria-label="Test button">
           <span>Icon</span>
         </CalendarNavButton>,
@@ -143,7 +142,7 @@ describe('CalendarNavButton', () => {
     })
 
     it('applies foreground color CSS variable', () => {
-      const { container } = render(
+      render(
         <CalendarNavButton {...defaultProps} foregroundColor="#ffffff" aria-label="Test button">
           <span>Icon</span>
         </CalendarNavButton>,

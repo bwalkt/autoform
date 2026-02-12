@@ -146,7 +146,6 @@ describe('MiniCalendar', () => {
 
     it('updates current week when date outside current week is selected', async () => {
       const user = userEvent.setup()
-      const handleChange = vi.fn()
 
       function TestCalendar() {
         const [date, setDate] = React.useState(new Date(2026, 1, 11))
@@ -250,7 +249,9 @@ describe('MiniCalendar', () => {
       const user = userEvent.setup()
       const handleChange = vi.fn()
       const minDate = new Date(2026, 1, 10)
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} minDate={minDate} onChange={handleChange} />)
+      const { container } = render(
+        <MiniCalendar value={new Date(2026, 1, 11)} minDate={minDate} onChange={handleChange} />,
+      )
 
       const button9 = getDateButton(container, 9)
       await user.click(button9)
@@ -304,13 +305,13 @@ describe('MiniCalendar', () => {
 
   describe('Compact mode', () => {
     it('applies smaller sizing in compact mode', () => {
-      const { container } = render(<MiniCalendar compact />)
+      render(<MiniCalendar compact />)
       const title = screen.getByText(/2026/i)
       expect(title.className).toContain('text-sm')
     })
 
     it('applies standard sizing in normal mode', () => {
-      const { container } = render(<MiniCalendar />)
+      render(<MiniCalendar />)
       const title = screen.getByText(/2026/i)
       expect(title.className).toContain('text-[1.125rem]')
     })
@@ -605,7 +606,7 @@ describe('MiniCalendar', () => {
 
     it('handles uncontrolled mode with no initial value', async () => {
       const user = userEvent.setup()
-      const { container } = render(<MiniCalendar />)
+      render(<MiniCalendar />)
 
       const nextButton = screen.getByRole('button', { name: /next week/i })
       await user.click(nextButton)
