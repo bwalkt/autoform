@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import * as React from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Theme } from '@/elements/Theme'
+import { designTokens } from '@/elements/tokens'
 import { Calendar } from './Calendar'
 
 function getDayButton(container: HTMLElement, month: string, day: number): HTMLButtonElement {
@@ -1168,20 +1169,29 @@ describe('Calendar', () => {
       render(<Calendar navButtonBordered={true} color="success" defaultMonth={new Date(2025, 5, 1)} />)
       const prevButton = screen.getByRole('button', { name: /previous/i })
       expect(prevButton).toBeInTheDocument()
+      expect(prevButton.className).toContain('border-[var(--rdp-accent-color)]')
+      expect(prevButton.className).toContain('hover:bg-[var(--rdp-accent-background-color)]')
     })
 
     it('renders soft variant navigation buttons when not bordered', () => {
       render(<Calendar navButtonBordered={false} color="error" defaultMonth={new Date(2025, 5, 1)} />)
       const nextButton = screen.getByRole('button', { name: /next/i })
       expect(nextButton).toBeInTheDocument()
+      expect(nextButton.className).toContain('bg-[var(--rdp-accent-background-color)]')
+      expect(nextButton.className).toContain('hover:bg-[var(--rdp-accent-color)]')
     })
 
     it('applies correct color to navigation buttons', () => {
-      render(<Calendar color="warning" defaultMonth={new Date(2025, 5, 1)} />)
+      const { container } = render(<Calendar color="warning" defaultMonth={new Date(2025, 5, 1)} />)
       const prevButton = screen.getByRole('button', { name: /previous/i })
       const nextButton = screen.getByRole('button', { name: /next/i })
+      const root = container.querySelector('.group\\/calendar')
       expect(prevButton).toBeInTheDocument()
       expect(nextButton).toBeInTheDocument()
+      expect(root).toHaveStyle({
+        '--rdp-accent-color': designTokens.color.warning.primary,
+        '--rdp-accent-background-color': designTokens.color.warning.primaryAlpha,
+      })
     })
   })
 
@@ -1324,8 +1334,7 @@ describe('Calendar', () => {
       expect(day10).not.toBeDisabled()
     })
 
-    it('handles multiple mode with max=0', async () => {
-      const _user = userEvent.setup()
+    it('handles multiple mode with max=0', () => {
       const handleSelect = vi.fn()
 
       const { container } = render(
