@@ -855,7 +855,7 @@ describe('Calendar', () => {
       expect(day20).toBeDisabled()
     })
 
-    it('does not disable already selected dates when max is reached', async () => {
+    it('does not disable already selected dates when max is reached', () => {
       function ControlledCalendar() {
         const [selected, setSelected] = React.useState<Date[] | undefined>([
           new Date(2025, 5, 5),
@@ -1005,12 +1005,12 @@ describe('Calendar', () => {
 
       render(<Calendar defaultMonth={new Date(2025, 2, 1)} showOutsideDays={false} />)
 
-      // At least one call should not have timeZone
-      const callsWithoutTimeZone = dateTimeFormatSpy.mock.calls.filter(call => {
+      // All calls should not include timeZone when it is not provided.
+      const callsWithTimeZone = dateTimeFormatSpy.mock.calls.filter(call => {
         const options = call[1] as Record<string, unknown> | undefined
-        return !options || !('timeZone' in options)
+        return options && 'timeZone' in options
       })
-      expect(callsWithoutTimeZone.length).toBeGreaterThan(0)
+      expect(callsWithTimeZone).toHaveLength(0)
       dateTimeFormatSpy.mockRestore()
     })
   })
