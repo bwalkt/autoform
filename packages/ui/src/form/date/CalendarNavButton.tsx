@@ -15,7 +15,19 @@ export interface CalendarNavButtonProps
   foregroundColor: string
 }
 
-/** CalendarNavButton export. */
+/**
+ * Render a calendar navigation button styled for calendar controls.
+ *
+ * @param bordered - When true, render with an outlined (bordered) style; otherwise render with a filled (soft) style.
+ * @param color - Color token forwarded to the underlying IconButton.
+ * @param radius - Corner radius forwarded to the underlying IconButton.
+ * @param accentColor - CSS color used for the accent (controls border/text color).
+ * @param softColor - CSS color used for the accent background.
+ * @param foregroundColor - CSS color used for foreground text/icons when highlighted.
+ * @param className - Additional class names appended to the button.
+ * @param props - Additional IconButton props that are forwarded to the rendered element.
+ * @returns A configured IconButton element used for calendar navigation controls.
+ */
 export function CalendarNavButton({
   bordered,
   color,
