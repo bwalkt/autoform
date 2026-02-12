@@ -829,8 +829,6 @@ describe('Calendar', () => {
     })
 
     it('disables unselected dates when max is reached', async () => {
-      const user = userEvent.setup()
-
       function ControlledCalendar() {
         const [selected, setSelected] = React.useState<Date[] | undefined>([
           new Date(2025, 5, 5),

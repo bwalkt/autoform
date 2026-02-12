@@ -42,6 +42,11 @@ type CalendarMatrixArgs = {
   max?: number
 }
 
+type CalendarLocaleArgs = {
+  localeCode: string
+  timeZone?: string
+}
+
 // calendar-01 style
 export const DefaultMonth: Story = {
   args: {
@@ -308,6 +313,74 @@ export const ThemeProviderLocaleDefaults: Story = {
       <Theme locale={{ locale: 'fr-FR', language: 'fr', country: 'FR', timezone: 'Europe/Paris' }}>
         <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
       </Theme>
+    )
+  },
+}
+
+export const ThemeLocaleVsPropOverride: Story = {
+  render: () => {
+    const [themeDate, setThemeDate] = React.useState<Date | undefined>(new Date(2025, 5, 12))
+    const [overrideDate, setOverrideDate] = React.useState<Date | undefined>(new Date(2025, 5, 12))
+
+    return (
+      <Theme
+        locale={{ locale: 'fr-FR', language: 'fr', country: 'FR', timezone: 'Europe/Paris' }}
+        calendar={{ locale: 'de-DE' }}
+      >
+        <div className="grid gap-6 md:grid-cols-2">
+          <div>
+            <p className="mb-2 text-center text-xs font-medium">Theme defaults (`de-DE`)</p>
+            <Calendar
+              mode="single"
+              selected={themeDate}
+              onSelect={setThemeDate}
+              defaultMonth={new Date(2025, 5, 1)}
+              className="rounded-md border"
+            />
+          </div>
+          <div>
+            <p className="mb-2 text-center text-xs font-medium">Prop override (`es-ES` + `UTC`)</p>
+            <Calendar
+              mode="single"
+              localeCode="es-ES"
+              timeZone="UTC"
+              selected={overrideDate}
+              onSelect={setOverrideDate}
+              defaultMonth={new Date(2025, 5, 1)}
+              className="rounded-md border"
+            />
+          </div>
+        </div>
+      </Theme>
+    )
+  },
+}
+
+export const LocaleKnobs: StoryObj<CalendarLocaleArgs> = {
+  args: {
+    localeCode: 'en-US',
+    timeZone: 'UTC',
+  },
+  argTypes: {
+    localeCode: {
+      control: { type: 'text' },
+    },
+    timeZone: {
+      control: { type: 'text' },
+    },
+  },
+  render: args => {
+    const [date, setDate] = React.useState<Date | undefined>(new Date(2025, 5, 12))
+    return (
+      <Calendar
+        mode="single"
+        localeCode={args.localeCode}
+        timeZone={args.timeZone || undefined}
+        selected={date}
+        onSelect={setDate}
+        defaultMonth={new Date(2025, 5, 1)}
+        className="rounded-md border"
+      />
     )
   },
 }
