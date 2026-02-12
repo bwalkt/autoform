@@ -1102,11 +1102,7 @@ describe('Calendar', () => {
           mode="single"
           defaultMonth={new Date(2025, 5, 1)}
           showOutsideDays={false}
-          disabled={[
-            { before: new Date(2025, 5, 5) },
-            { after: new Date(2025, 5, 25) },
-            new Date(2025, 5, 15),
-          ]}
+          disabled={[{ before: new Date(2025, 5, 5) }, { after: new Date(2025, 5, 25) }, new Date(2025, 5, 15)]}
           onSelect={handleSelect}
         />,
       )
@@ -1265,11 +1261,15 @@ describe('Calendar', () => {
     it('handles Chevron component with up orientation', () => {
       const CustomChevronTest = () => {
         const ChevronComponent = () => {
-          const Chevron = ({ orientation }: { orientation: 'up' }) => {
-            const ChevronDownIcon = () => <svg data-testid="chevron-up" className="rotate-180"><path /></svg>
+          const Chevron = () => {
+            const ChevronDownIcon = () => (
+              <svg data-testid="chevron-up" className="rotate-180">
+                <path />
+              </svg>
+            )
             return <ChevronDownIcon />
           }
-          return <Chevron orientation="up" />
+          return <Chevron />
         }
         return <ChevronComponent />
       }
@@ -1325,7 +1325,7 @@ describe('Calendar', () => {
     })
 
     it('handles multiple mode with max=0', async () => {
-      const user = userEvent.setup()
+      const _user = userEvent.setup()
       const handleSelect = vi.fn()
 
       const { container } = render(
@@ -1347,11 +1347,11 @@ describe('Calendar', () => {
     it('renders calendar with all radius options sequentially', () => {
       const radii: Array<'none' | 'sm' | 'md' | 'lg' | 'full'> = ['none', 'sm', 'md', 'lg', 'full']
 
-      radii.forEach(radius => {
+      for (const radius of radii) {
         const { container, unmount } = render(<Calendar radius={radius} defaultMonth={new Date(2025, 5, 1)} />)
         expect(container.firstChild).toBeInTheDocument()
         unmount()
-      })
+      }
     })
 
     it('handles controlled range mode with initial undefined selection', async () => {
@@ -1577,7 +1577,7 @@ describe('Calendar', () => {
     })
 
     it('handles multiple mode where selected dates span multiple months', async () => {
-      const user = userEvent.setup()
+      const _user = userEvent.setup()
 
       function ControlledCalendar() {
         const [selected, setSelected] = React.useState<Date[] | undefined>([
@@ -1680,7 +1680,10 @@ describe('Calendar', () => {
 
       const { unmount } = render(<Calendar timeZone="Asia/Tokyo" defaultMonth={new Date(2025, 2, 1)} />)
 
-      expect(dateTimeFormatSpy).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ timeZone: 'Asia/Tokyo' }))
+      expect(dateTimeFormatSpy).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ timeZone: 'Asia/Tokyo' }),
+      )
 
       unmount()
       dateTimeFormatSpy.mockRestore()
@@ -1727,9 +1730,7 @@ describe('Calendar', () => {
               defaultMonth={new Date(2025, 5, 1)}
               showOutsideDays={false}
             />
-            <p data-testid="range-status">
-              {range?.from ? 'has-range' : 'no-range'}
-            </p>
+            <p data-testid="range-status">{range?.from ? 'has-range' : 'no-range'}</p>
           </div>
         )
       }
@@ -1860,7 +1861,7 @@ describe('Calendar', () => {
     })
 
     it('handles complex disabled matchers in multiple mode with max', async () => {
-      const user = userEvent.setup()
+      const _user = userEvent.setup()
 
       function ControlledCalendar() {
         const [selected, setSelected] = React.useState<Date[] | undefined>([
@@ -1960,11 +1961,11 @@ describe('Calendar', () => {
         'error',
       ]
 
-      colors.forEach(color => {
+      for (const color of colors) {
         const { container, unmount } = render(<Calendar color={color} defaultMonth={new Date(2025, 5, 1)} />)
         expect(container.firstChild).toBeInTheDocument()
         unmount()
-      })
+      }
     })
   })
 
@@ -2007,11 +2008,7 @@ describe('Calendar', () => {
       const disabledMatcher = (date: Date) => date.getDay() === 0 || date.getDay() === 6
 
       const { container } = render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          disabled={disabledMatcher}
-          showOutsideDays={false}
-        />,
+        <Calendar defaultMonth={new Date(2025, 5, 1)} disabled={disabledMatcher} showOutsideDays={false} />,
       )
 
       const saturday = getDayButton(container, 'June', 7)
@@ -2023,10 +2020,7 @@ describe('Calendar', () => {
 
     it('combines disabled prop with multiple mode max disabled logic', () => {
       function ControlledCalendar() {
-        const [selected, setSelected] = React.useState<Date[] | undefined>([
-          new Date(2025, 5, 5),
-          new Date(2025, 5, 6),
-        ])
+        const [selected, setSelected] = React.useState<Date[] | undefined>([new Date(2025, 5, 5), new Date(2025, 5, 6)])
 
         return (
           <Calendar
