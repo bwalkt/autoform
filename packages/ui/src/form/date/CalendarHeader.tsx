@@ -29,7 +29,31 @@ export interface CalendarHeaderProps {
   navButtonClassName?: string
 }
 
-/** Shared header for calendar-style components. */
+/**
+ * Render a calendar header with a title and previous/next navigation buttons.
+ *
+ * @param title - Content displayed as the header title
+ * @param color - Color token applied to navigation buttons
+ * @param radius - Radius token applied to navigation buttons
+ * @param navButtonVariant - Visual variant for the navigation buttons
+ * @param navButtonBordered - Whether navigation buttons render with a border
+ * @param accentColor - Accent color token used by navigation controls
+ * @param softColor - Soft color token used by navigation controls
+ * @param foregroundColor - Foreground color token used by navigation controls
+ * @param onPrevious - Callback invoked when the previous button is clicked
+ * @param onNext - Callback invoked when the next button is clicked
+ * @param previousDisabled - If `true`, the previous button is disabled
+ * @param nextDisabled - If `true`, the next button is disabled
+ * @param previousAriaLabel - ARIA label for the previous button
+ * @param nextAriaLabel - ARIA label for the next button
+ * @param previousIcon - Custom icon to render inside the previous button
+ * @param nextIcon - Custom icon to render inside the next button
+ * @param className - Additional classes for the root container
+ * @param titleClassName - Additional classes for the title element
+ * @param navClassName - Additional classes for the navigation container
+ * @param navButtonClassName - Additional classes applied to each navigation button
+ * @returns The header element containing the title and navigation controls
+ */
 export function CalendarHeader({
   title,
   color,
