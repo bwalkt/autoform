@@ -1,8 +1,8 @@
 import { cleanup, render, screen, within } from '@testing-library/react'
 import * as React from 'react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { WheelPicker, WheelPickerWrapper } from './wheel-picker'
 import type { WheelPickerOption } from './wheel-picker'
+import { WheelPicker, WheelPickerWrapper } from './wheel-picker'
 
 afterEach(() => {
   cleanup()
