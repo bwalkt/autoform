@@ -37,6 +37,15 @@ export interface MiniCalendarProps {
   navButtonVariant?: 'soft' | 'outline' | 'ghost'
 }
 
+/**
+ * Compute CSS color tokens for the calendar UI based on a Color token.
+ *
+ * @param color - The color token to resolve; `'default'` and `'primary'` map to CSS variables, other values map to entries in `designTokens.color`
+ * @returns An object with `accent`, `soft`, and `foreground` CSS color values:
+ *  - `accent`: primary accent color
+ *  - `soft`: translucent/soft variant used for subtle backgrounds
+ *  - `foreground`: text/foreground color that pairs with the accent
+ */
 function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
     return {
