@@ -1986,7 +1986,7 @@ describe('Calendar', () => {
       expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('updates display when controlled month prop changes', () => {
+    it('updates display when controlled month prop changes', async () => {
       function ControlledMonthCalendar() {
         const [month, setMonth] = React.useState(new Date(2025, 5, 1))
 
@@ -2005,10 +2005,8 @@ describe('Calendar', () => {
 
       expect(screen.getByText('June 2025')).toBeInTheDocument()
 
-      user.click(screen.getByTestId('change-month'))
-
-      // The calendar should update when the month prop changes
-      expect(screen.getByRole('grid', { hidden: true })).toBeInTheDocument()
+      await user.click(screen.getByTestId('change-month'))
+      expect(screen.getByText('September 2025')).toBeInTheDocument()
     })
   })
 
