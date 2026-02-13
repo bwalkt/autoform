@@ -37,13 +37,13 @@ export interface MiniCalendarProps {
 }
 
 /**
- * Compute CSS color tokens for the calendar UI based on a Color token.
+ * Resolve the calendar's color tokens for a given color key.
  *
- * @param color - The color token to resolve; `'default'` and `'primary'` map to CSS variables, other values map to entries in `designTokens.color`
- * @returns An object with `accent`, `soft`, and `foreground` CSS color values:
- *  - `accent`: primary accent color
- *  - `soft`: translucent/soft variant used for subtle backgrounds
- *  - `foreground`: text/foreground color that pairs with the accent
+ * @param color - The color key to resolve; supported values are `'default'`, `'primary'`, or any color key found in `designTokens.color`
+ * @returns An object with the resolved token values:
+ *  - `accent`: the primary accent color (CSS variable or token)
+ *  - `soft`: a soft/translucent variant suitable for backgrounds
+ *  - `foreground`: the foreground (text/icon) color that contrasts with `accent`
  */
 function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
