@@ -221,8 +221,24 @@ export function CalendarHeader({
               }}
             >
               <WheelPickerWrapper className="!w-full !border-0 !shadow-none !rounded-none">
-                <WheelPicker<number> options={monthOptions} value={selectedMonth} onValueChange={handleMonthChange} />
-                <WheelPicker<number> options={yearOptions} value={selectedYear} onValueChange={handleYearChange} />
+                <WheelPicker<number>
+                  options={monthOptions}
+                  value={selectedMonth}
+                  onValueChange={handleMonthChange}
+                  classNames={{
+                    highlightItem: '!text-[0.875rem]',
+                    highlightWrapper: '!text-[0.875rem] !font-medium',
+                  }}
+                />
+                <WheelPicker<number>
+                  options={yearOptions}
+                  value={selectedYear}
+                  onValueChange={handleYearChange}
+                  classNames={{
+                    highlightItem: '!text-[0.875rem]',
+                    highlightWrapper: '!text-[0.875rem] !font-medium',
+                  }}
+                />
               </WheelPickerWrapper>
             </div>
           </>,
