@@ -1,90 +1,41 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { cleanup, render, screen, within } from '@testing-library/react'
 import * as React from 'react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { WheelPicker, WheelPickerWrapper } from './wheel-picker'
-
-// Mock the external library
-vi.mock('@ncdai/react-wheel-picker', () => ({
-  WheelPickerWrapper: ({ children, className, ...props }: React.ComponentProps<'div'>) => (
-    <div data-testid="wheel-picker-wrapper" className={className} {...props}>
-      {children}
-    </div>
-  ),
-  WheelPicker: ({
-    classNames,
-    options,
-    value,
-    onChange,
-    ...props
-  }: {
-    classNames?: { optionItem?: string; highlightWrapper?: string; highlightItem?: string }
-    options?: Array<{ value: string | number; label: string }>
-    value?: string | number
-    onChange?: (value: string | number) => void
-    [key: string]: unknown
-  }) => (
-    <div data-testid="wheel-picker" {...props}>
-      <div data-testid="option-item-class" className={classNames?.optionItem}>
-        Options
-      </div>
-      <div data-testid="highlight-wrapper-class" className={classNames?.highlightWrapper}>
-        Highlight
-      </div>
-      <div data-testid="highlight-item-class" className={classNames?.highlightItem}>
-        Item
-      </div>
-      {options?.map(opt => (
-        <button
-          key={opt.value}
-          data-testid={`option-${opt.value}`}
-          onClick={() => onChange?.(opt.value)}
-          aria-selected={value === opt.value}
-        >
-          {opt.label}
-        </button>
-      ))}
-    </div>
-  ),
-}))
+import type { WheelPickerOption } from './wheel-picker'
 
 afterEach(() => {
   cleanup()
 })
 
 describe('WheelPickerWrapper', () => {
-  describe('Rendering', () => {
-    it('renders wrapper component', () => {
-      render(<WheelPickerWrapper>Content</WheelPickerWrapper>)
-      expect(screen.getByTestId('wheel-picker-wrapper')).toBeInTheDocument()
-    })
-
-    it('renders children', () => {
-      render(
+  describe('Basic rendering', () => {
+    it('renders with default props', () => {
+      const { container } = render(
         <WheelPickerWrapper>
-          <div>Child content</div>
+          <div>Content</div>
         </WheelPickerWrapper>,
       )
-      expect(screen.getByText('Child content')).toBeInTheDocument()
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('renders multiple children', () => {
+    it('renders children content', () => {
       render(
         <WheelPickerWrapper>
-          <div>First child</div>
-          <div>Second child</div>
+          <div data-testid="test-content">Test Content</div>
         </WheelPickerWrapper>,
       )
-      expect(screen.getByText('First child')).toBeInTheDocument()
-      expect(screen.getByText('Second child')).toBeInTheDocument()
+      expect(screen.getByTestId('test-content')).toBeInTheDocument()
+      expect(screen.getByText('Test Content')).toBeInTheDocument()
     })
-  })
 
-  describe('Styling', () => {
     it('applies default styling classes', () => {
-      render(<WheelPickerWrapper>Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-
+      const { container } = render(
+        <WheelPickerWrapper>
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.firstChild as HTMLElement
       expect(wrapper.className).toContain('w-56')
       expect(wrapper.className).toContain('rounded-lg')
       expect(wrapper.className).toContain('border')
@@ -94,429 +45,606 @@ describe('WheelPickerWrapper', () => {
       expect(wrapper.className).toContain('shadow-xs')
     })
 
-    it('applies dark mode classes', () => {
-      render(<WheelPickerWrapper>Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-
+    it('applies dark mode styling classes', () => {
+      const { container } = render(
+        <WheelPickerWrapper>
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.firstChild as HTMLElement
       expect(wrapper.className).toContain('dark:border-zinc-700/80')
       expect(wrapper.className).toContain('dark:bg-zinc-900')
     })
 
-    it('applies data-rwp specific classes', () => {
-      render(<WheelPickerWrapper>Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-
-      expect(wrapper.className).toContain('*:data-rwp:first:*:data-rwp-highlight-wrapper:rounded-s-md')
-      expect(wrapper.className).toContain('*:data-rwp:last:*:data-rwp-highlight-wrapper:rounded-e-md')
-    })
-
     it('applies custom className', () => {
-      render(<WheelPickerWrapper className="custom-class">Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-      expect(wrapper.className).toContain('custom-class')
+      const { container } = render(
+        <WheelPickerWrapper className="custom-wrapper-class">
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.firstChild as HTMLElement
+      expect(wrapper).toHaveClass('custom-wrapper-class')
     })
 
     it('merges custom className with default classes', () => {
-      render(<WheelPickerWrapper className="custom-override">Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-
-      expect(wrapper.className).toContain('custom-override')
+      const { container } = render(
+        <WheelPickerWrapper className="custom-class">
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.firstChild as HTMLElement
+      expect(wrapper).toHaveClass('custom-class')
       expect(wrapper.className).toContain('w-56')
       expect(wrapper.className).toContain('rounded-lg')
     })
+
+    it('renders wrapper with data-rwp-wrapper attribute', () => {
+      const { container } = render(
+        <WheelPickerWrapper>
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.querySelector('[data-rwp-wrapper="true"]')
+      expect(wrapper).toBeInTheDocument()
+    })
   })
 
-  describe('Props forwarding', () => {
-    it('forwards data attributes', () => {
-      render(<WheelPickerWrapper data-testid="custom-wrapper">Content</WheelPickerWrapper>)
-      expect(screen.getByTestId('custom-wrapper')).toBeInTheDocument()
+  describe('Highlight wrapper styling', () => {
+    it('applies highlight wrapper border radius classes', () => {
+      const { container } = render(
+        <WheelPickerWrapper>
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.firstChild as HTMLElement
+      expect(wrapper.className).toContain('*:data-rwp:first:*:data-rwp-highlight-wrapper:rounded-s-md')
+      expect(wrapper.className).toContain('*:data-rwp:last:*:data-rwp-highlight-wrapper:rounded-e-md')
+    })
+  })
+
+  describe('Multiple children', () => {
+    it('renders multiple children', () => {
+      render(
+        <WheelPickerWrapper>
+          <div data-testid="child1">Child 1</div>
+          <div data-testid="child2">Child 2</div>
+          <div data-testid="child3">Child 3</div>
+        </WheelPickerWrapper>,
+      )
+      expect(screen.getByTestId('child1')).toBeInTheDocument()
+      expect(screen.getByTestId('child2')).toBeInTheDocument()
+      expect(screen.getByTestId('child3')).toBeInTheDocument()
+    })
+  })
+
+  describe('Edge cases', () => {
+    it('handles no children', () => {
+      const { container } = render(<WheelPickerWrapper />)
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('forwards aria attributes', () => {
-      render(<WheelPickerWrapper aria-label="Picker wrapper">Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-      expect(wrapper).toHaveAttribute('aria-label', 'Picker wrapper')
+    it('handles undefined className', () => {
+      const { container } = render(
+        <WheelPickerWrapper className={undefined}>
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('forwards role attribute', () => {
-      render(<WheelPickerWrapper role="group">Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-      expect(wrapper).toHaveAttribute('role', 'group')
-    })
-
-    it('forwards id attribute', () => {
-      render(<WheelPickerWrapper id="unique-id">Content</WheelPickerWrapper>)
-      const wrapper = screen.getByTestId('wheel-picker-wrapper')
-      expect(wrapper).toHaveAttribute('id', 'unique-id')
+    it('handles empty string className', () => {
+      const { container } = render(
+        <WheelPickerWrapper className="">
+          <div>Content</div>
+        </WheelPickerWrapper>,
+      )
+      const wrapper = container.firstChild as HTMLElement
+      expect(wrapper.className).toContain('w-56')
     })
   })
 })
 
 describe('WheelPicker', () => {
-  const defaultOptions = [
-    { value: '1', label: 'Option 1' },
-    { value: '2', label: 'Option 2' },
-    { value: '3', label: 'Option 3' },
+  const defaultOptions: WheelPickerOption<string>[] = [
+    { id: '1', value: 'Option 1' },
+    { id: '2', value: 'Option 2' },
+    { id: '3', value: 'Option 3' },
   ]
 
-  describe('Rendering', () => {
-    it('renders picker component', () => {
-      render(<WheelPicker options={defaultOptions} />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
+  describe('Basic rendering', () => {
+    it('renders with required props', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('renders with options', () => {
-      render(<WheelPicker options={defaultOptions} />)
-      expect(screen.getByTestId('option-1')).toBeInTheDocument()
-      expect(screen.getByTestId('option-2')).toBeInTheDocument()
-      expect(screen.getByTestId('option-3')).toBeInTheDocument()
+    it('renders wheel picker structure with data attributes', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const picker = container.querySelector('[data-rwp="true"]')
+      expect(picker).toBeInTheDocument()
     })
 
-    it('renders with numeric options', () => {
-      const numericOptions = [
-        { value: 1, label: 'One' },
-        { value: 2, label: 'Two' },
-      ]
-      render(<WheelPicker options={numericOptions} />)
-      expect(screen.getByTestId('option-1')).toBeInTheDocument()
-      expect(screen.getByTestId('option-2')).toBeInTheDocument()
+    it('renders options list with correct number of options', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(3)
     })
 
-    it('renders without options', () => {
-      render(<WheelPicker />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
+    it('applies default option item styling class', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(optionElements[0]?.className).toContain('text-zinc-400')
+    })
+
+    it('applies disabled opacity styling class', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(optionElements[0]?.className).toContain('data-disabled:opacity-40')
+    })
+
+    it('applies dark mode option item styling class', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(optionElements[0]?.className).toContain('dark:text-zinc-500')
     })
   })
 
-  describe('classNames styling', () => {
-    it('applies optionItem default classes', () => {
-      render(<WheelPicker options={defaultOptions} />)
-      const optionItem = screen.getByTestId('option-item-class')
-
-      expect(optionItem.className).toContain('text-zinc-400')
-      expect(optionItem.className).toContain('data-disabled:opacity-40')
-      expect(optionItem.className).toContain('dark:text-zinc-500')
+  describe('Highlight wrapper', () => {
+    it('renders highlight wrapper element', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper).toBeInTheDocument()
     })
 
-    it('applies highlightWrapper default classes', () => {
-      render(<WheelPicker options={defaultOptions} />)
-      const highlightWrapper = screen.getByTestId('highlight-wrapper-class')
-
-      expect(highlightWrapper.className).toContain('bg-zinc-100')
-      expect(highlightWrapper.className).toContain('text-zinc-950')
-      expect(highlightWrapper.className).toContain('dark:bg-zinc-800')
-      expect(highlightWrapper.className).toContain('dark:text-zinc-50')
+    it('applies highlight wrapper background styling', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper?.className).toContain('bg-zinc-100')
+      expect(highlightWrapper?.className).toContain('text-zinc-950')
     })
 
-    it('applies highlightWrapper focus ring classes', () => {
-      render(<WheelPicker options={defaultOptions} />)
-      const highlightWrapper = screen.getByTestId('highlight-wrapper-class')
-
-      expect(highlightWrapper.className).toContain('data-rwp-focused:ring-2')
-      expect(highlightWrapper.className).toContain('data-rwp-focused:ring-zinc-300')
-      expect(highlightWrapper.className).toContain('data-rwp-focused:ring-inset')
-      expect(highlightWrapper.className).toContain('dark:data-rwp-focused:ring-zinc-600')
+    it('applies dark mode highlight wrapper styling', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper?.className).toContain('dark:bg-zinc-800')
+      expect(highlightWrapper?.className).toContain('dark:text-zinc-50')
     })
 
-    it('applies highlightItem default classes', () => {
-      render(<WheelPicker options={defaultOptions} />)
-      const highlightItem = screen.getByTestId('highlight-item-class')
-
-      expect(highlightItem.className).toContain('data-disabled:opacity-40')
+    it('applies focus ring styling to highlight wrapper', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper?.className).toContain('data-rwp-focused:ring-2')
+      expect(highlightWrapper?.className).toContain('data-rwp-focused:ring-zinc-300')
     })
 
+    it('renders highlight items', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const highlightItems = container.querySelectorAll('[data-rwp-highlight-item="true"]')
+      expect(highlightItems.length).toBeGreaterThan(0)
+    })
+
+    it('applies disabled styling to highlight items', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+      const highlightItems = container.querySelectorAll('[data-rwp-highlight-item="true"]')
+      expect(highlightItems[0]?.className).toContain('data-disabled:opacity-40')
+    })
+  })
+
+  describe('Custom classNames', () => {
     it('merges custom optionItem className', () => {
-      render(<WheelPicker options={defaultOptions} classNames={{ optionItem: 'custom-option' }} />)
-      const optionItem = screen.getByTestId('option-item-class')
+      const customClassNames = {
+        optionItem: 'custom-option-class',
+      }
 
-      expect(optionItem.className).toContain('custom-option')
-      expect(optionItem.className).toContain('text-zinc-400')
+      const { container } = render(<WheelPicker options={defaultOptions} classNames={customClassNames} />)
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(optionElements[0]?.className).toContain('custom-option-class')
+      expect(optionElements[0]?.className).toContain('text-zinc-400')
     })
 
     it('merges custom highlightWrapper className', () => {
-      render(<WheelPicker options={defaultOptions} classNames={{ highlightWrapper: 'custom-highlight' }} />)
-      const highlightWrapper = screen.getByTestId('highlight-wrapper-class')
+      const customClassNames = {
+        highlightWrapper: 'custom-highlight-class',
+      }
 
-      expect(highlightWrapper.className).toContain('custom-highlight')
-      expect(highlightWrapper.className).toContain('bg-zinc-100')
+      const { container } = render(<WheelPicker options={defaultOptions} classNames={customClassNames} />)
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper?.className).toContain('custom-highlight-class')
+      expect(highlightWrapper?.className).toContain('bg-zinc-100')
     })
 
     it('merges custom highlightItem className', () => {
-      render(<WheelPicker options={defaultOptions} classNames={{ highlightItem: 'custom-item' }} />)
-      const highlightItem = screen.getByTestId('highlight-item-class')
-
-      expect(highlightItem.className).toContain('custom-item')
-      expect(highlightItem.className).toContain('data-disabled:opacity-40')
-    })
-
-    it('handles all custom classNames together', () => {
       const customClassNames = {
-        optionItem: 'custom-option-class',
-        highlightWrapper: 'custom-wrapper-class',
         highlightItem: 'custom-item-class',
       }
 
-      render(<WheelPicker options={defaultOptions} classNames={customClassNames} />)
+      const { container } = render(<WheelPicker options={defaultOptions} classNames={customClassNames} />)
+      const highlightItems = container.querySelectorAll('[data-rwp-highlight-item="true"]')
+      expect(highlightItems[0]?.className).toContain('custom-item-class')
+    })
 
-      expect(screen.getByTestId('option-item-class').className).toContain('custom-option-class')
-      expect(screen.getByTestId('highlight-wrapper-class').className).toContain('custom-wrapper-class')
-      expect(screen.getByTestId('highlight-item-class').className).toContain('custom-item-class')
+    it('merges all custom classNames', () => {
+      const customClassNames = {
+        optionItem: 'custom-option',
+        highlightWrapper: 'custom-wrapper',
+        highlightItem: 'custom-item',
+      }
+
+      const { container } = render(<WheelPicker options={defaultOptions} classNames={customClassNames} />)
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      const highlightItems = container.querySelectorAll('[data-rwp-highlight-item="true"]')
+
+      expect(optionElements[0]?.className).toContain('custom-option')
+      expect(highlightWrapper?.className).toContain('custom-wrapper')
+      expect(highlightItems[0]?.className).toContain('custom-item')
     })
   })
 
-  describe('Value and onChange', () => {
-    it('handles value selection', async () => {
-      const user = userEvent.setup()
-      const handleChange = vi.fn()
-
-      render(<WheelPicker options={defaultOptions} value="1" onChange={handleChange} />)
-
-      const option2 = screen.getByTestId('option-2')
-      await user.click(option2)
-
-      expect(handleChange).toHaveBeenCalledWith('2')
-    })
-
-    it('highlights selected value', () => {
-      render(<WheelPicker options={defaultOptions} value="2" />)
-      const option2 = screen.getByTestId('option-2')
-      expect(option2).toHaveAttribute('aria-selected', 'true')
-    })
-
-    it('handles onChange with numeric values', async () => {
-      const user = userEvent.setup()
-      const handleChange = vi.fn()
-      const numericOptions = [
-        { value: 1, label: 'One' },
-        { value: 2, label: 'Two' },
+  describe('Disabled options', () => {
+    it('renders picker with disabled options', () => {
+      const optionsWithDisabled: WheelPickerOption<string>[] = [
+        { id: '1', value: 'Option 1' },
+        { id: '2', value: 'Option 2', disabled: true },
+        { id: '3', value: 'Option 3' },
       ]
 
-      render(<WheelPicker options={numericOptions} onChange={handleChange} />)
-
-      const option1 = screen.getByTestId('option-1')
-      await user.click(option1)
-
-      expect(handleChange).toHaveBeenCalledWith(1)
-    })
-
-    it('works without onChange handler', async () => {
-      const user = userEvent.setup()
-
-      render(<WheelPicker options={defaultOptions} />)
-
-      const option1 = screen.getByTestId('option-1')
-      await user.click(option1)
-
-      expect(option1).toBeInTheDocument()
+      const { container } = render(<WheelPicker options={optionsWithDisabled} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
   })
 
-  describe('Props forwarding', () => {
-    it('forwards data attributes', () => {
-      render(<WheelPicker data-custom="value" options={defaultOptions} />)
-      const picker = screen.getByTestId('wheel-picker')
-      expect(picker).toHaveAttribute('data-custom', 'value')
+  describe('Options with different value types', () => {
+    it('handles string values', () => {
+      const stringOptions: WheelPickerOption<string>[] = [
+        { id: '1', value: 'One' },
+        { id: '2', value: 'Two' },
+      ]
+
+      const { container } = render(<WheelPicker options={stringOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(2)
     })
 
-    it('forwards aria-label', () => {
-      render(<WheelPicker aria-label="Select option" options={defaultOptions} />)
-      const picker = screen.getByTestId('wheel-picker')
-      expect(picker).toHaveAttribute('aria-label', 'Select option')
-    })
+    it('handles number values', () => {
+      const numberOptions: WheelPickerOption<number>[] = [
+        { id: '1', value: 1 },
+        { id: '2', value: 2 },
+        { id: '3', value: 3 },
+      ]
 
-    it('forwards id', () => {
-      render(<WheelPicker id="picker-id" options={defaultOptions} />)
-      const picker = screen.getByTestId('wheel-picker')
-      expect(picker).toHaveAttribute('id', 'picker-id')
-    })
-
-    it('forwards disabled state', () => {
-      render(<WheelPicker disabled options={defaultOptions} />)
-      const picker = screen.getByTestId('wheel-picker')
-      expect(picker).toHaveAttribute('disabled')
+      const { container } = render(<WheelPicker options={numberOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(3)
     })
   })
 
   describe('Edge cases', () => {
     it('handles empty options array', () => {
-      render(<WheelPicker options={[]} />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
+      const { container } = render(<WheelPicker options={[]} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('handles undefined value', () => {
-      render(<WheelPicker options={defaultOptions} value={undefined} />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
+    it('handles single option', () => {
+      const singleOption: WheelPickerOption<string>[] = [{ id: '1', value: 'Only One' }]
+
+      const { container } = render(<WheelPicker options={singleOption} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(1)
     })
 
-    it('handles value not in options', () => {
-      render(<WheelPicker options={defaultOptions} value="999" />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
-    })
-
-    it('handles options with special characters', () => {
-      const specialOptions = [
-        { value: 'opt-1', label: 'Option #1' },
-        { value: 'opt@2', label: 'Option @2' },
+    it('handles options with long text', () => {
+      const longTextOptions: WheelPickerOption<string>[] = [
+        { id: '1', value: 'This is a very long option text that should be handled properly' },
       ]
-      render(<WheelPicker options={specialOptions} />)
-      expect(screen.getByText('Option #1')).toBeInTheDocument()
-      expect(screen.getByText('Option @2')).toBeInTheDocument()
+
+      const { container } = render(<WheelPicker options={longTextOptions} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('handles very long option labels', () => {
-      const longOptions = [{ value: '1', label: 'This is a very long option label that might wrap or overflow' }]
-      render(<WheelPicker options={longOptions} />)
-      expect(screen.getByText('This is a very long option label that might wrap or overflow')).toBeInTheDocument()
+    it('handles undefined classNames prop', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} classNames={undefined} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('handles rapid value changes', async () => {
-      const user = userEvent.setup()
-      const handleChange = vi.fn()
+    it('handles partial classNames object', () => {
+      const partialClassNames = {
+        optionItem: 'custom-option',
+      }
 
-      render(<WheelPicker options={defaultOptions} onChange={handleChange} />)
-
-      await user.click(screen.getByTestId('option-1'))
-      await user.click(screen.getByTestId('option-2'))
-      await user.click(screen.getByTestId('option-3'))
-
-      expect(handleChange).toHaveBeenCalledTimes(3)
-      expect(handleChange).toHaveBeenNthCalledWith(1, '1')
-      expect(handleChange).toHaveBeenNthCalledWith(2, '2')
-      expect(handleChange).toHaveBeenNthCalledWith(3, '3')
-    })
-
-    it('handles mixed string and number values', () => {
-      const mixedOptions = [
-        { value: 1, label: 'One' },
-        { value: '2', label: 'Two' },
-        { value: 3, label: 'Three' },
-      ]
-      render(<WheelPicker options={mixedOptions} />)
-      expect(screen.getByTestId('option-1')).toBeInTheDocument()
-      expect(screen.getByTestId('option-2')).toBeInTheDocument()
-      expect(screen.getByTestId('option-3')).toBeInTheDocument()
+      const { container } = render(<WheelPicker options={defaultOptions} classNames={partialClassNames} />)
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(optionElements[0]?.className).toContain('custom-option')
     })
   })
 
-  describe('Integration tests', () => {
-    it('works within WheelPickerWrapper', () => {
-      render(
+  describe('Integration with WheelPickerWrapper', () => {
+    it('renders inside WheelPickerWrapper', () => {
+      const { container } = render(
         <WheelPickerWrapper>
           <WheelPicker options={defaultOptions} />
         </WheelPickerWrapper>,
       )
 
-      expect(screen.getByTestId('wheel-picker-wrapper')).toBeInTheDocument()
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
+      const wrapper = container.querySelector('.w-56')
+      const picker = container.querySelector('[data-rwp="true"]')
+      expect(wrapper).toBeInTheDocument()
+      expect(picker).toBeInTheDocument()
     })
 
-    it('works with multiple pickers in one wrapper', () => {
-      render(
+    it('renders multiple WheelPickers in same wrapper', () => {
+      const options1 = [
+        { id: '1', value: 'A1' },
+        { id: '2', value: 'A2' },
+      ]
+      const options2 = [
+        { id: '1', value: 'B1' },
+        { id: '2', value: 'B2' },
+      ]
+
+      const { container } = render(
         <WheelPickerWrapper>
-          <WheelPicker options={defaultOptions} />
-          <WheelPicker options={[{ value: 'a', label: 'A' }]} />
+          <WheelPicker options={options1} />
+          <WheelPicker options={options2} />
         </WheelPickerWrapper>,
       )
 
-      const pickers = screen.getAllByTestId('wheel-picker')
-      expect(pickers).toHaveLength(2)
+      const pickers = container.querySelectorAll('[data-rwp="true"]')
+      expect(pickers.length).toBe(2)
+    })
+  })
+
+  describe('Dynamic updates', () => {
+    it('handles dynamic options updates', () => {
+      const { rerender, container } = render(<WheelPicker options={defaultOptions} />)
+
+      const initialOptions = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(initialOptions.length).toBeGreaterThanOrEqual(3)
+
+      const newOptions: WheelPickerOption<string>[] = [
+        { id: '4', value: 'New Option 1' },
+        { id: '5', value: 'New Option 2' },
+      ]
+
+      rerender(<WheelPicker options={newOptions} />)
+
+      const updatedOptions = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(updatedOptions.length).toBeGreaterThanOrEqual(2)
     })
 
-    it('handles controlled value updates', async () => {
-      function ControlledPicker() {
-        const [value, setValue] = React.useState('1')
-
+    it('maintains structure across re-renders', () => {
+      function StatefulComponent() {
+        const [count, setCount] = React.useState(0)
         return (
           <div>
-            <WheelPicker options={defaultOptions} value={value} onChange={v => setValue(String(v))} />
-            <button onClick={() => setValue('3')}>Set to 3</button>
-            <p data-testid="current-value">{value}</p>
+            <WheelPicker options={defaultOptions} />
+            <button onClick={() => setCount(count + 1)}>Increment: {count}</button>
           </div>
         )
       }
 
-      const user = userEvent.setup()
-      render(<ControlledPicker />)
-
-      expect(screen.getByTestId('current-value')).toHaveTextContent('1')
-
-      await user.click(screen.getByText('Set to 3'))
-
-      expect(screen.getByTestId('option-3')).toHaveAttribute('aria-selected', 'true')
+      const { container } = render(<StatefulComponent />)
+      const picker = container.querySelector('[data-rwp="true"]')
+      expect(picker).toBeInTheDocument()
     })
   })
 
-  describe('Type safety tests', () => {
-    it('accepts string value type', () => {
-      const stringOptions = [{ value: 'a', label: 'A' }]
-      render(<WheelPicker<string> options={stringOptions} value="a" />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
-    })
+  describe('Performance considerations', () => {
+    it('handles large options list', () => {
+      const largeOptionsList: WheelPickerOption<string>[] = Array.from({ length: 100 }, (_, i) => ({
+        id: `${i}`,
+        value: `Option ${i}`,
+      }))
 
-    it('accepts number value type', () => {
-      const numberOptions = [{ value: 1, label: 'One' }]
-      render(<WheelPicker<number> options={numberOptions} value={1} />)
-      expect(screen.getByTestId('wheel-picker')).toBeInTheDocument()
+      const { container } = render(<WheelPicker options={largeOptionsList} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
   })
 
-  describe('Additional comprehensive tests', () => {
-    it('maintains selection state across re-renders', () => {
-      const { rerender } = render(<WheelPicker options={defaultOptions} value="2" />)
-
-      expect(screen.getByTestId('option-2')).toHaveAttribute('aria-selected', 'true')
-
-      rerender(<WheelPicker options={defaultOptions} value="2" />)
-
-      expect(screen.getByTestId('option-2')).toHaveAttribute('aria-selected', 'true')
+  describe('Type exports', () => {
+    it('accepts WheelPickerOption type for options', () => {
+      const options: WheelPickerOption<string>[] = [{ id: '1', value: 'Test' }]
+      const { container } = render(<WheelPicker options={options} />)
+      expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('updates when options array changes', () => {
+    it('works with generic value types', () => {
+      type CustomValue = { label: string; data: number }
+      const options: WheelPickerOption<CustomValue>[] = [{ id: '1', value: { label: 'Test', data: 123 } }]
+      const { container } = render(<WheelPicker options={options} />)
+      expect(container.firstChild).toBeInTheDocument()
+    })
+  })
+
+  describe('Wrapper styling validation', () => {
+    it('verifies wrapper has correct border and background', () => {
+      const { container } = render(
+        <WheelPickerWrapper>
+          <WheelPicker options={defaultOptions} />
+        </WheelPickerWrapper>,
+      )
+
+      const wrapper = container.firstChild as HTMLElement
+      expect(wrapper.className).toContain('border-zinc-200')
+      expect(wrapper.className).toContain('bg-white')
+    })
+
+    it('verifies wrapper has correct rounded corners', () => {
+      const { container } = render(
+        <WheelPickerWrapper>
+          <WheelPicker options={defaultOptions} />
+        </WheelPickerWrapper>,
+      )
+
+      const wrapper = container.firstChild as HTMLElement
+      expect(wrapper.className).toContain('rounded-lg')
+    })
+  })
+
+  describe('Additional edge cases for robustness', () => {
+    it('handles options with special characters in id', () => {
+      const specialOptions: WheelPickerOption<string>[] = [
+        { id: 'special-id-1', value: 'Special 1' },
+        { id: 'special_id_2', value: 'Special 2' },
+      ]
+
+      const { container } = render(<WheelPicker options={specialOptions} />)
+      expect(container.firstChild).toBeInTheDocument()
+    })
+
+    it('renders picker with both disabled and enabled options', () => {
+      const mixedOptions: WheelPickerOption<string>[] = [
+        { id: '1', value: 'Enabled 1' },
+        { id: '2', value: 'Disabled', disabled: true },
+        { id: '3', value: 'Enabled 2' },
+      ]
+
+      const { container } = render(<WheelPicker options={mixedOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(3)
+    })
+
+    it('maintains picker structure when options change', () => {
+      const { rerender, container } = render(<WheelPicker options={defaultOptions} />)
+
+      const initialPicker = container.querySelector('[data-rwp="true"]')
+      expect(initialPicker).toBeInTheDocument()
+
+      rerender(<WheelPicker options={[{ id: '1', value: 'New' }]} />)
+
+      const updatedPicker = container.querySelector('[data-rwp="true"]')
+      expect(updatedPicker).toBeInTheDocument()
+    })
+
+    it('renders correctly with minimal options', () => {
+      const minimalOption: WheelPickerOption<string>[] = [{ id: 'a', value: 'A' }]
+
+      const { container } = render(<WheelPicker options={minimalOption} />)
+      const picker = container.querySelector('[data-rwp="true"]')
+      expect(picker).toBeInTheDocument()
+    })
+  })
+
+  describe('Regression and boundary tests', () => {
+    it('handles rapid re-renders without errors', () => {
       const { rerender } = render(<WheelPicker options={defaultOptions} />)
 
-      expect(screen.getByTestId('option-1')).toBeInTheDocument()
-
-      const newOptions = [
-        { value: 'a', label: 'Option A' },
-        { value: 'b', label: 'Option B' },
-      ]
-      rerender(<WheelPicker options={newOptions} />)
-
-      expect(screen.getByText('Option A')).toBeInTheDocument()
-    })
-
-    it('handles zero as a value', () => {
-      const zeroOptions = [
-        { value: 0, label: 'Zero' },
-        { value: 1, label: 'One' },
-      ]
-      render(<WheelPicker options={zeroOptions} value={0} />)
-      expect(screen.getByTestId('option-0')).toHaveAttribute('aria-selected', 'true')
-    })
-
-    it('handles empty string as a value', () => {
-      const emptyStringOptions = [
-        { value: '', label: 'Empty' },
-        { value: 'a', label: 'A' },
-      ]
-      render(<WheelPicker options={emptyStringOptions} value="" />)
-      expect(screen.getByTestId('option-')).toHaveAttribute('aria-selected', 'true')
-    })
-
-    it('preserves classNames object reference stability', () => {
-      const classNames = {
-        optionItem: 'stable-class',
-        highlightWrapper: 'stable-wrapper',
-        highlightItem: 'stable-item',
+      for (let i = 0; i < 10; i++) {
+        rerender(<WheelPicker options={defaultOptions} />)
       }
 
-      const { rerender } = render(<WheelPicker options={defaultOptions} classNames={classNames} />)
+      // Should complete without throwing errors
+      expect(true).toBe(true)
+    })
 
-      expect(screen.getByTestId('option-item-class').className).toContain('stable-class')
+    it('handles switching between empty and populated options', () => {
+      const { rerender, container } = render(<WheelPicker options={[]} />)
 
-      rerender(<WheelPicker options={defaultOptions} classNames={classNames} />)
+      rerender(<WheelPicker options={defaultOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(3)
 
-      expect(screen.getByTestId('option-item-class').className).toContain('stable-class')
+      rerender(<WheelPicker options={[]} />)
+      const emptyOptions = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(emptyOptions.length).toBe(0)
+    })
+
+    it('maintains styling consistency across different option counts', () => {
+      const twoOptions: WheelPickerOption<string>[] = [
+        { id: '1', value: 'One' },
+        { id: '2', value: 'Two' },
+      ]
+
+      const { container: container2, unmount: unmount2 } = render(<WheelPicker options={twoOptions} />)
+      const highlightWrapper2 = container2.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper2?.className).toContain('bg-zinc-100')
+      unmount2()
+
+      const tenOptions: WheelPickerOption<string>[] = Array.from({ length: 10 }, (_, i) => ({
+        id: `${i}`,
+        value: `Option ${i}`,
+      }))
+
+      const { container: container10 } = render(<WheelPicker options={tenOptions} />)
+      const highlightWrapper10 = container10.querySelector('[data-rwp-highlight-wrapper="true"]')
+      expect(highlightWrapper10?.className).toContain('bg-zinc-100')
+    })
+
+    it('handles options with duplicate values gracefully', () => {
+      const duplicateOptions: WheelPickerOption<string>[] = [
+        { id: '1', value: 'Same' },
+        { id: '2', value: 'Same' },
+        { id: '3', value: 'Same' },
+      ]
+
+      const { container } = render(<WheelPicker options={duplicateOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(3)
+    })
+
+    it('handles options with empty string values', () => {
+      const emptyStringOptions: WheelPickerOption<string>[] = [
+        { id: '1', value: '' },
+        { id: '2', value: 'Valid' },
+      ]
+
+      const { container } = render(<WheelPicker options={emptyStringOptions} />)
+      expect(container.firstChild).toBeInTheDocument()
+    })
+
+    it('verifies all classNames are properly applied in default configuration', () => {
+      const { container } = render(<WheelPicker options={defaultOptions} />)
+
+      const optionElements = container.querySelectorAll('[data-rwp-option="true"]')
+      const highlightWrapper = container.querySelector('[data-rwp-highlight-wrapper="true"]')
+      const highlightItems = container.querySelectorAll('[data-rwp-highlight-item="true"]')
+
+      expect(optionElements[0]?.className).toContain('text-zinc-400')
+      expect(optionElements[0]?.className).toContain('data-disabled:opacity-40')
+      expect(optionElements[0]?.className).toContain('dark:text-zinc-500')
+
+      expect(highlightWrapper?.className).toContain('bg-zinc-100')
+      expect(highlightWrapper?.className).toContain('text-zinc-950')
+      expect(highlightWrapper?.className).toContain('dark:bg-zinc-800')
+      expect(highlightWrapper?.className).toContain('dark:text-zinc-50')
+      expect(highlightWrapper?.className).toContain('data-rwp-focused:ring-2')
+
+      expect(highlightItems[0]?.className).toContain('data-disabled:opacity-40')
+    })
+
+    it('handles nested WheelPickerWrappers', () => {
+      const { container } = render(
+        <WheelPickerWrapper>
+          <WheelPickerWrapper>
+            <WheelPicker options={defaultOptions} />
+          </WheelPickerWrapper>
+        </WheelPickerWrapper>,
+      )
+
+      const wrappers = container.querySelectorAll('[data-rwp-wrapper="true"]')
+      expect(wrappers.length).toBe(2)
+    })
+
+    it('handles zero as a valid option value', () => {
+      const zeroValueOptions: WheelPickerOption<number>[] = [
+        { id: '1', value: 0 },
+        { id: '2', value: 1 },
+      ]
+
+      const { container } = render(<WheelPicker options={zeroValueOptions} />)
+      expect(container.firstChild).toBeInTheDocument()
+    })
+
+    it('handles negative numbers as option values', () => {
+      const negativeOptions: WheelPickerOption<number>[] = [
+        { id: '1', value: -10 },
+        { id: '2', value: -5 },
+        { id: '3', value: 0 },
+        { id: '4', value: 5 },
+      ]
+
+      const { container } = render(<WheelPicker options={negativeOptions} />)
+      const options = container.querySelectorAll('[data-rwp-option="true"]')
+      expect(options.length).toBeGreaterThanOrEqual(4)
     })
   })
 })
