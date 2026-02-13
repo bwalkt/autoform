@@ -211,7 +211,7 @@ export function CalendarHeader({
                 zIndex: 99999,
                 top: portalPos.top,
                 left: portalPos.left,
-                width: 288,
+                width: 200,
                 borderRadius: 12,
                 boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
                 border: '1px solid #e4e4e7',
