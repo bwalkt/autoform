@@ -810,7 +810,9 @@ describe('MiniCalendar', () => {
       const weekStarts: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = [0, 1, 2, 3, 4, 5, 6]
 
       for (const weekStartsOn of weekStarts) {
-        const { container, unmount } = render(<MiniCalendar value={new Date(2026, 1, 11)} weekStartsOn={weekStartsOn} />)
+        const { container, unmount } = render(
+          <MiniCalendar value={new Date(2026, 1, 11)} weekStartsOn={weekStartsOn} />,
+        )
         const dayButtons = container.querySelectorAll('button[aria-pressed]')
         expect(dayButtons).toHaveLength(7)
         unmount()
@@ -819,11 +821,7 @@ describe('MiniCalendar', () => {
 
     it('handles disabled dates at week boundaries', () => {
       const { container } = render(
-        <MiniCalendar
-          value={new Date(2026, 1, 11)}
-          minDate={new Date(2026, 1, 9)}
-          maxDate={new Date(2026, 1, 13)}
-        />,
+        <MiniCalendar value={new Date(2026, 1, 11)} minDate={new Date(2026, 1, 9)} maxDate={new Date(2026, 1, 13)} />,
       )
 
       const button8 = getDateButton(container, 8)
@@ -856,10 +854,10 @@ describe('MiniCalendar', () => {
       const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
       const dayButtons = container.querySelectorAll('button[aria-pressed]')
 
-      dayButtons.forEach(button => {
+      for (const button of dayButtons) {
         const ariaLabel = button.getAttribute('aria-label')
         expect(ariaLabel).toMatch(/\w+, \w+ \d+, \d{4}/)
-      })
+      }
     })
 
     it('handles uncontrolled mode with onChange updating internal state', async () => {
@@ -884,14 +882,14 @@ describe('MiniCalendar', () => {
     })
 
     it('applies custom nav button size in compact mode correctly', () => {
-      const { container } = render(<MiniCalendar compact value={new Date(2026, 1, 11)} />)
+      render(<MiniCalendar compact value={new Date(2026, 1, 11)} />)
       const prevButton = screen.getByRole('button', { name: /previous week/i })
       expect(prevButton.className).toContain('!h-8')
       expect(prevButton.className).toContain('!w-8')
     })
 
     it('applies custom nav button size in normal mode correctly', () => {
-      const { container } = render(<MiniCalendar compact={false} value={new Date(2026, 1, 11)} />)
+      render(<MiniCalendar compact={false} value={new Date(2026, 1, 11)} />)
       const prevButton = screen.getByRole('button', { name: /previous week/i })
       expect(prevButton.className).toContain('!h-9')
       expect(prevButton.className).toContain('!w-9')
@@ -930,7 +928,7 @@ describe('MiniCalendar', () => {
     })
 
     it('handles navigation with all theme precedence levels', () => {
-      const { container } = render(
+      render(
         <Theme calendar={{ radius: 'lg', navButtonBordered: true }}>
           <MiniCalendar value={new Date(2026, 1, 11)} />
         </Theme>,

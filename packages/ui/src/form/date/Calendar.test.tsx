@@ -2103,7 +2103,6 @@ describe('Calendar', () => {
     })
 
     it('handles isSameDay utility correctly with different times', async () => {
-      const user = userEvent.setup()
       const handleSelect = vi.fn()
       const dateWithMorningTime = new Date(2025, 5, 15, 9, 0, 0)
 
