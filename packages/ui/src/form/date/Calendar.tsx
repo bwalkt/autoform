@@ -566,6 +566,11 @@ export function Calendar({
           onNext={handleNextMonth}
           previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
           nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+          displayedMonth={displayedMonth}
+          onMonthYearChange={handleMonthChange}
+          localeCode={safeLocaleCode}
+          startMonth={fromMonthBoundary ?? undefined}
+          endMonth={toMonthBoundary ?? undefined}
         />
       ) : null}
       <DayPicker {...pickerProps} />
