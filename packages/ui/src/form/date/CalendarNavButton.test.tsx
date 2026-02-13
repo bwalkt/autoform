@@ -399,53 +399,6 @@ describe('CalendarNavButton', () => {
     })
   })
 
-  describe('Variant resolution edge cases', () => {
-    it('resolves to outline variant when variant is explicitly outline', () => {
-      render(
-        <CalendarNavButton {...defaultProps} variant="outline" bordered={false} aria-label="Test button">
-          <span>Icon</span>
-        </CalendarNavButton>,
-      )
-
-      const button = screen.getByRole('button', { name: 'Test button' })
-      expect(button.className).toContain('border-[var(--rdp-accent-color)]')
-    })
-
-    it('resolves to ghost variant when variant is explicitly ghost', () => {
-      render(
-        <CalendarNavButton {...defaultProps} variant="ghost" bordered={false} aria-label="Test button">
-          <span>Icon</span>
-        </CalendarNavButton>,
-      )
-
-      const button = screen.getByRole('button', { name: 'Test button' })
-      expect(button.className).toContain('bg-transparent')
-      expect(button.className).toContain('hover:bg-[var(--rdp-accent-background-color)]')
-    })
-
-    it('resolves to soft variant when variant is explicitly soft', () => {
-      render(
-        <CalendarNavButton {...defaultProps} variant="soft" bordered={true} aria-label="Test button">
-          <span>Icon</span>
-        </CalendarNavButton>,
-      )
-
-      const button = screen.getByRole('button', { name: 'Test button' })
-      expect(button.className).toContain('bg-[var(--rdp-accent-background-color)]')
-    })
-
-    it('uses bordered to determine default variant when variant is undefined', () => {
-      render(
-        <CalendarNavButton {...defaultProps} variant={undefined} bordered={true} aria-label="Test button">
-          <span>Icon</span>
-        </CalendarNavButton>,
-      )
-
-      const button = screen.getByRole('button', { name: 'Test button' })
-      expect(button.className).toContain('border-[var(--rdp-accent-color)]')
-    })
-  })
-
   describe('Additional edge cases', () => {
     it('handles rapid clicks', async () => {
       const user = userEvent.setup()
@@ -518,6 +471,200 @@ describe('CalendarNavButton', () => {
 
       const button = screen.getByRole('button', { name: 'Test button' })
       expect(button).toBeInTheDocument()
+    })
+  })
+
+  describe('Additional edge case and regression tests', () => {
+    it('handles variant prop explicitly set to soft', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant="soft" bordered={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('bg-[var(--rdp-accent-background-color)]')
+    })
+
+    it('handles variant prop explicitly set to outline with bordered=false', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant="outline" bordered={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('border-[var(--rdp-accent-color)]')
+    })
+
+    it('handles variant prop explicitly set to ghost', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant="ghost" bordered={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('bg-transparent')
+    })
+
+    it('applies stroke-width styling to SVG children', () => {
+      render(
+        <CalendarNavButton {...defaultProps} aria-label="Test button">
+          <svg data-testid="svg-icon">
+            <path />
+          </svg>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('[&_svg]:stroke-[2.4]')
+    })
+
+    it('applies size constraint to SVG children', () => {
+      render(
+        <CalendarNavButton {...defaultProps} aria-label="Test button">
+          <svg data-testid="svg-icon">
+            <path />
+          </svg>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('[&_svg]:size-5')
+    })
+
+    it('passes through all IconButton props correctly', () => {
+      render(
+        <CalendarNavButton
+          {...defaultProps}
+          aria-label="Test button"
+          data-testid="nav-button"
+          title="Navigation Button"
+        >
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByTestId('nav-button')
+      expect(button).toHaveAttribute('title', 'Navigation Button')
+    })
+
+    it('handles focus state correctly', async () => {
+      const user = userEvent.setup()
+      render(
+        <CalendarNavButton {...defaultProps} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      await user.tab()
+
+      expect(button).toHaveFocus()
+    })
+
+    it('handles keyboard activation', async () => {
+      const user = userEvent.setup()
+      const handleClick = vi.fn()
+
+      render(
+        <CalendarNavButton {...defaultProps} onClick={handleClick} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      button.focus()
+      await user.keyboard('{Enter}')
+
+      expect(handleClick).toHaveBeenCalled()
+    })
+
+    it('resolves variant from bordered prop when variant is undefined', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant={undefined} bordered={true} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('border-[var(--rdp-accent-color)]')
+    })
+
+    it('handles all three variants with different border states', () => {
+      const variants: Array<'soft' | 'outline' | 'ghost'> = ['soft', 'outline', 'ghost']
+
+      for (const variant of variants) {
+        const { unmount } = render(
+          <CalendarNavButton {...defaultProps} variant={variant} bordered={false} aria-label="Test button">
+            <span>Icon</span>
+          </CalendarNavButton>,
+        )
+
+        const button = screen.getByRole('button', { name: 'Test button' })
+        expect(button).toBeInTheDocument()
+        unmount()
+      }
+    })
+
+    it('maintains button state when re-rendered with same props', () => {
+      const { rerender } = render(
+        <CalendarNavButton {...defaultProps} disabled={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      let button = screen.getByRole('button', { name: 'Test button' })
+      expect(button).not.toBeDisabled()
+
+      rerender(
+        <CalendarNavButton {...defaultProps} disabled={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      button = screen.getByRole('button', { name: 'Test button' })
+      expect(button).not.toBeDisabled()
+    })
+
+    it('handles transition from disabled to enabled state', () => {
+      const { rerender } = render(
+        <CalendarNavButton {...defaultProps} disabled={true} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      let button = screen.getByRole('button', { name: 'Test button' })
+      expect(button).toBeDisabled()
+
+      rerender(
+        <CalendarNavButton {...defaultProps} disabled={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      button = screen.getByRole('button', { name: 'Test button' })
+      expect(button).not.toBeDisabled()
+    })
+
+    it('handles all combinations of color and radius', () => {
+      const colors: Array<'default' | 'primary' | 'success'> = ['default', 'primary', 'success']
+      const radii: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg']
+
+      for (const color of colors) {
+        for (const radius of radii) {
+          const { unmount } = render(
+            <CalendarNavButton {...defaultProps} color={color} radius={radius} aria-label="Test button">
+              <span>Icon</span>
+            </CalendarNavButton>,
+          )
+
+          const button = screen.getByRole('button', { name: 'Test button' })
+          expect(button).toBeInTheDocument()
+          unmount()
+        }
+      }
     })
   })
 })

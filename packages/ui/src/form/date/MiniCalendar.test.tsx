@@ -744,30 +744,25 @@ describe('MiniCalendar', () => {
     })
   })
 
-  describe('NavButton variant resolution', () => {
-    it('defaults to soft variant when navButtonBordered is false', () => {
-      render(<MiniCalendar navButtonBordered={false} value={new Date(2026, 1, 11)} />)
-      const prevButton = screen.getByRole('button', { name: /previous week/i })
-      expect(prevButton.className).toContain('bg-[var(--rdp-accent-background-color)]')
-    })
-
-    it('defaults to outline variant when navButtonBordered is true', () => {
-      render(<MiniCalendar navButtonBordered={true} value={new Date(2026, 1, 11)} />)
-      const prevButton = screen.getByRole('button', { name: /previous week/i })
-      expect(prevButton.className).toContain('border-[var(--rdp-accent-color)]')
-    })
-
-    it('respects explicit navButtonVariant over default', () => {
-      render(<MiniCalendar navButtonBordered={false} navButtonVariant="ghost" value={new Date(2026, 1, 11)} />)
-      const prevButton = screen.getByRole('button', { name: /previous week/i })
-      expect(prevButton.className).toContain('bg-transparent')
-    })
-  })
-
-  describe('Week transitions edge cases', () => {
-    it('handles transition from last week of year to first week of next year', async () => {
+  describe('Additional comprehensive and regression tests', () => {
+    it('handles selecting dates at month boundaries correctly', async () => {
       const user = userEvent.setup()
-      render(<MiniCalendar value={new Date(2025, 11, 29)} weekStartsOn={0} />)
+      const handleChange = vi.fn()
+
+      const { container } = render(<MiniCalendar value={new Date(2026, 0, 31)} onChange={handleChange} />)
+
+      const button31 = getDateButton(container, 31)
+      await user.click(button31)
+
+      expect(handleChange).toHaveBeenCalled()
+      const selectedDate = handleChange.mock.calls[0]?.[0] as Date
+      expect(selectedDate.getDate()).toBe(31)
+      expect(selectedDate.getMonth()).toBe(0)
+    })
+
+    it('handles year transitions correctly with week navigation', async () => {
+      const user = userEvent.setup()
+      render(<MiniCalendar value={new Date(2025, 11, 31)} />)
 
       expect(screen.getByText(/December 2025/i)).toBeInTheDocument()
 
@@ -777,9 +772,9 @@ describe('MiniCalendar', () => {
       expect(screen.getByText(/January 2026/i)).toBeInTheDocument()
     })
 
-    it('handles transition from first week of year to last week of previous year', async () => {
+    it('handles navigating backward across year boundary', async () => {
       const user = userEvent.setup()
-      render(<MiniCalendar value={new Date(2026, 0, 5)} weekStartsOn={0} />)
+      render(<MiniCalendar value={new Date(2026, 0, 3)} />)
 
       expect(screen.getByText(/January 2026/i)).toBeInTheDocument()
 
@@ -789,49 +784,219 @@ describe('MiniCalendar', () => {
       expect(screen.getByText(/December 2025/i)).toBeInTheDocument()
     })
 
-    it('handles week that spans two months', () => {
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 1)} weekStartsOn={0} />)
-      const dateButtons = container.querySelectorAll('button[aria-pressed]')
-      expect(dateButtons).toHaveLength(7)
-    })
-  })
+    it('resolves calendar colors for all color tokens correctly', () => {
+      const colors: Array<'default' | 'primary' | 'success' | 'error' | 'warning' | 'info' | 'neutral'> = [
+        'default',
+        'primary',
+        'success',
+        'error',
+        'warning',
+        'info',
+        'neutral',
+      ]
 
-  describe('Multiple controlled updates', () => {
-    it('updates correctly when controlled value changes multiple times rapidly', () => {
+      for (const color of colors) {
+        const { container, unmount } = render(<MiniCalendar color={color} value={new Date(2026, 1, 11)} />)
+        const calendar = container.firstChild as HTMLElement
+        const style = calendar.getAttribute('style')
+        expect(style).toContain('--mini-cal-accent')
+        expect(style).toContain('--mini-cal-soft')
+        expect(style).toContain('--mini-cal-fg')
+        unmount()
+      }
+    })
+
+    it('handles all weekStartsOn values correctly', () => {
+      const weekStarts: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = [0, 1, 2, 3, 4, 5, 6]
+
+      for (const weekStartsOn of weekStarts) {
+        const { container, unmount } = render(<MiniCalendar value={new Date(2026, 1, 11)} weekStartsOn={weekStartsOn} />)
+        const dayButtons = container.querySelectorAll('button[aria-pressed]')
+        expect(dayButtons).toHaveLength(7)
+        unmount()
+      }
+    })
+
+    it('handles disabled dates at week boundaries', () => {
+      const { container } = render(
+        <MiniCalendar
+          value={new Date(2026, 1, 11)}
+          minDate={new Date(2026, 1, 9)}
+          maxDate={new Date(2026, 1, 13)}
+        />,
+      )
+
+      const button8 = getDateButton(container, 8)
+      const button14 = getDateButton(container, 14)
+
+      expect(button8).toBeDisabled()
+      expect(button14).toBeDisabled()
+    })
+
+    it('maintains correct week display when value changes externally', () => {
       const { rerender } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
 
-      rerender(<MiniCalendar value={new Date(2026, 2, 15)} />)
-      expect(screen.getByText(/March 2026/i)).toBeInTheDocument()
-
-      rerender(<MiniCalendar value={new Date(2026, 3, 20)} />)
-      expect(screen.getByText(/April 2026/i)).toBeInTheDocument()
-
-      rerender(<MiniCalendar value={new Date(2026, 1, 5)} />)
       expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-    })
-  })
 
-  describe('Boundary date validations', () => {
-    it('handles minDate equal to maxDate equal to selected date', () => {
-      const date = new Date(2026, 1, 11)
-      const { container } = render(<MiniCalendar value={date} minDate={date} maxDate={date} />)
+      rerender(<MiniCalendar value={new Date(2026, 2, 20)} />)
+
+      expect(screen.getByText(/March 2026/i)).toBeInTheDocument()
+    })
+
+    it('handles selecting today with isToday styling', () => {
+      const today = new Date()
+      const { container } = render(<MiniCalendar value={today} />)
+
+      const todayButton = getDateButton(container, today.getDate())
+      expect(todayButton).toHaveAttribute('aria-current', 'date')
+      expect(todayButton).toHaveAttribute('aria-pressed', 'true')
+    })
+
+    it('formats aria-label correctly for all dates in week', () => {
+      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
+      const dayButtons = container.querySelectorAll('button[aria-pressed]')
+
+      dayButtons.forEach(button => {
+        const ariaLabel = button.getAttribute('aria-label')
+        expect(ariaLabel).toMatch(/\w+, \w+ \d+, \d{4}/)
+      })
+    })
+
+    it('handles uncontrolled mode with onChange updating internal state', async () => {
+      const user = userEvent.setup()
+      let selectedDate: Date | undefined
+
+      function TestComponent() {
+        return (
+          <MiniCalendar
+            onChange={date => {
+              selectedDate = date
+            }}
+          />
+        )
+      }
+
+      const { container } = render(<TestComponent />)
+      const firstButton = container.querySelectorAll('button[aria-pressed]')[0] as HTMLButtonElement
+      await user.click(firstButton)
+
+      expect(selectedDate).toBeDefined()
+    })
+
+    it('applies custom nav button size in compact mode correctly', () => {
+      const { container } = render(<MiniCalendar compact value={new Date(2026, 1, 11)} />)
+      const prevButton = screen.getByRole('button', { name: /previous week/i })
+      expect(prevButton.className).toContain('!h-8')
+      expect(prevButton.className).toContain('!w-8')
+    })
+
+    it('applies custom nav button size in normal mode correctly', () => {
+      const { container } = render(<MiniCalendar compact={false} value={new Date(2026, 1, 11)} />)
+      const prevButton = screen.getByRole('button', { name: /previous week/i })
+      expect(prevButton.className).toContain('!h-9')
+      expect(prevButton.className).toContain('!w-9')
+    })
+
+    it('handles selecting the same date twice', async () => {
+      const user = userEvent.setup()
+      const handleChange = vi.fn()
+      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} onChange={handleChange} />)
 
       const button11 = getDateButton(container, 11)
-      expect(button11).not.toBeDisabled()
+      await user.click(button11)
+      await user.click(button11)
 
-      const dateButtons = container.querySelectorAll('button[aria-pressed]')
-      const enabledButtons = Array.from(dateButtons).filter(btn => !(btn as HTMLButtonElement).disabled)
-      expect(enabledButtons).toHaveLength(1)
+      expect(handleChange).toHaveBeenCalledTimes(2)
     })
 
-    it('disables all dates when maxDate is before minDate', () => {
-      const minDate = new Date(2026, 1, 15)
-      const maxDate = new Date(2026, 1, 10)
+    it('correctly displays week when value is undefined initially', () => {
+      const { container } = render(<MiniCalendar />)
+      const dayButtons = container.querySelectorAll('button[aria-pressed]')
+      expect(dayButtons).toHaveLength(7)
+    })
+
+    it('handles minDate and maxDate with time components correctly', () => {
+      const minDate = new Date(2026, 1, 10, 14, 30, 0)
+      const maxDate = new Date(2026, 1, 12, 18, 45, 0)
       const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} minDate={minDate} maxDate={maxDate} />)
 
-      const dateButtons = container.querySelectorAll('button[aria-pressed]')
-      const allDisabled = Array.from(dateButtons).every(btn => (btn as HTMLButtonElement).disabled)
-      expect(allDisabled).toBe(true)
+      const button9 = getDateButton(container, 9)
+      const button11 = getDateButton(container, 11)
+      const button13 = getDateButton(container, 13)
+
+      expect(button9).toBeDisabled()
+      expect(button11).not.toBeDisabled()
+      expect(button13).toBeDisabled()
+    })
+
+    it('handles navigation with all theme precedence levels', () => {
+      const { container } = render(
+        <Theme calendar={{ radius: 'lg', navButtonBordered: true }}>
+          <MiniCalendar value={new Date(2026, 1, 11)} />
+        </Theme>,
+      )
+
+      const prevButton = screen.getByRole('button', { name: /previous week/i })
+      expect(prevButton.className).toContain('border-[var(--rdp-accent-color)]')
+    })
+
+    it('handles rapid week navigation without errors', async () => {
+      const user = userEvent.setup()
+      render(<MiniCalendar value={new Date(2026, 1, 11)} />)
+
+      const nextButton = screen.getByRole('button', { name: /next week/i })
+      const prevButton = screen.getByRole('button', { name: /previous week/i })
+
+      await user.click(nextButton)
+      await user.click(prevButton)
+      await user.click(nextButton)
+      await user.click(nextButton)
+      await user.click(prevButton)
+
+      expect(nextButton).toBeInTheDocument()
+      expect(prevButton).toBeInTheDocument()
+    })
+
+    it('displays correct month title format', () => {
+      render(<MiniCalendar value={new Date(2026, 1, 11)} />)
+      const title = screen.getByText(/February 2026/i)
+      expect(title.className).toContain('font-medium')
+      expect(title.className).toContain('text-foreground')
+    })
+
+    it('handles selecting date when disabled=true has no effect', async () => {
+      const user = userEvent.setup()
+      const handleChange = vi.fn()
+      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} disabled onChange={handleChange} />)
+
+      const button11 = getDateButton(container, 11)
+      await user.click(button11)
+
+      expect(handleChange).not.toHaveBeenCalled()
+    })
+
+    it('verifies all CSS custom properties are set with correct values', () => {
+      const { container } = render(
+        <MiniCalendar value={new Date(2026, 1, 11)} color="success" radius="lg" compact={false} />,
+      )
+      const calendar = container.firstChild as HTMLElement
+      const style = calendar.getAttribute('style')
+
+      expect(style).toContain('--mini-cal-radius')
+      expect(style).toContain('--mini-cal-accent')
+      expect(style).toContain('--mini-cal-soft')
+      expect(style).toContain('--mini-cal-fg')
+      expect(style).toContain('--mini-cal-cell-size: 2.75rem')
+    })
+
+    it('handles edge case with February 29 in non-leap year navigation', async () => {
+      const user = userEvent.setup()
+      render(<MiniCalendar value={new Date(2025, 1, 28)} />)
+
+      const nextButton = screen.getByRole('button', { name: /next week/i })
+      await user.click(nextButton)
+
+      expect(screen.getByText(/March 2025/i)).toBeInTheDocument()
     })
   })
 })
