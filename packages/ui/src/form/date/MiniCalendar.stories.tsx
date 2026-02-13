@@ -14,6 +14,7 @@ const meta: Meta<typeof MiniCalendar> = {
     color: 'default',
     radius: 'md',
     navButtonBordered: false,
+    navButtonVariant: 'soft',
   },
   argTypes: {
     color: {
@@ -25,7 +26,11 @@ const meta: Meta<typeof MiniCalendar> = {
       options: ['none', 'sm', 'md', 'lg', 'full'],
     },
     navButtonBordered: {
-      control: 'boolean',
+      table: { disable: true },
+    },
+    navButtonVariant: {
+      control: 'select',
+      options: ['soft', 'outline', 'ghost'],
     },
   },
 }

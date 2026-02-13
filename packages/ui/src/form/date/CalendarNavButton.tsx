@@ -9,6 +9,7 @@ export interface CalendarNavButtonProps
   extends Omit<React.ComponentPropsWithoutRef<typeof IconButton>, 'size' | 'variant' | 'color' | 'radius'> {
   color: Color
   radius: Radius
+  variant?: 'soft' | 'outline' | 'ghost'
   bordered: boolean
   accentColor: string
   softColor: string
@@ -17,6 +18,7 @@ export interface CalendarNavButtonProps
 
 /** CalendarNavButton export. */
 export function CalendarNavButton({
+  variant,
   bordered,
   color,
   radius,
@@ -26,17 +28,21 @@ export function CalendarNavButton({
   className,
   ...props
 }: CalendarNavButtonProps) {
+  const resolvedVariant = variant ?? (bordered ? 'outline' : 'soft')
   return (
     <IconButton
-      variant={bordered ? 'outline' : 'soft'}
+      variant={resolvedVariant === 'outline' ? 'outline' : resolvedVariant === 'ghost' ? 'ghost' : 'soft'}
       size="1"
       color={color}
       radius={radius}
       className={cn(
         'shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent]',
-        bordered
+        '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
+        resolvedVariant === 'outline'
           ? 'border border-[var(--rdp-accent-color)] bg-transparent text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]'
-          : 'border border-transparent bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-color)] hover:text-[var(--rdp-accent-foreground)]',
+          : resolvedVariant === 'soft'
+            ? 'border border-transparent bg-[var(--rdp-accent-background-color)] text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-color)] hover:text-[var(--rdp-accent-foreground)]'
+            : 'border border-transparent bg-transparent text-[var(--rdp-accent-color)] hover:bg-[var(--rdp-accent-background-color)] hover:text-[var(--rdp-accent-color)]',
         className,
       )}
       style={

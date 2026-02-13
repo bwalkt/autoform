@@ -33,6 +33,8 @@ export interface MiniCalendarProps {
   radius?: Radius
   /** Whether nav buttons should use border outline */
   navButtonBordered?: boolean
+  /** Nav button visual variant */
+  navButtonVariant?: 'soft' | 'outline' | 'ghost'
 }
 
 function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
@@ -92,12 +94,14 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
       color = 'default',
       radius,
       navButtonBordered,
+      navButtonVariant,
     },
     ref,
   ) => {
     const theme = useOptionalThemeContext()
     const resolvedRadius = radius ?? theme?.calendar?.radius ?? theme?.radius ?? 'md'
     const resolvedNavButtonBordered = navButtonBordered ?? theme?.calendar?.navButtonBordered ?? false
+    const resolvedNavButtonVariant = navButtonVariant ?? (resolvedNavButtonBordered ? 'outline' : 'soft')
     const resolvedColors = resolveCalendarColors(color)
     const isControlled = value !== undefined
     const [selectedDateState, setSelectedDateState] = React.useState<Date>(value ?? new Date())
@@ -168,50 +172,52 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
       >
         {/* Header with navigation */}
         {showHeader && (
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2">
-            <CalendarNavButton
-              color={color}
-              radius={resolvedRadius}
-              bordered={resolvedNavButtonBordered}
-              accentColor={resolvedColors.accent}
-              softColor={resolvedColors.soft}
-              foregroundColor={resolvedColors.foreground}
-              onClick={handlePrevWeek}
-              disabled={disabled}
-              className={cn(
-                navButtonSize,
-                'text-[var(--mini-cal-accent)] disabled:opacity-70',
-                '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
-              )}
-              aria-label="Previous week"
-            >
-              <ChevronLeft />
-            </CalendarNavButton>
-
-            <div className="min-w-0 flex-1 text-center">
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
               <span className={cn('font-medium text-foreground', compact ? 'text-sm' : 'text-[1.125rem]')}>
                 {title}
               </span>
             </div>
 
-            <CalendarNavButton
-              color={color}
-              radius={resolvedRadius}
-              bordered={resolvedNavButtonBordered}
-              accentColor={resolvedColors.accent}
-              softColor={resolvedColors.soft}
-              foregroundColor={resolvedColors.foreground}
-              onClick={handleNextWeek}
-              disabled={disabled}
-              className={cn(
-                navButtonSize,
-                'text-[var(--mini-cal-accent)] disabled:opacity-70',
-                '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
-              )}
-              aria-label="Next week"
-            >
-              <ChevronRight />
-            </CalendarNavButton>
+            <div className="flex items-center gap-1">
+              <CalendarNavButton
+                color={color}
+                radius={resolvedRadius}
+                variant={resolvedNavButtonVariant}
+                bordered={resolvedNavButtonBordered}
+                accentColor={resolvedColors.accent}
+                softColor={resolvedColors.soft}
+                foregroundColor={resolvedColors.foreground}
+                onClick={handlePrevWeek}
+                disabled={disabled}
+                className={cn(
+                  navButtonSize,
+                  'text-[color-mix(in_oklab,var(--mini-cal-accent),black_35%)] disabled:opacity-70',
+                )}
+                aria-label="Previous week"
+              >
+                <ChevronLeft />
+              </CalendarNavButton>
+
+              <CalendarNavButton
+                color={color}
+                radius={resolvedRadius}
+                variant={resolvedNavButtonVariant}
+                bordered={resolvedNavButtonBordered}
+                accentColor={resolvedColors.accent}
+                softColor={resolvedColors.soft}
+                foregroundColor={resolvedColors.foreground}
+                onClick={handleNextWeek}
+                disabled={disabled}
+                className={cn(
+                  navButtonSize,
+                  'text-[color-mix(in_oklab,var(--mini-cal-accent),black_35%)] disabled:opacity-70',
+                )}
+                aria-label="Next week"
+              >
+                <ChevronRight />
+              </CalendarNavButton>
+            </div>
           </div>
         )}
 
