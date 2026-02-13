@@ -1986,7 +1986,7 @@ describe('Calendar', () => {
       expect(container.firstChild).toBeInTheDocument()
     })
 
-    it('updates display when controlled month prop changes', () => {
+    it('updates display when controlled month prop changes', async () => {
       function ControlledMonthCalendar() {
         const [month, setMonth] = React.useState(new Date(2025, 5, 1))
 
@@ -2005,10 +2005,8 @@ describe('Calendar', () => {
 
       expect(screen.getByText('June 2025')).toBeInTheDocument()
 
-      user.click(screen.getByTestId('change-month'))
-
-      // The calendar should update when the month prop changes
-      expect(screen.getByRole('grid', { hidden: true })).toBeInTheDocument()
+      await user.click(screen.getByTestId('change-month'))
+      expect(screen.getByText('September 2025')).toBeInTheDocument()
     })
   })
 
@@ -2051,6 +2049,177 @@ describe('Calendar', () => {
 
       const day10 = getDayButton(container, 'June', 10)
       expect(day10).toBeDisabled()
+    })
+  })
+
+  describe('Additional regression and boundary tests', () => {
+    it('handles navigation boundaries with startMonth and endMonth props', async () => {
+      const user = userEvent.setup()
+      const startMonth = new Date(2025, 5, 1)
+      const endMonth = new Date(2025, 7, 31)
+
+      render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          startMonth={startMonth}
+          endMonth={endMonth}
+          showOutsideDays={false}
+        />,
+      )
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+
+      const prevButton = screen.getByRole('button', { name: /previous/i })
+      expect(prevButton).toBeDisabled()
+
+      await user.click(screen.getByRole('button', { name: /next/i }))
+      await user.click(screen.getByRole('button', { name: /next/i }))
+
+      expect(screen.getByText('August 2025')).toBeInTheDocument()
+      const nextButton = screen.getByRole('button', { name: /next/i })
+      expect(nextButton).toBeDisabled()
+    })
+
+    it('handles disableNavigation prop', async () => {
+      const user = userEvent.setup()
+      const handleMonthChange = vi.fn()
+
+      render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          disableNavigation={true}
+          onMonthChange={handleMonthChange}
+          showOutsideDays={false}
+        />,
+      )
+
+      const prevButton = screen.getByRole('button', { name: /previous/i })
+      const nextButton = screen.getByRole('button', { name: /next/i })
+
+      await user.click(prevButton)
+      await user.click(nextButton)
+
+      expect(handleMonthChange).not.toHaveBeenCalled()
+    })
+
+    it('handles isSameDay utility correctly with different times', async () => {
+      const handleSelect = vi.fn()
+      const dateWithMorningTime = new Date(2025, 5, 15, 9, 0, 0)
+
+      const { container } = render(
+        <Calendar
+          mode="single"
+          selected={dateWithMorningTime}
+          onSelect={handleSelect}
+          defaultMonth={new Date(2025, 5, 1)}
+          showOutsideDays={false}
+        />,
+      )
+
+      const day15 = getDayButton(container, 'June', 15)
+      const day15Parent = day15.parentElement
+      expect(day15Parent?.className).toContain('rdp-selected')
+    })
+
+    it('resolves safe locale code fallback when invalid locale provided', () => {
+      render(<Calendar localeCode="xx-INVALID-XX" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('handles custom header with numberOfMonths greater than 1', () => {
+      render(<Calendar numberOfMonths={2} defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+      expect(screen.getByText('July 2025')).toBeInTheDocument()
+    })
+
+    it('handles custom Chevron component with all orientations', () => {
+      const CustomChevron = ({ orientation }: { orientation?: 'left' | 'right' | 'down' | 'up' }) => (
+        <span data-testid={`chevron-${orientation}`}>Chevron</span>
+      )
+
+      render(
+        <Calendar
+          defaultMonth={new Date(2025, 5, 1)}
+          components={{
+            Chevron: CustomChevron,
+          }}
+        />,
+      )
+
+      expect(screen.getByTestId('chevron-left')).toBeInTheDocument()
+      expect(screen.getByTestId('chevron-right')).toBeInTheDocument()
+    })
+
+    it('handles navigation with boundary month at exact startOfMonth', async () => {
+      const user = userEvent.setup()
+      const fromMonth = new Date(2025, 5, 1)
+
+      render(<Calendar from={fromMonth} defaultMonth={fromMonth} showOutsideDays={false} />)
+
+      const prevButton = screen.getByRole('button', { name: /previous/i })
+      expect(prevButton).toBeDisabled()
+
+      const nextButton = screen.getByRole('button', { name: /next/i })
+      await user.click(nextButton)
+
+      expect(screen.getByText('July 2025')).toBeInTheDocument()
+    })
+
+    it('handles multiple mode with empty selected array initializing to undefined', async () => {
+      const user = userEvent.setup()
+
+      function ControlledCalendar() {
+        const [selected, setSelected] = React.useState<Date[] | undefined>([])
+        return (
+          <div>
+            <Calendar
+              mode="multiple"
+              selected={selected}
+              onSelect={setSelected}
+              defaultMonth={new Date(2025, 5, 1)}
+              showOutsideDays={false}
+            />
+            <p data-testid="count">{selected?.length ?? 0}</p>
+          </div>
+        )
+      }
+
+      const { container } = render(<ControlledCalendar />)
+
+      expect(screen.getByTestId('count')).toHaveTextContent('0')
+
+      const day10 = getDayButton(container, 'June', 10)
+      await user.click(day10)
+
+      expect(screen.getByTestId('count')).toHaveTextContent('1')
+    })
+
+    it('verifies calendar applies correct border-radius CSS custom property', () => {
+      const { container } = render(<Calendar radius="lg" defaultMonth={new Date(2025, 5, 1)} />)
+      const calendarRoot = container.querySelector('.bg-background') as HTMLElement
+      expect(calendarRoot).toBeInTheDocument()
+      const style = calendarRoot?.getAttribute('style')
+      expect(style).toContain('--cal-radius')
+    })
+
+    it('handles controlled month with uncontrolled onMonthChange', async () => {
+      const user = userEvent.setup()
+      const handleMonthChange = vi.fn()
+
+      render(
+        <Calendar
+          month={new Date(2025, 5, 1)}
+          onMonthChange={handleMonthChange}
+          showOutsideDays={false}
+          disableNavigation={false}
+        />,
+      )
+
+      await user.click(screen.getByRole('button', { name: /next/i }))
+
+      expect(handleMonthChange).toHaveBeenCalledWith(expect.any(Date))
+      const newMonth = handleMonthChange.mock.calls[0]?.[0] as Date
+      expect(newMonth.getMonth()).toBe(6)
     })
   })
 })
