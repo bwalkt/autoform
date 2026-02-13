@@ -17,17 +17,21 @@ export interface CalendarNavButtonProps
 }
 
 /**
- * Render a calendar navigation button styled for calendar controls.
+ * Render a compact, themed IconButton used for calendar navigation (previous/next).
  *
- * @param bordered - When true, render with an outlined (bordered) style; otherwise render with a filled (soft) style.
+ * The component applies one of three visual variants (`soft`, `outline`, `ghost`) — if `variant`
+ * is not provided, the presence of `bordered` selects `outline`; otherwise `soft` is used.
+ *
+ * @param variant - Visual variant to apply; if omitted, `bordered` determines the default.
+ * @param bordered - When true and `variant` is undefined, use the `outline` appearance.
  * @param color - Color token forwarded to the underlying IconButton.
- * @param radius - Corner radius forwarded to the underlying IconButton.
- * @param accentColor - CSS color used for the accent (controls border/text color).
- * @param softColor - CSS color used for the accent background.
- * @param foregroundColor - CSS color used for foreground text/icons when highlighted.
+ * @param radius - Corner radius token forwarded to the underlying IconButton.
+ * @param accentColor - CSS color used for the accent custom property (`--rdp-accent-color`).
+ * @param softColor - CSS color used for the accent background custom property (`--rdp-accent-background-color`).
+ * @param foregroundColor - CSS color used for the accent foreground custom property (`--rdp-accent-foreground`).
  * @param className - Additional class names appended to the button.
- * @param props - Additional IconButton props that are forwarded to the rendered element.
- * @returns A configured IconButton element used for calendar navigation controls.
+ * @param props - Remaining IconButton props forwarded to the rendered element.
+ * @returns The configured IconButton element for calendar navigation.
  */
 export function CalendarNavButton({
   variant,

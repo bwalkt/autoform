@@ -10,6 +10,14 @@ type WheelPickerOption<T extends WheelPickerValue = string> = WheelPickerPrimiti
 
 type WheelPickerClassNames = WheelPickerPrimitive.WheelPickerClassNames
 
+/**
+ * Wraps WheelPickerPrimitive.WheelPickerWrapper and applies a composed className for consistent styling.
+ *
+ * Merges a set of base styles (including responsive and dark-mode variants) with any `className` provided and renders the underlying WheelPickerWrapper with all received props.
+ *
+ * @param className - Optional additional class names to merge with the component's base styles.
+ * @returns A React element rendering WheelPickerPrimitive.WheelPickerWrapper with merged class names and forwarded props.
+ */
 function WheelPickerWrapper({
   className,
   ...props
@@ -27,6 +35,12 @@ function WheelPickerWrapper({
   )
 }
 
+/**
+ * Render a themed WheelPicker that merges built-in styling with any user-provided classNames.
+ *
+ * @param classNames - Optional partial classNames to customize `optionItem`, `highlightWrapper`, and `highlightItem` styles; provided values are merged with the component's defaults.
+ * @returns The WheelPicker element with merged, theme-aware classNames applied
+ */
 function WheelPicker<T extends WheelPickerValue = string>({
   classNames,
   ...props
