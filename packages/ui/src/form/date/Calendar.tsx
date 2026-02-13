@@ -16,6 +16,7 @@ import {
 import { useOptionalThemeContext } from '@/elements/Theme'
 import { type Color, designTokens, type Radius } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
+import { CalendarHeader } from './CalendarHeader'
 import { CalendarNavButton } from './CalendarNavButton'
 
 type CalendarCommonProps = Omit<
@@ -546,41 +547,26 @@ export function Calendar({
   return (
     <div className="w-fit">
       {useCustomHeader ? (
-        <div className="mb-1 flex h-(--cell-size) items-center justify-between gap-2">
-          <span className="truncate text-sm font-medium">{captionFormatter.format(displayedMonth)}</span>
-          <div className="flex items-center gap-1">
-            <CalendarNavButton
-              color={resolvedNavButtonColor}
-              radius={resolvedRadius}
-              variant={resolvedNavButtonVariant}
-              bordered={resolvedNavButtonBordered}
-              accentColor={resolvedColors.accent}
-              softColor={resolvedColors.soft}
-              foregroundColor={resolvedColors.foreground}
-              className={navButtonClassName}
-              aria-label="Previous month"
-              onClick={handlePrevMonth}
-              disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
-            >
-              {previousIcon}
-            </CalendarNavButton>
-            <CalendarNavButton
-              color={resolvedNavButtonColor}
-              radius={resolvedRadius}
-              variant={resolvedNavButtonVariant}
-              bordered={resolvedNavButtonBordered}
-              accentColor={resolvedColors.accent}
-              softColor={resolvedColors.soft}
-              foregroundColor={resolvedColors.foreground}
-              className={navButtonClassName}
-              aria-label="Next month"
-              onClick={handleNextMonth}
-              disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
-            >
-              {nextIcon}
-            </CalendarNavButton>
-          </div>
-        </div>
+        <CalendarHeader
+          className="mb-1"
+          title={captionFormatter.format(displayedMonth)}
+          color={resolvedNavButtonColor}
+          radius={resolvedRadius}
+          navButtonVariant={resolvedNavButtonVariant}
+          navButtonBordered={resolvedNavButtonBordered}
+          accentColor={resolvedColors.accent}
+          softColor={resolvedColors.soft}
+          foregroundColor={resolvedColors.foreground}
+          navButtonClassName={navButtonClassName}
+          previousAriaLabel="Previous month"
+          nextAriaLabel="Next month"
+          previousIcon={previousIcon}
+          nextIcon={nextIcon}
+          onPrevious={handlePrevMonth}
+          onNext={handleNextMonth}
+          previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
+          nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+        />
       ) : null}
       <DayPicker {...pickerProps} />
     </div>
