@@ -49,4 +49,4 @@ function WheelPicker<T extends WheelPickerValue = string>({
 }
 
 export { WheelPicker, WheelPickerWrapper }
-export type { WheelPickerClassNames, WheelPickerOption }
+export type { WheelPickerClassNames, WheelPickerOption, WheelPickerValue }

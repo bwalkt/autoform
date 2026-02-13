@@ -193,7 +193,6 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
                 className={cn(
                   navButtonSize,
                   'text-[color-mix(in_oklab,var(--mini-cal-accent),black_35%)] disabled:opacity-70',
-                  '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
                 )}
                 aria-label="Previous week"
               >
@@ -213,7 +212,6 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
                 className={cn(
                   navButtonSize,
                   'text-[color-mix(in_oklab,var(--mini-cal-accent),black_35%)] disabled:opacity-70',
-                  '[&_svg]:size-5 [&_svg]:stroke-[2.4]',
                 )}
                 aria-label="Next week"
               >
