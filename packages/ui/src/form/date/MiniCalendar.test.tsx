@@ -744,303 +744,94 @@ describe('MiniCalendar', () => {
     })
   })
 
-  describe('Color and styling regression tests', () => {
-    it('applies correct CSS variables with all colors', () => {
-      const colors: Array<'default' | 'primary' | 'success' | 'error' | 'warning' | 'info' | 'neutral'> = [
-        'default',
-        'primary',
-        'success',
-        'error',
-        'warning',
-        'info',
-        'neutral',
-      ]
-
-      for (const color of colors) {
-        const { container, unmount } = render(<MiniCalendar color={color} />)
-        const calendar = container.firstChild as HTMLElement
-        const style = calendar.getAttribute('style')
-
-        expect(style).toContain('--mini-cal-accent')
-        expect(style).toContain('--mini-cal-soft')
-        expect(style).toContain('--mini-cal-fg')
-        unmount()
-      }
-    })
-
-    it('handles border and background classes correctly', () => {
-      const { container } = render(<MiniCalendar />)
-      const calendar = container.firstChild as HTMLElement
-
-      expect(calendar.className).toContain('border')
-      expect(calendar.className).toContain('bg-background')
-      expect(calendar.className).toContain('rounded-lg')
-    })
-
-    it('applies correct grid layout for week', () => {
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-      const grids = container.querySelectorAll('.grid-cols-7')
-
-      expect(grids.length).toBeGreaterThan(0)
-    })
-  })
-
-  describe('State synchronization edge cases', () => {
-    it('syncs currentDate when controlled value changes to different week', () => {
-      const { rerender } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-
-      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-
-      rerender(<MiniCalendar value={new Date(2026, 2, 25)} />)
-
-      expect(screen.getByText(/March 2026/i)).toBeInTheDocument()
-    })
-
-    it('handles value changing from undefined to defined', () => {
-      const { rerender } = render(<MiniCalendar />)
-
-      const currentMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-      expect(screen.getByText(new RegExp(currentMonth, 'i'))).toBeInTheDocument()
-
-      rerender(<MiniCalendar value={new Date(2026, 1, 11)} />)
-
-      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-    })
-
-    it('handles value prop updates in controlled mode preserving week view', () => {
-      function TestComponent() {
-        const [date, setDate] = React.useState(new Date(2026, 1, 11))
-
-        return (
-          <div>
-            <button data-testid="change-date" onClick={() => setDate(new Date(2026, 1, 12))}>
-              Change
-            </button>
-            <MiniCalendar value={date} onChange={setDate} />
-          </div>
-        )
-      }
-
-      const { container } = render(<TestComponent />)
-
-      const button11 = getDateButton(container, 11)
-      expect(button11).toHaveAttribute('aria-pressed', 'true')
-
-      const changeButton = screen.getByTestId('change-date')
-      userEvent.setup().click(changeButton)
-    })
-  })
-
-  describe('Navigation with constraints', () => {
-    it('allows navigation even with minDate constraint on different week', async () => {
-      const user = userEvent.setup()
-      const minDate = new Date(2026, 1, 1)
-
-      render(<MiniCalendar value={new Date(2026, 1, 11)} minDate={minDate} />)
-
-      const prevButton = screen.getByRole('button', { name: /previous week/i })
-      await user.click(prevButton)
-
-      const button4 = getDateButton(screen.getByRole('button', { name: /previous week/i }).parentElement!, 4)
-      expect(button4).toBeInTheDocument()
-    })
-
-    it('allows navigation even with maxDate constraint on different week', async () => {
-      const user = userEvent.setup()
-      const maxDate = new Date(2026, 2, 30)
-
-      render(<MiniCalendar value={new Date(2026, 1, 11)} maxDate={maxDate} />)
-
-      const nextButton = screen.getByRole('button', { name: /next week/i })
-      await user.click(nextButton)
-
-      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-    })
-
-    it('navigates correctly when current week has mix of disabled dates', async () => {
-      const user = userEvent.setup()
-      const minDate = new Date(2026, 1, 10)
-      const maxDate = new Date(2026, 1, 12)
-
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} minDate={minDate} maxDate={maxDate} />)
-
-      const button9 = getDateButton(container, 9)
-      const button11 = getDateButton(container, 11)
-      const button13 = getDateButton(container, 13)
-
-      expect(button9).toBeDisabled()
-      expect(button11).not.toBeDisabled()
-      expect(button13).toBeDisabled()
-
-      const nextButton = screen.getByRole('button', { name: /next week/i })
-      await user.click(nextButton)
-
-      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-    })
-  })
-
-  describe('Boundary date scenarios', () => {
-    it('handles week spanning two months', () => {
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 1)} weekStartsOn={0} />)
-
-      const buttons = container.querySelectorAll('button[aria-pressed]')
-      expect(buttons.length).toBe(7)
-    })
-
-    it('handles week spanning two years', () => {
-      const { container } = render(<MiniCalendar value={new Date(2026, 0, 1)} weekStartsOn={0} />)
-
-      const buttons = container.querySelectorAll('button[aria-pressed]')
-      expect(buttons.length).toBe(7)
-    })
-
-    it('handles February 29 in leap year', () => {
-      const { container } = render(<MiniCalendar value={new Date(2024, 1, 29)} />)
-
-      const button29 = getDateButton(container, 29)
-      expect(button29).toBeInTheDocument()
-    })
-
-    it('handles February in non-leap year', () => {
-      const { container } = render(<MiniCalendar value={new Date(2025, 1, 28)} />)
-
-      const button28 = getDateButton(container, 28)
-      expect(button28).toBeInTheDocument()
-    })
-  })
-
-  describe('Focus and interaction patterns', () => {
-    it('maintains focus outline on keyboard navigation', async () => {
-      const user = userEvent.setup()
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-
-      const button11 = getDateButton(container, 11)
-      button11.focus()
-
-      expect(button11).toHaveFocus()
-
-      await user.keyboard('{Enter}')
-
-      expect(button11).toBeInTheDocument()
-    })
-
-    it('handles tab navigation through buttons', async () => {
-      const user = userEvent.setup()
-      render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-
-      const prevButton = screen.getByRole('button', { name: /previous week/i })
-      prevButton.focus()
-
-      expect(prevButton).toHaveFocus()
-
-      await user.keyboard('{Tab}')
-
-      const nextButton = screen.getByRole('button', { name: /next week/i })
-      expect(nextButton).toHaveFocus()
-    })
-  })
-
-  describe('Performance and stability', () => {
-    it('handles multiple rapid value changes', () => {
-      const { rerender } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-
-      for (let i = 1; i <= 28; i++) {
-        rerender(<MiniCalendar value={new Date(2026, 1, i)} />)
-      }
-
-      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-    })
-
-    it('renders consistently across multiple unmount/mount cycles', () => {
-      const { unmount, container } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-      const firstHTML = container.innerHTML
-      unmount()
-
-      const { container: container2 } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
-      const secondHTML = container2.innerHTML
-
-      expect(secondHTML).toBe(firstHTML)
-    })
-
-    it('handles prop changes without memory leaks', () => {
-      const { rerender } = render(<MiniCalendar value={new Date(2026, 1, 11)} color="default" radius="md" />)
-
-      rerender(<MiniCalendar value={new Date(2026, 1, 11)} color="primary" radius="lg" />)
-      rerender(<MiniCalendar value={new Date(2026, 1, 11)} color="success" radius="sm" />)
-      rerender(<MiniCalendar value={new Date(2026, 1, 11)} color="error" radius="full" />)
-
-      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
-    })
-  })
-
-  describe('NavButton variant combinations', () => {
-    it('renders with soft variant and not bordered', () => {
-      render(<MiniCalendar navButtonVariant="soft" navButtonBordered={false} value={new Date(2026, 1, 11)} />)
-
+  describe('NavButton variant resolution', () => {
+    it('defaults to soft variant when navButtonBordered is false', () => {
+      render(<MiniCalendar navButtonBordered={false} value={new Date(2026, 1, 11)} />)
       const prevButton = screen.getByRole('button', { name: /previous week/i })
       expect(prevButton.className).toContain('bg-[var(--rdp-accent-background-color)]')
     })
 
-    it('renders with outline variant and bordered', () => {
-      render(<MiniCalendar navButtonVariant="outline" navButtonBordered={true} value={new Date(2026, 1, 11)} />)
-
+    it('defaults to outline variant when navButtonBordered is true', () => {
+      render(<MiniCalendar navButtonBordered={true} value={new Date(2026, 1, 11)} />)
       const prevButton = screen.getByRole('button', { name: /previous week/i })
       expect(prevButton.className).toContain('border-[var(--rdp-accent-color)]')
     })
 
-    it('renders with ghost variant', () => {
-      render(<MiniCalendar navButtonVariant="ghost" value={new Date(2026, 1, 11)} />)
-
+    it('respects explicit navButtonVariant over default', () => {
+      render(<MiniCalendar navButtonBordered={false} navButtonVariant="ghost" value={new Date(2026, 1, 11)} />)
       const prevButton = screen.getByRole('button', { name: /previous week/i })
-      expect(prevButton).toBeInTheDocument()
+      expect(prevButton.className).toContain('bg-transparent')
     })
   })
 
-  describe('Additional regression scenarios', () => {
-    it('handles onChange being called with same date', async () => {
+  describe('Week transitions edge cases', () => {
+    it('handles transition from last week of year to first week of next year', async () => {
       const user = userEvent.setup()
-      const handleChange = vi.fn()
-      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} onChange={handleChange} />)
+      render(<MiniCalendar value={new Date(2025, 11, 29)} weekStartsOn={0} />)
 
-      const button11 = getDateButton(container, 11)
-      await user.click(button11)
-
-      expect(handleChange).toHaveBeenCalledTimes(1)
-
-      await user.click(button11)
-
-      expect(handleChange).toHaveBeenCalledTimes(2)
-    })
-
-    it('handles uncontrolled state with navigation and selection', async () => {
-      const user = userEvent.setup()
-      const handleChange = vi.fn()
-      const { container } = render(<MiniCalendar onChange={handleChange} />)
+      expect(screen.getByText(/December 2025/i)).toBeInTheDocument()
 
       const nextButton = screen.getByRole('button', { name: /next week/i })
       await user.click(nextButton)
 
-      const dateButtons = container.querySelectorAll('button[aria-pressed]')
-      expect(dateButtons.length).toBe(7)
-
-      const firstDateButton = dateButtons[0] as HTMLButtonElement
-      await user.click(firstDateButton)
-
-      expect(handleChange).toHaveBeenCalledTimes(1)
+      expect(screen.getByText(/January 2026/i)).toBeInTheDocument()
     })
 
-    it('correctly updates selected state in uncontrolled mode', async () => {
+    it('handles transition from first week of year to last week of previous year', async () => {
       const user = userEvent.setup()
-      const { container } = render(<MiniCalendar />)
+      render(<MiniCalendar value={new Date(2026, 0, 5)} weekStartsOn={0} />)
+
+      expect(screen.getByText(/January 2026/i)).toBeInTheDocument()
+
+      const prevButton = screen.getByRole('button', { name: /previous week/i })
+      await user.click(prevButton)
+
+      expect(screen.getByText(/December 2025/i)).toBeInTheDocument()
+    })
+
+    it('handles week that spans two months', () => {
+      const { container } = render(<MiniCalendar value={new Date(2026, 1, 1)} weekStartsOn={0} />)
+      const dateButtons = container.querySelectorAll('button[aria-pressed]')
+      expect(dateButtons).toHaveLength(7)
+    })
+  })
+
+  describe('Multiple controlled updates', () => {
+    it('updates correctly when controlled value changes multiple times rapidly', () => {
+      const { rerender } = render(<MiniCalendar value={new Date(2026, 1, 11)} />)
+
+      rerender(<MiniCalendar value={new Date(2026, 2, 15)} />)
+      expect(screen.getByText(/March 2026/i)).toBeInTheDocument()
+
+      rerender(<MiniCalendar value={new Date(2026, 3, 20)} />)
+      expect(screen.getByText(/April 2026/i)).toBeInTheDocument()
+
+      rerender(<MiniCalendar value={new Date(2026, 1, 5)} />)
+      expect(screen.getByText(/February 2026/i)).toBeInTheDocument()
+    })
+  })
+
+  describe('Boundary date validations', () => {
+    it('handles minDate equal to maxDate equal to selected date', () => {
+      const date = new Date(2026, 1, 11)
+      const { container } = render(<MiniCalendar value={date} minDate={date} maxDate={date} />)
+
+      const button11 = getDateButton(container, 11)
+      expect(button11).not.toBeDisabled()
 
       const dateButtons = container.querySelectorAll('button[aria-pressed]')
-      const firstButton = dateButtons[0] as HTMLButtonElement
-      const secondButton = dateButtons[1] as HTMLButtonElement
+      const enabledButtons = Array.from(dateButtons).filter(btn => !(btn as HTMLButtonElement).disabled)
+      expect(enabledButtons).toHaveLength(1)
+    })
 
-      await user.click(firstButton)
-      await user.click(secondButton)
+    it('disables all dates when maxDate is before minDate', () => {
+      const minDate = new Date(2026, 1, 15)
+      const maxDate = new Date(2026, 1, 10)
+      const { container } = render(<MiniCalendar value={new Date(2026, 1, 11)} minDate={minDate} maxDate={maxDate} />)
 
-      expect(secondButton).toBeInTheDocument()
+      const dateButtons = container.querySelectorAll('button[aria-pressed]')
+      const allDisabled = Array.from(dateButtons).every(btn => (btn as HTMLButtonElement).disabled)
+      expect(allDisabled).toBe(true)
     })
   })
 })

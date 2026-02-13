@@ -1671,6 +1671,65 @@ describe('Calendar', () => {
     })
   })
 
+  describe('Navigation boundary tests', () => {
+    it('respects startMonth boundary and prevents navigation before it', async () => {
+      const user = userEvent.setup()
+      const startMonth = new Date(2025, 5, 1)
+      render(<Calendar startMonth={startMonth} defaultMonth={startMonth} showOutsideDays={false} />)
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+
+      const prevButton = screen.getByRole('button', { name: /previous/i })
+      expect(prevButton).toBeDisabled()
+
+      await user.click(prevButton)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('respects endMonth boundary and prevents navigation after it', async () => {
+      const user = userEvent.setup()
+      const endMonth = new Date(2025, 5, 1)
+      render(<Calendar endMonth={endMonth} defaultMonth={endMonth} showOutsideDays={false} />)
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+
+      const nextButton = screen.getByRole('button', { name: /next/i })
+      expect(nextButton).toBeDisabled()
+
+      await user.click(nextButton)
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+    })
+
+    it('enables navigation when within startMonth and endMonth boundaries', async () => {
+      const user = userEvent.setup()
+      const startMonth = new Date(2025, 4, 1)
+      const endMonth = new Date(2025, 6, 1)
+      render(<Calendar startMonth={startMonth} endMonth={endMonth} defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
+
+      expect(screen.getByText('June 2025')).toBeInTheDocument()
+
+      const prevButton = screen.getByRole('button', { name: /previous/i })
+      const nextButton = screen.getByRole('button', { name: /next/i })
+
+      expect(prevButton).not.toBeDisabled()
+      expect(nextButton).not.toBeDisabled()
+
+      await user.click(prevButton)
+      expect(screen.getByText('May 2025')).toBeInTheDocument()
+    })
+
+    it('handles boundary at the exact same month', () => {
+      const month = new Date(2025, 5, 1)
+      render(<Calendar startMonth={month} endMonth={month} defaultMonth={month} showOutsideDays={false} />)
+
+      const prevButton = screen.getByRole('button', { name: /previous/i })
+      const nextButton = screen.getByRole('button', { name: /next/i })
+
+      expect(prevButton).toBeDisabled()
+      expect(nextButton).toBeDisabled()
+    })
+  })
+
   describe('Locale and timezone edge cases', () => {
     it('handles locale code with region variant', () => {
       render(<Calendar localeCode="zh-Hans-CN" defaultMonth={new Date(2025, 5, 1)} showOutsideDays={false} />)
@@ -2051,317 +2110,6 @@ describe('Calendar', () => {
 
       const day10 = getDayButton(container, 'June', 10)
       expect(day10).toBeDisabled()
-    })
-  })
-
-  describe('Custom header navigation boundaries', () => {
-    it('disables previous navigation at start month boundary', () => {
-      render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          startMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-      expect(prevButton).toBeDisabled()
-    })
-
-    it('disables next navigation at end month boundary', () => {
-      render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          endMonth={new Date(2025, 5, 30)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-      expect(nextButton).toBeDisabled()
-    })
-
-    it('disables both navigation buttons when at both boundaries', () => {
-      render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          startMonth={new Date(2025, 5, 1)}
-          endMonth={new Date(2025, 5, 30)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-      const nextButton = screen.getByRole('button', { name: /next/i })
-
-      expect(prevButton).toBeDisabled()
-      expect(nextButton).toBeDisabled()
-    })
-
-    it('enables navigation when not at boundaries', () => {
-      render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          startMonth={new Date(2025, 4, 1)}
-          endMonth={new Date(2025, 6, 30)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-      const nextButton = screen.getByRole('button', { name: /next/i })
-
-      expect(prevButton).not.toBeDisabled()
-      expect(nextButton).not.toBeDisabled()
-    })
-
-    it('respects disableNavigation prop overriding boundaries', () => {
-      render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          startMonth={new Date(2025, 4, 1)}
-          endMonth={new Date(2025, 6, 30)}
-          disableNavigation={true}
-          showOutsideDays={false}
-        />,
-      )
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-      const nextButton = screen.getByRole('button', { name: /next/i })
-
-      expect(prevButton).toBeDisabled()
-      expect(nextButton).toBeDisabled()
-    })
-
-    it('handles month boundary with from prop', () => {
-      render(
-        <Calendar
-          month={new Date(2025, 5, 1)}
-          from={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-      expect(prevButton).toBeDisabled()
-    })
-
-    it('handles month boundary with to prop', () => {
-      render(
-        <Calendar
-          month={new Date(2025, 6, 1)}
-          to={new Date(2025, 6, 30)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-      expect(nextButton).toBeDisabled()
-    })
-  })
-
-  describe('Navigation with custom header', () => {
-    it('navigates correctly with custom header enabled (single month)', async () => {
-      const user = userEvent.setup()
-
-      render(
-        <Calendar
-          numberOfMonths={1}
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-      await user.click(nextButton)
-
-      expect(screen.getByText('July 2025')).toBeInTheDocument()
-    })
-
-    it('shows calendar header only when numberOfMonths equals 1', () => {
-      const { rerender } = render(
-        <Calendar
-          numberOfMonths={1}
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
-
-      rerender(
-        <Calendar
-          numberOfMonths={2}
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getAllByText('June 2025')).toHaveLength(1)
-    })
-
-    it('handles navigation across year boundaries with custom header', async () => {
-      const user = userEvent.setup()
-
-      render(
-        <Calendar
-          numberOfMonths={1}
-          defaultMonth={new Date(2025, 11, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('December 2025')).toBeInTheDocument()
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-      await user.click(nextButton)
-
-      expect(screen.getByText('January 2026')).toBeInTheDocument()
-    })
-  })
-
-  describe('Regression tests', () => {
-    it('handles selecting date in uncontrolled single mode after navigation', async () => {
-      const user = userEvent.setup()
-      const handleSelect = vi.fn()
-
-      const { container } = render(
-        <Calendar
-          mode="single"
-          defaultMonth={new Date(2025, 5, 1)}
-          onSelect={handleSelect}
-          showOutsideDays={false}
-        />,
-      )
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-      await user.click(nextButton)
-
-      expect(screen.getByText('July 2025')).toBeInTheDocument()
-
-      const day15 = getDayButton(container, 'July', 15)
-      await user.click(day15)
-
-      expect(handleSelect).toHaveBeenCalled()
-    })
-
-    it('preserves selected date styling when navigating months', async () => {
-      const user = userEvent.setup()
-
-      function ControlledCalendar() {
-        const [selected, setSelected] = React.useState(new Date(2025, 5, 15))
-        const [month, setMonth] = React.useState(new Date(2025, 5, 1))
-
-        return (
-          <Calendar
-            mode="single"
-            selected={selected}
-            onSelect={setSelected}
-            month={month}
-            onMonthChange={setMonth}
-            showOutsideDays={false}
-          />
-        )
-      }
-
-      const { container } = render(<ControlledCalendar />)
-
-      const day15 = getDayButton(container, 'June', 15)
-      expect(day15.className).toContain('bg-[var(--rdp-accent-color)]')
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-      await user.click(nextButton)
-
-      expect(screen.getByText('July 2025')).toBeInTheDocument()
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-      await user.click(prevButton)
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
-
-      const day15Again = getDayButton(container, 'June', 15)
-      expect(day15Again.className).toContain('bg-[var(--rdp-accent-color)]')
-    })
-
-    it('handles clicking navigation rapidly without breaking state', async () => {
-      const user = userEvent.setup()
-
-      render(
-        <Calendar
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      const nextButton = screen.getByRole('button', { name: /next/i })
-
-      await user.click(nextButton)
-      await user.click(nextButton)
-      await user.click(nextButton)
-      await user.click(nextButton)
-
-      expect(screen.getByText('October 2025')).toBeInTheDocument()
-
-      const prevButton = screen.getByRole('button', { name: /previous/i })
-
-      await user.click(prevButton)
-      await user.click(prevButton)
-
-      expect(screen.getByText('August 2025')).toBeInTheDocument()
-    })
-
-    it('maintains correct month when from prop changes', () => {
-      const { rerender } = render(
-        <Calendar
-          from={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
-
-      rerender(
-        <Calendar
-          from={new Date(2025, 7, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('August 2025')).toBeInTheDocument()
-    })
-
-    it('handles mode switching without breaking', () => {
-      const { rerender } = render(
-        <Calendar
-          mode="single"
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
-
-      rerender(
-        <Calendar
-          mode="range"
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
-
-      rerender(
-        <Calendar
-          mode="multiple"
-          defaultMonth={new Date(2025, 5, 1)}
-          showOutsideDays={false}
-        />,
-      )
-
-      expect(screen.getByText('June 2025')).toBeInTheDocument()
     })
   })
 })

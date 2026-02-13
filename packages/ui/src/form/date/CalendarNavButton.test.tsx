@@ -399,6 +399,53 @@ describe('CalendarNavButton', () => {
     })
   })
 
+  describe('Variant resolution edge cases', () => {
+    it('resolves to outline variant when variant is explicitly outline', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant="outline" bordered={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('border-[var(--rdp-accent-color)]')
+    })
+
+    it('resolves to ghost variant when variant is explicitly ghost', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant="ghost" bordered={false} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('bg-transparent')
+      expect(button.className).toContain('hover:bg-[var(--rdp-accent-background-color)]')
+    })
+
+    it('resolves to soft variant when variant is explicitly soft', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant="soft" bordered={true} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('bg-[var(--rdp-accent-background-color)]')
+    })
+
+    it('uses bordered to determine default variant when variant is undefined', () => {
+      render(
+        <CalendarNavButton {...defaultProps} variant={undefined} bordered={true} aria-label="Test button">
+          <span>Icon</span>
+        </CalendarNavButton>,
+      )
+
+      const button = screen.getByRole('button', { name: 'Test button' })
+      expect(button.className).toContain('border-[var(--rdp-accent-color)]')
+    })
+  })
+
   describe('Additional edge cases', () => {
     it('handles rapid clicks', async () => {
       const user = userEvent.setup()
