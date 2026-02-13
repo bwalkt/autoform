@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'lucide-react'
 import * as React from 'react'
 import { createPortal } from 'react-dom'
 import type { Color, Radius } from '@/elements/tokens'
@@ -148,12 +148,18 @@ export function CalendarHeader({
           }
         }}
         className={cn(
-          'truncate text-sm font-medium select-none',
-          onMonthYearChange && 'cursor-pointer',
+          'inline-flex items-center gap-1 truncate text-sm font-medium select-none',
+          onMonthYearChange && 'cursor-pointer transition-colors hover:text-foreground/60',
           titleClassName,
         )}
       >
         {title}
+        {onMonthYearChange &&
+          (pickerOpen ? (
+            <ChevronUpIcon className="shrink-0" width={14} height={14} />
+          ) : (
+            <ChevronDownIcon className="shrink-0" width={14} height={14} />
+          ))}
       </span>
       <div className={cn('flex items-center gap-1', navClassName)}>
         <CalendarNavButton
