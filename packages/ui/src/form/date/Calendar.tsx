@@ -15,7 +15,6 @@ import {
 } from 'react-day-picker'
 import { useOptionalThemeContext } from '@/elements/Theme'
 import { type Color, designTokens, type Radius } from '@/elements/tokens'
-import { WheelPicker, type WheelPickerOption, WheelPickerWrapper } from '@/elements/wheel-picker/wheel-picker'
 import { cn } from '@/lib/utils'
 import { CalendarNavButton } from './CalendarNavButton'
 
@@ -189,7 +188,6 @@ export function Calendar({
     : (numberOfMonths ?? 1)
   const resolvedPagedNavigation = pagedNavigationProp ?? resolvedNumberOfMonths > 1
   const useCustomHeader = resolvedNumberOfMonths === 1
-  const [isPickerOpen, setIsPickerOpen] = React.useState(false)
   const resolvedColors = resolveCalendarColors(color)
   const dateFormatOptions = React.useMemo(
     () => (resolvedTimeZone ? ({ timeZone: resolvedTimeZone } as const) : undefined),
@@ -264,27 +262,6 @@ export function Calendar({
     if (!canNavigateNext || dayPickerProps.disableNavigation) return
     handleMonthChange(addMonths(displayedMonth, 1))
   }, [canNavigateNext, dayPickerProps.disableNavigation, displayedMonth, handleMonthChange])
-
-  const clampToBoundaries = React.useCallback(
-    (candidate: Date): Date => {
-      if (fromMonthBoundary && candidate < startOfMonth(fromMonthBoundary)) {
-        return startOfMonth(fromMonthBoundary)
-      }
-      if (toMonthBoundary && candidate > startOfMonth(toMonthBoundary)) {
-        return startOfMonth(toMonthBoundary)
-      }
-      return candidate
-    },
-    [fromMonthBoundary, toMonthBoundary],
-  )
-
-  const handleSelectMonthYear = React.useCallback(
-    (monthIndex: number, year: number) => {
-      const candidate = clampToBoundaries(startOfMonth(new Date(year, monthIndex, 1)))
-      handleMonthChange(candidate)
-    },
-    [clampToBoundaries, handleMonthChange],
-  )
 
   React.useEffect(() => {
     if (resolvedMode !== 'multiple' || !isMultipleControlled) {
@@ -555,33 +532,6 @@ export function Calendar({
   } as DayPickerProps
 
   const ChevronComponent = components?.Chevron
-  const monthLabelFormatter = React.useMemo(
-    () =>
-      new Intl.DateTimeFormat(safeLocaleCode, {
-        month: 'short',
-        ...dateFormatOptions,
-      }),
-    [safeLocaleCode, dateFormatOptions],
-  )
-  const monthOptions = React.useMemo<WheelPickerOption<number>[]>(
-    () =>
-      Array.from({ length: 12 }, (_, index) => ({
-        value: index,
-        label: monthLabelFormatter.format(new Date(2025, index, 1)),
-      })),
-    [monthLabelFormatter],
-  )
-  const currentYear = displayedMonth.getFullYear()
-  const minYear = dayPickerProps.fromYear ?? fromMonthBoundary?.getFullYear() ?? currentYear - 100
-  const maxYear = dayPickerProps.toYear ?? toMonthBoundary?.getFullYear() ?? currentYear + 100
-  const yearOptions = React.useMemo<WheelPickerOption<number>[]>(
-    () =>
-      Array.from({ length: Math.max(1, maxYear - minYear + 1) }, (_, index) => {
-        const year = minYear + index
-        return { value: year, label: year.toString() }
-      }),
-    [maxYear, minYear],
-  )
   const previousIcon = ChevronComponent ? (
     <ChevronComponent orientation="left" className="!text-current !opacity-100" />
   ) : (
@@ -596,92 +546,40 @@ export function Calendar({
   return (
     <div className="w-fit">
       {useCustomHeader ? (
-        <div className="relative mb-1">
-          <div className="flex h-(--cell-size) items-center justify-between gap-2">
-            <span className="sr-only">{captionFormatter.format(displayedMonth)}</span>
-            <div className="flex min-w-0 items-center gap-1">
-              <button
-                type="button"
-                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-sm font-medium hover:bg-muted/50"
-                onClick={() => setIsPickerOpen(open => !open)}
-                aria-label="Select month"
-              >
-                <span className="truncate">{monthLabelFormatter.format(displayedMonth)}</span>
-                <ChevronDownIcon className={cn('h-3.5 w-3.5 transition-transform', isPickerOpen && 'rotate-180')} />
-              </button>
-              <button
-                type="button"
-                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-sm font-medium hover:bg-muted/50"
-                onClick={() => setIsPickerOpen(open => !open)}
-                aria-label="Select year"
-              >
-                <span>{displayedMonth.getFullYear()}</span>
-                <ChevronDownIcon className={cn('h-3.5 w-3.5 transition-transform', isPickerOpen && 'rotate-180')} />
-              </button>
-            </div>
-            <div className="flex items-center gap-1">
-              <CalendarNavButton
-                color={resolvedNavButtonColor}
-                radius={resolvedRadius}
-                variant={resolvedNavButtonVariant}
-                bordered={resolvedNavButtonBordered}
-                accentColor={resolvedColors.accent}
-                softColor={resolvedColors.soft}
-                foregroundColor={resolvedColors.foreground}
-                className={navButtonClassName}
-                aria-label="Previous month"
-                onClick={handlePrevMonth}
-                disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
-              >
-                {previousIcon}
-              </CalendarNavButton>
-              <CalendarNavButton
-                color={resolvedNavButtonColor}
-                radius={resolvedRadius}
-                variant={resolvedNavButtonVariant}
-                bordered={resolvedNavButtonBordered}
-                accentColor={resolvedColors.accent}
-                softColor={resolvedColors.soft}
-                foregroundColor={resolvedColors.foreground}
-                className={navButtonClassName}
-                aria-label="Next month"
-                onClick={handleNextMonth}
-                disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
-              >
-                {nextIcon}
-              </CalendarNavButton>
-            </div>
+        <div className="mb-1 flex h-(--cell-size) items-center justify-between gap-2">
+          <span className="truncate text-sm font-medium">{captionFormatter.format(displayedMonth)}</span>
+          <div className="flex items-center gap-1">
+            <CalendarNavButton
+              color={resolvedNavButtonColor}
+              radius={resolvedRadius}
+              variant={resolvedNavButtonVariant}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
+              className={navButtonClassName}
+              aria-label="Previous month"
+              onClick={handlePrevMonth}
+              disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
+            >
+              {previousIcon}
+            </CalendarNavButton>
+            <CalendarNavButton
+              color={resolvedNavButtonColor}
+              radius={resolvedRadius}
+              variant={resolvedNavButtonVariant}
+              bordered={resolvedNavButtonBordered}
+              accentColor={resolvedColors.accent}
+              softColor={resolvedColors.soft}
+              foregroundColor={resolvedColors.foreground}
+              className={navButtonClassName}
+              aria-label="Next month"
+              onClick={handleNextMonth}
+              disabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+            >
+              {nextIcon}
+            </CalendarNavButton>
           </div>
-          {isPickerOpen ? (
-            <div className="absolute left-0 top-[calc(var(--cell-size)+0.25rem)] z-20">
-              <WheelPickerWrapper className="w-[16rem] rounded-md border bg-popover p-2 shadow-md">
-                <div className="grid grid-cols-2 gap-2">
-                  <WheelPicker
-                    value={displayedMonth.getMonth()}
-                    onValueChange={monthIndex => handleSelectMonthYear(monthIndex, displayedMonth.getFullYear())}
-                    options={monthOptions}
-                    visibleCount={20}
-                    optionItemHeight={32}
-                    classNames={{
-                      optionItem: 'text-sm',
-                      highlightWrapper: 'rounded-md bg-muted text-foreground',
-                    }}
-                  />
-                  <WheelPicker
-                    value={displayedMonth.getFullYear()}
-                    onValueChange={year => handleSelectMonthYear(displayedMonth.getMonth(), year)}
-                    options={yearOptions}
-                    visibleCount={20}
-                    optionItemHeight={32}
-                    classNames={{
-                      optionItem: 'text-sm',
-                      highlightWrapper: 'rounded-md bg-muted text-foreground',
-                    }}
-                  />
-                </div>
-              </WheelPickerWrapper>
-            </div>
-          ) : null}
         </div>
       ) : null}
       <DayPicker {...pickerProps} />
