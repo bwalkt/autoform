@@ -48,6 +48,7 @@ type CalendarCommonProps = Omit<
   pagedNavigation?: boolean
   navButtonBordered?: boolean
   navButtonVariant?: 'soft' | 'outline' | 'ghost'
+  showMonthYearPicker?: boolean
 }
 
 type CalendarSingleProps = {
@@ -141,6 +142,7 @@ export function Calendar({
   numberOfMonths,
   navButtonBordered: navButtonBorderedProp,
   navButtonVariant: navButtonVariantProp,
+  showMonthYearPicker = true,
   formatters,
   components,
   ...dayPickerProps
@@ -569,7 +571,7 @@ export function Calendar({
           previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
           nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
           displayedMonth={displayedMonth}
-          onMonthYearChange={handleMonthChange}
+          onMonthYearChange={showMonthYearPicker ? handleMonthChange : undefined}
           localeCode={safeLocaleCode}
           startMonth={fromMonthBoundary ?? undefined}
           endMonth={toMonthBoundary ?? undefined}

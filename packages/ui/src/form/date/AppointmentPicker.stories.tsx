@@ -96,7 +96,7 @@ export const CustomTimeSlots: Story = {
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
-          timeSlots={customSlots}
+          defaultTimeSlots={customSlots}
           title="Select available time"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
@@ -110,7 +110,7 @@ export const DynamicSlots: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
 
-    const getTimeSlotsForDate = (date: Date): TimeSlot[] => {
+    const getAvailableTimeSlots = (date: Date): TimeSlot[] => {
       const dayOfWeek = date.getDay()
 
       // Weekend - limited hours
@@ -140,7 +140,7 @@ export const DynamicSlots: Story = {
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
-          getTimeSlotsForDate={getTimeSlotsForDate}
+          getAvailableTimeSlots={getAvailableTimeSlots}
           title="Book appointment (different hours on weekends)"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
@@ -194,12 +194,12 @@ export const CustomConfirmationFormat: Story = {
           onChange={setAppointment}
           title="Schedule your demo"
           confirmText="Confirm Booking"
-          formatConfirmation={value =>
+          bookingMessage={(value, durationMinutes) =>
             `Demo scheduled: ${value.date.toLocaleDateString('en-US', {
               weekday: 'short',
               month: 'short',
               day: 'numeric',
-            })} @ ${value.time}`
+            })} @ ${value.time} (${durationMinutes} min)`
           }
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
@@ -261,7 +261,7 @@ export const CompactSlots: Story = {
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
-          timeSlots={shortSlots}
+          defaultTimeSlots={shortSlots}
           timeSlotHeight="200px"
           title="Quick booking"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
