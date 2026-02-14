@@ -37,11 +37,20 @@ export interface CalendarHeaderProps {
   endMonth?: Date
 }
 
-function buildMonthOptions(localeCode: string): WheelPickerOption<number>[] {
+function buildMonthOptions(
+  localeCode: string,
+  year: number,
+  startMonth?: Date,
+  endMonth?: Date,
+): WheelPickerOption<number>[] {
   const formatter = new Intl.DateTimeFormat(localeCode, { month: 'long' })
+  const minMonth = startMonth && year === startMonth.getFullYear() ? startMonth.getMonth() : 0
+  const maxMonth = endMonth && year === endMonth.getFullYear() ? endMonth.getMonth() : 11
+
   return Array.from({ length: 12 }, (_, i) => ({
     value: i,
     label: formatter.format(new Date(2000, i, 1)),
+    disabled: i < minMonth || i > maxMonth,
   }))
 }
 
@@ -51,6 +60,16 @@ function buildYearOptions(startYear: number, endYear: number): WheelPickerOption
     options.push({ value: y, label: String(y) })
   }
   return options
+}
+
+function clampMonth(month: number, year: number, startMonth?: Date, endMonth?: Date): number {
+  if (startMonth && year === startMonth.getFullYear() && month < startMonth.getMonth()) {
+    return startMonth.getMonth()
+  }
+  if (endMonth && year === endMonth.getFullYear() && month > endMonth.getMonth()) {
+    return endMonth.getMonth()
+  }
+  return month
 }
 
 export function CalendarHeader({
@@ -85,8 +104,10 @@ export function CalendarHeader({
 
   const [pickerOpen, setPickerOpen] = React.useState(false)
   const [portalPos, setPortalPos] = React.useState({ top: 0, left: 0 })
-  const titleRef = React.useRef<HTMLSpanElement>(null)
+  const titleRef = React.useRef<HTMLElement>(null)
   const overlayRef = React.useRef<HTMLDivElement>(null)
+  const pickerDialogId = React.useId()
+  const hasMonthYearPicker = Boolean(onMonthYearChange)
 
   const currentMonth = displayedMonth?.getMonth() ?? new Date().getMonth()
   const currentYear = displayedMonth?.getFullYear() ?? new Date().getFullYear()
@@ -102,11 +123,14 @@ export function CalendarHeader({
   const startYear = startMonth?.getFullYear() ?? currentYear - 100
   const endYear = endMonth?.getFullYear() ?? currentYear + 100
 
-  const monthOptions = React.useMemo(() => buildMonthOptions(localeCode), [localeCode])
+  const monthOptions = React.useMemo(
+    () => buildMonthOptions(localeCode, selectedYear, startMonth, endMonth),
+    [localeCode, selectedYear, startMonth, endMonth],
+  )
   const yearOptions = React.useMemo(() => buildYearOptions(startYear, endYear), [startYear, endYear])
 
   const handleTitleClick = () => {
-    if (!onMonthYearChange) return
+    if (!hasMonthYearPicker) return
     if (pickerOpen) {
       setPickerOpen(false)
       return
@@ -120,48 +144,59 @@ export function CalendarHeader({
 
   const handleMonthChange = React.useCallback(
     (value: number) => {
-      setSelectedMonth(value)
-      onMonthYearChange?.(new Date(selectedYear, value, 1))
+      const clampedMonth = clampMonth(value, selectedYear, startMonth, endMonth)
+      setSelectedMonth(clampedMonth)
+      onMonthYearChange?.(new Date(selectedYear, clampedMonth, 1))
     },
-    [selectedYear, onMonthYearChange],
+    [selectedYear, onMonthYearChange, startMonth, endMonth],
   )
 
   const handleYearChange = React.useCallback(
     (value: number) => {
       setSelectedYear(value)
-      onMonthYearChange?.(new Date(value, selectedMonth, 1))
+      const clampedMonth = clampMonth(selectedMonth, value, startMonth, endMonth)
+      setSelectedMonth(clampedMonth)
+      onMonthYearChange?.(new Date(value, clampedMonth, 1))
     },
-    [selectedMonth, onMonthYearChange],
+    [selectedMonth, onMonthYearChange, startMonth, endMonth],
   )
 
   return (
     <div className={cn('flex h-(--cell-size) items-center justify-between gap-2', className)}>
-      <span
-        ref={titleRef}
-        role="button"
-        tabIndex={onMonthYearChange ? 0 : undefined}
-        onClick={handleTitleClick}
-        onKeyDown={e => {
-          if (onMonthYearChange && (e.key === 'Enter' || e.key === ' ')) {
-            e.preventDefault()
-            handleTitleClick()
-          }
-        }}
-        className={cn(
-          'inline-flex items-center gap-1 truncate text-sm font-medium select-none',
-          onMonthYearChange && 'cursor-pointer transition-colors hover:text-foreground/60',
-          titleClassName,
-        )}
-      >
-        {title}
-        {onMonthYearChange && (
+      {hasMonthYearPicker ? (
+        <button
+          ref={node => {
+            titleRef.current = node
+          }}
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded={pickerOpen}
+          aria-controls={pickerOpen ? pickerDialogId : undefined}
+          onClick={handleTitleClick}
+          className={cn(
+            'inline-flex items-center gap-1 truncate text-sm font-medium select-none',
+            'cursor-pointer transition-colors hover:text-foreground/60',
+            'appearance-none border-0 bg-transparent p-0 m-0 text-inherit text-left font-inherit',
+            titleClassName,
+          )}
+        >
+          {title}
           <ChevronDownIcon
             className={cn('shrink-0 transition-transform', pickerOpen && 'rotate-180')}
             width={14}
             height={14}
           />
-        )}
-      </span>
+        </button>
+      ) : (
+        <span
+          ref={node => {
+            titleRef.current = node
+          }}
+          className={cn('truncate text-sm font-medium', titleClassName)}
+        >
+          {title}
+        </span>
+      )}
       <div className={cn('flex items-center gap-1', navClassName)}>
         <CalendarNavButton
           color={color}
@@ -216,6 +251,9 @@ export function CalendarHeader({
             />
             <div
               ref={overlayRef}
+              id={pickerDialogId}
+              role="dialog"
+              aria-label="Select month and year"
               style={{
                 position: 'fixed',
                 zIndex: 99999,
