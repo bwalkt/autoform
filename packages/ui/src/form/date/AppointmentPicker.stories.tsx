@@ -10,6 +10,15 @@ const meta: Meta<typeof AppointmentPicker> = {
   parameters: {
     layout: 'centered',
   },
+  args: {
+    size: '1',
+  },
+  argTypes: {
+    size: {
+      control: { type: 'radio' },
+      options: ['1', '2'],
+    },
+  },
 }
 
 export default meta
@@ -17,13 +26,14 @@ type Story = StoryObj<typeof AppointmentPicker>
 
 // Default AppointmentPicker
 export const Default: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
       <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
+          size={args.size}
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
       </div>
@@ -33,7 +43,7 @@ export const Default: Story = {
 
 // With preselected value
 export const WithValue: Story = {
-  render: () => {
+  render: args => {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
 
@@ -46,6 +56,7 @@ export const WithValue: Story = {
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
+          size={args.size}
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
       </div>
@@ -55,13 +66,14 @@ export const WithValue: Story = {
 
 // Custom title
 export const CustomTitle: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
       <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
+          size={args.size}
           title="Schedule a consultation"
           confirmText="Book Now"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
@@ -73,7 +85,7 @@ export const CustomTitle: Story = {
 
 // Custom time slots (30-minute intervals)
 export const CustomTimeSlots: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
 
     const customSlots: TimeSlot[] = [
@@ -97,6 +109,7 @@ export const CustomTimeSlots: Story = {
           value={appointment}
           onChange={setAppointment}
           defaultTimeSlots={customSlots}
+          size={args.size}
           title="Select available time"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
@@ -107,7 +120,7 @@ export const CustomTimeSlots: Story = {
 
 // Dynamic slots based on date
 export const DynamicSlots: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
 
     const getAvailableTimeSlots = (date: Date): TimeSlot[] => {
@@ -141,6 +154,7 @@ export const DynamicSlots: Story = {
           value={appointment}
           onChange={setAppointment}
           getAvailableTimeSlots={getAvailableTimeSlots}
+          size={args.size}
           title="Book appointment (different hours on weekends)"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
@@ -151,11 +165,11 @@ export const DynamicSlots: Story = {
 
 // Without confirmation button
 export const WithoutConfirmButton: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
       <div>
-        <AppointmentPicker value={appointment} onChange={setAppointment} showConfirmButton={false} />
+        <AppointmentPicker value={appointment} onChange={setAppointment} size={args.size} showConfirmButton={false} />
         {appointment && (
           <p className="text-sm text-muted-foreground mt-4 text-center">
             Selected: {appointment.date.toLocaleDateString()} at {appointment.time}
@@ -168,7 +182,7 @@ export const WithoutConfirmButton: Story = {
 
 // Without confirmation message
 export const WithoutConfirmation: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
       <div>
@@ -176,6 +190,7 @@ export const WithoutConfirmation: Story = {
           value={appointment}
           onChange={setAppointment}
           showConfirmation={false}
+          size={args.size}
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
       </div>
@@ -185,7 +200,7 @@ export const WithoutConfirmation: Story = {
 
 // Custom confirmation format
 export const CustomConfirmationFormat: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
       <div>
@@ -194,6 +209,7 @@ export const CustomConfirmationFormat: Story = {
           onChange={setAppointment}
           title="Schedule your demo"
           confirmText="Confirm Booking"
+          size={args.size}
           bookingMessage={(value, durationMinutes) =>
             `Demo scheduled: ${value.date.toLocaleDateString('en-US', {
               weekday: 'short',
@@ -210,7 +226,7 @@ export const CustomConfirmationFormat: Story = {
 
 // With min date (future only)
 export const FutureOnly: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     const today = new Date()
     today.setHours(0, 0, 0, 0)
@@ -221,6 +237,7 @@ export const FutureOnly: Story = {
           value={appointment}
           onChange={setAppointment}
           minDate={today}
+          size={args.size}
           title="Book a future appointment"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />
@@ -245,7 +262,7 @@ export const Disabled: Story = {
 
 // Compact time slot height
 export const CompactSlots: Story = {
-  render: () => {
+  render: args => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
 
     const shortSlots: TimeSlot[] = [
@@ -263,6 +280,7 @@ export const CompactSlots: Story = {
           onChange={setAppointment}
           defaultTimeSlots={shortSlots}
           timeSlotWidth="10rem"
+          size={args.size}
           title="Quick booking"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />

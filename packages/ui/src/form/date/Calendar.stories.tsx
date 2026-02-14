@@ -28,6 +28,10 @@ const meta: Meta<typeof Calendar> = {
       control: { type: 'select' },
       options: ['soft', 'outline', 'ghost'],
     },
+    size: {
+      control: { type: 'radio' },
+      options: ['1', '2'],
+    },
   },
 }
 
@@ -43,6 +47,7 @@ type CalendarMatrixArgs = {
   radius: 'none' | 'sm' | 'md' | 'lg' | 'full'
   navButtonBordered: boolean
   navButtonVariant: 'soft' | 'outline' | 'ghost'
+  size: '1' | '2'
   min?: number
   max?: number
 }
@@ -71,6 +76,7 @@ export const DefaultMonth: Story = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -85,6 +91,7 @@ export const DefaultMonth: Story = {
           radius={args.radius}
           navButtonBordered={args.navButtonBordered}
           navButtonVariant={args.navButtonVariant}
+          size={args.size}
           className="rounded-md border"
         />
       </div>
@@ -100,6 +107,7 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
     min: undefined,
     max: undefined,
   },
@@ -127,6 +135,10 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
       control: { type: 'select' },
       options: ['soft', 'outline', 'ghost'],
     },
+    size: {
+      control: { type: 'radio' },
+      options: ['1', '2'],
+    },
     min: {
       control: { type: 'number' },
     },
@@ -150,6 +162,7 @@ export const ModeAndMonths: StoryObj<CalendarMatrixArgs> = {
       radius: args.radius,
       navButtonBordered: args.navButtonBordered,
       navButtonVariant: args.navButtonVariant,
+      size: args.size,
       numberOfMonths: args.months,
       pagedNavigation: args.months > 1,
       defaultMonth: new Date(2025, 5, 1),
@@ -186,6 +199,7 @@ export const SingleMonthRange: Story = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
   },
   render: args => {
     const [range, setRange] = React.useState<DateRange | undefined>({
@@ -204,6 +218,7 @@ export const SingleMonthRange: Story = {
           radius={args.radius}
           navButtonBordered={args.navButtonBordered}
           navButtonVariant={args.navButtonVariant}
+          size={args.size}
           className="rounded-md border"
         />
         <p className="text-muted-foreground mt-3 text-center text-xs">Single month range selection</p>
@@ -219,6 +234,7 @@ export const MultiMonthRange: Story = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
   },
   render: args => {
     const [range, setRange] = React.useState<DateRange | undefined>({
@@ -239,6 +255,7 @@ export const MultiMonthRange: Story = {
           radius={args.radius}
           navButtonBordered={args.navButtonBordered}
           navButtonVariant={args.navButtonVariant}
+          size={args.size}
           className="rounded-md border"
         />
         <p className="text-muted-foreground mt-3 text-center text-xs">Multi month calendar with range selection</p>
@@ -254,6 +271,7 @@ export const Multiple: Story = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
   },
   render: args => {
     const [dates, setDates] = React.useState<Date[] | undefined>([])
@@ -266,6 +284,7 @@ export const Multiple: Story = {
         radius={args.radius}
         navButtonBordered={args.navButtonBordered}
         navButtonVariant={args.navButtonVariant}
+        size={args.size}
         className="rounded-md border"
       />
     )
@@ -279,6 +298,7 @@ export const WithMinMaxDates: Story = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -297,6 +317,7 @@ export const WithMinMaxDates: Story = {
         radius={args.radius}
         navButtonBordered={args.navButtonBordered}
         navButtonVariant={args.navButtonVariant}
+        size={args.size}
         className="rounded-md border"
       />
     )
@@ -310,6 +331,7 @@ export const HideOutsideDays: Story = {
     radius: 'md',
     navButtonBordered: false,
     navButtonVariant: 'soft',
+    size: '1',
   },
   render: args => {
     const [date, setDate] = React.useState<Date | undefined>(new Date())
@@ -323,6 +345,7 @@ export const HideOutsideDays: Story = {
         radius={args.radius}
         navButtonBordered={args.navButtonBordered}
         navButtonVariant={args.navButtonVariant}
+        size={args.size}
         className="rounded-md border"
       />
     )

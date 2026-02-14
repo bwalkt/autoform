@@ -200,6 +200,8 @@ export const MiniCalendar = React.forwardRef<HTMLDivElement, MiniCalendarProps>(
             onNext={handleNextWeek}
             previousDisabled={disabled}
             nextDisabled={disabled}
+            displayedMonth={currentDate}
+            onMonthYearChange={date => setCurrentDate(date)}
           />
         )}
 
