@@ -445,6 +445,7 @@ export function Calendar({
       today: cn(
         'font-normal',
         '[&>button]:bg-[var(--rdp-accent-background-color)] [&>button]:text-foreground',
+        '[&[data-selected=true]>button]:bg-[var(--rdp-accent-color)] [&[data-selected=true]>button]:text-[var(--cal-accent-foreground)]',
         defaultClassNames.today,
       ),
       selected: cn(
