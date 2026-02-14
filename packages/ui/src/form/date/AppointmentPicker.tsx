@@ -27,7 +27,7 @@ const appointmentSizeTokens: Record<
   '1': {
     titleClass: 'text-sm font-semibold',
     calendarPadding: 'px-2 py-3',
-    buttonSize: '2',
+    buttonSize: '1',
     buttonGap: '0.25rem',
     slotPadding: 'p-1',
     footerPadding: 'px-3 py-3',
@@ -46,7 +46,7 @@ const appointmentSizeTokens: Record<
     footerTextClass: 'text-base',
     iconSize: '1rem',
     defaultSlotWidth: '8rem',
-    defaultSlotHeight: '200px',
+    defaultSlotHeight: '240px',
   },
 }
 
@@ -300,7 +300,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               disabled={disabledMatcher}
               color={calendarColor}
               navButtonVariant="ghost"
-              showMonthYearPicker={false}
+              showMonthYearPicker
               showOutsideDays={false}
               modifiers={{
                 booked: disabledDates ?? [],

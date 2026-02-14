@@ -108,4 +108,15 @@ describe('AppointmentPicker', () => {
       time: '10:00',
     })
   })
+
+  it('keeps month/year picker available in appointment calendar', async () => {
+    const user = userEvent.setup()
+
+    render(<AppointmentPicker value={{ date: new Date(2026, 1, 13), time: '10:00' }} />)
+
+    const monthYearTrigger = screen.getByRole('button', { name: /february 2026/i })
+    await user.click(monthYearTrigger)
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+  })
 })

@@ -962,6 +962,26 @@ describe('MiniCalendar', () => {
       expect(title.className).toContain('text-foreground')
     })
 
+    it('opens month/year picker when title is clicked', async () => {
+      const user = userEvent.setup()
+      render(<MiniCalendar value={new Date(2026, 1, 11)} />)
+
+      await user.click(screen.getByRole('button', { name: /February 2026/i }))
+      expect(screen.getByRole('dialog', { name: /select month and year/i })).toBeInTheDocument()
+    })
+
+    it('updates displayed month when a new month is picked', async () => {
+      const user = userEvent.setup()
+      render(<MiniCalendar value={new Date(2026, 1, 11)} />)
+
+      await user.click(screen.getByRole('button', { name: /February 2026/i }))
+      const pickerDialog = screen.getByRole('dialog', { name: /select month and year/i })
+      const monthOptions = within(pickerDialog).getAllByText('March')
+      await user.click(monthOptions[0] as HTMLElement)
+
+      expect(screen.getByRole('button', { name: /March 2026/i })).toBeInTheDocument()
+    })
+
     it('handles selecting date when disabled=true has no effect', async () => {
       const user = userEvent.setup()
       const handleChange = vi.fn()
