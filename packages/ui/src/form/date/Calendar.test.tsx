@@ -1924,14 +1924,7 @@ describe('Calendar', () => {
       const startMonth = new Date(2025, 5, 1)
       const endMonth = new Date(2025, 7, 31)
 
-      render(
-        <Calendar
-          defaultMonth={startMonth}
-          startMonth={startMonth}
-          endMonth={endMonth}
-          showOutsideDays={false}
-        />,
-      )
+      render(<Calendar defaultMonth={startMonth} startMonth={startMonth} endMonth={endMonth} showOutsideDays={false} />)
 
       const prevButton = screen.getByRole('button', { name: /previous/i })
       expect(prevButton).toBeDisabled()
@@ -1964,11 +1957,7 @@ describe('Calendar', () => {
         <Calendar defaultMonth={new Date(today.getFullYear(), today.getMonth(), 1)} showOutsideDays={false} />,
       )
 
-      const todayButton = getDayButton(
-        container,
-        today.toLocaleString('en-US', { month: 'long' }),
-        today.getDate(),
-      )
+      const todayButton = getDayButton(container, today.toLocaleString('en-US', { month: 'long' }), today.getDate())
       expect(todayButton.parentElement?.className).toContain('rdp-today')
     })
 
@@ -1984,11 +1973,7 @@ describe('Calendar', () => {
         />,
       )
 
-      const todayButton = getDayButton(
-        container,
-        today.toLocaleString('en-US', { month: 'long' }),
-        today.getDate(),
-      )
+      const todayButton = getDayButton(container, today.toLocaleString('en-US', { month: 'long' }), today.getDate())
       await user.click(todayButton)
 
       expect(todayButton.parentElement?.className).toContain('rdp-selected')
@@ -2110,9 +2095,7 @@ describe('Calendar', () => {
       let day15Button = getDayButton(container, 'June', 15)
       expect(day15Button.parentElement?.className).toContain('rdp-selected')
 
-      rerender(
-        <Calendar mode="single" selected={day16} onSelect={handleSelect} defaultMonth={new Date(2025, 5, 1)} />,
-      )
+      rerender(<Calendar mode="single" selected={day16} onSelect={handleSelect} defaultMonth={new Date(2025, 5, 1)} />)
 
       day15Button = getDayButton(container, 'June', 15)
       expect(day15Button.parentElement?.className).not.toContain('rdp-selected')
