@@ -19,6 +19,37 @@ import { cn } from '@/lib/utils'
 import { CalendarHeader } from './CalendarHeader'
 import { CalendarNavButton } from './CalendarNavButton'
 
+export type CalendarSize = '1' | '2'
+
+const calendarSizeTokens: Record<
+  CalendarSize,
+  {
+    cellSize: string
+    fontSize: string
+    weekdayFontSize: string
+    headerFontSize: string
+    padding: string
+    chevronSize: number
+  }
+> = {
+  '1': {
+    cellSize: '--spacing(7)',
+    fontSize: '0.75rem',
+    weekdayFontSize: '0.65rem',
+    headerFontSize: '0.8rem',
+    padding: 'p-2',
+    chevronSize: 12,
+  },
+  '2': {
+    cellSize: '--spacing(10)',
+    fontSize: '0.875rem',
+    weekdayFontSize: '0.8rem',
+    headerFontSize: '1rem',
+    padding: 'p-4',
+    chevronSize: 16,
+  },
+}
+
 type CalendarCommonProps = Omit<
   DayPickerProps,
   | 'mode'
@@ -49,6 +80,7 @@ type CalendarCommonProps = Omit<
   navButtonBordered?: boolean
   navButtonVariant?: 'soft' | 'outline' | 'ghost'
   showMonthYearPicker?: boolean
+  size?: CalendarSize
 }
 
 type CalendarSingleProps = {
@@ -147,11 +179,13 @@ export function Calendar({
   navButtonBordered: navButtonBorderedProp,
   navButtonVariant: navButtonVariantProp,
   showMonthYearPicker = true,
+  size = '1',
   formatters,
   components,
   ...dayPickerProps
 }: CalendarProps) {
   const theme = useOptionalThemeContext()
+  const sizeTokens = calendarSizeTokens[size]
   const defaultClassNames = getDefaultClassNames()
   const initialMonthRef = React.useRef(monthProp ?? from ?? defaultMonth ?? new Date())
   const resolvedFrom = from ?? defaultMonth ?? initialMonthRef.current
@@ -361,7 +395,7 @@ export function Calendar({
     hideNavigation: useCustomHeader ? true : dayPickerProps.hideNavigation,
     showOutsideDays,
     className: cn(
-      'bg-background group/calendar p-3 [--cell-size:--spacing(8)]',
+      `bg-background group/calendar ${sizeTokens.padding} [--cell-size:${sizeTokens.cellSize}]`,
       String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
       String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
       className,
@@ -415,7 +449,7 @@ export function Calendar({
       month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
       weekdays: cn('flex mt-1', defaultClassNames.weekdays),
       weekday: cn(
-        'text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none',
+        `text-muted-foreground rounded-md flex-1 font-normal text-[${sizeTokens.weekdayFontSize}] select-none`,
         defaultClassNames.weekday,
       ),
       week: cn('flex w-full mt-2', defaultClassNames.week),
@@ -429,7 +463,7 @@ export function Calendar({
       day_button: cn(
         defaultClassNames.day_button,
         'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none touch-manipulation [-webkit-tap-highlight-color:transparent]',
-        'inline-flex items-center justify-center cursor-pointer text-sm font-normal text-foreground',
+        `inline-flex items-center justify-center cursor-pointer text-[${sizeTokens.fontSize}] font-normal text-foreground`,
         'hover:bg-[var(--rdp-accent-background-color)] hover:text-foreground',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       ),
@@ -456,7 +490,7 @@ export function Calendar({
         defaultClassNames.today,
       ),
       selected: cn(
-        'font-normal text-sm',
+        `font-normal text-[${sizeTokens.fontSize}]`,
         '[&>button]:bg-[var(--rdp-accent-color)] [&>button]:text-[var(--cal-accent-foreground)]',
         defaultClassNames.selected,
       ),
@@ -523,7 +557,7 @@ export function Calendar({
         disabled?: boolean
         orientation?: 'left' | 'right' | 'down' | 'up'
       }) => {
-        const forcedSizeProps = { width: 14, height: 14 }
+        const forcedSizeProps = { width: sizeTokens.chevronSize, height: sizeTokens.chevronSize }
         const iconClassName = cn(className, '!text-current !opacity-100')
         if (orientation === 'left') {
           return <ChevronLeftIcon className={iconClassName} {...forcedSizeProps} {...iconProps} />
@@ -544,12 +578,20 @@ export function Calendar({
   const previousIcon = ChevronComponent ? (
     <ChevronComponent orientation="left" className="!text-current !opacity-100" />
   ) : (
-    <ChevronLeftIcon className="!text-current !opacity-100" width={14} height={14} />
+    <ChevronLeftIcon
+      className="!text-current !opacity-100"
+      width={sizeTokens.chevronSize}
+      height={sizeTokens.chevronSize}
+    />
   )
   const nextIcon = ChevronComponent ? (
     <ChevronComponent orientation="right" className="!text-current !opacity-100" />
   ) : (
-    <ChevronRightIcon className="!text-current !opacity-100" width={14} height={14} />
+    <ChevronRightIcon
+      className="!text-current !opacity-100"
+      width={sizeTokens.chevronSize}
+      height={sizeTokens.chevronSize}
+    />
   )
 
   return (
@@ -566,6 +608,7 @@ export function Calendar({
           softColor={resolvedColors.soft}
           foregroundColor={resolvedColors.foreground}
           navButtonClassName={navButtonClassName}
+          titleClassName={`text-[${sizeTokens.headerFontSize}]`}
           previousAriaLabel="Previous month"
           nextAriaLabel="Next month"
           previousIcon={previousIcon}

@@ -7,7 +7,48 @@ import { Button } from '@/elements/Button'
 import { ScrollArea } from '@/elements/ScrollArea'
 import type { Color } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
-import { Calendar, resolveCalendarColors } from './Calendar'
+import { Calendar, type CalendarSize, resolveCalendarColors } from './Calendar'
+
+const appointmentSizeTokens: Record<
+  CalendarSize,
+  {
+    titleClass: string
+    calendarPadding: string
+    buttonSize: '1' | '2'
+    buttonGap: string
+    slotPadding: string
+    footerPadding: string
+    footerTextClass: string
+    iconSize: string
+    defaultSlotWidth: string
+    defaultSlotHeight: string
+  }
+> = {
+  '1': {
+    titleClass: 'text-sm font-semibold',
+    calendarPadding: 'px-2 py-3',
+    buttonSize: '2',
+    buttonGap: '0.25rem',
+    slotPadding: 'p-1',
+    footerPadding: 'px-3 py-3',
+    footerTextClass: 'text-xs',
+    iconSize: '0.75rem',
+    defaultSlotWidth: '6rem',
+    defaultSlotHeight: '200px',
+  },
+  '2': {
+    titleClass: 'text-lg font-semibold',
+    calendarPadding: 'px-4 py-5',
+    buttonSize: '2',
+    buttonGap: '0.5rem',
+    slotPadding: 'p-2',
+    footerPadding: 'px-6 py-5',
+    footerTextClass: 'text-base',
+    iconSize: '1rem',
+    defaultSlotWidth: '8rem',
+    defaultSlotHeight: '200px',
+  },
+}
 
 export interface TimeSlot {
   /** Time value (e.g., "09:00", "09:15") */
@@ -100,6 +141,8 @@ export interface AppointmentPickerProps {
   timeSlotHeight?: string
   /** Calendar color token */
   calendarColor?: Color
+  /** Size of the appointment picker (1=small, 2=medium) */
+  size?: CalendarSize
 }
 
 /**
@@ -140,12 +183,16 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
       minDate,
       maxDate,
       disabledDates,
-      timeSlotWidth = '8rem',
-      timeSlotHeight = '200px',
+      timeSlotWidth,
+      timeSlotHeight,
       calendarColor = 'primary',
+      size = '1',
     },
     ref,
   ) => {
+    const sizeTokens = appointmentSizeTokens[size]
+    const resolvedSlotWidth = timeSlotWidth ?? sizeTokens.defaultSlotWidth
+    const resolvedSlotHeight = timeSlotHeight ?? sizeTokens.defaultSlotHeight
     const resolvedColors = React.useMemo(() => resolveCalendarColors(calendarColor), [calendarColor])
 
     const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(value?.date)
@@ -237,13 +284,13 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
         }
       >
         {title && (
-          <div className="flex justify-center border-b px-6 py-4">
-            <h3 className="text-lg font-semibold">{title}</h3>
+          <div className={cn('flex justify-center border-b', sizeTokens.footerPadding)}>
+            <h3 className={sizeTokens.titleClass}>{title}</h3>
           </div>
         )}
 
         <div className="flex" style={{ gap: '0.5rem' }}>
-          <div className="shrink-0 px-4 py-5">
+          <div className={cn('shrink-0', sizeTokens.calendarPadding)}>
             <Calendar
               mode="single"
               selected={selectedDate}
@@ -264,12 +311,13 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               formatters={{
                 formatWeekdayName: date => date.toLocaleString('en-US', { weekday: 'short' }),
               }}
-              className="bg-transparent p-0 [--cell-size:--spacing(10)]"
+              size={size}
+              className="bg-transparent p-0"
             />
           </div>
-          <div className="shrink-0  border-l" style={{ width: timeSlotWidth }}>
-            <ScrollArea style={{ height: timeSlotHeight }}>
-              <div className="p-2">
+          <div className="shrink-0 border-l" style={{ width: resolvedSlotWidth }}>
+            <ScrollArea style={{ height: resolvedSlotHeight }}>
+              <div className={sizeTokens.slotPadding}>
                 {availableSlots.map(slot => {
                   const isSelected = selectedTime === slot.time
                   const isDisabled = slot.available === false
@@ -280,7 +328,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
                       onClick={() => !isDisabled && handleTimeSelect(slot.time)}
                       disabled={disabled || isDisabled || !selectedDate}
                       variant={isSelected ? 'solid' : 'outline'}
-                      size="2"
+                      size={sizeTokens.buttonSize}
                       color={isSelected ? calendarColor : undefined}
                       className={cn(
                         'w-full shadow-none',
@@ -288,7 +336,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
                         isDisabled && 'line-through opacity-50 cursor-not-allowed',
                         !selectedDate && 'opacity-50 cursor-not-allowed',
                       )}
-                      style={{ display: 'flex', marginBottom: '0.5rem' }}
+                      style={{ display: 'flex', marginBottom: sizeTokens.buttonGap }}
                     >
                       {slot.label ?? slot.time}
                     </Button>
@@ -301,16 +349,21 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
 
         {/* Footer with confirmation and button */}
         {(showConfirmation || showConfirmButton) && (
-          <div className="flex flex-col gap-4 border-t px-6 py-5 md:flex-row">
+          <div className={cn('flex flex-col gap-4 border-t md:flex-row', sizeTokens.footerPadding)}>
             {showConfirmation && (
               <div className="flex flex-1 items-center gap-2">
                 {isComplete && (
                   <>
                     <CircleCheckIcon
-                      className="h-4 w-4"
-                      style={{ color: 'var(--color-success-primary)', marginRight: '0.5rem', flexShrink: 0 }}
+                      style={{
+                        width: sizeTokens.iconSize,
+                        height: sizeTokens.iconSize,
+                        color: 'var(--color-success-primary)',
+                        marginRight: '0.5rem',
+                        flexShrink: 0,
+                      }}
                     />
-                    <span className="text-sm">{getConfirmationMessage()}</span>
+                    <span className={sizeTokens.footerTextClass}>{getConfirmationMessage()}</span>
                   </>
                 )}
               </div>
@@ -318,7 +371,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
             {showConfirmButton && (
               <Button
                 variant="outline"
-                size="2"
+                size={sizeTokens.buttonSize}
                 onClick={handleConfirm}
                 disabled={disabled || !isComplete}
                 className="w-full md:ml-auto md:w-auto"
