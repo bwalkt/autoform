@@ -87,16 +87,7 @@ function isSameDay(left: Date, right: Date): boolean {
   )
 }
 
-/**
- * Resolve the calendar's color tokens (accent, soft, and foreground) for a given color identifier.
- *
- * @param color - Color identifier: `'default'`, `'primary'`, or a key from the design tokens color palette.
- * @returns An object with:
- *  - `accent`: the main accent color (CSS variable or token value),
- *  - `soft`: a softer/transparent variant suitable for backgrounds,
- *  - `foreground`: the foreground/text color that pairs with the accent.
- */
-function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
+export function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
     return {
       accent: 'var(--accent)',
