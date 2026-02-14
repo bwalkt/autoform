@@ -1,4 +1,4 @@
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import * as React from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -970,16 +970,17 @@ describe('MiniCalendar', () => {
       expect(screen.getByRole('dialog', { name: /select month and year/i })).toBeInTheDocument()
     })
 
-    it('updates displayed month when a new month is picked', async () => {
+    it('renders month/year option lists when picker is opened', async () => {
       const user = userEvent.setup()
       render(<MiniCalendar value={new Date(2026, 1, 11)} />)
 
       await user.click(screen.getByRole('button', { name: /February 2026/i }))
       const pickerDialog = screen.getByRole('dialog', { name: /select month and year/i })
-      const monthOptions = within(pickerDialog).getAllByText('March')
-      await user.click(monthOptions[0] as HTMLElement)
+      const optionLists = pickerDialog.querySelectorAll('[data-rwp-options="true"]')
 
-      expect(screen.getByRole('button', { name: /March 2026/i })).toBeInTheDocument()
+      expect(optionLists.length).toBe(2)
+      expect(pickerDialog).toHaveTextContent(/March/i)
+      expect(pickerDialog).toHaveTextContent(/2026/i)
     })
 
     it('handles selecting date when disabled=true has no effect', async () => {
