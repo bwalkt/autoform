@@ -146,7 +146,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
     },
     ref,
   ) => {
-    const resolvedSlotColors = React.useMemo(() => {
+    const resolvedColors = React.useMemo(() => {
       if (calendarColor === 'default') {
         return {
           accent: 'var(--accent)',
@@ -248,12 +248,12 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
     return (
       <div
         ref={ref}
-        className={cn('rounded-lg border bg-background', disabled && 'opacity-50 pointer-events-none', className)}
+        className={cn('w-min rounded-lg border bg-background', disabled && 'opacity-50 pointer-events-none', className)}
         style={
           {
-            '--appt-accent': resolvedSlotColors.accent,
-            '--appt-soft': resolvedSlotColors.soft,
-            '--appt-foreground': resolvedSlotColors.foreground,
+            '--rdp-accent-color': resolvedColors.accent,
+            '--rdp-accent-background-color': resolvedColors.soft,
+            '--cal-accent-foreground': resolvedColors.foreground,
           } as React.CSSProperties
         }
       >
@@ -305,6 +305,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
                       color={isSelected ? calendarColor : undefined}
                       className={cn(
                         'w-full shadow-none',
+                        !isSelected && 'hover:!bg-[var(--rdp-accent-background-color)] hover:!text-foreground',
                         isDisabled && 'line-through opacity-50 cursor-not-allowed',
                         !selectedDate && 'opacity-50 cursor-not-allowed',
                       )}
