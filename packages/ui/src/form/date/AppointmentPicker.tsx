@@ -1,13 +1,13 @@
 'use client'
 
 import { format } from 'date-fns'
+import { CircleCheckIcon } from 'lucide-react'
 import * as React from 'react'
 import { Button } from '@/elements/Button'
 import { ScrollArea } from '@/elements/ScrollArea'
-import { type Color, designTokens } from '@/elements/tokens'
-import { Checkbox } from '@/form/Checkbox'
+import type { Color } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
-import { Calendar } from './Calendar'
+import { Calendar, resolveCalendarColors } from './Calendar'
 
 export interface TimeSlot {
   /** Time value (e.g., "09:00", "09:15") */
@@ -146,30 +146,9 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
     },
     ref,
   ) => {
-    const resolvedColors = React.useMemo(() => {
-      if (calendarColor === 'default') {
-        return {
-          accent: 'var(--accent)',
-          soft: 'color-mix(in oklab, var(--accent) 18%, transparent)',
-          foreground: 'var(--accent-foreground)',
-        }
-      }
-      if (calendarColor === 'primary') {
-        return {
-          accent: 'var(--primary)',
-          soft: 'color-mix(in oklab, var(--primary) 18%, transparent)',
-          foreground: 'var(--primary-foreground)',
-        }
-      }
-      const token = designTokens.color[calendarColor]
-      return {
-        accent: token.primary,
-        soft: token.primaryAlpha,
-        foreground: token.text,
-      }
-    }, [calendarColor])
+    const resolvedColors = React.useMemo(() => resolveCalendarColors(calendarColor), [calendarColor])
 
-    const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(value?.date ?? new Date())
+    const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(value?.date)
     const [selectedTime, setSelectedTime] = React.useState<string | undefined>(value?.time)
     const [month, setMonth] = React.useState<Date | undefined>(value?.date ?? new Date())
 
@@ -327,12 +306,9 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               <div className="flex flex-1 items-center gap-2">
                 {isComplete && (
                   <>
-                    <Checkbox
-                      checked={true}
-                      size="1"
-                      color="success"
-                      className="rounded-full"
-                      style={{ borderRadius: '9999px' }}
+                    <CircleCheckIcon
+                      className="h-4 w-4"
+                      style={{ color: 'var(--color-success-primary)', marginRight: '0.5rem', flexShrink: 0 }}
                     />
                     <span className="text-sm">{getConfirmationMessage()}</span>
                   </>

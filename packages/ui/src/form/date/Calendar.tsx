@@ -87,7 +87,7 @@ function isSameDay(left: Date, right: Date): boolean {
   )
 }
 
-function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
+export function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
     return {
       accent: 'var(--accent)',
