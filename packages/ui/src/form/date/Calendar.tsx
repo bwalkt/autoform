@@ -445,6 +445,8 @@ export function Calendar({
       today: cn(
         'font-normal',
         '[&>button]:bg-[var(--rdp-accent-background-color)] [&>button]:text-foreground',
+        '[&[data-selected=true]>button]:bg-[var(--rdp-accent-color)] [&[data-selected=true]>button]:text-[var(--cal-accent-foreground)]',
+        '[&[data-selected=true]>button]:ring-2 [&[data-selected=true]>button]:ring-[var(--rdp-accent-background-color)]',
         defaultClassNames.today,
       ),
       selected: cn(
@@ -566,6 +568,11 @@ export function Calendar({
           onNext={handleNextMonth}
           previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
           nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+          displayedMonth={displayedMonth}
+          onMonthYearChange={handleMonthChange}
+          localeCode={safeLocaleCode}
+          startMonth={fromMonthBoundary ?? undefined}
+          endMonth={toMonthBoundary ?? undefined}
         />
       ) : null}
       <DayPicker {...pickerProps} />
