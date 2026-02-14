@@ -262,7 +262,7 @@ export const CompactSlots: Story = {
           value={appointment}
           onChange={setAppointment}
           defaultTimeSlots={shortSlots}
-          timeSlotHeight="200px"
+          timeSlotWidth="10rem"
           title="Quick booking"
           onConfirm={value => alert(`Booked: ${value.date.toLocaleDateString()} at ${value.time}`)}
         />

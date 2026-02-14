@@ -94,7 +94,9 @@ export interface AppointmentPickerProps {
   maxDate?: Date
   /** Dates to disable */
   disabledDates?: Date[]
-  /** Height of the time slots container */
+  /** Width of the time slots panel */
+  timeSlotWidth?: string
+  /** Height of the time slots scroll area */
   timeSlotHeight?: string
   /** Calendar color token */
   calendarColor?: Color
@@ -138,6 +140,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
       minDate,
       maxDate,
       disabledDates,
+      timeSlotWidth = '12rem',
       timeSlotHeight = '200px',
       calendarColor = 'primary',
     },
@@ -255,14 +258,13 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
         }
       >
         {title && (
-          <div className="border-b px-6 py-5">
-            <h3 className="text-center text-3xl font-semibold tracking-tight">{title}</h3>
+          <div className="flex justify-center border-b px-6 py-4">
+            <h3 className="text-lg font-semibold">{title}</h3>
           </div>
         )}
 
-        <div className="grid grid-cols-[max-content_3rem_8rem] justify-center p-0">
-          {/* Calendar */}
-          <div className="p-6">
+        <div className="flex">
+          <div className="flex-1 p-6">
             <Calendar
               mode="single"
               selected={selectedDate}
@@ -286,13 +288,9 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               className="bg-transparent p-0 [--cell-size:--spacing(10)]"
             />
           </div>
-
-          {/* Time Slots */}
-          <div aria-hidden className="w-12" />
-
-          <div className="flex flex-col border-l">
-            <ScrollArea className="h-full" style={{ height: timeSlotHeight }}>
-              <div className="flex flex-col gap-3 p-6">
+          <div className="shrink-0 border-l" style={{ width: timeSlotWidth }}>
+            <ScrollArea style={{ height: timeSlotHeight }}>
+              <div className="p-2">
                 {availableSlots.map(slot => {
                   const isSelected = selectedTime === slot.time
                   const isDisabled = slot.available === false
@@ -302,17 +300,15 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
                       key={slot.time}
                       onClick={() => !isDisabled && handleTimeSelect(slot.time)}
                       disabled={disabled || isDisabled || !selectedDate}
-                      variant="outline"
+                      variant={isSelected ? 'solid' : 'outline'}
                       size="2"
+                      color={isSelected ? calendarColor : undefined}
                       className={cn(
-                        'h-16 w-full rounded-sm px-3 py-3 text-base font-medium shadow-none transition-colors',
-                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-                        isSelected
-                          ? 'border-transparent bg-[var(--appt-accent)] text-[var(--appt-foreground)] hover:bg-[var(--appt-accent)] hover:text-[var(--appt-foreground)]'
-                          : 'border-input bg-background text-foreground hover:border-transparent hover:bg-[var(--appt-soft)] hover:text-foreground',
+                        'w-full shadow-none',
                         isDisabled && 'line-through opacity-50 cursor-not-allowed',
                         !selectedDate && 'opacity-50 cursor-not-allowed',
                       )}
+                      style={{ display: 'flex', marginBottom: '0.5rem' }}
                     >
                       {slot.label ?? slot.time}
                     </Button>
