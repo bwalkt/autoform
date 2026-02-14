@@ -259,13 +259,14 @@ export function CalendarHeader({
                 zIndex: 99999,
                 top: portalPos.top,
                 left: portalPos.left,
-                width: 200,
-                borderRadius: 12,
-                boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
-                border: '1px solid #e4e4e7',
-                background: '#fff',
+                width: 'var(--calendar-header-picker-width, 200px)',
+                borderRadius: 'var(--calendar-header-picker-radius, 12px)',
+                boxShadow: 'var(--calendar-header-picker-shadow, 0 4px 24px rgba(0,0,0,0.15))',
+                border:
+                  'var(--calendar-header-picker-border-width, 1px) solid var(--calendar-header-picker-border-color, #e4e4e7)',
+                background: 'var(--calendar-header-picker-bg, #fff)',
                 overflow: 'hidden',
-                padding: '0 4px',
+                padding: 'var(--calendar-header-picker-padding, 0 4px)',
               }}
             >
               <WheelPickerWrapper className="!w-full !border-0 !shadow-none !rounded-none">
@@ -275,7 +276,7 @@ export function CalendarHeader({
                   onValueChange={handleMonthChange}
                   classNames={{
                     highlightItem: '!text-[0.875rem]',
-                    highlightWrapper: '!text-[0.875rem] !font-medium',
+                    highlightWrapper: '!text-[0.875rem] !font-semibold !text-primary',
                   }}
                 />
                 <WheelPicker<number>
@@ -284,7 +285,7 @@ export function CalendarHeader({
                   onValueChange={handleYearChange}
                   classNames={{
                     highlightItem: '!text-[0.875rem]',
-                    highlightWrapper: '!text-[0.875rem] !font-medium',
+                    highlightWrapper: '!text-[0.875rem] !font-semibold !text-primary',
                   }}
                 />
               </WheelPickerWrapper>
