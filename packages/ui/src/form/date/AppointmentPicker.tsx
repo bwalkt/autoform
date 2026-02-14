@@ -1,11 +1,11 @@
 'use client'
 
 import { format } from 'date-fns'
-import { Check } from 'lucide-react'
 import * as React from 'react'
 import { Button } from '@/elements/Button'
 import { ScrollArea } from '@/elements/ScrollArea'
 import { type Color, designTokens } from '@/elements/tokens'
+import { Checkbox } from '@/form/Checkbox'
 import { cn } from '@/lib/utils'
 import { Calendar } from './Calendar'
 
@@ -140,7 +140,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
       minDate,
       maxDate,
       disabledDates,
-      timeSlotWidth = '12rem',
+      timeSlotWidth = '8rem',
       timeSlotHeight = '200px',
       calendarColor = 'primary',
     },
@@ -263,8 +263,8 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
           </div>
         )}
 
-        <div className="flex">
-          <div className="flex-1 p-6">
+        <div className="flex" style={{ gap: '0.5rem' }}>
+          <div className="shrink-0 px-4 py-5">
             <Calendar
               mode="single"
               selected={selectedDate}
@@ -288,7 +288,7 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               className="bg-transparent p-0 [--cell-size:--spacing(10)]"
             />
           </div>
-          <div className="shrink-0 border-l" style={{ width: timeSlotWidth }}>
+          <div className="shrink-0  border-l" style={{ width: timeSlotWidth }}>
             <ScrollArea style={{ height: timeSlotHeight }}>
               <div className="p-2">
                 {availableSlots.map(slot => {
@@ -326,9 +326,13 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               <div className="flex flex-1 items-center gap-2">
                 {isComplete && (
                   <>
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full border-2 border-green-500 text-green-500">
-                      <Check className="h-3 w-3" />
-                    </div>
+                    <Checkbox
+                      checked={true}
+                      size="1"
+                      color="success"
+                      className="rounded-full"
+                      style={{ borderRadius: '9999px' }}
+                    />
                     <span className="text-sm">{getConfirmationMessage()}</span>
                   </>
                 )}

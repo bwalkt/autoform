@@ -20,7 +20,7 @@ export const Default: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -42,7 +42,7 @@ export const WithValue: Story = {
       time: '10:00',
     })
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -58,7 +58,7 @@ export const CustomTitle: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -92,7 +92,7 @@ export const CustomTimeSlots: Story = {
     ]
 
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -136,7 +136,7 @@ export const DynamicSlots: Story = {
     }
 
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -154,7 +154,7 @@ export const WithoutConfirmButton: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker value={appointment} onChange={setAppointment} showConfirmButton={false} />
         {appointment && (
           <p className="text-sm text-muted-foreground mt-4 text-center">
@@ -171,7 +171,7 @@ export const WithoutConfirmation: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -188,7 +188,7 @@ export const CustomConfirmationFormat: Story = {
   render: () => {
     const [appointment, setAppointment] = React.useState<AppointmentValue | undefined>()
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -216,7 +216,7 @@ export const FutureOnly: Story = {
     today.setHours(0, 0, 0, 0)
 
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
@@ -236,7 +236,7 @@ export const Disabled: Story = {
     tomorrow.setDate(tomorrow.getDate() + 1)
 
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker value={{ date: tomorrow, time: '10:00' }} disabled />
       </div>
     )
@@ -257,7 +257,7 @@ export const CompactSlots: Story = {
     ]
 
     return (
-      <div className="w-[540px]">
+      <div>
         <AppointmentPicker
           value={appointment}
           onChange={setAppointment}
