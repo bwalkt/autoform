@@ -182,9 +182,9 @@ describe('CalendarHeader', () => {
 
   describe('Custom icons', () => {
     it('renders default icons when none provided', () => {
-      const { container } = render(<CalendarHeader {...defaultProps} />)
-      const buttons = container.querySelectorAll('button')
-      expect(buttons).toHaveLength(2)
+      render(<CalendarHeader {...defaultProps} />)
+      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument()
     })
 
     it('renders custom previous icon', () => {
@@ -348,8 +348,7 @@ describe('CalendarHeader', () => {
 
     it('renders navigation buttons in correct order (previous, next)', () => {
       render(<CalendarHeader {...defaultProps} />)
-      const buttons = screen.getAllByRole('button')
-      expect(buttons).toHaveLength(2)
+      const buttons = [screen.getByRole('button', { name: /previous/i }), screen.getByRole('button', { name: /next/i })]
       expect(buttons[0]).toHaveAttribute('aria-label', expect.stringMatching(/previous/i))
       expect(buttons[1]).toHaveAttribute('aria-label', expect.stringMatching(/next/i))
     })
@@ -372,8 +371,8 @@ describe('CalendarHeader', () => {
   describe('Edge cases', () => {
     it('handles empty title', () => {
       render(<CalendarHeader {...defaultProps} title="" />)
-      const buttons = screen.getAllByRole('button')
-      expect(buttons).toHaveLength(2)
+      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument()
     })
 
     it('handles very long title text', () => {
@@ -409,7 +408,8 @@ describe('CalendarHeader', () => {
         />,
       )
       expect(screen.getByText('June 2025')).toBeInTheDocument()
-      expect(screen.getAllByRole('button')).toHaveLength(2)
+      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument()
     })
   })
 
@@ -521,12 +521,14 @@ describe('CalendarHeader', () => {
     it('maintains layout with small title', () => {
       render(<CalendarHeader {...defaultProps} title="Jan" />)
       expect(screen.getByText('Jan')).toBeInTheDocument()
-      expect(screen.getAllByRole('button')).toHaveLength(2)
+      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument()
     })
 
     it('maintains layout with no title', () => {
       render(<CalendarHeader {...defaultProps} title="" />)
-      expect(screen.getAllByRole('button')).toHaveLength(2)
+      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument()
     })
 
     it('applies gap between title and navigation', () => {
