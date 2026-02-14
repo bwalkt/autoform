@@ -178,12 +178,12 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
       if (value?.date) {
         setSelectedDate(value.date)
         setMonth(value.date)
-      } else if (value !== undefined) {
+      } else {
         setSelectedDate(undefined)
       }
       if (value?.time) {
         setSelectedTime(value.time)
-      } else if (value !== undefined) {
+      } else {
         setSelectedTime(undefined)
       }
     }, [value])

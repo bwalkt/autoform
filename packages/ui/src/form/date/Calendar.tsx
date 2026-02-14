@@ -107,7 +107,7 @@ function resolveCalendarColors(color: Color): { accent: string; soft: string; fo
   return {
     accent: token.primary,
     soft: token.primaryAlpha,
-    foreground: 'white',
+    foreground: token.text,
   }
 }
 

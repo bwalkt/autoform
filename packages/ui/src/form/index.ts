@@ -43,7 +43,7 @@ export {
   type DateTimePickerProps,
   type DayPrice,
   defaultPresets,
-  defaultTimeSlots,
+  defaultTimeSlotsList,
   MiniCalendar,
   type MiniCalendarProps,
   TimePicker,
