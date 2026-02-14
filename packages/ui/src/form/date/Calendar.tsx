@@ -87,6 +87,15 @@ function isSameDay(left: Date, right: Date): boolean {
   )
 }
 
+/**
+ * Resolve the calendar's color tokens (accent, soft, and foreground) for a given color identifier.
+ *
+ * @param color - Color identifier: `'default'`, `'primary'`, or a key from the design tokens color palette.
+ * @returns An object with:
+ *  - `accent`: the main accent color (CSS variable or token value),
+ *  - `soft`: a softer/transparent variant suitable for backgrounds,
+ *  - `foreground`: the foreground/text color that pairs with the accent.
+ */
 function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
     return {
@@ -119,11 +128,15 @@ function toMatcherArray(matcher: Matcher | Matcher[] | undefined): Matcher[] {
 }
 
 /**
- * Renders a themed, localized calendar UI based on react-day-picker with configurable selection modes, theming, and formatting.
+ * Render a themed, localized calendar UI with configurable selection modes, navigation, and formatting.
  *
- * @param localeCode - BCP 47 locale for month, weekday, and day formatting; falls back to theme or "en-US" if invalid
- * @param timeZone - IANA time zone identifier applied when formatting dates; falls back to theme if not provided
- * @returns A DayPicker React element configured as a calendar
+ * The component wraps and configures a DayPicker instance to provide single, multiple, or range selection,
+ * theming via design tokens, locale- and timezone-aware formatting, and optional month/year picker controls.
+ *
+ * @param localeCode - BCP 47 locale used for month, weekday, and day formatting; falls back to the theme or `en-US` if invalid
+ * @param timeZone - IANA time zone identifier applied when formatting dates; falls back to the theme if not provided
+ * @param showMonthYearPicker - When `true`, enables the Month/Year picker controls in the custom header; when `false`, disables month/year changes from the header
+ * @returns A configured DayPicker React element representing the calendar
  */
 export function Calendar({
   className,
