@@ -249,9 +249,8 @@ export function CalendarHeader({
       {pickerOpen &&
         createPortal(
           <>
-            <div
-              role="button"
-              tabIndex={-1}
+            <button
+              type="button"
               aria-label="Close picker"
               style={{
                 position: 'fixed',
@@ -262,9 +261,6 @@ export function CalendarHeader({
                 cursor: 'default',
               }}
               onClick={() => setPickerOpen(false)}
-              onKeyDown={e => {
-                if (e.key === 'Escape') setPickerOpen(false)
-              }}
             />
             <div
               ref={overlayRef}
