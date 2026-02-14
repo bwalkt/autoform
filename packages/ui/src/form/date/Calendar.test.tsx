@@ -2060,7 +2060,6 @@ describe('Calendar', () => {
 
   describe('isSameDay utility edge cases', () => {
     it('correctly identifies same day with different times', async () => {
-      const user = userEvent.setup()
       const handleSelect = vi.fn()
 
       const morning = new Date(2025, 5, 15, 9, 0, 0)
@@ -2081,8 +2080,7 @@ describe('Calendar', () => {
       expect(day15.parentElement?.className).toContain('rdp-selected')
     })
 
-    it('correctly identifies different days', async () => {
-      const user = userEvent.setup()
+    it('correctly identifies different days', () => {
       const handleSelect = vi.fn()
 
       const day15 = new Date(2025, 5, 15)
