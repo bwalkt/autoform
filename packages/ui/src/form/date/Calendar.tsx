@@ -48,6 +48,7 @@ type CalendarCommonProps = Omit<
   pagedNavigation?: boolean
   navButtonBordered?: boolean
   navButtonVariant?: 'soft' | 'outline' | 'ghost'
+  showMonthYearPicker?: boolean
 }
 
 type CalendarSingleProps = {
@@ -86,7 +87,7 @@ function isSameDay(left: Date, right: Date): boolean {
   )
 }
 
-function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
+export function resolveCalendarColors(color: Color): { accent: string; soft: string; foreground: string } {
   if (color === 'default') {
     return {
       accent: 'var(--accent)',
@@ -106,7 +107,7 @@ function resolveCalendarColors(color: Color): { accent: string; soft: string; fo
   return {
     accent: token.primary,
     soft: token.primaryAlpha,
-    foreground: 'white',
+    foreground: token.text,
   }
 }
 
@@ -141,6 +142,7 @@ export function Calendar({
   numberOfMonths,
   navButtonBordered: navButtonBorderedProp,
   navButtonVariant: navButtonVariantProp,
+  showMonthYearPicker = true,
   formatters,
   components,
   ...dayPickerProps
@@ -569,7 +571,7 @@ export function Calendar({
           previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
           nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
           displayedMonth={displayedMonth}
-          onMonthYearChange={handleMonthChange}
+          onMonthYearChange={showMonthYearPicker ? handleMonthChange : undefined}
           localeCode={safeLocaleCode}
           startMonth={fromMonthBoundary ?? undefined}
           endMonth={toMonthBoundary ?? undefined}

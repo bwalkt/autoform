@@ -4,7 +4,7 @@ export {
   AppointmentPicker,
   type AppointmentPickerProps,
   type AppointmentValue,
-  defaultTimeSlots,
+  defaultTimeSlotsList,
   type TimeSlot,
 } from './AppointmentPicker'
 export { Calendar, type CalendarProps } from './Calendar'

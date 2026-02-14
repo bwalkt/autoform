@@ -1,12 +1,13 @@
 'use client'
 
 import { format } from 'date-fns'
-import { Check } from 'lucide-react'
+import { CircleCheckIcon } from 'lucide-react'
 import * as React from 'react'
 import { Button } from '@/elements/Button'
 import { ScrollArea } from '@/elements/ScrollArea'
+import type { Color } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
-import { Calendar } from './Calendar'
+import { Calendar, resolveCalendarColors } from './Calendar'
 
 export interface TimeSlot {
   /** Time value (e.g., "09:00", "09:15") */
@@ -25,7 +26,7 @@ export interface AppointmentValue {
 }
 
 /** Default time slots (15-minute intervals from 9am to 5pm) */
-export const defaultTimeSlots: TimeSlot[] = [
+export const defaultTimeSlotsList: TimeSlot[] = [
   { time: '09:00', available: true },
   { time: '09:15', available: true },
   { time: '09:30', available: true },
@@ -67,10 +68,12 @@ export interface AppointmentPickerProps {
   onChange?: (value: AppointmentValue | undefined) => void
   /** Title displayed at the top */
   title?: string
-  /** Available time slots */
-  timeSlots?: TimeSlot[]
-  /** Function to get available slots for a specific date */
-  getTimeSlotsForDate?: (date: Date) => TimeSlot[]
+  /** Available time slots for each day */
+  getAvailableTimeSlots?: (date: Date) => TimeSlot[]
+  /** Fallback slots used when getAvailableTimeSlots is not provided */
+  defaultTimeSlots?: TimeSlot[]
+  /** Meeting duration in minutes */
+  meetingDurationMinutes?: number
   /** Callback when continue/confirm button is clicked */
   onConfirm?: (value: AppointmentValue) => void
   /** Text for the confirm button */
@@ -79,8 +82,8 @@ export interface AppointmentPickerProps {
   showConfirmButton?: boolean
   /** Whether to show the confirmation message */
   showConfirmation?: boolean
-  /** Custom confirmation message format */
-  formatConfirmation?: (value: AppointmentValue) => string
+  /** Custom booking message */
+  bookingMessage?: (value: AppointmentValue, durationMinutes: number) => string
   /** Additional class names */
   className?: string
   /** Whether the picker is disabled */
@@ -91,8 +94,12 @@ export interface AppointmentPickerProps {
   maxDate?: Date
   /** Dates to disable */
   disabledDates?: Date[]
-  /** Height of the time slots container */
+  /** Width of the time slots panel */
+  timeSlotWidth?: string
+  /** Height of the time slots scroll area */
   timeSlotHeight?: string
+  /** Calendar color token */
+  calendarColor?: Color
 }
 
 /**
@@ -120,25 +127,30 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
       value,
       onChange,
       title = 'Book your appointment',
-      timeSlots,
-      getTimeSlotsForDate,
+      getAvailableTimeSlots,
+      defaultTimeSlots,
+      meetingDurationMinutes = 60,
       onConfirm,
       confirmText = 'Continue',
       showConfirmButton = true,
       showConfirmation = true,
-      formatConfirmation,
+      bookingMessage,
       className,
       disabled = false,
       minDate,
       maxDate,
       disabledDates,
-      timeSlotHeight = '320px',
+      timeSlotWidth = '8rem',
+      timeSlotHeight = '200px',
+      calendarColor = 'primary',
     },
     ref,
   ) => {
+    const resolvedColors = React.useMemo(() => resolveCalendarColors(calendarColor), [calendarColor])
+
     const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(value?.date)
     const [selectedTime, setSelectedTime] = React.useState<string | undefined>(value?.time)
-    const [month, setMonth] = React.useState<Date | undefined>(value?.date)
+    const [month, setMonth] = React.useState<Date | undefined>(value?.date ?? new Date())
 
     // Update internal state when value changes
     React.useEffect(() => {
@@ -153,15 +165,15 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
       } else {
         setSelectedTime(undefined)
       }
-    }, [value?.date, value?.time])
+    }, [value])
 
     // Get time slots for the selected date
     const availableSlots = React.useMemo(() => {
-      if (getTimeSlotsForDate && selectedDate) {
-        return getTimeSlotsForDate(selectedDate)
+      if (getAvailableTimeSlots && selectedDate) {
+        return getAvailableTimeSlots(selectedDate)
       }
-      return timeSlots ?? defaultTimeSlots
-    }, [selectedDate, timeSlots, getTimeSlotsForDate])
+      return defaultTimeSlots ?? defaultTimeSlotsList
+    }, [selectedDate, defaultTimeSlots, getAvailableTimeSlots])
 
     // Build disabled matcher for react-day-picker
     const disabledMatcher = React.useMemo(() => {
@@ -203,11 +215,11 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
     const getConfirmationMessage = () => {
       if (!selectedDate || !selectedTime) return null
 
-      if (formatConfirmation) {
-        return formatConfirmation({ date: selectedDate, time: selectedTime })
+      if (bookingMessage) {
+        return bookingMessage({ date: selectedDate, time: selectedTime }, meetingDurationMinutes)
       }
 
-      return `Your meeting is booked for ${format(selectedDate, 'EEEE, MMMM d')} at ${selectedTime}.`
+      return `Your meeting is booked for ${format(selectedDate, 'EEEE, MMMM d')} at ${selectedTime} (${meetingDurationMinutes} min).`
     }
 
     const isComplete = selectedDate && selectedTime
@@ -215,17 +227,23 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
     return (
       <div
         ref={ref}
-        className={cn('rounded-lg border bg-background', disabled && 'opacity-50 pointer-events-none', className)}
+        className={cn('w-min rounded-lg border bg-background', disabled && 'opacity-50 pointer-events-none', className)}
+        style={
+          {
+            '--rdp-accent-color': resolvedColors.accent,
+            '--rdp-accent-background-color': resolvedColors.soft,
+            '--cal-accent-foreground': resolvedColors.foreground,
+          } as React.CSSProperties
+        }
       >
         {title && (
-          <div className="border-b px-6 py-4">
-            <h3 className="text-lg font-semibold text-center">{title}</h3>
+          <div className="flex justify-center border-b px-6 py-4">
+            <h3 className="text-lg font-semibold">{title}</h3>
           </div>
         )}
 
-        <div className="flex">
-          {/* Calendar */}
-          <div className="border-r p-4">
+        <div className="flex" style={{ gap: '0.5rem' }}>
+          <div className="shrink-0 px-4 py-5">
             <Calendar
               mode="single"
               selected={selectedDate}
@@ -233,35 +251,47 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
               month={month}
               onMonthChange={setMonth}
               disabled={disabledMatcher}
+              color={calendarColor}
+              navButtonVariant="ghost"
+              showMonthYearPicker={false}
+              showOutsideDays={false}
+              modifiers={{
+                booked: disabledDates ?? [],
+              }}
+              modifiersClassNames={{
+                booked: '[&>button]:line-through opacity-100',
+              }}
+              formatters={{
+                formatWeekdayName: date => date.toLocaleString('en-US', { weekday: 'short' }),
+              }}
+              className="bg-transparent p-0 [--cell-size:--spacing(10)]"
             />
           </div>
-
-          {/* Time Slots */}
-          <div className="flex-1 p-4">
-            <ScrollArea className="pr-4" style={{ height: timeSlotHeight }}>
-              <div className="flex flex-col gap-2">
+          <div className="shrink-0  border-l" style={{ width: timeSlotWidth }}>
+            <ScrollArea style={{ height: timeSlotHeight }}>
+              <div className="p-2">
                 {availableSlots.map(slot => {
                   const isSelected = selectedTime === slot.time
                   const isDisabled = slot.available === false
 
                   return (
-                    <button
+                    <Button
                       key={slot.time}
-                      type="button"
                       onClick={() => !isDisabled && handleTimeSelect(slot.time)}
                       disabled={disabled || isDisabled || !selectedDate}
+                      variant={isSelected ? 'solid' : 'outline'}
+                      size="2"
+                      color={isSelected ? calendarColor : undefined}
                       className={cn(
-                        'px-4 py-3 text-sm font-medium rounded-lg border transition-colors',
-                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                        isSelected
-                          ? 'bg-primary text-primary-foreground border-primary'
-                          : 'bg-background hover:bg-accent hover:text-accent-foreground border-input',
-                        isDisabled && 'opacity-50 cursor-not-allowed line-through',
+                        'w-full shadow-none',
+                        !isSelected && 'hover:!bg-[var(--rdp-accent-background-color)] hover:!text-foreground',
+                        isDisabled && 'line-through opacity-50 cursor-not-allowed',
                         !selectedDate && 'opacity-50 cursor-not-allowed',
                       )}
+                      style={{ display: 'flex', marginBottom: '0.5rem' }}
                     >
                       {slot.label ?? slot.time}
-                    </button>
+                    </Button>
                   )
                 })}
               </div>
@@ -271,21 +301,28 @@ export const AppointmentPicker = React.forwardRef<HTMLDivElement, AppointmentPic
 
         {/* Footer with confirmation and button */}
         {(showConfirmation || showConfirmButton) && (
-          <div className="border-t px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-4 border-t px-6 py-5 md:flex-row">
             {showConfirmation && (
-              <div className="flex items-center gap-2 flex-1">
+              <div className="flex flex-1 items-center gap-2">
                 {isComplete && (
                   <>
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full border-2 border-green-500 text-green-500">
-                      <Check className="h-3 w-3" />
-                    </div>
+                    <CircleCheckIcon
+                      className="h-4 w-4"
+                      style={{ color: 'var(--color-success-primary)', marginRight: '0.5rem', flexShrink: 0 }}
+                    />
                     <span className="text-sm">{getConfirmationMessage()}</span>
                   </>
                 )}
               </div>
             )}
             {showConfirmButton && (
-              <Button variant="outline" size="2" onClick={handleConfirm} disabled={disabled || !isComplete}>
+              <Button
+                variant="outline"
+                size="2"
+                onClick={handleConfirm}
+                disabled={disabled || !isComplete}
+                className="w-full md:ml-auto md:w-auto"
+              >
                 {confirmText}
               </Button>
             )}
