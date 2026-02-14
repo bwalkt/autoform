@@ -129,6 +129,23 @@ export function CalendarHeader({
   )
   const yearOptions = React.useMemo(() => buildYearOptions(startYear, endYear), [startYear, endYear])
 
+  React.useEffect(() => {
+    if (!pickerOpen) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setPickerOpen(false)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [pickerOpen])
+
+  React.useEffect(() => {
+    if (pickerOpen) {
+      overlayRef.current?.focus()
+    }
+  }, [pickerOpen])
+
   const handleTitleClick = () => {
     if (!hasMonthYearPicker) return
     if (pickerOpen) {
@@ -254,6 +271,8 @@ export function CalendarHeader({
               id={pickerDialogId}
               role="dialog"
               aria-label="Select month and year"
+              aria-modal="true"
+              tabIndex={-1}
               style={{
                 position: 'fixed',
                 zIndex: 99999,
