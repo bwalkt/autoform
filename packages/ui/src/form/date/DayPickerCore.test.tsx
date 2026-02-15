@@ -49,6 +49,21 @@ describe('DayPickerCore foundation', () => {
         disabled: [{ from: new Date(2026, 1, 9), to: new Date(2026, 1, 11) }],
       }),
     ).toBe(true)
+    expect(
+      isCoreDateDisabled(date, {
+        disabled: { before: new Date(2026, 1, 11) },
+      }),
+    ).toBe(true)
+    expect(
+      isCoreDateDisabled(date, {
+        disabled: { after: new Date(2026, 1, 9) },
+      }),
+    ).toBe(true)
+    expect(
+      isCoreDateDisabled(date, {
+        disabled: { after: new Date(2026, 1, 9), before: new Date(2026, 1, 11) },
+      }),
+    ).toBe(true)
   })
 
   it('does not call onSelect for disabled dates', async () => {

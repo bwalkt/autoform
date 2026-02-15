@@ -1,17 +1,9 @@
 import { addDays, endOfMonth, endOfWeek, isAfter, isBefore, isSameDay, startOfMonth, startOfWeek } from 'date-fns'
+import type { Matcher } from 'react-day-picker'
 
 export type DayPickerCoreMode = 'single' | 'range' | 'multiple'
 
-export type DayRange = {
-  from: Date
-  to: Date
-}
-
-export type DayOfWeekMatcher = {
-  dayOfWeek: number[]
-}
-
-export type DayPickerCoreMatcher = boolean | Date | Date[] | DayRange | DayOfWeekMatcher | ((date: Date) => boolean)
+export type DayPickerCoreMatcher = Matcher
 
 export interface MonthCell {
   date: Date
@@ -65,10 +57,33 @@ export function matchesCoreMatcher(date: Date, matcher: DayPickerCoreMatcher): b
   if ('dayOfWeek' in matcher) {
     return matcher.dayOfWeek.includes(day.getDay())
   }
-  if ('from' in matcher && 'to' in matcher) {
-    const from = normalizeDay(matcher.from)
-    const to = normalizeDay(matcher.to)
-    return !isBefore(day, from) && !isAfter(day, to)
+  if ('before' in matcher && 'after' in matcher) {
+    const before = normalizeDay(matcher.before)
+    const after = normalizeDay(matcher.after)
+    // DateInterval is exclusive on both ends.
+    return isAfter(day, after) && isBefore(day, before)
+  }
+  if ('before' in matcher) {
+    const before = normalizeDay(matcher.before)
+    return isBefore(day, before)
+  }
+  if ('after' in matcher) {
+    const after = normalizeDay(matcher.after)
+    return isAfter(day, after)
+  }
+  if ('from' in matcher || 'to' in matcher) {
+    const from = matcher.from ? normalizeDay(matcher.from) : undefined
+    const to = matcher.to ? normalizeDay(matcher.to) : undefined
+    if (from && to) {
+      return !isBefore(day, from) && !isAfter(day, to)
+    }
+    if (from) {
+      return !isBefore(day, from)
+    }
+    if (to) {
+      return !isAfter(day, to)
+    }
+    return false
   }
 
   return false

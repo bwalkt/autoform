@@ -19,7 +19,6 @@ import { cn } from '@/lib/utils'
 import { CalendarHeader } from './CalendarHeader'
 import { CalendarNavButton } from './CalendarNavButton'
 import { DayPickerCore } from './DayPickerCore'
-import type { DayPickerCoreMatcher } from './day-picker-core'
 
 export type CalendarSize = '1' | '2'
 
@@ -673,7 +672,7 @@ export function Calendar({
           required={Boolean(singleModeProps.required)}
           min={coreMinDate}
           max={coreMaxDate}
-          disabled={resolvedDisabled as DayPickerCoreMatcher | DayPickerCoreMatcher[] | undefined}
+          disabled={resolvedDisabled}
           showOutsideDays={showOutsideDays}
           showCaption={false}
           weekdayLabelFormatter={coreWeekdayLabelFormatter}
