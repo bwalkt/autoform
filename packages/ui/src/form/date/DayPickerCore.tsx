@@ -11,6 +11,7 @@ export interface DayPickerCoreProps {
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
   showOutsideDays?: boolean
   showCaption?: boolean
+  weekdayLabelFormatter?: (date: Date) => string
   selected?: Date
   onSelect?: (date: Date) => void
   className?: string
@@ -22,6 +23,7 @@ export function DayPickerCore({
   weekStartsOn = 0,
   showOutsideDays = true,
   showCaption = true,
+  weekdayLabelFormatter,
   selected,
   onSelect,
   className,
@@ -35,10 +37,11 @@ export function DayPickerCore({
     const result: string[] = []
     for (let i = 0; i < 7; i++) {
       const offset = (weekStartsOn + i) % 7
-      result.push(format(new Date(base.getFullYear(), base.getMonth(), base.getDate() + offset), 'EEE'))
+      const date = new Date(base.getFullYear(), base.getMonth(), base.getDate() + offset)
+      result.push(weekdayLabelFormatter ? weekdayLabelFormatter(date) : format(date, 'EEE'))
     }
     return result
-  }, [weekStartsOn])
+  }, [weekStartsOn, weekdayLabelFormatter])
   const today = React.useMemo(() => new Date(), [])
 
   return (

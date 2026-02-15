@@ -114,6 +114,11 @@ type CalendarMultipleProps = {
 
 export type CalendarProps = CalendarCommonProps & (CalendarSingleProps | CalendarRangeProps | CalendarMultipleProps)
 
+function compactWeekdayLabel(label: string): string {
+  const normalized = label.replace(/\.$/u, '')
+  return Array.from(normalized).slice(0, 2).join('')
+}
+
 function isSameDay(left: Date, right: Date): boolean {
   return (
     left.getFullYear() === right.getFullYear() &&
@@ -283,6 +288,13 @@ export function Calendar({
         ...dateFormatOptions,
       }),
     [safeLocaleCode, dateFormatOptions],
+  )
+  const coreWeekdayLabelFormatter = React.useCallback(
+    (date: Date) => {
+      const label = weekdayFormatter.format(date)
+      return size === '1' ? compactWeekdayLabel(label) : label
+    },
+    [weekdayFormatter, size],
   )
   const navButtonClassName =
     'static shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent] text-[color-mix(in_oklab,var(--rdp-accent-color),black_50%)]'
@@ -645,6 +657,7 @@ export function Calendar({
           selected={selectedDate}
           showOutsideDays={showOutsideDays}
           showCaption={false}
+          weekdayLabelFormatter={coreWeekdayLabelFormatter}
           onSelect={date => onSingleSelect?.(date)}
           className={cn(`bg-background ${sizeTokens.padding}`, className)}
           style={

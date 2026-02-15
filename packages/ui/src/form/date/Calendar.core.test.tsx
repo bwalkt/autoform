@@ -26,4 +26,11 @@ describe('Calendar experimentalCorePicker', () => {
     await user.click(screen.getAllByRole('button', { name: '12' })[0] as HTMLElement)
     expect(onSelect).toHaveBeenCalled()
   })
+
+  it('uses compact locale weekday labels in size 1', () => {
+    render(<Calendar mode="single" experimentalCorePicker={true} size="1" defaultMonth={new Date(2026, 1, 1)} />)
+
+    expect(screen.getByText('Su')).toBeInTheDocument()
+    expect(screen.queryByText('Sun')).not.toBeInTheDocument()
+  })
 })
