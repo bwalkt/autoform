@@ -32,6 +32,9 @@ const meta: Meta<typeof Calendar> = {
       control: { type: 'radio' },
       options: ['1', '2'],
     },
+    experimentalCorePicker: {
+      table: { disable: true },
+    },
   },
 }
 
@@ -95,6 +98,35 @@ export const DefaultMonth: Story = {
           className="rounded-md border"
         />
       </div>
+    )
+  },
+}
+
+export const ExperimentalCore: Story = {
+  args: {
+    color: 'default',
+    radius: 'md',
+    navButtonBordered: false,
+    navButtonVariant: 'soft',
+    size: '1',
+    experimentalCorePicker: true,
+  },
+  render: args => {
+    const [date, setDate] = React.useState<Date | undefined>(undefined)
+    return (
+      <Calendar
+        mode="single"
+        defaultMonth={new Date(2026, 1, 1)}
+        selected={date}
+        onSelect={setDate}
+        color={args.color}
+        radius={args.radius}
+        navButtonBordered={args.navButtonBordered}
+        navButtonVariant={args.navButtonVariant}
+        size={args.size}
+        experimentalCorePicker={args.experimentalCorePicker}
+        className="rounded-md border"
+      />
     )
   },
 }

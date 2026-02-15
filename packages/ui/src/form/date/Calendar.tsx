@@ -18,6 +18,7 @@ import { type Color, designTokens, type Radius } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
 import { CalendarHeader } from './CalendarHeader'
 import { CalendarNavButton } from './CalendarNavButton'
+import { DayPickerCore } from './DayPickerCore'
 
 export type CalendarSize = '1' | '2'
 
@@ -43,7 +44,7 @@ const calendarSizeTokens: Record<
   '2': {
     cellSize: '2.5rem',
     fontSize: '1rem',
-    weekdayFontSize: '0.875rem',
+    weekdayFontSize: '1rem',
     headerFontSize: '1.125rem',
     paddingClass: 'p-4',
     chevronSize: 16,
@@ -81,6 +82,8 @@ type CalendarCommonProps = Omit<
   navButtonVariant?: 'soft' | 'outline' | 'ghost'
   showMonthYearPicker?: boolean
   size?: CalendarSize
+  /** Internal migration flag for in-house day picker foundation. */
+  experimentalCorePicker?: boolean
 }
 
 type CalendarSingleProps = {
@@ -180,6 +183,7 @@ export function Calendar({
   navButtonVariant: navButtonVariantProp,
   showMonthYearPicker = true,
   size = '1',
+  experimentalCorePicker = false,
   formatters,
   components,
   ...dayPickerProps
@@ -229,6 +233,11 @@ export function Calendar({
     : (numberOfMonths ?? 1)
   const resolvedPagedNavigation = pagedNavigationProp ?? resolvedNumberOfMonths > 1
   const useCustomHeader = resolvedNumberOfMonths === 1
+  const canUseCorePicker =
+    experimentalCorePicker &&
+    resolvedMode === 'single' &&
+    resolvedNumberOfMonths === 1 &&
+    !dayPickerProps.showWeekNumber
   const resolvedColors = resolveCalendarColors(color)
   const dateFormatOptions = React.useMemo(
     () => (resolvedTimeZone ? ({ timeZone: resolvedTimeZone } as const) : undefined),
@@ -275,8 +284,31 @@ export function Calendar({
       }),
     [safeLocaleCode, dateFormatOptions],
   )
+  const dayAriaLabelFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(safeLocaleCode, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        ...dateFormatOptions,
+      }),
+    [safeLocaleCode, dateFormatOptions],
+  )
+  const compactWeekdayFormatter = React.useCallback(
+    (date: Date) => {
+      const normalized = weekdayFormatter.format(date).replace(/\.$/u, '').replace(/\s+/gu, '')
+      return Array.from(normalized).slice(0, 2).join('')
+    },
+    [weekdayFormatter],
+  )
+  const coreWeekdayLabelFormatter = React.useCallback(
+    (date: Date) => (size === '1' ? compactWeekdayFormatter(date) : weekdayFormatter.format(date)),
+    [size, compactWeekdayFormatter, weekdayFormatter],
+  )
   const navButtonClassName =
     'static shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent] text-[color-mix(in_oklab,var(--rdp-accent-color),black_50%)]'
+  const headerStyleVars = { '--cal-header-font-size': sizeTokens.headerFontSize } as React.CSSProperties
 
   const handleMonthChange = React.useCallback<MonthChangeEventHandler>(
     month => {
@@ -599,8 +631,72 @@ export function Calendar({
     />
   )
 
+  if (canUseCorePicker) {
+    const selectedDate = dayPickerProps.selected instanceof Date ? dayPickerProps.selected : undefined
+    const onSingleSelect = dayPickerProps.onSelect as ((date: Date | undefined) => void) | undefined
+    const singleModeProps = dayPickerProps as CalendarSingleProps
+    const coreMinDate = dayPickerProps.fromDate
+    const coreMaxDate = dayPickerProps.toDate ?? undefined
+
+    return (
+      <div className="w-fit" style={headerStyleVars}>
+        <CalendarHeader
+          className="mb-1"
+          title={captionFormatter.format(displayedMonth)}
+          color={resolvedNavButtonColor}
+          radius={resolvedRadius}
+          navButtonVariant={resolvedNavButtonVariant}
+          navButtonBordered={resolvedNavButtonBordered}
+          accentColor={resolvedColors.accent}
+          softColor={resolvedColors.soft}
+          foregroundColor={resolvedColors.foreground}
+          navButtonClassName={navButtonClassName}
+          titleClassName="text-[var(--cal-header-font-size)]"
+          previousAriaLabel="Previous month"
+          nextAriaLabel="Next month"
+          previousIcon={previousIcon}
+          nextIcon={nextIcon}
+          onPrevious={handlePrevMonth}
+          onNext={handleNextMonth}
+          previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
+          nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+          displayedMonth={displayedMonth}
+          onMonthYearChange={showMonthYearPicker ? handleMonthChange : undefined}
+          localeCode={safeLocaleCode}
+          startMonth={fromMonthBoundary ?? undefined}
+          endMonth={toMonthBoundary ?? undefined}
+        />
+        <DayPickerCore
+          month={displayedMonth}
+          selected={selectedDate}
+          required={Boolean(singleModeProps.required)}
+          min={coreMinDate}
+          max={coreMaxDate}
+          disabled={resolvedDisabled}
+          showOutsideDays={showOutsideDays}
+          showCaption={false}
+          weekdayLabelFormatter={coreWeekdayLabelFormatter}
+          dayLabelFormatter={date => dayAriaLabelFormatter.format(date)}
+          onSelect={date => onSingleSelect?.(date)}
+          className={cn(`bg-background ${sizeTokens.paddingClass}`, className)}
+          style={
+            {
+              '--rdp-accent-color': resolvedColors.accent,
+              '--rdp-accent-background-color': resolvedColors.soft,
+              '--cal-accent-foreground': resolvedColors.foreground,
+              '--cell-size': sizeTokens.cellSize,
+              '--cal-font-size': sizeTokens.fontSize,
+              '--cal-weekday-font-size': sizeTokens.weekdayFontSize,
+              '--cal-radius': designTokens.radius[resolvedRadius],
+            } as React.CSSProperties
+          }
+        />
+      </div>
+    )
+  }
+
   return (
-    <div className="w-fit">
+    <div className="w-fit" style={headerStyleVars}>
       {useCustomHeader ? (
         <CalendarHeader
           className="mb-1"
