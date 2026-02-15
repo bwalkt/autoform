@@ -28,24 +28,24 @@ const calendarSizeTokens: Record<
     fontSize: string
     weekdayFontSize: string
     headerFontSize: string
-    padding: string
+    paddingClass: string
     chevronSize: number
   }
 > = {
   '1': {
-    cellSize: '--spacing(7)',
+    cellSize: '1.75rem',
     fontSize: '0.75rem',
-    weekdayFontSize: '0.65rem',
-    headerFontSize: '0.8rem',
-    padding: 'p-2',
+    weekdayFontSize: '0.7rem',
+    headerFontSize: '0.875rem',
+    paddingClass: 'p-2',
     chevronSize: 12,
   },
   '2': {
-    cellSize: '--spacing(10)',
+    cellSize: '2.5rem',
     fontSize: '1rem',
     weekdayFontSize: '0.875rem',
     headerFontSize: '1.125rem',
-    padding: 'p-4',
+    paddingClass: 'p-4',
     chevronSize: 16,
   },
 }
@@ -395,7 +395,8 @@ export function Calendar({
     hideNavigation: useCustomHeader ? true : dayPickerProps.hideNavigation,
     showOutsideDays,
     className: cn(
-      `bg-background group/calendar ${sizeTokens.padding} [--cell-size:${sizeTokens.cellSize}]`,
+      'bg-background group/calendar',
+      sizeTokens.paddingClass,
       String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
       String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
       className,
@@ -414,6 +415,10 @@ export function Calendar({
       '--rdp-nav_button-width': 'var(--cell-size)',
       '--cal-radius': designTokens.radius[resolvedRadius],
       '--cal-nav-radius': designTokens.radius[resolvedRadius],
+      '--cell-size': sizeTokens.cellSize,
+      '--cal-font-size': sizeTokens.fontSize,
+      '--cal-weekday-font-size': sizeTokens.weekdayFontSize,
+      '--cal-header-font-size': sizeTokens.headerFontSize,
     } as React.CSSProperties,
     styles: mergedStyles,
     formatters: {
@@ -449,7 +454,7 @@ export function Calendar({
       month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
       weekdays: cn('flex mt-1', defaultClassNames.weekdays),
       weekday: cn(
-        `text-muted-foreground rounded-md flex-1 font-normal text-[${sizeTokens.weekdayFontSize}] select-none`,
+        'text-muted-foreground rounded-md flex-1 font-normal text-[var(--cal-weekday-font-size)] select-none',
         defaultClassNames.weekday,
       ),
       week: cn('flex w-full mt-2', defaultClassNames.week),
@@ -463,7 +468,7 @@ export function Calendar({
       day_button: cn(
         defaultClassNames.day_button,
         'p-0 rounded-[var(--cal-radius)] border-0 bg-transparent shadow-none appearance-none touch-manipulation [-webkit-tap-highlight-color:transparent]',
-        `inline-flex items-center justify-center cursor-pointer text-[${sizeTokens.fontSize}] font-normal text-foreground`,
+        'inline-flex items-center justify-center cursor-pointer text-[var(--cal-font-size)] font-normal text-foreground',
         'hover:bg-[var(--rdp-accent-background-color)] hover:text-foreground',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       ),
@@ -490,7 +495,7 @@ export function Calendar({
         defaultClassNames.today,
       ),
       selected: cn(
-        `font-normal text-[${sizeTokens.fontSize}]`,
+        'font-normal text-[var(--cal-font-size)]',
         '[&>button]:bg-[var(--rdp-accent-color)] [&>button]:text-[var(--cal-accent-foreground)]',
         defaultClassNames.selected,
       ),
@@ -608,7 +613,7 @@ export function Calendar({
           softColor={resolvedColors.soft}
           foregroundColor={resolvedColors.foreground}
           navButtonClassName={navButtonClassName}
-          titleClassName={`text-[${sizeTokens.headerFontSize}]`}
+          titleClassName="text-[var(--cal-header-font-size)]"
           previousAriaLabel="Previous month"
           nextAriaLabel="Next month"
           previousIcon={previousIcon}
