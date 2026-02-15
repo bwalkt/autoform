@@ -22,5 +22,6 @@ export {
 export { DatePicker, type DatePickerProps } from './DatePicker'
 export { type DateRange, DateRangePicker, type DateRangePickerProps } from './DateRangePicker'
 export { DateTimePicker, type DateTimePickerProps } from './DateTimePicker'
+export { DayPickerCore, type DayPickerCoreProps } from './DayPickerCore'
 export { MiniCalendar, type MiniCalendarProps } from './MiniCalendar'
 export { TimePicker, type TimePickerProps, type TimeValue } from './TimePicker'

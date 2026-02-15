@@ -18,6 +18,7 @@ import { type Color, designTokens, type Radius } from '@/elements/tokens'
 import { cn } from '@/lib/utils'
 import { CalendarHeader } from './CalendarHeader'
 import { CalendarNavButton } from './CalendarNavButton'
+import { DayPickerCore } from './DayPickerCore'
 
 export type CalendarSize = '1' | '2'
 
@@ -81,6 +82,8 @@ type CalendarCommonProps = Omit<
   navButtonVariant?: 'soft' | 'outline' | 'ghost'
   showMonthYearPicker?: boolean
   size?: CalendarSize
+  /** Internal migration flag for in-house day picker foundation. */
+  experimentalCorePicker?: boolean
 }
 
 type CalendarSingleProps = {
@@ -180,6 +183,7 @@ export function Calendar({
   navButtonVariant: navButtonVariantProp,
   showMonthYearPicker = true,
   size = '1',
+  experimentalCorePicker = false,
   formatters,
   components,
   ...dayPickerProps
@@ -229,6 +233,11 @@ export function Calendar({
     : (numberOfMonths ?? 1)
   const resolvedPagedNavigation = pagedNavigationProp ?? resolvedNumberOfMonths > 1
   const useCustomHeader = resolvedNumberOfMonths === 1
+  const canUseCorePicker =
+    experimentalCorePicker &&
+    resolvedMode === 'single' &&
+    resolvedNumberOfMonths === 1 &&
+    !dayPickerProps.showWeekNumber
   const resolvedColors = resolveCalendarColors(color)
   const dateFormatOptions = React.useMemo(
     () => (resolvedTimeZone ? ({ timeZone: resolvedTimeZone } as const) : undefined),
@@ -593,6 +602,49 @@ export function Calendar({
       height={sizeTokens.chevronSize}
     />
   )
+
+  if (canUseCorePicker) {
+    const selectedDate = dayPickerProps.selected instanceof Date ? dayPickerProps.selected : undefined
+    const onSingleSelect = dayPickerProps.onSelect as ((date: Date | undefined) => void) | undefined
+
+    return (
+      <div className="w-fit">
+        <CalendarHeader
+          className="mb-1"
+          title={captionFormatter.format(displayedMonth)}
+          color={resolvedNavButtonColor}
+          radius={resolvedRadius}
+          navButtonVariant={resolvedNavButtonVariant}
+          navButtonBordered={resolvedNavButtonBordered}
+          accentColor={resolvedColors.accent}
+          softColor={resolvedColors.soft}
+          foregroundColor={resolvedColors.foreground}
+          navButtonClassName={navButtonClassName}
+          titleClassName={`text-[${sizeTokens.headerFontSize}]`}
+          previousAriaLabel="Previous month"
+          nextAriaLabel="Next month"
+          previousIcon={previousIcon}
+          nextIcon={nextIcon}
+          onPrevious={handlePrevMonth}
+          onNext={handleNextMonth}
+          previousDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigatePrev}
+          nextDisabled={Boolean(dayPickerProps.disableNavigation) || !canNavigateNext}
+          displayedMonth={displayedMonth}
+          onMonthYearChange={showMonthYearPicker ? handleMonthChange : undefined}
+          localeCode={safeLocaleCode}
+          startMonth={fromMonthBoundary ?? undefined}
+          endMonth={toMonthBoundary ?? undefined}
+        />
+        <DayPickerCore
+          month={displayedMonth}
+          selected={selectedDate}
+          showOutsideDays={showOutsideDays}
+          onSelect={date => onSingleSelect?.(date)}
+          className={cn(`bg-background ${sizeTokens.padding}`, className)}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="w-fit">
