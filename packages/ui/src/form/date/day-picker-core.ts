@@ -55,7 +55,8 @@ export function matchesCoreMatcher(date: Date, matcher: DayPickerCoreMatcher): b
     return matcher.some(d => isSameDay(day, normalizeDay(d)))
   }
   if ('dayOfWeek' in matcher) {
-    return matcher.dayOfWeek.includes(day.getDay())
+    const dayOfWeek = matcher.dayOfWeek
+    return Array.isArray(dayOfWeek) ? dayOfWeek.includes(day.getDay()) : dayOfWeek === day.getDay()
   }
   if ('before' in matcher && 'after' in matcher) {
     const before = normalizeDay(matcher.before)
