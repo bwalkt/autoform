@@ -124,7 +124,7 @@ export const ExperimentalCore: Story = {
         navButtonBordered={args.navButtonBordered}
         navButtonVariant={args.navButtonVariant}
         size={args.size}
-        experimentalCorePicker={true}
+        experimentalCorePicker={args.experimentalCorePicker}
         className="rounded-md border"
       />
     )

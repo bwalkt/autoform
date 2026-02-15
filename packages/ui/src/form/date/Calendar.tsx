@@ -293,6 +293,7 @@ export function Calendar({
   )
   const navButtonClassName =
     'static shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent] text-[color-mix(in_oklab,var(--rdp-accent-color),black_50%)]'
+  const headerStyleVars = { '--cal-header-font-size': sizeTokens.headerFontSize } as React.CSSProperties
 
   const handleMonthChange = React.useCallback<MonthChangeEventHandler>(
     month => {
@@ -620,7 +621,7 @@ export function Calendar({
     const onSingleSelect = dayPickerProps.onSelect as ((date: Date | undefined) => void) | undefined
 
     return (
-      <div className="w-fit">
+      <div className="w-fit" style={headerStyleVars}>
         <CalendarHeader
           className="mb-1"
           title={captionFormatter.format(displayedMonth)}
@@ -632,7 +633,7 @@ export function Calendar({
           softColor={resolvedColors.soft}
           foregroundColor={resolvedColors.foreground}
           navButtonClassName={navButtonClassName}
-          titleClassName={`text-[${sizeTokens.headerFontSize}]`}
+          titleClassName="text-[var(--cal-header-font-size)]"
           previousAriaLabel="Previous month"
           nextAriaLabel="Next month"
           previousIcon={previousIcon}
@@ -671,7 +672,7 @@ export function Calendar({
   }
 
   return (
-    <div className="w-fit">
+    <div className="w-fit" style={headerStyleVars}>
       {useCustomHeader ? (
         <CalendarHeader
           className="mb-1"

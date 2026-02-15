@@ -58,8 +58,8 @@ export function DayPickerCore({
         className="m-0 mx-auto w-max p-0 text-center font-medium text-muted-foreground"
         style={{ fontSize: 'var(--cal-weekday-font-size)' }}
       >
-        {weekdayStart.map(day => (
-          <div key={day} className="flex h-[var(--cell-size)] w-[var(--cell-size)] items-center justify-center">
+        {weekdayStart.map((day, index) => (
+          <div key={index} className="flex h-[var(--cell-size)] w-[var(--cell-size)] items-center justify-center">
             {day}
           </div>
         ))}
