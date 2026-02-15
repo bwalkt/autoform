@@ -18,10 +18,22 @@ export interface MonthCell {
   outside: boolean
 }
 
+/**
+ * Normalize a Date to its calendar day by removing time components.
+ *
+ * @param date - The input date to normalize
+ * @returns A new Date with the same year, month, and day and time set to local midnight
+ */
 export function normalizeDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
+/**
+ * Builds the calendar grid of MonthCell objects for the given month, including leading and trailing days to fill full weeks.
+ *
+ * @param weekStartsOn - Index of the first day of the week (0 = Sunday, 1 = Monday, …, 6 = Saturday)
+ * @returns An array of MonthCell representing each day in the month grid; `outside` is `true` for days that are not in the target month
+ */
 export function buildMonthCells(month: Date, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6 = 0): MonthCell[] {
   const monthStart = startOfMonth(month)
   const monthEnd = endOfMonth(month)
@@ -39,6 +51,12 @@ export function buildMonthCells(month: Date, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5
   return cells
 }
 
+/**
+ * Splits a flat array of month cells into a matrix of weeks (rows of 7 days).
+ *
+ * @param cells - Flat array of MonthCell representing a contiguous grid of days
+ * @returns An array of weeks, each week being an array of 7 MonthCell objects
+ */
 export function toMonthMatrix(cells: MonthCell[]): MonthCell[][] {
   const rows: MonthCell[][] = []
   for (let i = 0; i < cells.length; i += 7) {
@@ -47,6 +65,16 @@ export function toMonthMatrix(cells: MonthCell[]): MonthCell[][] {
   return rows
 }
 
+/**
+ * Checks whether a given date satisfies a day picker matcher.
+ *
+ * Supports the following matcher shapes: `boolean`, `Date`, `Date[]`, `DayRange` (`{ from, to }`),
+ * `DayOfWeekMatcher` (`{ dayOfWeek: number[] }`), or a predicate function `(date: Date) => boolean`.
+ *
+ * @param date - The date to test
+ * @param matcher - The matcher used to evaluate the date
+ * @returns `true` if `date` matches `matcher`, `false` otherwise
+ */
 export function matchesCoreMatcher(date: Date, matcher: DayPickerCoreMatcher): boolean {
   const day = normalizeDay(date)
 
@@ -74,6 +102,15 @@ export function matchesCoreMatcher(date: Date, matcher: DayPickerCoreMatcher): b
   return false
 }
 
+/**
+ * Checks whether a calendar date is disabled according to optional minimum/maximum bounds and matcher(s).
+ *
+ * @param date - The date to evaluate (time components are ignored).
+ * @param min - Inclusive minimum allowed date; dates before this are considered disabled.
+ * @param max - Inclusive maximum allowed date; dates after this are considered disabled.
+ * @param disabled - One or more matcher(s) (boolean, Date, Date[], DayRange, DayOfWeekMatcher, or predicate) that mark matching dates as disabled.
+ * @returns `true` if the date is disabled because it is before `min`, after `max`, or matches any `disabled` matcher, `false` otherwise.
+ */
 export function isCoreDateDisabled(
   date: Date,
   {

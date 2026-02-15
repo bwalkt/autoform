@@ -18,6 +18,20 @@ export interface DayPickerCoreProps {
   style?: React.CSSProperties
 }
 
+/**
+ * Render a compact month calendar with optional caption, weekday headers, and selectable days.
+ *
+ * Renders the provided `month`, arranges days into weeks starting on `weekStartsOn`, highlights the current day and an optionally `selected` date, and invokes `onSelect` when a day is clicked.
+ *
+ * @param month - The month to display; only its year and month are used.
+ * @param weekStartsOn - Index of the first day of the week (0 = Sunday, 6 = Saturday).
+ * @param showOutsideDays - If `true`, days from adjacent months are shown; if `false`, they are rendered as empty placeholders.
+ * @param showCaption - If `true`, displays the month and year caption above the grid.
+ * @param weekdayLabelFormatter - Optional formatter for weekday header labels; receives a Date and should return the label string.
+ * @param selected - Optional date to mark as selected in the calendar.
+ * @param onSelect - Optional callback invoked with a Date when a day is clicked.
+ * @returns A React element representing the month calendar UI.
+ */
 export function DayPickerCore({
   month = new Date(),
   weekStartsOn = 0,
