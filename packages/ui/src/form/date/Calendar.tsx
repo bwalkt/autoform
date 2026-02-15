@@ -285,12 +285,27 @@ export function Calendar({
       }),
     [safeLocaleCode, dateFormatOptions],
   )
+  const dayAriaLabelFormatter = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(safeLocaleCode, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        ...dateFormatOptions,
+      }),
+    [safeLocaleCode, dateFormatOptions],
+  )
   const compactWeekdayFormatter = React.useCallback(
     (date: Date) => {
       const normalized = weekdayFormatter.format(date).replace(/\.$/u, '').replace(/\s+/gu, '')
       return Array.from(normalized).slice(0, 2).join('')
     },
     [weekdayFormatter],
+  )
+  const coreWeekdayLabelFormatter = React.useCallback(
+    (date: Date) => (size === '1' ? compactWeekdayFormatter(date) : weekdayFormatter.format(date)),
+    [size, compactWeekdayFormatter, weekdayFormatter],
   )
   const navButtonClassName =
     'static shrink-0 touch-manipulation [-webkit-tap-highlight-color:transparent] text-[color-mix(in_oklab,var(--rdp-accent-color),black_50%)]'
@@ -621,8 +636,8 @@ export function Calendar({
     const selectedDate = dayPickerProps.selected instanceof Date ? dayPickerProps.selected : undefined
     const onSingleSelect = dayPickerProps.onSelect as ((date: Date | undefined) => void) | undefined
     const singleModeProps = dayPickerProps as CalendarSingleProps
-    const coreMinDate = dayPickerProps.fromDate ?? from
-    const coreMaxDate = dayPickerProps.toDate ?? to ?? undefined
+    const coreMinDate = dayPickerProps.fromDate
+    const coreMaxDate = dayPickerProps.toDate ?? undefined
 
     return (
       <div className="w-fit" style={headerStyleVars}>
@@ -661,7 +676,8 @@ export function Calendar({
           disabled={resolvedDisabled as DayPickerCoreMatcher | DayPickerCoreMatcher[] | undefined}
           showOutsideDays={showOutsideDays}
           showCaption={false}
-          weekdayLabelFormatter={size === '1' ? compactWeekdayFormatter : undefined}
+          weekdayLabelFormatter={coreWeekdayLabelFormatter}
+          dayLabelFormatter={date => dayAriaLabelFormatter.format(date)}
           onSelect={date => onSingleSelect?.(date)}
           className={cn(`bg-background ${sizeTokens.paddingClass}`, className)}
           style={

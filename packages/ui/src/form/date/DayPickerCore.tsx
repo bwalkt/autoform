@@ -12,6 +12,7 @@ export interface DayPickerCoreProps {
   showOutsideDays?: boolean
   showCaption?: boolean
   weekdayLabelFormatter?: (date: Date) => string
+  dayLabelFormatter?: (date: Date) => string
   selected?: Date
   required?: boolean
   min?: Date
@@ -28,6 +29,7 @@ export function DayPickerCore({
   showOutsideDays = true,
   showCaption = true,
   weekdayLabelFormatter,
+  dayLabelFormatter,
   selected,
   required = false,
   min,
@@ -112,7 +114,7 @@ export function DayPickerCore({
                   }
                   onSelect?.(cell.date)
                 }}
-                aria-label={format(cell.date, 'EEEE, MMMM d, yyyy')}
+                aria-label={dayLabelFormatter ? dayLabelFormatter(cell.date) : format(cell.date, 'EEEE, MMMM d, yyyy')}
                 style={{ fontSize: 'var(--cal-font-size)' }}
                 className={cn(
                   'h-[var(--cell-size)] w-[var(--cell-size)] appearance-none rounded-[var(--cal-radius)] border-0 bg-transparent p-0 shadow-none transition-colors disabled:pointer-events-none disabled:opacity-50',
