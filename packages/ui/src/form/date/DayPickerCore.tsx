@@ -39,6 +39,7 @@ export function DayPickerCore({
     }
     return result
   }, [weekStartsOn])
+  const today = React.useMemo(() => new Date(), [])
 
   return (
     <div className={cn('inline-block rounded-lg border bg-background p-3', className)} style={style}>
@@ -62,6 +63,10 @@ export function DayPickerCore({
             selected.getFullYear() === cell.date.getFullYear() &&
             selected.getMonth() === cell.date.getMonth() &&
             selected.getDate() === cell.date.getDate()
+          const isToday =
+            today.getFullYear() === cell.date.getFullYear() &&
+            today.getMonth() === cell.date.getMonth() &&
+            today.getDate() === cell.date.getDate()
 
           if (cell.outside && !showOutsideDays) {
             return (
@@ -84,7 +89,8 @@ export function DayPickerCore({
                 className={cn(
                   'h-[var(--cell-size)] w-[var(--cell-size)] appearance-none rounded-md border-0 bg-transparent p-0 text-sm shadow-none transition-colors',
                   cell.outside ? 'text-muted-foreground/60' : 'text-foreground',
-                  isSelected && 'bg-primary text-primary-foreground',
+                  !isSelected && isToday && 'bg-[var(--rdp-accent-background-color)] text-foreground',
+                  isSelected && 'bg-[var(--rdp-accent-color)] text-[var(--cal-accent-foreground)]',
                 )}
               >
                 {cell.date.getDate()}

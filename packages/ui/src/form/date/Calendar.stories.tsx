@@ -112,7 +112,7 @@ export const ExperimentalCore: Story = {
     experimentalCorePicker: true,
   },
   render: args => {
-    const [date, setDate] = React.useState<Date | undefined>(new Date(2026, 1, 12))
+    const [date, setDate] = React.useState<Date | undefined>(undefined)
     return (
       <Calendar
         mode="single"

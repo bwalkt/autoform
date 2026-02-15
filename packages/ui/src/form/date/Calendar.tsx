@@ -649,6 +649,9 @@ export function Calendar({
           className={cn(`bg-background ${sizeTokens.padding}`, className)}
           style={
             {
+              '--rdp-accent-color': resolvedColors.accent,
+              '--rdp-accent-background-color': resolvedColors.soft,
+              '--cal-accent-foreground': resolvedColors.foreground,
               '--cell-size': sizeTokens.cellSize,
             } as React.CSSProperties
           }
