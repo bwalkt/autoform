@@ -38,12 +38,14 @@ export function DayPickerCore({
   return (
     <div className={cn('inline-block rounded-lg border bg-background p-3', className)}>
       <h2 className="mb-2 text-center text-base font-semibold">{format(month, 'MMMM yyyy')}</h2>
-      <ol className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-muted-foreground">
+      <ol className="m-0 mx-auto grid w-max list-none grid-cols-7 gap-1 p-0 text-center text-xs font-medium text-muted-foreground">
         {weekdayStart.map(day => (
-          <li key={day}>{day}</li>
+          <li key={day} className="flex h-9 w-9 items-center justify-center">
+            {day}
+          </li>
         ))}
       </ol>
-      <ol className="mt-2 grid grid-cols-7 gap-1 text-center">
+      <ol className="m-0 mx-auto mt-2 grid w-max list-none grid-cols-7 gap-1 p-0 text-center">
         {matrix.flat().map(cell => {
           const isSelected =
             selected &&
@@ -52,16 +54,22 @@ export function DayPickerCore({
             selected.getDate() === cell.date.getDate()
 
           if (cell.outside && !showOutsideDays) {
-            return <li key={cell.date.toISOString()} className="h-9 w-9" aria-hidden="true" />
+            return (
+              <li
+                key={cell.date.toISOString()}
+                className="flex h-9 w-9 items-center justify-center"
+                aria-hidden="true"
+              />
+            )
           }
 
           return (
-            <li key={cell.date.toISOString()}>
+            <li key={cell.date.toISOString()} className="flex h-9 w-9 items-center justify-center">
               <button
                 type="button"
                 onClick={() => onSelect?.(cell.date)}
                 className={cn(
-                  'h-9 w-9 rounded-md text-sm transition-colors',
+                  'h-9 w-9 appearance-none rounded-md border-0 bg-transparent p-0 text-sm shadow-none transition-colors',
                   cell.outside ? 'text-muted-foreground/60' : 'text-foreground',
                   isSelected && 'bg-primary text-primary-foreground',
                 )}
