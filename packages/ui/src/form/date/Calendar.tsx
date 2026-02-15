@@ -644,8 +644,14 @@ export function Calendar({
           month={displayedMonth}
           selected={selectedDate}
           showOutsideDays={showOutsideDays}
+          showCaption={false}
           onSelect={date => onSingleSelect?.(date)}
           className={cn(`bg-background ${sizeTokens.padding}`, className)}
+          style={
+            {
+              '--cell-size': sizeTokens.cellSize,
+            } as React.CSSProperties
+          }
         />
       </div>
     )

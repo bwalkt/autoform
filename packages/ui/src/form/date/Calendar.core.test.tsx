@@ -22,7 +22,7 @@ describe('Calendar experimentalCorePicker', () => {
       />,
     )
 
-    expect(screen.getByRole('heading', { name: 'February 2026' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'February 2026' })).toBeInTheDocument()
     await user.click(screen.getAllByRole('button', { name: '12' })[0] as HTMLElement)
     expect(onSelect).toHaveBeenCalled()
   })
