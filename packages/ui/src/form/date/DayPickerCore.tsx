@@ -46,12 +46,17 @@ export function DayPickerCore({
 
   return (
     <div className={cn('inline-block rounded-lg border bg-background p-3', className)} style={style}>
-      {showCaption ? <h2 className="mb-2 text-center text-base font-semibold">{format(month, 'MMMM yyyy')}</h2> : null}
+      {showCaption ? (
+        <h2 className="mb-2 text-center font-semibold" style={{ fontSize: 'var(--cal-header-font-size)' }}>
+          {format(month, 'MMMM yyyy')}
+        </h2>
+      ) : null}
       <Grid
         as="div"
         columns="repeat(7, var(--cell-size))"
         gap="1"
-        className="m-0 mx-auto w-max p-0 text-center text-xs font-medium text-muted-foreground"
+        className="m-0 mx-auto w-max p-0 text-center font-medium text-muted-foreground"
+        style={{ fontSize: 'var(--cal-weekday-font-size)' }}
       >
         {weekdayStart.map(day => (
           <div key={day} className="flex h-[var(--cell-size)] w-[var(--cell-size)] items-center justify-center">
@@ -89,8 +94,9 @@ export function DayPickerCore({
               <button
                 type="button"
                 onClick={() => onSelect?.(cell.date)}
+                style={{ fontSize: 'var(--cal-font-size)' }}
                 className={cn(
-                  'h-[var(--cell-size)] w-[var(--cell-size)] appearance-none rounded-md border-0 bg-transparent p-0 text-sm shadow-none transition-colors',
+                  'h-[var(--cell-size)] w-[var(--cell-size)] appearance-none rounded-md border-0 bg-transparent p-0 shadow-none transition-colors',
                   cell.outside ? 'text-muted-foreground/60' : 'text-foreground',
                   !isSelected && isToday && 'bg-[var(--rdp-accent-background-color)] text-foreground',
                   isSelected && 'bg-[var(--rdp-accent-color)] text-[var(--cal-accent-foreground)]',
