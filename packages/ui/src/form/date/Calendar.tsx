@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils'
 import { CalendarHeader } from './CalendarHeader'
 import { CalendarNavButton } from './CalendarNavButton'
 import { DayPickerCore } from './DayPickerCore'
+import type { DayPickerCoreMatcher } from './day-picker-core'
 
 export type CalendarSize = '1' | '2'
 
@@ -619,6 +620,9 @@ export function Calendar({
   if (canUseCorePicker) {
     const selectedDate = dayPickerProps.selected instanceof Date ? dayPickerProps.selected : undefined
     const onSingleSelect = dayPickerProps.onSelect as ((date: Date | undefined) => void) | undefined
+    const singleModeProps = dayPickerProps as CalendarSingleProps
+    const coreMinDate = dayPickerProps.fromDate ?? from
+    const coreMaxDate = dayPickerProps.toDate ?? to ?? undefined
 
     return (
       <div className="w-fit" style={headerStyleVars}>
@@ -651,6 +655,10 @@ export function Calendar({
         <DayPickerCore
           month={displayedMonth}
           selected={selectedDate}
+          required={Boolean(singleModeProps.required)}
+          min={coreMinDate}
+          max={coreMaxDate}
+          disabled={resolvedDisabled as DayPickerCoreMatcher | DayPickerCoreMatcher[] | undefined}
           showOutsideDays={showOutsideDays}
           showCaption={false}
           weekdayLabelFormatter={size === '1' ? compactWeekdayFormatter : undefined}
@@ -664,6 +672,7 @@ export function Calendar({
               '--cell-size': sizeTokens.cellSize,
               '--cal-font-size': sizeTokens.fontSize,
               '--cal-weekday-font-size': sizeTokens.weekdayFontSize,
+              '--cal-radius': designTokens.radius[resolvedRadius],
             } as React.CSSProperties
           }
         />

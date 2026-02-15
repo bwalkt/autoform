@@ -28,9 +28,13 @@ describe('DayPickerCore foundation', () => {
     const onSelect = vi.fn()
     render(<DayPickerCore month={new Date(2026, 1, 1)} showOutsideDays={false} onSelect={onSelect} />)
 
-    const buttons = screen.getAllByRole('button', { name: '12' })
-    await user.click(buttons[0] as HTMLElement)
-    expect(onSelect).toHaveBeenCalled()
+    const button = screen.getByRole('button', { name: 'Thursday, February 12, 2026' })
+    await user.click(button)
+    expect(onSelect).toHaveBeenCalledWith(expect.any(Date))
+    const calledDate = onSelect.mock.calls[0][0] as Date
+    expect(calledDate.getDate()).toBe(12)
+    expect(calledDate.getMonth()).toBe(1)
+    expect(calledDate.getFullYear()).toBe(2026)
   })
 
   it('applies min/max and disabled matcher checks', () => {
@@ -45,5 +49,38 @@ describe('DayPickerCore foundation', () => {
         disabled: [{ from: new Date(2026, 1, 9), to: new Date(2026, 1, 11) }],
       }),
     ).toBe(true)
+  })
+
+  it('does not call onSelect for disabled dates', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    render(
+      <DayPickerCore
+        month={new Date(2026, 1, 1)}
+        showOutsideDays={false}
+        disabled={[new Date(2026, 1, 12)]}
+        onSelect={onSelect}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Thursday, February 12, 2026' }))
+    expect(onSelect).not.toHaveBeenCalled()
+  })
+
+  it('allows deselect when required is false', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    render(
+      <DayPickerCore
+        month={new Date(2026, 1, 1)}
+        showOutsideDays={false}
+        selected={new Date(2026, 1, 12)}
+        required={false}
+        onSelect={onSelect}
+      />,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Thursday, February 12, 2026' }))
+    expect(onSelect).toHaveBeenCalledWith(undefined)
   })
 })

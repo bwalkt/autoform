@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import * as React from 'react'
 import { Grid } from '@/layouts'
 import { cn } from '@/lib/utils'
-import { buildMonthCells, toMonthMatrix } from './day-picker-core'
+import { buildMonthCells, type DayPickerCoreMatcher, isCoreDateDisabled, toMonthMatrix } from './day-picker-core'
 
 export interface DayPickerCoreProps {
   month?: Date
@@ -13,7 +13,11 @@ export interface DayPickerCoreProps {
   showCaption?: boolean
   weekdayLabelFormatter?: (date: Date) => string
   selected?: Date
-  onSelect?: (date: Date) => void
+  required?: boolean
+  min?: Date
+  max?: Date
+  disabled?: DayPickerCoreMatcher | DayPickerCoreMatcher[]
+  onSelect?: (date: Date | undefined) => void
   className?: string
   style?: React.CSSProperties
 }
@@ -25,6 +29,10 @@ export function DayPickerCore({
   showCaption = true,
   weekdayLabelFormatter,
   selected,
+  required = false,
+  min,
+  max,
+  disabled,
   onSelect,
   className,
   style,
@@ -45,7 +53,7 @@ export function DayPickerCore({
   const today = React.useMemo(() => new Date(), [])
 
   return (
-    <div className={cn('inline-block rounded-lg border bg-background p-3', className)} style={style}>
+    <div className={cn('inline-block rounded-[var(--cal-radius)] border bg-background p-3', className)} style={style}>
       {showCaption ? (
         <h2 className="mb-2 text-center font-semibold" style={{ fontSize: 'var(--cal-header-font-size)' }}>
           {format(month, 'MMMM yyyy')}
@@ -71,6 +79,7 @@ export function DayPickerCore({
             selected.getFullYear() === cell.date.getFullYear() &&
             selected.getMonth() === cell.date.getMonth() &&
             selected.getDate() === cell.date.getDate()
+          const isDisabled = isCoreDateDisabled(cell.date, { min, max, disabled })
           const isToday =
             today.getFullYear() === cell.date.getFullYear() &&
             today.getMonth() === cell.date.getMonth() &&
@@ -93,10 +102,20 @@ export function DayPickerCore({
             >
               <button
                 type="button"
-                onClick={() => onSelect?.(cell.date)}
+                disabled={isDisabled}
+                aria-disabled={isDisabled}
+                onClick={() => {
+                  if (isDisabled) return
+                  if (isSelected && !required) {
+                    onSelect?.(undefined)
+                    return
+                  }
+                  onSelect?.(cell.date)
+                }}
+                aria-label={format(cell.date, 'EEEE, MMMM d, yyyy')}
                 style={{ fontSize: 'var(--cal-font-size)' }}
                 className={cn(
-                  'h-[var(--cell-size)] w-[var(--cell-size)] appearance-none rounded-md border-0 bg-transparent p-0 shadow-none transition-colors',
+                  'h-[var(--cell-size)] w-[var(--cell-size)] appearance-none rounded-[var(--cal-radius)] border-0 bg-transparent p-0 shadow-none transition-colors disabled:pointer-events-none disabled:opacity-50',
                   cell.outside ? 'text-muted-foreground/60' : 'text-foreground',
                   !isSelected && isToday && 'bg-[var(--rdp-accent-background-color)] text-foreground',
                   isSelected && 'bg-[var(--rdp-accent-color)] text-[var(--cal-accent-foreground)]',
